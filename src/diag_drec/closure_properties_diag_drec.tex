@@ -1,0 +1,47 @@
+In~\cite{anselmo2007determinism} M. Anselmo, D. Giammarresi and M. Madonia have shown that the
+family $Diag$-DREC is closed under complement and rotation. In~\cite{anselmo2009deterministic}
+M. Anselmo and M. Madonia have shown that $Diag$-DREC is not closed under union and intersection.
+Here we give another proof of this statement.
+\begin{theorem}
+$Diag$-DREC is not closed under union and intersection.
+\label{diag_drec_not_closed_under_union_and_intersection}
+\end{theorem} 
+\begin{proof}
+In~\cite{anselmo2007determinism} M. Anselmo, D. Giammarresi and M. Madonia show that the
+picture language $L_{frames}$ is not in $Diag$-DREC. 
+\begin{align*}
+L_{frames} = \{p \in \Sigma^{n,n} \mid& n\geq 0, p(1, i) = p(i, 1), p(2, i) = p(n - i + 1, n - 1),\\
+&p(n -1, i) = p(n - i + 1, 2) \text{ and } p(n, i) = p(i, n),\\
+&\text{where } 1 \leq i \leq n\}
+\end{align*}
+is the language of all square pictures, where the first row is equal to the first column (see the
+language $L_{fr=fc}$), the second row is equal to the reverse of the second-last column, the
+second-last row is equal to the reverse of the second column and the last row equals the last
+column.
+
+For example the following picture $p$ is in $L_{frames}$:
+\begin{center}
+$p = $ \begin{tabular}{|C{0.65cm}|C{0.65cm}|C{0.65cm}|C{0.65cm}|C{0.65cm}|}
+\hline
+ $a$ & $a$ & $b$ & $b$ & $a$ \tabularnewline
+\hline
+ $a$ & $b$ & $b$ & $a$ & $b$ \tabularnewline
+\hline
+ $b$ & $a$ & $a$ & $b$ & $a$ \tabularnewline
+\hline
+ $b$ & $b$ & $a$ & $b$ & $a$ \tabularnewline
+\hline
+ $a$ & $b$ & $a$ & $a$ & $b$ \tabularnewline
+\hline
+\end{tabular}
+\end{center}
+This language can be seen as an intersection of four languages. It is easy to verify that these four
+languages are in $Diag$-DREC. For example, the tiling system for all square pictures, where the
+first row is equal to the first column, can be seen in Example~\ref{diag_drec_example}.
+
+The four intersection languages are in $Diag$-DREC, but $L_{frames}$ is not. This is the reason why
+$Diag$-DREC is not closed under intersection.
+
+Because $Diag$-DREC is closed under complement and is not closed under intersection, $Diag$-DREC is
+not closed under union, either.
+\end{proof} 

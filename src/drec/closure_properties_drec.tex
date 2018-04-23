@@ -1,0 +1,716 @@
+In this chapter we discuss the closure properties of DREC.
+For the following proofs let $\tau_1 = (\Sigma_1, \Gamma_1, \Delta_1, \pi_1)$ and $\tau_2 =
+(\Sigma_2, \Gamma_2, \Delta_2, \pi_2)$ be two DS's where $\Gamma_1 \cap \Gamma_2
+= \emptyset$ without any loss of generality. 
+\begin{theorem}
+DREC is closed under rotation.
+\label{drec_closed_under_rotation}
+\end{theorem}
+\begin{proof} 
+We have to show that for any $L \in $ DREC the rotated picture language $L^R$ is in DREC. Let
+$L_d(\tau_1) = L$.
+We construct a DS $\tau^R = (\Sigma_1, \Gamma_1, \Delta^R, \pi_1)$ such that $L_d(\tau^R) = L^R$, where
+\begin{align*}
+\Delta^R = \left\lbrace\begin{tabular}{|C{0.6cm}|} 
+\hline 
+$a$ \tabularnewline 
+\hline 
+$b$ \tabularnewline
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+\hline 
+$a$ & $b$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_1, a, b\in\Gamma_1\right\rbrace \cup 
+\left\lbrace\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+\hline 
+$a$ & $b$ \tabularnewline
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{0.6cm}|} 
+\hline 
+$b$ \tabularnewline 
+\hline 
+$a$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_1, a,b\in\Gamma_1\right\rbrace.
+\end{align*}
+Because of the construction of $\tau^R$, we can see that $\tau^R$ is a DS, and, hence, it can be
+used for a deterministic process. Next, we have to show that $L_d(\tau^R) = L^R$.
+\begin{compactitem}
+\item $L_d(\tau^R) \subseteq L^R$:\newline
+Let $p\in L_d(\tau^R)$, i.e., there exists a deterministic process such that $s_p(i, j)$ will be
+minimized to a singleton set $\lbrace x\rbrace$ for $1 \leq i \leq l_1(p)$ and $1 \leq j \leq
+l_2(p)$. There is only one possible choice of four dominos in $\Delta^R$ such that $s_p(i, j)$ will
+be minimized to $\lbrace x \rbrace$.
+\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+\hline 
+$a$ & $x$ \tabularnewline
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.6cm}|} 
+\hline 
+$b$ \tabularnewline 
+\hline 
+$x$ \tabularnewline
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+\hline 
+$x$ & $c$ \tabularnewline
+\hline 
+\end{tabular} and 
+\begin{tabular}{|C{0.6cm}|} 
+\hline 
+$x$ \tabularnewline 
+\hline 
+$d$ \tabularnewline
+\hline 
+\end{tabular} are these four dominos, where $a \in \hat{s}_p(i, j - 1)$, $b \in \hat{s}_p(i - 1,
+j)$, $c \in \hat{s}_p(i, j + 1)$ and $d \in \hat{s}_p(i + 1, j)$. Because of the anticlockwise rotation
+of $s_p$ it follows that $a \in \hat{s}_{p_1}(i_1 + 1, j_1)$, $b \in \hat{s}_{p_1}(i_1, j_1 - 1)$,
+$c \in \hat{s}_{p_1}(i_1 - 1, j_1)$, $d \in \hat{s}_{p_1}(i_1, j_1 + 1)$ and $x \in s_{p_1}(i_1,
+j_1)$, where $s_{p_1}$ is the anticlockwise rotated local picture and $i_1 = l_2(p) - j + 1$ and
+$j_1 = i$. We can see that $p$ is the clockwise rotated picture of the picture $p_1$. The picture
+$p_1$ can be accepted through the deterministic process using the DS $\tau_1$ because of the
+construction of $\tau^R$. It follows $p\in L^R$.
+\item $L^R \subseteq L_d(\tau^R)$:\newline
+Let $p \in L^R$, i.e., the anticlockwise rotated picture $p_1$ of $p$ is in $L_d(\tau_1)$. Any
+position of the local picture $s_{p_1}$ will be minimized to a singleton set. 
+\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+\hline 
+$a$ & $x$ \tabularnewline
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.6cm}|} 
+\hline 
+$b$ \tabularnewline 
+\hline 
+$x$ \tabularnewline
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+\hline 
+$x$ & $c$ \tabularnewline
+\hline 
+\end{tabular} and 
+\begin{tabular}{|C{0.6cm}|} 
+\hline 
+$x$ \tabularnewline 
+\hline 
+$d$ \tabularnewline
+\hline 
+\end{tabular} are the four dominos which minimize the set on position $(i, j)$ of $s_{p_1}$ to the
+singleton set $\{x\}$, where $a \in \hat{s}_{p_1}(i, j - 1)$, $b \in \hat{s}_{p_1}(i - 1, j)$, $c
+\in \hat{s}_{p_1}(i, j + 1)$ and $d \in \hat{s}_{p_1}(i + 1, j)$. Because of the rotation of
+$s_{p_1}$, it follows that $a \in \hat{s}_{p}(i_1 + 1, j_1)$, $b \in \hat{s}_{p}(i_1, j_1 - 1)$, $c
+\in \hat{s}_{p}(i_1 - 1, j_1)$, $d \in \hat{s}_{p}(i_1, j_1 + 1)$ and $x\in s_p(i_1, j_1)$, where
+$s_{p}$ is the clockwise rotated local picture for a deterministic process, and $i_1 = j$ and $j_1 =
+l_1(p) - i + 1$. The clockwise rotated local picture $s_p$ minimizes the singleton set in
+the same way as $s_{p_1}$ dependend on $a, b, c, d$. The only difference is that the neighbours
+are on other positions. We can see $\tau^R$ fulfills the minimization because of the construction
+of $\Delta^R$. It follows $p\in L_d(\tau^R)$.
+\end{compactitem}
+\end{proof}
+% \begin{theorem}
+% DREC is closed under horizontal and vertical mirroring.
+% \end{theorem}
+% \begin{proof}
+% We have to show that for any $L \in $ DREC the horizontal mirrored picture language $L^{HM}$ and the
+% vertical mirrored picture language $L^{VM}$ are in DREC. Let $L_d(\tau_1) = L$.
+% Here we regard only the horizontal mirrored picture language because the vertical mirroring can be
+% proved in a similar way. We construct a DS $\tau^{HM} = (\Sigma_1,
+% \Gamma_1, \Delta^{HM}, \pi_1)$ such that $L_d(\tau^{HM}) = L^{HM}$, where
+% \begin{align*}
+% \Delta^{HM} = \left\lbrace\begin{tabular}{|C{0.6cm}|} 
+% \hline 
+% $a$ \tabularnewline 
+% \hline 
+% $b$ \tabularnewline
+% \hline 
+% \end{tabular} \in \Delta_1 \mid a, b \in \Gamma_1 \right\rbrace \cup 
+% \left\lbrace\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $a$ & $b$ \tabularnewline
+% \hline 
+% \end{tabular} \mid 
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $b$ & $a$ \tabularnewline
+% \hline 
+% \end{tabular} \in \Delta_1, a,b \in \Gamma_1\right\rbrace
+% \end{align*}
+% We can see $\tau^{HM}$ is similarconstructes like the DS $\tau^R$ in the proof of
+% Theorem~\ref{drec_closed_under_rotation} so we left the rest of the proof to the reader.
+% \end{proof}
+% \begin{theorem}
+% DREC is closed under transposition.
+% \end{theorem}
+% \begin{proof}
+% We have to show that for any $L \in $ DREC the transposed picture language $L^T$ is in DREC. Let
+% $L_d(\tau_1) = L$.
+% We construct a DS $\tau^T = (\Sigma_1, \Gamma_1, \Delta^T, \pi_1)$ such that $L_d(\tau^T) = L^T$, where
+% \begin{align*}
+% \Delta^T = \left\lbrace\begin{tabular}{|C{0.6cm}|} 
+% \hline 
+% $a$ \tabularnewline 
+% \hline 
+% $b$ \tabularnewline
+% \hline 
+% \end{tabular} \mid 
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $a$ & $b$ \tabularnewline
+% \hline 
+% \end{tabular} \in \Delta_1, a, b\in\Gamma_1\right\rbrace \cup 
+% \left\lbrace\begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $a$ & $b$ \tabularnewline
+% \hline 
+% \end{tabular} \mid 
+% \begin{tabular}{|C{0.6cm}|} 
+% \hline 
+% $a$ \tabularnewline 
+% \hline 
+% $b$ \tabularnewline
+% \hline 
+% \end{tabular} \in \Delta_1, a,b \in \Gamma_1\right\rbrace
+% \end{align*}
+% We can see $\tau^T$ is constructed in a similar way like the  DS $\tau^R$ in the proof of
+% Theorem~\ref{drec_closed_under_rotation} so we left the rest of the proof to the reader.
+% \end{proof}
+% \begin{theorem}
+% DREC is closed under projection.
+% \end{theorem}
+% \begin{proof}
+% Let $\Sigma_\phi$ be a finite alphabet and let $\phi: \Sigma_1\rightarrow\Sigma_\phi$ be a
+% projection.
+% Furthermore, let $L\in\Sigma_1^{*,*}$ be a language equal to $L_d(\tau_1)$. We construct a DS
+% $\tau_\phi = (\Sigma_\phi, \Gamma_\phi, \Delta_\phi, \pi_\phi)$ such that $L_d(\tau_\phi) =
+% \phi(L)$, where 
+% \begin{compactitem}
+% \item $\Gamma_\phi = \lbrace x \subseteq \lbrace x_1, \ldots x_n\rbrace \mid x_1 \in
+% \pi_1^{-1}(a_1), \ldots, x_n \in \pi_1^{-1}(a_n)$ where \newline 
+% $1 \leq n \leq |\Sigma_1|, a_1, \ldots a_n \in \Sigma_1, \phi(a_1) = \ldots = \phi(a_n),
+% a_i \neq a_j, 1 \leq i, j \leq n \text{ and } i \neq j\rbrace$
+% \item $\Delta_\phi = \left\lbrace 
+% \begin{tabular}{|C{0.6cm}|} 
+% \hline 
+% $x$ \tabularnewline 
+% \hline 
+% $y$ \tabularnewline
+% \hline 
+% \end{tabular} \mid x = \lbrace x_1, \ldots x_n \rbrace, y = \lbrace x_1, \ldots y_m \rbrace\right.$,
+% where $x_1, \ldots x_n, y_1, \ldots, y_m \in \Gamma_1$, $\phi(\pi_1(x_1)) = \ldots =
+% \phi(\pi_1(x_n))$, $\phi(\pi_1(y_1)) = \ldots = \phi(\pi_1(y_m)), 1 \leq n,m \leq |\Gamma_1|$,
+% $\pi_1(x_i) \neq \pi_1(x_j), x_i \neq x_j, 1 \leq i, j \leq n, i \neq j, \pi_1(y_k) \neq \pi_1(y_l),
+% y_k \neq y_l, 1 \leq k, l \leq m, k \neq l$ and $\left.
+% \begin{tabular}{|C{0.6cm}|}
+% \hline 
+% $a$ \tabularnewline 
+% \hline 
+% $b$ \tabularnewline
+% \hline 
+% \end{tabular}
+%  \in \Delta_1\text{ with }a \in x, b \in y \right\rbrace$ \newline
+%  $\cup$ 
+%  $\left\lbrace 
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $x$ & $y$ \tabularnewline
+% \hline 
+% \end{tabular} \mid x = \lbrace x_1, \ldots x_n \rbrace, y = \lbrace x_1, \ldots y_m \rbrace\right.$,
+% where $x_1, \ldots x_n, y_1, \ldots, y_m \in \Gamma_1$, $\phi(\pi_1(x_1)) = \ldots =
+% \phi(\pi_1(x_n))$, $\phi(\pi_1(y_1)) = \ldots = \phi(\pi_1(y_m)), 1 \leq n,m \leq |\Gamma_1|$,
+% $\pi_1(x_i) \neq \pi_1(x_j), x_i \neq x_j, 1 \leq i, j \leq n, i \neq j, \pi_1(y_k) \neq \pi_1(y_l),
+% y_k \neq y_l, 1 \leq k, l \leq m, k \neq l$ and $\left.
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|}
+% \hline 
+% $a$ & $b$ \tabularnewline
+% \hline 
+% \end{tabular}
+%  \in \Delta_1\text{ with }a \in x, b \in y \right\rbrace$
+% \item $\pi_\phi = \phi \circ \pi'$, where $\pi': \Gamma_\phi \rightarrow \Sigma_1$, $\pi'(x) =
+% \pi_1(a)$ and $a$ is a random but fixed chosen element of $x$.
+% \end{compactitem}
+% Through the construction of $\tau_\phi$ we can see that $\tau_\phi$ is a DS and hence can be used
+% for a deterministic process. Next we have to show that $L_d(\tau_\phi) = \phi(L)$.
+% \begin{compactitem}
+% \item Let $p\in L_d(\tau_\phi)$, then $s_p$ consists of sets of sets and will be reduced to sets
+% with only one set. Let $x = \lbrace x_1,\ldots x_n\rbrace$ the content of one of these sets and 
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $a$ & $x$ \tabularnewline
+% \hline 
+% \end{tabular}, 
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $x$ & $b$ \tabularnewline
+% \hline 
+% \end{tabular},  
+% \begin{tabular}{|C{0.6cm}|} 
+% \hline 
+% $c$ \tabularnewline
+% \hline 
+% $x$ \tabularnewline
+% \hline 
+% \end{tabular} and 
+% \begin{tabular}{|C{0.6cm}|} 
+% \hline 
+% $x$ \tabularnewline
+% \hline 
+% $d$ \tabularnewline
+% \hline 
+% \end{tabular} the dominos which reduces the content of the set to $x$ in a deterministic step, where
+% $a = \lbrace a_1, \ldots, a_n\rbrace$, $b = \lbrace b_1, \ldots, b_n\rbrace$, $c = \lbrace c_1,
+% \ldots, c_n\rbrace$ and $d = \lbrace d_1, \ldots, d_n\rbrace$. We can see 
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|} 
+% \hline 
+% $a$ & $x$ \tabularnewline
+% \hline 
+% \end{tabular}
+% exists because for any $a_i\in a$ and any $x_j \in
+% x$ exists
+% \begin{tabular}{|C{0.6cm}|C{0.6cm}|}
+% \hline 
+% $a_i$ & $x_j$ \tabularnewline
+% \hline 
+% \end{tabular} $\in \Delta_1$. Similiar to the other three dominos. That means if this deterministic
+% process using DS $\tau_\phi$ minimize the set on position $(i, j)$ to $x$, the deterministic process
+% using DS $\tau_1$ minimize the set on this position to one element of $x$. This is dependend on 
+% projecte one of these dominos was used in the deterministic step using DS $\tau_1$ to minimize the set on $(i, j)$ to $x_j$. If we combine this with the other three dominos and then with the whole picture, we can see that this picture
+% results of the
+% Because of the construction of $\Gamma_\phi$ and $\tau_\phi$, $x$ consists of elements which have
+% different images regarding to $\pi_1$ and all these images have the same image regarding to $\phi$.
+% This as much as to say we take one pre-image regarding of $\pi_1$ of every element which has the
+% same image regarding to $\phi$ say $a \in \Sigma_\phi$ and put it in $x$. We can see
+% $\phi(\pi_1(x_1)) = \ldots = \phi(\pi_1(x_1))$. The same thing we can say about
+% \item Let $p\in \pi(L)$. i.e. there are $1 \leq n
+% \leq |\Sigma_1|$ different elements $a_1, \ldots a_n$ with $\phi(a_1) = \ldots = \phi(a_2)$ such
+% that one element of every pre-image regarding to $\tau_1$ is in $x$. Let $x_1 \in \pi^{-1}_1(a_1),
+% \ldots, x_n \in \pi^{-1}_1(a_n)$ it follows $x = \lbrace x_1, \ldots x_n\rbrace$.
+% \end{compactitem}
+% \end{proof}
+% \begin{theorem}
+% DREC is closed under vertical and horizontal concatenation.
+% \end{theorem}
+% \begin{proof}
+% We have to show that for any $L_1, L_2 \in$ DREC the vertical concatenated picture language
+% $L_1\vcat L_2$ and the horizontal concatenated picture language $L_1\hcat L_2$ are in DREC.
+% Let $L_1 = L_d(\tau_1)$ and $L_2 = L_d(\tau_2)$. Here we regard only the vertical concatenation
+% because the horizontal concatenation can be proved in a similar way. 
+% 
+% We construct a DS $\tau_{\vcat} = (\Sigma_{\vcat}, \Gamma_{\vcat}, \Delta_{\vcat},
+% \pi_{\vcat})$ such that $L_d(\tau_{\vcat}) = L_1\vcat L_2$, where 
+% \begin{compactitem}
+% \item $\Sigma_{\vcat} = \Sigma_1\cup\Sigma_2$, 
+% \item $\Gamma_{\vcat} = \Gamma_1\cup\Gamma_2$, 
+% \item $\Delta_{\vcat} = (\Delta_1 \cup \Delta_2) \setminus
+% \left(\left\lbrace\begin{tabular}{|C{0.7cm}|}
+% \hline 
+% $x$ \tabularnewline 
+% \hline 
+% $\#$ \tabularnewline
+% \hline 
+% \end{tabular}\in\Delta_{1}\mid x\in\Gamma_1\right\rbrace \cup
+% \left\lbrace\begin{tabular}{|C{0.7cm}|}
+% \hline 
+% $\#$ \tabularnewline 
+% \hline 
+% $x$ \tabularnewline
+% \hline 
+% \end{tabular}\in\Delta_{2}\mid x\in\Gamma_2\right\rbrace\right)$\newline 
+% $\cup \left\lbrace\begin{tabular}{|C{0.7cm}|}
+% \hline 
+% \hspace{0.05cm}$x$\hspace{0.05cm} \tabularnewline 
+% \hline 
+% $y$ \tabularnewline
+% \hline 
+% \end{tabular}\mid 
+% \begin{tabular}{|C{0.7cm}|}
+% \hline 
+% $x$ \tabularnewline 
+% \hline 
+% $\#$ \tabularnewline
+% \hline 
+% \end{tabular}\in\Delta_{1},
+% \begin{tabular}{|C{0.7cm}|}
+% \hline 
+% $\#$ \tabularnewline 
+% \hline 
+% $y$ \tabularnewline
+% \hline 
+% \end{tabular}\in\Delta_{2},
+%  x\in\Gamma_1, y\in\Gamma_2\right\rbrace$ and
+% \item $\pi_{\vcat}(x) = \pi_1(x)$ if $x\in\Gamma_1$ and $\pi_{\vcat}(x) = \pi_2(x)$ if
+% $x\in\Gamma_2$.
+% \end{compactitem}
+% Because of the construction of $\tau_{\vcat}$ we can see that $\tau_{\vcat}$ is a DS and hence can
+% be used for a deterministic process. Next, we have to show that $L_d(\tau_{\vcat}) = L_1\vcat L_2$.
+% 
+% \begin{compactitem}
+% \item $L_d(\tau_{\vcat}) \subseteq L_1\vcat L_2$: \newline
+% Let $p \in L_d(\tau_{\vcat})$. Because of the construction of $\Delta_{\vcat}$, it is obvious that
+% only pictures of the following form can be accepted: \begin{tabular}{|c|}
+% \hline
+% $A$ \tabularnewline 
+% $x$ \tabularnewline 
+% $B$ \tabularnewline
+% \hline
+% \end{tabular}, where $A$ is a picture over $\Sigma_1^{*,*}$, $B$ is a picture over $\Sigma_2^{*,*}$
+% and $x$ is a picture over $\Sigma_{\vcat}^{*,*}$. $x$ has a size of $(2, l_2(p))$, where the first
+% row $r_1$ consists only of elements from $\Sigma_1$ and the second row $r_2$ consits only of
+% elements from $\Sigma_2$. For picture $A$ only the dominos of $\Delta_1$ can be used and for picture
+% $B$ only dominos of $\Delta_2$ can be used. If one pixel $a$ of the local equivalence of $x$ will be
+% adapted, say one in $r_1$, then the three neighbours on the left, right and top of this pixel are
+% the same like they will be used in the deterministic step for the pixel of the local picture of
+% picture
+% \begin{tabular}{|c|}
+% \hline
+% $A$ \tabularnewline 
+% $r_1$ \tabularnewline 
+% \hline
+% \end{tabular} of DS $\tau_1$. The buttom neighbour of $a$ is in the deterministic process for DS
+% $\tau_1$ the border symbol $\#$. In the deterministic process with DS $\tau_{\vcat}$ the buttom
+% neighbours are all elements of $\Gamma_2$ which can appear in $r_2$. These elements are those which
+% can appear on the top border of pictures of $L_d(\tau_2)$. At this point, the deterministic process
+% knows all elements below of $a$ are sets of elements over $\Gamma_2$ and can only be minimized with
+% the help of dominos in $\Delta_2$. A similiar argumentation applies for an element of $r_2$. We can
+% see, we have a picture of the form $p_1\vcat p_2$, where $p_1 \in L_1$ and $p_2 \in L_2$. It follows
+% $p\in L_1\vcat L_2$.
+% \item $L_1\vcat L_2 \subseteq L_d(\tau_{\vcat})$: \newline
+% Let $p\in L_1\vcat L_2$. That means, we have got two pictures $q_1\in L_1$, $q_2\in L_2$ such that
+% $q_1\vcat q_2 = p$. Through the construction of $\tau_{\vcat}$, $p$ can be accepted by the
+% deterministic process using $\tau_{\vcat}$. At first $s_p$ will be build. Afterwards, the
+% deterministic process starts minimizing sets in $q_1$ or in $q_2$. Without any loss of generalizaty
+% the process starts in $q_1$. If the set of a pixel at the bottom border i.e. at position $(l_1(q_1), j)$ for some $1 \leq j \leq l_2(p)$ shall be minimized to $x$, the vertical domino which
+% recognizes the bottom neighbour is one of these which has on its top the symbol $\lbrace x\rbrace$
+% and on its bottom one element of those which are on the top of $q_2$. In this way the determinsitic process
+% which uses DS $\tau_{\vcat}$ can accept $p$. It follows $p \in L_d(\tau_{\vcat})$.
+% \end{compactitem}
+% \end{proof}
+\begin{theorem}
+DREC is closed under intersection.
+\label{drec_closed_under_intersection}
+\end{theorem}
+\begin{proof}
+We have to show that for any $L_1, L_2 \in DREC$ the intersection language $L_1\cap L_2$ is
+in DREC.
+Let $L_1 = L_d(\tau_1)$ and $L_2 = L_d(\tau_2)$. We construct a DS $\tau_\cap = (\Sigma_\cap,
+\Gamma_\cap, \Delta_\cap, \pi_\cap)$ such that $L_d(\tau_\cap) = L_1 \cap L_2$, where
+\begin{compactitem}
+\item $\Sigma_\cap = \Sigma_1 \cap \Sigma_2$,
+\item $\Gamma_\cap = \lbrace (a, b) \mid \pi_1(a) = \pi_2(b), a \in \Gamma_1, b \in
+\Gamma_2\rbrace$,
+\item \vspace{0.15cm}$\Delta_\cap = \left\lbrace \begin{tabular}{|C{1.25cm}|}
+\hline 
+$\#$ \tabularnewline 
+\hline 
+$(c, d)$ \tabularnewline
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{1.25cm}|} 
+\hline 
+\hspace{0.275cm}$\#$\hspace{0.275cm} \tabularnewline 
+\hline 
+$c$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_1, 
+\begin{tabular}{|C{1.25cm}|} 
+\hline 
+\hspace{0.275cm}$\#$\hspace{0.275cm} \tabularnewline 
+\hline 
+$d$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_2,\right.$
+\newline
+$\left.\begin{tabular}{C{1.25cm}}  
+\hspace{1.0cm} \tabularnewline 
+ \tabularnewline
+\end{tabular}
+c\in\Gamma_1, d\in \Gamma_2, (c, d) \in\Gamma_\cap\right\rbrace$
+\newline
+$\cup$
+\hspace{0.7cm}$\left\lbrace \begin{tabular}{|C{1.25cm}|} 
+\hline 
+$(a, b)$ \tabularnewline 
+\hline 
+$(c, d)$ \tabularnewline
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{1.25cm}|} 
+\hline 
+\hspace{0.338cm}$a$\hspace{0.338cm} \tabularnewline 
+\hline 
+$c$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_1, 
+\begin{tabular}{|C{1.25cm}|} 
+\hline 
+\hspace{0.36cm}$b$\hspace{0.36cm} \tabularnewline 
+\hline 
+$d$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_2,\right.$ 
+\newline
+$\left.\begin{tabular}{C{1.25cm}}  
+\hspace{1.0cm} \tabularnewline 
+ \tabularnewline
+\end{tabular}
+ a,c\in\Gamma_1, b,d\in \Gamma_2, (a, b), (c, d)
+\in\Gamma_\cap\right\rbrace$
+\newline
+$\cup$ 
+\hspace{0.7cm}$\left\lbrace \begin{tabular}{|C{1.25cm}|} 
+\hline 
+$(a, b)$ \tabularnewline 
+\hline 
+$\#$ \tabularnewline
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{1.25cm}|} 
+\hline 
+\hspace{0.338cm}$a$\hspace{0.338cm} \tabularnewline 
+\hline 
+$\#$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_1, 
+\begin{tabular}{|C{1.25cm}|} 
+\hline 
+\hspace{0.36cm}$b$\hspace{0.36cm} \tabularnewline 
+\hline 
+$\#$ \tabularnewline
+\hline 
+\end{tabular} \in \Delta_2,\right.$
+\newline
+$\left.\begin{tabular}{C{1.25cm}}  
+\hspace{1.0cm} \tabularnewline 
+ \tabularnewline
+\end{tabular}
+a\in\Gamma_1, b\in \Gamma_2, (a, b) \in\Gamma_\cap\right\rbrace$
+\newline
+$\cup$ 
+\hspace{0.70cm}$\left\lbrace \begin{tabular}{|C{1.25cm}|C{1.25cm}|}
+\hline 
+\hspace{0.275cm}$\#$\hspace{0.275cm} & $(c, d)$ \tabularnewline 
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{1.25cm}|C{1.25cm}|} 
+\hline 
+\hspace{0.275cm}$\#$\hspace{0.275cm} & \hspace{0.325cm}$c$\hspace{0.325cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_1, 
+\begin{tabular}{|C{1.25cm}|C{1.25cm}|} 
+\hline 
+\hspace{0.275cm}$\#$\hspace{0.275cm} & \hspace{0.325cm}$d$\hspace{0.325cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_2, \right.$ \newline
+$\left.
+\begin{tabular}{C{1.25cm}} 
+\hspace{1cm} \tabularnewline
+\end{tabular}
+c\in\Gamma_1, d\in\Gamma_2, (c, d) \in\Gamma_\cap\right\rbrace$
+\newline
+$\cup$
+\hspace{0.7cm}$\left\lbrace \begin{tabular}{|C{1.25cm}|C{1.25cm}|}
+\hline 
+$(a, b)$ & $(c, d)$ \tabularnewline 
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{1.25cm}|C{1.25cm}|} 
+\hline 
+\hspace{0.325cm}$a$\hspace{0.325cm} & \hspace{0.325cm}$c$\hspace{0.325cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_1, 
+\begin{tabular}{|C{1.25cm}|C{1.25cm}|} 
+\hline 
+\hspace{0.325cm}$b$\hspace{0.325cm} & \hspace{0.325cm}$d$\hspace{0.325cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_2,\right.$ \newline
+$\left.
+\begin{tabular}{C{1.25cm}} 
+\hspace{1cm} \tabularnewline
+\end{tabular}
+ a, c\in\Gamma_1, b,d\in\Gamma_2, (a, b), (c, d)
+\in\Gamma_\cap\right\rbrace$
+\newline
+$\cup$
+\hspace{0.7cm}$\left\lbrace \begin{tabular}{|C{1.25cm}|C{1.25cm}|}
+\hline 
+$(a, b)$ & \hspace{0.275cm}$\#$\hspace{0.275cm} \tabularnewline 
+\hline 
+\end{tabular} \mid 
+\begin{tabular}{|C{1.25cm}|C{1.25cm}|} 
+\hline 
+\hspace{0.325cm}$a$\hspace{0.325cm} & \hspace{0.275cm}$\#$\hspace{0.275cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_1, 
+\begin{tabular}{|C{1.25cm}|C{1.25cm}|} 
+\hline 
+\hspace{0.325cm}$b$\hspace{0.325cm} & \hspace{0.275cm}$\#$\hspace{0.275cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_2,\right.$ \newline
+$\left.
+\begin{tabular}{C{1.25cm}} 
+\hspace{1cm} \tabularnewline
+\end{tabular}
+a\in\Gamma_1, b\in\Gamma_2, (a, b)
+\in\Gamma_\cap\right\rbrace$ and
+\item $\pi_\cap((a, b)) = \pi_1(a)$.
+\end{compactitem}
+\vspace{0.2cm}Because of the construction of $\tau_{\cap}$ we see that $\tau_{\cap}$ is a DS, and,
+hence, it can be used for a deterministic process. Next we have to show that $L_d(\tau_{\cap}) =
+L_1\cap L_2$.
+\vspace{0.2cm}
+\begin{compactitem}
+\item $L_d(\tau_{\cap}) \subseteq L_1\cap L_2$: \newline
+Let $p \in L_d(\tau_{\cap})$, i.e., any position in $s_p$ is minimized by the deterministic
+process of $\tau_\cap$. Let $(i, j)$ be one of these positions, and let $(x, y)$ be the element in
+the singleton set on $(i, j)$. Let $(x_1, y_1)$, $(x_2, y_2)$, $(x_3, y_3)$ and $(x_4, y_4)$ be four
+elements that are in the neighbour sets, and let 
+\begin{tabular}{|C{1.7cm}|C{1.7cm}|} 
+\hline 
+$(x_1, y_1)$ & \hspace{0.16cm}$(x, y)$\hspace{0.16cm} \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{1.7cm}|C{1.7cm}|} 
+\hline 
+\hspace{0.16cm}$(x, y)$\hspace{0.16cm} & $(x_2, y_2)$ \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{1.7cm}|} 
+\hline 
+$(x_3, y_3)$ \tabularnewline 
+\hline
+$(x, y)$ \tabularnewline
+\hline 
+\end{tabular} and 
+\begin{tabular}{|C{1.7cm}|} 
+\hline 
+$(x, y)$ \tabularnewline 
+\hline
+$(x_4, y_4)$ \tabularnewline
+\hline 
+\end{tabular}
+be the corresponding dominos that $\tau_\cap$ used to minimize the set on position $(i, j)$.
+We now take a look at the following domino:
+\begin{tabular}{|C{1.7cm}|C{1.7cm}|} 
+\hline 
+$(x_1, y_1)$ & \hspace{0.16cm}$(x, y)$\hspace{0.16cm} \tabularnewline 
+\hline 
+\end{tabular}. 
+This domino is only in $\Delta_\cap$ if 
+$\begin{tabular}{|C{0.8cm}|C{0.8cm}|} 
+\hline 
+$x_1$ & \hspace{0.07cm}$x$\hspace{0.07cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_1$,
+$\begin{tabular}{|C{0.8cm}|C{0.8cm}|} 
+\hline 
+$y_1$ & \hspace{0.07cm}$y$\hspace{0.07cm} \tabularnewline 
+\hline 
+\end{tabular} \in \Delta_2$,
+$\pi_1(x_1) = \pi_2(y_1)$ and $\pi_1(x) = \pi_2(y)$. This means that DS $\tau_1$ and DS $\tau_2$
+can ``accept'' the symbol $\pi(x)$ on position $(i, j)$ because $\pi(x_1)$ is the left neighbour in
+$p$. Considering all four dominos, it is easy to understand that this deterministic
+step is only possible if this deterministic step is possible with DS $\tau_1$ and $\tau_2$.
+Consequentially, all the positions in $s_p$ will be minimized accordingly and, thus, $p$ is in
+$L_1$ and in $L_2$. It follows that $p\in L_1 \cap L_2$.
+\item $L_1\cap L_2 \subseteq L_d(\tau_{\cap})$: \newline
+Let $p \in L_1\cap L_2$, that is, $p \in L_1$ and $p \in L_2$. Then, we have two local
+pictures of $p$. $s_{p_1}$ is the local picture of $p$ for DS $\tau_1$ and $s_{p_2}$ is the local picture of
+$p$ for DS $\tau_2$. Because $p \in L_1$ and $p \in L_2$, the two corresponding local languages will
+be reduced to a picture which has a singleton set on each position. Let $(i, j)$ be
+one of the positions in $p$.
+In the deterministic process using DS $\tau_1$, let $x_1$, $x_2$, $x_3$ and $x_4$ be some elements
+of the sets in the neighbourhood of position $(i, j)$ and
+\begin{tabular}{|C{0.8cm}|C{0.8cm}|} 
+\hline 
+$x_1$ & \hspace{0.07cm}$x$\hspace{0.07cm} \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.8cm}|C{0.8cm}|} 
+\hline 
+\hspace{0.07cm}$x$\hspace{0.07cm} & $x_2$ \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.8cm}|} 
+\hline 
+$x_3$ \tabularnewline 
+\hline
+$x$ \tabularnewline
+\hline 
+\end{tabular} 
+and 
+\begin{tabular}{|C{0.8cm}|} 
+\hline 
+$x$ \tabularnewline 
+\hline
+$x_4$ \tabularnewline
+\hline 
+\end{tabular}
+the corresponding dominos which minimize the set on position $(i, j)$ to $\lbrace x\rbrace$. In
+the deterministic process using DS $\tau_2$, let $y_1$, $y_2$, $y_3$ and $y_4$ some elements of the
+sets in the neighbourhood of position $(i, j)$ and
+\begin{tabular}{|C{0.8cm}|C{0.8cm}|} 
+\hline 
+$y_1$ & \hspace{0.07cm}$y$\hspace{0.07cm} \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.8cm}|C{0.8cm}|} 
+\hline 
+\hspace{0.07cm}$y$\hspace{0.07cm} & $y_2$ \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{0.8cm}|} 
+\hline 
+$y_3$ \tabularnewline 
+\hline
+$y$ \tabularnewline
+\hline 
+\end{tabular} 
+and 
+\begin{tabular}{|C{0.8cm}|} 
+\hline 
+$y$ \tabularnewline 
+\hline
+$y_4$ \tabularnewline
+\hline 
+\end{tabular}
+the corresponding dominos which minimize the set on position $(i, j)$ to $\lbrace y\rbrace$.
+Because $\pi_1(x_1) = \pi_2(y_1)$, $\pi_1(x_2) = \pi_2(y_2)$, $\pi_1(x_3)= \pi_2(y_3)$, $\pi_1(x_4)
+= \pi_2(y_4)$ and $\pi_1(x) = \pi_2(y)$, the following dominos are in $\Delta_\cap$:
+\begin{center}
+\begin{tabular}{|C{1.7cm}|C{1.7cm}|} 
+\hline 
+$(x_1, y_1)$ & \hspace{0.16cm}$(x, y)$\hspace{0.16cm} \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{1.7cm}|C{1.7cm}|} 
+\hline 
+\hspace{0.16cm}$(x, y)$\hspace{0.16cm} & $(x_2, y_2)$ \tabularnewline 
+\hline 
+\end{tabular}, 
+\begin{tabular}{|C{1.7cm}|} 
+\hline 
+$(x_3, y_3)$ \tabularnewline 
+\hline
+$(x, y)$ \tabularnewline
+\hline 
+\end{tabular} and 
+\begin{tabular}{|C{1.7cm}|} 
+\hline 
+$(x, y)$ \tabularnewline 
+\hline
+$(x_4, y_4)$ \tabularnewline
+\hline 
+\end{tabular}.
+\end{center}
+Because the deterministic step with DS $\tau_1$ minimizes the set on position $(i, j)$ to $\lbrace
+x\rbrace$ and the deterministic step with DS $\tau_2$ minimizes the set on position $(i, j)$ to
+$\lbrace y \rbrace$, the deterministic step with DS $\tau_\cap$ minimizes the set on position $(i,
+j)$ to $\lbrace (x, y)\rbrace$ using the above dominos.This is similar for any position in the
+picture $p$. Thus, p can be accepted by a deterministic process of the DS $\tau_\cap$.
+\end{compactitem}
+\end{proof}

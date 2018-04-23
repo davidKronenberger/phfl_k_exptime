@@ -1,0 +1,1682 @@
+\section{Comparing DREC and $Diag$-DREC}
+In this section we show that $Diag$-DREC is a proper subset of DREC. Therefore, we first show the
+inclusion of $\familyOf{2DOTA}$ in DREC.
+\begin{lemma} 
+$\familyOf{2DOTA}\subseteq\text{DREC}$.
+\label{2dota_subsetequal_drec}
+\end{lemma}
+\begin{proof}
+Let $L\in\familyOf{2DOTA}$ and $M = (Q, \Sigma, \delta, q_0, F)$ be a 2DOTA accepting $L$.
+We want to construct a DS $\tau = (\Sigma, \Gamma, \Delta, \pi)$ such that $L_d(\tau) = L$. First,
+we take $\Gamma = Q \times Q \times (\Sigma \times Q)$ as the set of 3-tuples which represent the
+set of all possible transitions from $Q \times Q \times \Sigma$ to $Q$. Imagine one element of
+$\Gamma$ as an L mirrored on the vertical axis in the following abbreviated with\mirroredL.
+The first element of the tuple is on the left, the second element is at the top and the 2-tuple is
+in the center. For example, the 3-tuple $(q_0, q_1, (a, q_2))\in\Gamma$ is depicted as follows:
+\vspace{0.4cm}
+\begin{center}
+\begin{tabular}{C{1.5cm}|C{1.5cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{\hspace{0.35cm}$\hspace{0.008cm}q_0\hspace{0.008cm}$\hspace{0.35cm} } & $(a, q_2)$ \tabularnewline
+\hline 
+\end{tabular}.
+\end{center}
+\vspace{1.2em}
+Next, we define the mapping $\pi$ as $\pi(q_1, q_2, a, q_3) = a$ for all $q_1, q_2, q_3 \in
+Q$ and $a \in \Sigma$. Finally, let $\Delta = \Delta' \cup
+\Delta_{\#_{\text{lt}}} \cup \Delta_{\#_{\text{rb}}}$ be the set of dominos
+which consists of three different sets of dominos.
+$\Delta'\subseteq\Gamma^{2,1}\cup\Gamma^{1,2}$ is the set of dominos which fulfills the two
+conditions (I) and (II) presented subsequently.
+$\Delta_{\#_{lt}},
+\Delta_{\#_{rb}}\subseteq{(\Gamma\cup\{\#\})}^{1,2}\cup{(\Gamma\cup\{\#\})}^{2,1}$ are the sets of
+dominos which include exactly one $\#$. How $\Delta_{\#_{lt}}$ arises is described in condition
+(III), and how $\Delta_{\#_{rb}}$ arises is described in condition (IV).
+
+\begin{compactenum}[(I)] 
+\item The two\mirroredL's of each domino must be consistent. This means that, for each horizontal
+domino, the state in the center of the left\mirroredL~must be the same as the state on the left of
+the right\mirroredL. For every vertical domino the state in the center of the upper\mirroredL~must
+be the same as the state on the top of the lower\mirroredL. For example the following horizontal
+domino fulfills this condition:
+\vspace{0.4cm}
+\begin{center}
+\begin{tabular}{|C{3.42cm}|C{3.42cm}|}
+\hline
+\begin{tabular}{C{1.5cm}|C{1.5cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{\hspace{0.35cm}$\hspace{0.008cm}q_0\hspace{0.008cm}$\hspace{0.35cm} } & $(a, q_2)$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{1.5cm}|C{1.5cm}|} 
+\cline{2-2} 
+                            & $q_3$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{\hspace{0.35cm}$\hspace{0.008cm}q_2\hspace{0.008cm}$\hspace{0.35cm} } & $(b, q_4)$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular}.
+\end{center}
+\vspace{1.2em}
+\item Each\mirroredL~on a domino corresponds to a transition of $\delta$, i.e. if the
+tuple $(q_1, q_2, (a, q_3))$ corresponds to one\mirroredL~of the dominos, then $\delta(q_1, q_2,
+a) = q_3$ for all $q_1, q_2, q_3 \in Q$ and $a \in \Sigma$.
+\item Any horizontal domino has on its left side the border symbol $\#$ and on
+its right side a\mirroredL. Any\mirroredL~has on its left side the initial state $q_0$.
+Furthermore, the top and the center of each\mirroredL~result from an inductive procedure. 
+
+We start with the first set of horizontal dominos. For any $a\in\Sigma$ there exists exactly one
+domino such as the\mirroredL~has on its top the initial state $q_0$ and on its center the tuple $(a,
+\delta(q_0, q_0, a))$. Remark that any such\mirroredL~has on its left side the initial state $q_0$. 
+For any domino $d$ in this set of horizontal dominos, we add a horizontal domino for any
+$a\in\Sigma$ such that the\mirroredL~has on its top the state $q$, which is listed in
+the center of the\mirroredL~of $d$, and on its center the tuple $(a, \delta(q_0, q, a))$. This
+procedure will be repeated unitl no new horizontal domino will be added to the set.
+
+Note that $\Sigma$ and $Q$ are finite sets which implies that the inductive procedure is
+finite.
+
+The upper side of any vertical domino includes $\#$ and the lower side a\mirroredL, which has on its
+top the state $q_0$. The left and the center field of any\mirroredL~of these vertical dominos will
+be filled in a similar inductive procedure like in the set of horizontal dominos. 
+
+For example, the following horizontal domino is one of the first dominos of the set of horizontal
+dominos described above. Without any loss of generality let $\delta(q_0, q_0, a) = q$.
+\vspace{0.4cm}
+\begin{center}
+\begin{tabular}{|C{3.25cm}|C{3.25cm}|}
+\hline
+\hspace{1.2cm}$\#$\hspace{1.2cm}
+&
+\begin{tabular}{C{1.4cm}|C{1.4cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{\hspace{0.3cm}$\hspace{0.008cm}q_0\hspace{0.008cm}$\hspace{0.3cm} } & $(a, q)$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular}
+\end{center}
+\vspace{1.2em}
+The following horizontal domino is one of the dominos that follows from the above horizontal domino,
+if $\delta(q_0, q, b) = q'$:
+\vspace{0.4cm}
+\begin{center}
+\begin{tabular}{|C{3.25cm}|C{3.25cm}|}
+\hline
+\hspace{1.2cm}$\#$\hspace{1.2cm}
+&
+\begin{tabular}{C{1.4cm}|C{1.4cm}|} 
+\cline{2-2} 
+                            & $q$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{\hspace{0.3cm}$\hspace{0.008cm}q_0\hspace{0.008cm}$\hspace{0.3cm} } & $(b, q')$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular}.
+\end{center}
+\vspace{1.2em}
+\item Any horizontal domino of this condition has on its right side the border symbol $\#$ and on
+its left side a\mirroredL. These\mirroredL's arise from an inductive process.
+
+We start with the first set of dominos. For any $(q_1, q_2, a)\in\delta^{-1}(q_e)$ and any
+$q_e\in F$ we add a horizontal domino with a\mirroredL, which has on its left the state $q_1$, on
+its top the state $q_2$ and on its center the tupel $(a, q_e)$.
+
+After this, we add a horizontal domino to the set of horizontal dominos with a\mirroredL~on its
+left, which has the state $q_1$ on its left, the state $q_2$ on its top and on its center
+the tuple $(a, q)$, for any state $q$, which is on the top of a\mirroredL~of the dominos in the
+current set of horizontal dominos and any $(q_1, q_2, a)\in\delta^{-1}(q)$. This procedure will be
+repeated until no new horizontal domino will be added to the set.
+
+The lower side of any vertical domino includes $\#$ and the upper side a\mirroredL. The\mirroredL~of
+these vertical dominos will be generated in a similar inductive procedure as the set of
+horizontal dominos. The difference is that we add a vertical domino to the current set of vertical
+dominos for each state that is on the left of a\mirroredL~of the dominos in the current set.
+
+For example, the following horizontal domino is one of the first dominos iff \\$\delta(q_1, q_2, a)
+= q_e$:
+\vspace{0.4cm}
+\begin{center}
+\begin{tabular}{|C{3.42cm}|C{3.42cm}|}
+\hline
+\begin{tabular}{C{1.5cm}|C{1.5cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{\hspace{0.35cm}$\hspace{0.008cm}q_1\hspace{0.008cm}$\hspace{0.35cm} } & $(a, q_e)$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\hspace{1.3cm}$\#$\hspace{1.3cm}
+\tabularnewline
+\hline
+\end{tabular}.
+\end{center}
+\vspace{1.2em}
+The following horizontal domino is one of the dominos that follows from the domino above if
+$\delta(q_3, q_4, a) = q_2$:
+\vspace{0.4cm}
+\begin{center}
+\begin{tabular}{|C{3.42cm}|C{3.42cm}|}
+\hline
+\begin{tabular}{C{1.5cm}|C{1.5cm}|} 
+\cline{2-2} 
+                            & $q_4$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{\hspace{0.35cm}$q_3$\hspace{0.3cm} } & $(a, q_2)$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\hspace{1.3cm}$\#$\hspace{1.3cm}
+\tabularnewline
+\hline
+\end{tabular}.
+\end{center}
+\vspace{1.2em}
+\end{compactenum}
+Starting on a given picture $p$, the only possible choice of the deterministic process using the
+domino system $\tau$ is the pixel on the upper left corner of $s_p$ like in the workflow of $M$
+over $p$. Without any loss of generality let $p(1, 1) = a$. Hence, by condition (III) the set on
+pixel $s_p(1, 1)$ loses all\mirroredL's without the state $q_0$ at its top and its left and the
+tuple $(a, q)$ on its center for all $q\in\delta(q_0, q_0, a)$. Because $M$ is deterministic, there
+exists only one $q\in\delta(q_0, q_0, a)$. This is the reason why $s_p(1, 1)$ can be minimized to a
+singleton set and the deterministic process can make a deterministic step. Whenever the upper pixel
+and the left pixel of a pixel $x$ of $s_p$ is minimized to a singleton set through the deterministic
+process, the deterministic process can uniquely determine $x$ using conditions (I) and (II).
+In this way the deterministic process moves over the picture like a 2DOTA. $p$ is only in
+$L_d(\tau)$ if all pixels along the right and lower border of local picture $s_p$ can be covered by
+dominos described by condition (IV). Otherwise, the deterministic process cannot make a step
+because all elements of the set of a pixel at the border would disappear.
+
+Because we have shown that $L_d(\tau) = L$, the theorem follows.
+\end{proof}
+In Example~\ref{example_2dota} we have seen that the language $S$ is an element of
+$\familyOf{2DOTA}$. We now want to use the construction described above to create a
+DS $\tau$ such that $L(\tau) = S$.
+\begin{example}
+Remark that instead of the tuple on the center of each\mirroredL~we write only the state
+of this tuple, because $M$ of Example~\ref{example_2dota} has an unary alphabet.
+\newline
+$\tau = (\{0\}, \Gamma, \Delta, \pi)$, where
+\begin{compactitem}
+\item $\Gamma = \left\lbrace \begin{tabular}{C{0.6cm}|C{0.6cm}|} 
+\cline{2-2} 
+                            & $b$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$a$} & $c$ \tabularnewline
+\hline 
+\end{tabular} \mid a, b, c \in Q\right\rbrace$,
+\item $\Delta = \Delta' \cup
+\Delta_{\#_{\text{lt}}} \cup \Delta_{\#_{\text{rb}}}$ with
+
+\vspace{0.2cm}$\Delta' = \left\lbrace
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$ \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$ \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular}\right.$,
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\hspace{1.37cm}\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},\hspace{0.04cm}
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+&
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},\hspace{0.05cm}
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular},
+$\left.\begin{tabular}{|C{2cm}|}
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} \tabularnewline
+\hline
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\tabularnewline
+\hline
+\end{tabular} \right\rbrace$, 
+
+\vspace{0.2cm}$\Delta_{\#_{lt}} = \left\lbrace 
+\begin{tabular}{|C{0.74cm}|}
+\hline
+\# \tabularnewline
+\hline
+t \tabularnewline
+\hline
+\end{tabular}\right.$, 
+\begin{tabular}{|C{0.74cm}|C{0.74cm}|}
+\hline
+$\#$ & \hspace{0.07cm}l\hspace{0.07cm} \tabularnewline
+\hline
+\end{tabular} $\mid$ 
+
+\hspace{1.7cm}$t \in \left\lbrace \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}, 
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular},
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\right\rbrace$, 
+
+$\hspace{1.7cm}l \in \left.\left\lbrace 
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}, 
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular},
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\right\rbrace\right\rbrace$ and 
+
+\vspace{0.2cm}$\Delta_{\#_{rb}} = \left\lbrace 
+\begin{tabular}{|C{0.74cm}|}
+\hline
+b \tabularnewline
+\hline
+\# \tabularnewline
+\hline
+\end{tabular}, 
+\right.$
+\begin{tabular}{|C{0.74cm}|C{0.74cm}|}
+\hline
+\hspace{0.07cm}r\hspace{0.07cm} & $\#$ \tabularnewline
+\hline
+\end{tabular} $\mid$ 
+
+\hspace{1.7cm}$b \hspace{0.03cm}\in \left\lbrace 
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}\right.$, 
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular},
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular},
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}, \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular},\hspace{0.03cm}
+$\left.\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\right\rbrace$, 
+
+\hspace{1.7cm}$r \in \left\lbrace 
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular}\right.$,\hspace{0.03cm}
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular},\hspace{0.03cm}
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular},\hspace{0.03cm}
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular},\hspace{0.05cm}
+\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular},
+$\left.\left.\begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular}
+\right\rbrace\right\rbrace$ and
+\item $\pi(x) = 0$ for all $x\in\Gamma$.
+\end{compactitem}
+\end{example}
+We now have a look at how $\tau$ will operate with the following picture $p \in S$ and $\hat{s}_p$:
+\begin{center}
+$p = $ \begin{tabular}{|C{0.6cm}|C{0.6cm}|C{0.6cm}|}
+\hline
+0  & 0  & 0 \tabularnewline
+\hline
+0  & 0  & 0 \tabularnewline
+\hline
+0  & 0  & 0 \tabularnewline
+\hline
+\end{tabular},
+$ \hat{s}_p = $ \begin{tabular}{|C{0.7cm}|C{0.7cm}|C{0.7cm}|C{0.7cm}|C{0.7cm}|}
+\hline
+\# & \#       & \#       & \#       & \# \tabularnewline
+\hline
+\# & $\Gamma$ & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & $\Gamma$ & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & $\Gamma$ & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & \#       & \#       & \#       & \# \tabularnewline
+\hline
+\end{tabular}.
+\end{center}
+The only possible choice for the deterministic process to start, is at position $s_p(1, 1)$:
+\begin{center}
+$\hat{s}_p \underset{d(\tau)}{\Rightarrow}$
+\scalebox{0.97}{
+\begin{tabular}{|C{2cm}|C{2cm}|C{2cm}|C{2cm}|C{2cm}|}
+\hline
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm}
+\tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & $\Gamma$ & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & $\Gamma$ & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & \#       & \#       & \#       & \# \tabularnewline
+\hline
+\end{tabular}}.
+\end{center}
+The positions $s_p(1, 2)$ and $s_p(2, 1)$ are the next positions in the process. We can see that
+the determinstic process moves over the picture to minimize the pixels to singleton sets along the
+first main diagonal. Dependent on the current position, it minimizes all cells, which are parallel
+to the second main diagonal, like the automaton $M$ of Example~\ref{example_2dota}. The following steps
+should be self-explanatory:
+\begin{center}
+$\underset{d(\tau)}{\Rightarrow}$
+\scalebox{0.97}{
+\begin{tabular}{|C{2cm}|C{2cm}|C{2cm}|C{2cm}|C{2cm}|}
+\hline
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm}
+\tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & $\Gamma$ & \# \tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & $\Gamma$ & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & \#       & \#       & \#       & \# \tabularnewline
+\hline
+\end{tabular}}
+\end{center}
+\begin{center}
+$\underset{d(\tau)}{\Rightarrow}$
+\scalebox{0.97}{
+\begin{tabular}{|C{2cm}|C{2cm}|C{2cm}|C{2cm}|C{2cm}|}
+\hline
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm}
+\tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \# \tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & $\Gamma$ & \# \tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & $\Gamma$ & $\Gamma$ & \# \tabularnewline
+\hline
+\# & \#       & \#       & \#       & \# \tabularnewline
+\hline
+\end{tabular}}
+\end{center}
+\begin{center}
+$\underset{d(\tau)}{\Rightarrow}$
+\scalebox{0.97}{
+\begin{tabular}{|C{2cm}|C{2cm}|C{2cm}|C{2cm}|C{2cm}|}
+\hline
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm}
+\tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \# \tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \# \tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & $\Gamma$ & \# \tabularnewline
+\hline
+\# & \#       & \#       & \#       & \# \tabularnewline
+\hline
+\end{tabular}}
+\end{center}
+\begin{center}
+$\underset{d(\tau)}{\Rightarrow}$
+\scalebox{0.97}{
+\begin{tabular}{|C{2cm}|C{2cm}|C{2cm}|C{2cm}|C{2cm}|}
+\hline
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm} & \hspace{0.64cm}\#\hspace{0.64cm} &
+\hspace{0.64cm}\#\hspace{0.64cm}
+\tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_0\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_1\hspace{0.008cm}$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \# \tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$q_a$} & $\hspace{0.008cm}q_1\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \# \tabularnewline
+\hline
+\# & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_2\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_0\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $q_a$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $\hspace{0.008cm}q_2\hspace{0.008cm}$ \tabularnewline
+\hline 
+\end{tabular} & \begin{tabular}{C{0.74cm}|C{0.74cm}|} 
+\cline{2-2} 
+                            & $\hspace{0.008cm}q_1\hspace{0.008cm}$      \tabularnewline
+\hline 
+\multicolumn{1}{|c|}{$\hspace{0.008cm}q_2\hspace{0.008cm}$} & $q_a$ \tabularnewline
+\hline 
+\end{tabular} & \# \tabularnewline
+\hline
+\# & \#       & \#       & \#       & \# \tabularnewline
+\hline
+\end{tabular}}.
+\end{center}
+As any position of $s_p$ includes a singleton set the picture $p$ is in $L_d(\tau)$. 
+
+After we showed that $\familyOf{2DOTA}\subseteq\text{DREC}$, the following lemma is easy to
+prove.\newpage
+\begin{lemma}
+$Diag\text{-DREC}\subseteq\text{DREC}$
+\label{diag_drec_subsetequal_drec}
+\end{lemma}
+\begin{proof}
+In Theorem~\ref{diag_drec_equal_closure_rotation_2dota} we have seen that $Diag$-DREC is equal to
+the closure by rotation of $\familyOf{2DOTA}$. In Theorem~\ref{drec_closed_under_rotation} we have
+seen that DREC is closed under rotation and in Lemma~\ref{2dota_subsetequal_drec} we have seen
+that $\familyOf{2DOTA}\subseteq\text{DREC}$. By combining these three theorems we obtain that
+$Diag$-DREC is a subset of DREC.
+\end{proof}
+The last theorem of this paper shows that $Diag$-DREC is a proper subset of DREC.
+\begin{theorem}
+$Diag$-DREC $\subset$ DREC.
+\end{theorem}
+\begin{proof}
+In Theorem~\ref{diag_drec_not_closed_under_union_and_intersection} we have seen that $Diag$-DREC is
+not closed under intersection, i.e., there exist two languages $L_1, L_2 \in Diag$-DREC such that
+$L_1 \cap L_2 \not\in Diag$-DREC. Because DREC is closed under intersection (see
+Theorem~\ref{drec_closed_under_intersection}) and $Diag$-DREC $\subseteq$ DREC, the intersection
+language of $L_1$ and $L_2$ is in DREC. That means that there exists a language $L$ such that
+$L\not\in Diag$-DREC and $L \in$ DREC. Therefore, the inclusion is proper.
+\end{proof}
