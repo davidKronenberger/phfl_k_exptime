@@ -1,7 +1,13 @@
 \section{Preliminaries}
-This section introduces the most important definitions concerning picture languages. The notions are
-mainly from~\cite{giammarresi1997twodimensional} and~\cite{cherubini2009picture}. We assume that
-the reader is already familiar with basic notions of one-dimensional formal language theory.
+\label{sec:preliminaries}
+This chapter introduces all necessary definitions to prove that PHFL$^k = $~\exptime{$k$} and
+PHFL$^{k-1}_{tail} =$~\expspace{$k$}. The notions are mainly from~\cite{immerman1999descriptive},
+~\cite{papadimitriou1994complexity},~\cite{otto1999bisimulation} and~\cite{lange2014capturing}.
+
+We assume that the reader is already familiar with basic notions of first order logic and computational complexity.
+
+\input{preliminaries/preliminaries_descriptive_complexity.tex}
+
 \begin{definition}
 	Let $\Sigma$ be a finite, non-empty set of symbols. Then $p$ is called a \emph{picture over
 	$\Sigma$}, if $p$ is a finite rectangular array containing only symbols of $\Sigma$. The \emph{set
