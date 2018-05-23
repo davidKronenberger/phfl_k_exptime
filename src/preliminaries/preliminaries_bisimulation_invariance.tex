@@ -1,0 +1,87 @@
+%%
+%% Author: Davidov
+%% 16.05.2018
+%%
+
+\subsection{Bisimulation Invariance}\label{subsec:bisimulationInvariance}
+
+First of all, we need the definition of \textit{labeled transition systems}. A labeled transition system is a graph
+with labeled vertices and edges. Formally, it is the following.
+
+\begin{definition}
+    A quintuple $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ is called a \emph{labeled transition system} (\emph{LTS}),
+    where
+    \begin{compactitem}
+        \item $Q$ is a set of states,
+        \item $\Sigma$ is a finite set of actions,
+        \item $P$ is a finite set of propositions,
+        \item $\Delta \subseteq Q \times \Sigma \times Q$ is the labeled transition relation and
+        \item $\nu: Q \rightarrow 2^P$ is a function that maps each state to a set of propositions.
+    \end{compactitem}
+\end{definition}
+
+For all $q_1, q_2 \in Q$ and all $a \in \Sigma$ we write $q_1 \overset{a}{\rightarrow} q_2$ for $(q_1, a, q_2) \in
+\Delta$. On this systems or rather on the states of the systems it is possible to define relations. The
+following relation describes those states that have the same behaviour. For this, let be $\mathcal{T}_1 = (Q_1,
+\Sigma_1, P_1, \Delta_1, \nu_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma_2, P_2, \Delta_2, \nu_2)$ two LTSs.
+
+\begin{definition}
+    A \emph{bisimulation} is a binary relation $R \subseteq Q_1 \times Q_2$ that fulfills for all $(q_1, q_2) \in R$
+    \begin{compactitem}
+        \item $\nu_1 (q_1) = \nu_2 (q_2)$,
+        \item for all $a_1 \in \Sigma_1$ and all $q_1' \in Q_1$, if $q_1 \overset{a_1}{\rightarrow} q_1' \in
+        \Delta_1$, then there is a state $q_2' \in Q_2$ with $a_1 \in \Sigma_2$, $q_2
+        \overset{a_1}{\rightarrow} q_2' \in \Delta_2$ and $(q_1', q_2') \in R$ and
+        \item for all $a_2 \in \Sigma_2$ and all $q_2' \in Q_2$, if $q_2 \overset{a_2}{\rightarrow} q_2' \in
+        \Delta_2$, then there is a state $q_1' \in Q_1$ with $a_2 \in \Sigma_1$, $q_1
+        \overset{a_2}{\rightarrow} q_1' \in \Delta_1$ and $(q_1', q_2') \in R$.
+    \end{compactitem}
+    We call two states $q_1 \in Q_1$, $q_2 \in Q_2$ \emph{bisimilar}, noted as $(\mathcal{T}_1, q_1) \sim
+    (\mathcal{T}_2, q_2)$, if there
+    is a bisimulation $R$ such that $(q_1, q_2) \in R$.
+\end{definition}
+
+Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these properties. A query
+is a function that maps a LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ to a subset of $Q$.
+
+\begin{definition}
+    \label{definition:query}
+    A function $\mathcal{Q} : \mathscr{T} \rightarrow \mathscr{Q}, \mathcal{T} \mapsto Q^\mathcal{T}$ is called a
+    \emph{query},
+    where
+    \begin{compactitem}
+        \item $\mathscr{T}$ is the set of all LTS,
+        \item $\mathscr{Q}$ is the set of all sets of states and
+        \item $\mathcal{T} = (Q^\mathcal{T}, \Sigma^\mathcal{T}, P^\mathcal{T}, \Delta^\mathcal{T}, \nu^\mathcal{T})
+        \in \mathscr{T}$ is a LTS.
+    \end{compactitem}
+\end{definition}
+
+The queries defined in Definition~\ref{definition:query} can be categorized. Here we are interested in two of these
+categories. The first category is called \textit{bisimulation invariant}. This category describes those queries that
+can't distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
+\textit{Kripke structures}. A Kripke structure
+is a transition system. Remark, that transition systems  have only one type of actions. This means the edges of the
+graph haven't labels.
+
+\begin{definition}
+    \label{definition:bisimulationInvariant}
+    Let $\mathcal{T}$, $\mathcal{T}' \in \mathscr{T}$ be two LTSs with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$
+    and $\mathcal{T}' = (Q', \Sigma', P', \Delta', \nu')$. Furthermore, let be $q \in Q$ and $q' \in Q'$.
+
+    A query $\mathcal{Q}$ is called \emph{bisimulation invariant} if $(\mathcal{T}, q) \sim (\mathcal{T}', q')$
+    implies that
+    $q \in \mathcal{Q}(\mathcal{T})$ iff $q' \in \mathcal{Q}(\mathcal{T'})$.
+\end{definition}
+
+The second category of a query tells us which complexity class a query belongs to.
+
+\begin{definition}
+    \label{definition:queryBelongsToComplexityClass}
+    Let $\mathcal{T} \in \mathscr{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ and $q \in Q$.
+
+    A query $\mathcal{Q}$ belongs to a complexity class $\mathcal{C}$ if there is an algorithm in $\mathcal{C}$ for
+    deciding on input $(\mathcal{T}, q)$ whether $q \in \mathcal{Q}(\mathcal{T})$.
+\end{definition}
+
+This definition leads us to the next chapter and the definitions for descriptive complexity.

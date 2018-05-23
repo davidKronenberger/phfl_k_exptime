@@ -5,4 +5,68 @@
 
 \subsection{Descriptive Complexity}\label{subsec:descriptiveComplexity}
 
+One way to describe complexity classes is with the help of \textit{turing machines}~\cite{hopcroft1994einfuehrung}.
 
+\begin{definition}
+    The seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ is called a \emph{turing machine} (\emph{TM}),
+    where
+    \begin{compactitem}
+        \item $Q$ is the finite set of states,
+        \item $\Sigma$ is the input alphabet,
+        \item $\Gamma$ is the working alphabet with $\Sigma \subset \Gamma$,
+        \item $\delta \subseteq (Q \setminus F) \times \Gamma \times Q \times \Gamma \times \{L, R, N\}$ is the
+        transition relation,
+        \item $q_0 \in Q$ is the initial state,
+        \item $\Box \in \Gamma \setminus \Sigma$ is the blank symbol and
+        \item $F \in Q$ is the set of final states.
+    \end{compactitem}
+\end{definition}
+
+Known from computational complexity theory~\cite{papadimitriou1994complexity}, the time and space classes
+can be defined by functions. These functions have as input a natural number that represents the length of the input of a
+turing machine. In case of time classes the output of the function is the maximal number of configuration steps for
+all inputs of the given length. In case of space classes the output is based on the biggest configuration while
+computing an input of the given length.
+
+\begin{definition}
+    Let $f: \mathbb{N} \rightarrow \mathbb{N}$ be a polynomial function, then $\emph{exp}: \mathbb{N} \times \mathbb{N}
+    \rightarrow \mathbb{N}$ is a function defined inductive as follows:
+    \begin{compactitem}
+        \item $exp(0, f(n)) = f(n)$,
+        \item $exp(i, f(n)) = 2^{exp(i - 1, f(n))}$ for $i \geq 1$.
+    \end{compactitem}
+\end{definition}
+
+With the help of the function $exp$, we are now able to define the complexity classes $k$-EXPTIME and $k$-EXPSPACE for
+all $k \geq 1$.
+
+\begin{definition}
+    Let $k \in \mathbb{N} \setminus \{0\}$ and $f: \mathbb{N} \rightarrow \mathbb{N}$ be a polynomial function then
+    $k$-EXPTIME $=$ TIME($exp(k, f(n))$) and $k$-EXPSPACE $=$ SPACE($exp(k, f(n))$).
+\end{definition}
+
+Remark that TIME is the maximal number of configuration steps and SPACE the biggest configuration of a turing machine
+while computing an input.
+
+From definition~\ref{definition:bisimulationInvariant}, definition~\ref{definition:queryBelongsToComplexityClass}
+and the complexity classes $k$-EXPTIME and $k$-EXPSPACE follow the queries that we want to investigate.
+
+\begin{definition}
+    \label{definition:kExptimekExpspace}
+    \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
+    \expspace{$k$} are the bisimulation invariant queries that belongs to complexity class $k$-EXSPACE, where $k \geq
+    1$.
+\end{definition}
+
+The main aim of \emph{descriptive complexity} is to describe the complexity classes known from the
+computational complexity theory with logics. While the computational complexity theory distinguishes time and space
+classes, the descriptive complexity theory characterizes classes without a reference to automaton models or
+space and time bounds.
+
+The first known result in the area of descriptive complexity comes from Fagin. In 1974 he showed that the complexity
+class NP coincides with $\exists SO$~\cite{fagin1974generalized}, the existential fragment of second-order logic.
+
+In the next chapter we introduce the polyadic higher order fixed point logic and a restriction called tail-recursive
+devised by Lange and Lozes in~\cite{lange2014capturing}. We want to compare the in
+definition~\ref{definition:kExptimekExpspace} presented queries with those logics to make a further contribution in
+the theory of descriptive complexity.

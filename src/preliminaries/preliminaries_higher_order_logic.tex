@@ -1,0 +1,86 @@
+%%
+%% Author: Davidov
+%% 16.05.2018
+%%
+
+
+\subsection{Higher Order Logic}\label{subsec:higherOrderLogic}
+
+For comparing the complexity classes with PHFL, we have to detour over three extensions of FO. The first well known
+extension is called Higher Order Logic~\cite{vanBenthem2001higher}, abbreviated with HO. In HO we
+increase the expressive power of FO by allowing relation variables over any order. For this, we have to define the
+types of higher order variables.
+
+\begin{definition}
+    \emph{HO types} are defined inductive as follows:
+    \begin{compactitem}
+        \item $\tau = \odot$ is a HO type,
+        \item $\tau = (\tau_1, \dots, \tau_n)$ is a HO type, if $\tau_1, \dots, \tau_n$ are
+        HO types.
+    \end{compactitem}
+\end{definition}
+
+The HO type of individuals is $\tau = \odot$. These objects have the \textit{HO order} $0$. The HO type $\tau = (\tau_1,
+\dots, \tau_n)$ is that of relations between objects of HO types $\tau_1, \dots, \tau_n$ and have the HO order $1 + max
+(order(\tau_1), \dots, order(\tau_n))$.
+
+For each HO type we have a countable infinite set of variables. The \textit{terms} of HO type $\odot$ are
+generated as in FO. Terms of a higher HO type are just a variable of that HO type. Furthermore, let $\sigma$ be
+the signature holding the constants, functions and relations of arbitrary HO types.
+
+\begin{definition}
+    The set of \emph{HO formulas} over $\sigma$ is defined inductively as follows:
+    \begin{compactitem}
+        \item $X = Y$ is a HO formula over $\sigma$ if $X$ and $Y$ are variables of the same type,
+        \item $R(t_1, \dots, t_n)$ is a HO formula over $\sigma$ if $R \in \sigma$ is a relation with arity $n$ and
+        $t_1, \dots, t_n$ are terms of type $\odot$,
+        \item $X(t_1, \dots, t_n)$ is a HO formula over $\sigma$ if $X$ is a variable of type $(\tau_1, \dots, \tau_n)$
+        and $t_i$ is a term over $\tau_i$, with $i \in \{1, \dots, n\}$,
+        \item if $\phi$ and $\psi$ are two HO formulas over $\sigma$, then $\neg\phi$, $\phi\wedge\psi$ and $\phi
+        \vee \psi$ are also HO formulas over $\sigma$,
+        \item if $\phi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type, then $\exists X\phi$ and
+        $\forall X\phi$ are also HO formulas over $\sigma$.
+    \end{compactitem}
+\end{definition}
+
+The first step in direction of the semantics of HO formulas is to interpret the universes of the different HO types.
+
+\begin{definition}
+    Let $\mathcal{U}$ be the global universe. The universes of the HO types are defined inductively as follows:
+    \begin{compactitem}
+        \item $D_\odot(\mathcal{U}) = \mathcal{U}$,
+        \item $D_{(\tau_1, \dots, \tau_n)}(\mathcal{U}) = \mathcal{P}(D_{\tau_1} \times \dots \times D_{\tau_n})$
+    \end{compactitem}
+\end{definition}
+
+Moreover, $\alpha$ is a function that assigns all variables to an element of the appropriated universe, i.e. if
+variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
+
+\begin{definition}
+    Let $\mathcal{A}$ be a structure over $\sigma$ and $\alpha$ a variable allocation over $\mathcal{U}$. The
+    satisfaction of a HO formula is defined inductively as follows:
+    \begin{compactitem}
+        \item $\mathcal{A}, \alpha \models (X = Y)$ iff $\alpha(X) = \alpha(Y)$
+        \item $\mathcal{A}, \alpha \models R(t_1, \dots t_n)$ iff $(t_1^{\mathcal{A}}[\alpha], \dots
+        t_n^{\mathcal{A}}[\alpha]) \in R^{\mathcal{A}}$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of term
+        $t_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
+        \item $\mathcal{A}, \alpha \models X(t_1, \dots t_n)$ iff $(t_1^{\mathcal{A}}[\alpha], \dots
+        t_n^{\mathcal{A}}[\alpha]) \in \alpha(X)$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of term
+        $t_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
+        \item $\mathcal{A}, \alpha \models \neg\phi$ iff $\mathcal{A}, \alpha\not\models\phi$,
+        \item $\mathcal{A}, \alpha \models \phi \wedge \psi$ iff $\mathcal{A}, \alpha\models\phi$ and $\mathcal{A},
+        \alpha\models\psi$,
+        \item $\mathcal{A}, \alpha \models \phi \vee \psi$ iff $\mathcal{A}, \alpha\models\phi$ or $\mathcal{A},
+        \alpha\models\psi$,
+        \item $\mathcal{A}, \alpha \models \exists X\phi$ iff there is an allocation of $X$, $a = \alpha(X) \in D_{\tau}
+        (\mathcal{U})$, that $\mathcal{A}, \alpha[X/a] \models \phi$, where $\tau$ is the type of $X$ and
+        \item $\mathcal{A}, \alpha \models \forall X\phi$ iff all possible allocations of $X$, $a = \alpha(X) \in
+        D_{\tau}(\mathcal{U})$ holds that $\mathcal{A}, \alpha[X/a] \models \phi$, where $\tau$ is the type of $X$.
+        \end{compactitem}
+\end{definition}
+
+We can categorize the formulas by the order of all variables. With HO$^k$ we mean the set of all those formulas whose
+variables have order less or equal $k$.
+
+Another extension of FO
+HOL , HOL + PFP, HOL + LFP
