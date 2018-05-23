@@ -5,28 +5,72 @@
 
 \subsection{Descriptive Complexity}\label{subsec:descriptiveComplexity}
 
-One way to describe complexity classes is with the help of \textit{turing machines}~\cite{hopcroft1994einfuehrung}.
+One way to describe complexity classes is with the help of \textit{Turing Machines}~\cite{hopcroft1994einfuehrung}.
 
 \begin{definition}
-    The seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ is called a \emph{turing machine} (\emph{TM}),
+    The seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ is called a \emph{Turing Machine} (\emph{TM}),
     where
     \begin{compactitem}
         \item $Q$ is the finite set of states,
         \item $\Sigma$ is the input alphabet,
         \item $\Gamma$ is the working alphabet with $\Sigma \subset \Gamma$,
-        \item $\delta \subseteq (Q \setminus F) \times \Gamma \times Q \times \Gamma \times \{L, R, N\}$ is the
-        transition relation,
+        \item $\delta : (Q \setminus (F \cup R)) \times \Gamma \rightarrow Q \times \Gamma \times \{L, R, N\}$ is the
+        transition function,
         \item $q_0 \in Q$ is the initial state,
-        \item $\Box \in \Gamma \setminus \Sigma$ is the blank symbol and
-        \item $F \in Q$ is the set of final states.
+        \item $\Box \in \Gamma \setminus \Sigma$ is the blank symbol,
+        \item $F \subseteq Q$ is the set of accepting states and
+        \item $R \subseteq Q$ is the set of rejecting states.
     \end{compactitem}
 \end{definition}
 
+Configurations are snapshots of TMs working on an input word. This includes the working tape, the current state and
+the current position of the reading head. Formally, $C_i^M(w) = \Gamma^m \cdot Q \cdot (\Gamma^n | \Box)$ is called the
+$i$-th configuration of a TM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ for input word $w \in \Sigma^*$,
+where $m \geq 0$ and $n \geq 1$. In addition, $\Gamma^m$ represents the word of all signs left from the reading head
+position to the last sign that is unequal to the blank sign. $\Gamma^n$ represents the word of all signs right of the
+reading head position to the last sign that is unequal to the blank symbol. If there are no signs unequal to the blank
+symbol right of the reading head position, the blank symbol $\Box$ of $M$ is used instead of $\Gamma^n$.
+
+\begin{definition}
+    Let $C_i^M(w) = \gamma_1^i\dots\gamma_{m_i}^i{q_i}{\gamma_1^i}'\dots{\gamma_{n_i}^i}'$, $C_j^M(w) =
+    \gamma_1^j\dots\gamma_{m_j}^j{q_j}{\gamma_1^j}'\dots{\gamma_{n_j}^j}'$ two configurations of a TM $M = (Q, \Sigma,
+    \Gamma,
+    \delta, q_0, \Box, F)$ for input word $w \in \Sigma^*$ with $i \neq j$. $C_j^M(w)$ is the next configuration
+    of $C_i^M(w)$ written as $C_i^M(w) \rightarrow_M C_j^M(w)$ iff $j = i + 1$ and
+    \begin{compactitem}
+        \item $m_j = m_i - 1$, $\gamma_1^j = \gamma_1^i, \dots \gamma_{m_j}^j = \gamma_{m_j}^i$, $n_j = n_i + 1$,
+        ${\gamma_1^j}' = \gamma_{m_i}^i, {\gamma_2^j}' = a, {\gamma_3^j}' = {\gamma_2^i}' \dots {\gamma_{n_j}^j}' =
+        {\gamma_{{n_j}- 1}^i}'$ and $\delta(q_i, {\gamma_1^i}') = (q_j, a, L)$ or
+        \item $m_j = m_i + 1$, $\gamma_1^j = \gamma_1^i, \dots \gamma_{m_j-1}^j = \gamma_{m_j-1}^i, \gamma_{m_j}^j
+        = a$, $n_j = n_i - 1$, ${\gamma_1^j}' = {\gamma_2^i}', \dots {\gamma_{n_j}^j}' = {\gamma_{{n_j}+1}^i}'$ and
+$\delta (q_i, {\gamma_1^i}') = (q_j, a, R)$ or
+        \item $m_j = m_i$, $\gamma_1^j = \gamma_1^i, \dots \gamma_{m_j}^j = \gamma_{m_j}^i$, $n_j = n_i$, ${\gamma_1^j}'
+= a, {\gamma_2^j}' = {\gamma_2^i}' \dots {\gamma_{n_j}^j}' = {\gamma_{n_j}^i}'$ and $\delta
+        (q_i, {\gamma_1^i}') = (q_j, a, N)$.
+    \end{compactitem}
+    $C_i^M(w) \rightarrow_M C_j^M(w)$ is called \emph{configuration step} of $M$ on $w$.
+\end{definition}
+
+The start configuration for an input word $w$ of a TM $M$ is $C_0^M(w) = q_0w$, where $q_0$ is the initial state of
+$M$. A run of TM $M$ on input word $w$ is a sequence of configuration steps, $C_0^M(w) \rightarrow_M C_1^M(w)
+\rightarrow_M C_2^M(w) \rightarrow_M \dots \rightarrow_M C_n^M(w)$, where $C_n^M(w)$ includes either an accepting or
+rejecting state. A run is accepting if there is a $n \in \mathcal{N}$ such that $C_0^M(w) \rightarrow_M C_1^M(w)
+\rightarrow_M \dots \rightarrow_M C_n^M(w)$ and $C_n^M(w)$ contains an accepting state of $M$.
+
 Known from computational complexity theory~\cite{papadimitriou1994complexity}, the time and space classes
-can be defined by functions. These functions have as input a natural number that represents the length of the input of a
-turing machine. In case of time classes the output of the function is the maximal number of configuration steps for
-all inputs of the given length. In case of space classes the output is based on the biggest configuration while
-computing an input of the given length.
+can be defined by functions. These functions have as input a natural number that represents the length of an input
+word of a TM. In case of time classes the output of the functions depends on the number of configuration steps. In
+case of space classes the output is based on the longest configuration step.
+
+\begin{definition}
+    Let $M$ be a TM. $TIME(n):= max(STEPS(w)\mid |w| = n)$, where $STEPS(w)$ is the number of configuration steps while
+    $M$ computes $w$. $SPACE(n) := max(STORAGE(w)\mid |w| = n)$, where $STORAGE(w) := max(length(C_i^M)\mid i\in\{1,
+    \dots m\})$ is the longest configuration while $M$ computes $w$ and $C_0^M(w) \rightarrow_M C_1^M(w) \rightarrow_M \dots
+    \rightarrow_M C_m^M(w)$ is a run of $M$ on $w$.
+\end{definition}
+
+Now, it is possible to group the TMs by functions. Those groups are our computational complexity classes. In this
+thesis we are interested in exponential time classes and exponential space classes.
 
 \begin{definition}
     Let $f: \mathbb{N} \rightarrow \mathbb{N}$ be a polynomial function, then $\emph{exp}: \mathbb{N} \times \mathbb{N}
@@ -37,7 +81,7 @@ computing an input of the given length.
     \end{compactitem}
 \end{definition}
 
-With the help of the function $exp$, we are now able to define the complexity classes $k$-EXPTIME and $k$-EXPSPACE for
+With the help of function $exp$, we are now able to define the complexity classes $k$-EXPTIME and $k$-EXPSPACE for
 all $k \geq 1$.
 
 \begin{definition}
@@ -45,22 +89,21 @@ all $k \geq 1$.
     $k$-EXPTIME $=$ TIME($exp(k, f(n))$) and $k$-EXPSPACE $=$ SPACE($exp(k, f(n))$).
 \end{definition}
 
-Remark that TIME is the maximal number of configuration steps and SPACE the biggest configuration of a turing machine
-while computing an input.
+Remark that TIME is the maximal number of configuration steps and SPACE the biggest configuration of a TM
+while computing a word.
 
-From definition~\ref{definition:bisimulationInvariant}, definition~\ref{definition:queryBelongsToComplexityClass}
+From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
 and the complexity classes $k$-EXPTIME and $k$-EXPSPACE follow the queries that we want to investigate.
 
 \begin{definition}
     \label{definition:kExptimekExpspace}
     \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
-    \expspace{$k$} are the bisimulation invariant queries that belongs to complexity class $k$-EXSPACE, where $k \geq
-    1$.
+    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 1$.
 \end{definition}
 
-The main aim of \emph{descriptive complexity} is to describe the complexity classes known from the
-computational complexity theory with logics. While the computational complexity theory distinguishes time and space
-classes, the descriptive complexity theory characterizes classes without a reference to automaton models or
+The main aim of \emph{descriptive complexity} is to describe the complexity classes known from
+computational complexity theory with logics. While computational complexity theory distinguishes time and space
+classes, descriptive complexity theory characterizes classes without a reference to automaton models or
 space and time bounds.
 
 The first known result in the area of descriptive complexity comes from Fagin. In 1974 he showed that the complexity
@@ -68,5 +111,5 @@ class NP coincides with $\exists SO$~\cite{fagin1974generalized}, the existentia
 
 In the next chapter we introduce the polyadic higher order fixed point logic and a restriction called tail-recursive
 devised by Lange and Lozes in~\cite{lange2014capturing}. We want to compare the in
-definition~\ref{definition:kExptimekExpspace} presented queries with those logics to make a further contribution in
+Definition~\ref{definition:kExptimekExpspace} presented queries with these logics to make a further contribution in
 the theory of descriptive complexity.
