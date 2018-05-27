@@ -5,4 +5,63 @@
 
 \subsection{Polyadic Higher Order Fixpoint Logic}\label{subsec:polyadicHigherOrderFixpointLogic}
 
+In this section, we present a logic with name Polyadic Higher Order Fixpoint Logic, abbreviated with PHFL, that was
+introduced by M. Lange and E. Lozes in~\cite{lange2014capturing}. It is defined over LTS (see
+Definition~\ref{definition:lts}) and extends the polyadic modal $\mu$-calculus~\cite{otto1999bisimulation} with
+higher order fixpoints like M. Viswanathan and R. Viswanathan it did with the monadic case of modal
+$\mu$-calculus~\cite{kozen1983results} in~\cite{viswanathan2004higher}. The higher order cases of that logic and a
+restriction called tail-recursive for this higher order cases we are interested to compare with the in the
+Chapter~\ref{subsec:descriptiveComplexity} introduced complexity classes \exptime{$k$} and \expspace{$k$}.
+
+Before defining formulas of PHFL we need to introduce the PHFL types.
+
+\begin{definition}
+    The syntax of \emph{PHFL types} are given by the grammar
+    \[\sigma, \tau ::= \bullet \mid \sigma^\nu \rightarrow \tau,\]
+    where $\nu$ is called \textit{variance}. The \emph{variances} of PHFL are defined by the grammar
+    \[\nu ::= + \mid - \mid 0.\]
+\end{definition}
+
+All types will be interpreted as a partially ordered set. Partial orders are relations that are reflexiv, transitiv
+and antisymmetric.
+
+\begin{definition}
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS, then $\mathcal{T}\llbracket\tau\rrbracket$ the semantic
+    of type $\tau$ is defined by $\tau$ as follows:
+    \begin{compactitem}
+        \item $\mathcal{T}\llbracket\bullet\rrbracket = (\mathscr{P}(Q), \subseteq)$
+        \item
+    \end{compactitem}
+\end{definition}
+The variances define properties on the function types. A function is either monoton in case of
+variance $+$, antiton in case of variance $-$ or is arbitrary in case of variance $0$.
+
+\begin{figure}
+    \caption{Typing Rules for hlmu.}
+    \label{hlmu-typing-rules}
+    \begin{mathpar}
+        \phi = \psi \and
+        %\inferrule{ }{\Sigma \vdash \top\colon Prop} \and
+        %\inferrule{ }{\Sigma \vdash \bot\colon Prop} \and
+        \inferrule{ }{\Sigma \vdash P\colon Prop} \and
+        \inferrule{\Sigma\vdash\varphi\colon Prop}{\Sigma \vdash \Diamond_R \varphi \colon Prop} \and
+        %\inferrule{\Sigma\vdash\varphi\colon Prop}{\Sigma \vdash \Box_R \varphi \colon Prop} \and
+        \inferrule{\Sigma^-\vdash\varphi\colon Prop}{\Sigma \vdash \neg\varphi \colon  Prop} \and
+        \inferrule{\Sigma\vdash\varphi_1\colon Prop \\ \Sigma\vdash\varphi_2\colon Prop}{\Sigma \vdash \varphi_1 \vee
+        \varphi_2 \colon  Prop} \and
+        %\inferrule{\Sigma\vdash\varphi_1\colon Prop \\ \Sigma\vdash\varphi_2\colon Prop}{\Sigma \vdash \varphi_1 \wedge \varphi_2 \colon  Prop} \and
+        \inferrule{ }{\Sigma, x^+ \colon\tau \vdash x\colon\tau} \and
+        \inferrule{ }{\Sigma, X^+ \colon\tau \vdash X\colon\tau} \and
+        \inferrule{\Sigma,x^v\colon\tau\vdash \varphi\colon\tau'}{\Sigma\vdash \lambda (x^v \colon \tau).\varphi\colon\tau^v\rightarrow\tau'} \and
+        \inferrule{\Sigma,X^+ \colon \tau \vdash \varphi\colon\tau}{\Sigma \vdash \mu (X%y_1,\dotsc,y_m)
+        \colon\tau). \varphi\colon\tau} \and
+        \inferrule{\Sigma,X^+ \colon \tau \vdash \varphi\colon\tau}{\Sigma \vdash \nu (X
+        %(y_1,\dotsc,y_m)
+        \colon\tau). \varphi\colon\tau} \and
+        \inferrule{\Sigma\vdash \varphi\colon\tau^+ \rightarrow \tau' \\ \Sigma\vdash\psi\colon\tau}{\Sigma \vdash (\varphi\,\psi) \colon \tau'} \and
+        \inferrule{\Sigma\vdash \varphi\colon\tau^- \rightarrow \tau' \\ \Sigma^-\vdash\psi\colon\tau}{\Sigma \vdash (\varphi\psi) \colon \tau'} \and
+        \inferrule{\Sigma\vdash \varphi\colon\tau^0 \rightarrow \tau' \\ \Sigma \vdash \psi\colon\tau \\ \Sigma^- \vdash \psi\colon\tau}{\Sigma \vdash (\varphi \psi) \colon \tau'} \and
+        %\inferrule{\Sigma\vdash\varphi\colon\tau^{\pm} \rightarrow  \tau' \\ \Sigma \vdash \psi\colon\tau \\ \neg(\Sigma)\vdash \psi \colon\tau}{\Sigma \vdash (\varphi \psi)\colon\tau'}
+    \end{mathpar}
+\end{figure}
 PHFLk, tailPHFLk
