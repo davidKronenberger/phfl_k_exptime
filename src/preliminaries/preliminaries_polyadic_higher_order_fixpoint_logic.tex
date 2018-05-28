@@ -8,12 +8,13 @@
 In this section, we present a logic with name Polyadic Higher Order Fixpoint Logic, abbreviated with PHFL, that was
 introduced by M. Lange and E. Lozes in~\cite{lange2014capturing}. It is defined over LTS (see
 Definition~\ref{definition:lts}) and extends the polyadic modal $\mu$-calculus~\cite{otto1999bisimulation} with
-higher order fixpoints like M. Viswanathan and R. Viswanathan it did with the monadic case of modal
+higher order fixpoints like M. Viswanathan and R. Viswanathan it did with monadic case of modal
 $\mu$-calculus~\cite{kozen1983results} in~\cite{viswanathan2004higher}. The higher order cases of that logic and a
-restriction called tail-recursive for this higher order cases we are interested to compare with the in the
+restriction called tail-recursive for this higher order cases we are interested to compare with the in
 Chapter~\ref{subsec:descriptiveComplexity} introduced complexity classes \exptime{$k$} and \expspace{$k$}.
 
-Before defining formulas of PHFL we need to introduce the PHFL types.
+Before defining formulas of PHFL we need to introduce the PHFL types. These definitions are guided
+by~\cite{viswanathan2004higher} and~\cite{lange2014capturing}.
 
 \begin{definition}
     The syntax of \emph{PHFL types} are given by the grammar
@@ -23,22 +24,85 @@ Before defining formulas of PHFL we need to introduce the PHFL types.
 \end{definition}
 
 All types will be interpreted as a partially ordered set. Partial orders are relations that are reflexiv, transitiv
-and antisymmetric.
+and antisymmetric. Let $\mathcal{A} = (A, \leq_A)$ and $\mathcal{B} = (B, \leq_B)$ be two partial orders then
+$\mathcal{A} \rightarrow \mathcal{B}$ is the partial order of monotone functions ordered pointwise.
+
+\[\mathcal{A} \rightarrow \mathcal{B} = \{f:A\rightarrow B \mid \forall x,y \in A. x\leq_A y\Rightarrow f(x)\leq_B f(y)\}\]
 
 \begin{definition}
     Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS, then $\mathcal{T}\llbracket\tau\rrbracket$ the semantic
     of type $\tau$ is defined by $\tau$ as follows:
+        \[\mathcal{T}\llbracket\tau\rrbracket=
+        \begin{cases}
+            (\mathscr{P}(Q), \subseteq),  & \text{if }\tau = \bullet\\
+            (\mathcal{T}\llbracket\sigma_1\rrbracket)^\nu \rightarrow \mathcal{T}\llbracket\sigma_2\rrbracket, &
+            \text{if }\tau = \sigma_1^\nu\rightarrow \sigma_2
+        \end{cases},\]
+    where for any partial order $\mathcal{A} = (A, \leq_A)$, $\mathcal{A}^\nu = (A, \leq_A^\nu)$ is a partial order
+    with $\leq_A^+ = \leq_A$, $\leq_A^- = \{(a, b) \mid (b, a) \in \leq_A\}$ and $\leq_A^0 = \leq_A^+ \cap \leq_A^-$.
+\end{definition}
+
+The partial orders $\mathcal{T}\llbracket\tau\rrbracket$ for any PHFL type $\tau$ are complete lattices. That means we
+have meets and joins, denoted by $\sqcap_\tau$ and $\sqcup_\tau$, and least and greatest elements, denoted by
+$\bot_\tau$ and $\top_\tau$.
+
+\begin{definition}
+    The \emph{arity} $ma(\tau)$ and the \emph{order} $ord(\tau)$ of a PHFL type $\tau$ are defined inductively on
+    $\tau$ as
+follows:
+\[ma(\tau)=
+\begin{cases}
+    1, & \text{if }\tau = \bullet\\
+    max(\{n\} \cup \{ma(\tau_i)\mid1,\dots,n\}), &
+    \text{if }\tau = \tau_1\rightarrow\dots\rightarrow\tau_n\rightarrow\bullet
+\end{cases}\]
+
+\[ord(\tau)=
+\begin{cases}
+    0, & \text{if }\tau = \bullet\\
+    max(\{1 + ord(\sigma_1), ord(\sigma_2)\}), & \text{if }\tau = \sigma_1 \rightarrow \sigma_2
+\end{cases}\]
+\end{definition}
+
+Next, we want to define the syntax of PHFL formulas.
+
+\begin{definition}
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS and $X, Y, \dots$ a finite set of variables, then
+    \emph{PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
+    \[\Phi,\Psi::=\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid \{\emph{i}
+    \leftarrow \emph{j}\} \Phi \mid X \mid \lambda X^{\nu,\tau}.\Phi \mid \Phi \Psi \mid \mu X^\tau.\Phi\}, where\]
     \begin{compactitem}
-        \item $\mathcal{T}\llbracket\bullet\rrbracket = (\mathscr{P}(Q), \subseteq)$
-        \item
+        \item $\emph{i} = (i_1,\dots, i_n)$, $\emph{j} = (j_1,\dots,j_n)$, $i, j, i_1,\dots,i_n, j_1, \dots j_n, n\in
+        \mathbb{N}$,
+        \item $\nu$ is an arbitrary variance,
+        \item $\tau$ is an arbitrary type,
+        \item $p \in P$ is an arbitrary property of $\mathcal{T}$ and
+        \item $a \in \Sigma$ is an arbitrary action of $\mathcal{T}$.
     \end{compactitem}
 \end{definition}
-The variances define properties on the function types. A function is either monoton in case of
-variance $+$, antiton in case of variance $-$ or is arbitrary in case of variance $0$.
+
+Remark, that this logic is defined over LTS. The formulas are often interpreted as a game played by two players
+moving pebbles along the transitions of an LTS. So, $p_i$ can be interpreted as, the position of the $i$-th pebble
+fullfills property $p$. $\langle a \rangle_i \Phi$ means, move the $i$-th pebble along an $a$-transition and check if
+there holds $\Phi$. With the formula $\{\emph{i}\leftarrow \emph{j}\} \Phi$ is mentioned, that all pebbles from tuple
+$\emph{j}$ are moved to the tuple $\emph{i}$ and after this $\Phi$ have to be fulfilled. It is important that
+$\emph{i}$ and $\emph{j}$ have the same size. $\lambda X^{\nu,\tau}.\Phi$ is interpreted as a function that expects
+arguments of $\mathcal{T}\llbracket\tau^\nu\rrbracket$. We can see, that the formulas can also have types. For this,
+we have ensure that a formula is well-typed.
+
+\begin{definition}
+    Let $X_1, \dots, X_n$ variables, $\Phi$ a PHFL formula, $\nu_1, \dots, \nu_n$ variances and $\tau, \tau_1, \dots,
+    \tau_n$ types, then $X_1^{\nu_1, \tau_1}, \dots X_n^{\nu_n, \tau_n} \vdash \Phi:\tau$ is called a \emph{type
+    judgement}.
+\end{definition}
+
+A type judgment is called \textit{derivable} if it generates a derivation tree respectively to the rules of
+Figure~\ref{figure:phfl-typing-rules}. A formula $\Phi$ is called \textit{well-typed} if the type judgement $\vdash
+\Phi:\tau$ is derivable for some type $\tau$.
 
 \begin{figure}
     \caption{Typing Rules for hlmu.}
-    \label{hlmu-typing-rules}
+    \label{figure:phfl-typing-rules}
     \begin{mathpar}
         \phi = \psi \and
         %\inferrule{ }{\Sigma \vdash \top\colon Prop} \and
