@@ -34,7 +34,7 @@ $\mathcal{A} \rightarrow \mathcal{B}$ is the partial order of monotone functions
     of type $\tau$ is defined by $\tau$ as follows:
         \[\mathcal{T}\llbracket\tau\rrbracket=
         \begin{cases}
-            (\mathscr{P}(Q), \subseteq),  & \text{if }\tau = \bullet\\
+            (\mathscr{P}(Q^d), \subseteq),  & \text{if }\tau = \bullet\\
             (\mathcal{T}\llbracket\sigma_1\rrbracket)^\nu \rightarrow \mathcal{T}\llbracket\sigma_2\rrbracket, &
             \text{if }\tau = \sigma_1^\nu\rightarrow \sigma_2
         \end{cases},\]
@@ -70,7 +70,8 @@ Next, we want to define the syntax of PHFL formulas.
     Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS and $X, Y, \dots$ a finite set of variables, then
     \emph{PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
     \[\Phi,\Psi::=\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid \{\emph{i}
-    \leftarrow \emph{j}\} \Phi \mid X \mid \lambda X^{\nu,\tau}.\Phi \mid \Phi \Psi \mid \mu X^\tau.\Phi\}, where\]
+    \leftarrow \emph{j}\} \Phi \mid X \mid \lambda X^\nu\colon\tau.\Phi \mid \Phi \Psi \mid \mu X\colon\tau.\Phi\},
+    where\]
     \begin{compactitem}
         \item $\emph{i} = (i_1,\dots, i_n)$, $\emph{j} = (j_1,\dots,j_n)$, $i, j, i_1,\dots,i_n, j_1, \dots j_n, n\in
         \mathbb{N}$,
@@ -81,51 +82,132 @@ Next, we want to define the syntax of PHFL formulas.
     \end{compactitem}
 \end{definition}
 
-Remark, that this logic is defined over LTS. The formulas are often interpreted as a game played by two players
-moving pebbles along the transitions of an LTS. So, $p_i$ can be interpreted as, the position of the $i$-th pebble
-fullfills property $p$. $\langle a \rangle_i \Phi$ means, move the $i$-th pebble along an $a$-transition and check if
-there holds $\Phi$. With the formula $\{\emph{i}\leftarrow \emph{j}\} \Phi$ is mentioned, that all pebbles from tuple
-$\emph{j}$ are moved to the tuple $\emph{i}$ and after this $\Phi$ have to be fulfilled. It is important that
-$\emph{i}$ and $\emph{j}$ have the same size. $\lambda X^{\nu,\tau}.\Phi$ is interpreted as a function that expects
-arguments of $\mathcal{T}\llbracket\tau^\nu\rrbracket$. We can see, that the formulas can also have types. For this,
-we have ensure that a formula is well-typed.
+Conveniently, we use some other further standard notations like $\Phi \wedge \Psi$, $[a]_{i\Phi}$, $\nu
+X \colon \tau . \Phi$ or $\Phi \Leftrightarrow \Psi$. Remark, that this logic is defined over LTS. The formulas are
+often interpreted as a game played by two players  moving pebbles along the transitions of an LTS. So, $p_i$ can be
+interpreted as, the position of the $i$-th pebble fulfills property $p$. $\langle a \rangle_i \Phi$ means, move the
+$i$-th pebble along an $a$-transition and check if there holds $\Phi$. With the formula $\{\emph{i}\leftarrow
+\emph{j}\} \Phi$ is mentioned, that all pebbles from tuple $\emph{j}$ are moved to the tuple $\emph{i}$ and after
+this $\Phi$ have to be fulfilled. It is important that $\emph{i}$ and $\emph{j}$ have the same size. $\lambda
+X^\nu\colon\tau.\Phi$ is interpreted as a function that expects arguments of
+$\mathcal{T}\llbracket\tau^\nu\rrbracket$. We can see, that the formulas can also have types. For this, we have
+ensure that a formula is well-typed.
 
 \begin{definition}
     Let $X_1, \dots, X_n$ variables, $\Phi$ a PHFL formula, $\nu_1, \dots, \nu_n$ variances and $\tau, \tau_1, \dots,
-    \tau_n$ types, then $X_1^{\nu_1, \tau_1}, \dots X_n^{\nu_n, \tau_n} \vdash \Phi:\tau$ is called a \emph{type
-    judgement}.
+    \tau_n$ types, then $\Gamma = X_1^{\nu_1}\colon \tau_1, \dots X_n^{\nu_n} \colon \tau_n$ is
+    called a \emph{type environment} and $\Gamma \vdash \Phi:\tau$
+    is called a \emph{type judgement}. Let $\Gamma^- = X_1^{\nu_1^-}\colon \tau_1, \dots
+    X_n^{\nu_n^-} \colon \tau_n$ be a type environment then $\Gamma^- = X_1^{\nu_1^-}\colon \tau_1, \dots
+    X_n^{\nu_n^-} \colon \tau_n$, where $-^- = +$, $+^- = -$ and $0^- = 0$.
 \end{definition}
 
 A type judgment is called \textit{derivable} if it generates a derivation tree respectively to the rules of
-Figure~\ref{figure:phfl-typing-rules}. A formula $\Phi$ is called \textit{well-typed} if the type judgement $\vdash
-\Phi:\tau$ is derivable for some type $\tau$.
+Figure~\ref{figure:phfl-typing-rules}. A formula $\Phi$ is called \textit{well-typed} if the type
+judgement $\vdash \Phi:\tau$ is derivable for some type $\tau$.
 
 \begin{figure}
-    \caption{Typing Rules for hlmu.}
+    \caption{Derivation Rules for PHFL formulas.}
     \label{figure:phfl-typing-rules}
     \begin{mathpar}
-        \phi = \psi \and
-        %\inferrule{ }{\Sigma \vdash \top\colon Prop} \and
-        %\inferrule{ }{\Sigma \vdash \bot\colon Prop} \and
-        \inferrule{ }{\Sigma \vdash P\colon Prop} \and
-        \inferrule{\Sigma\vdash\varphi\colon Prop}{\Sigma \vdash \Diamond_R \varphi \colon Prop} \and
-        %\inferrule{\Sigma\vdash\varphi\colon Prop}{\Sigma \vdash \Box_R \varphi \colon Prop} \and
-        \inferrule{\Sigma^-\vdash\varphi\colon Prop}{\Sigma \vdash \neg\varphi \colon  Prop} \and
-        \inferrule{\Sigma\vdash\varphi_1\colon Prop \\ \Sigma\vdash\varphi_2\colon Prop}{\Sigma \vdash \varphi_1 \vee
-        \varphi_2 \colon  Prop} \and
-        %\inferrule{\Sigma\vdash\varphi_1\colon Prop \\ \Sigma\vdash\varphi_2\colon Prop}{\Sigma \vdash \varphi_1 \wedge \varphi_2 \colon  Prop} \and
-        \inferrule{ }{\Sigma, x^+ \colon\tau \vdash x\colon\tau} \and
-        \inferrule{ }{\Sigma, X^+ \colon\tau \vdash X\colon\tau} \and
-        \inferrule{\Sigma,x^v\colon\tau\vdash \varphi\colon\tau'}{\Sigma\vdash \lambda (x^v \colon \tau).\varphi\colon\tau^v\rightarrow\tau'} \and
-        \inferrule{\Sigma,X^+ \colon \tau \vdash \varphi\colon\tau}{\Sigma \vdash \mu (X%y_1,\dotsc,y_m)
-        \colon\tau). \varphi\colon\tau} \and
-        \inferrule{\Sigma,X^+ \colon \tau \vdash \varphi\colon\tau}{\Sigma \vdash \nu (X
-        %(y_1,\dotsc,y_m)
-        \colon\tau). \varphi\colon\tau} \and
-        \inferrule{\Sigma\vdash \varphi\colon\tau^+ \rightarrow \tau' \\ \Sigma\vdash\psi\colon\tau}{\Sigma \vdash (\varphi\,\psi) \colon \tau'} \and
-        \inferrule{\Sigma\vdash \varphi\colon\tau^- \rightarrow \tau' \\ \Sigma^-\vdash\psi\colon\tau}{\Sigma \vdash (\varphi\psi) \colon \tau'} \and
-        \inferrule{\Sigma\vdash \varphi\colon\tau^0 \rightarrow \tau' \\ \Sigma \vdash \psi\colon\tau \\ \Sigma^- \vdash \psi\colon\tau}{\Sigma \vdash (\varphi \psi) \colon \tau'} \and
-        %\inferrule{\Sigma\vdash\varphi\colon\tau^{\pm} \rightarrow  \tau' \\ \Sigma \vdash \psi\colon\tau \\ \neg(\Sigma)\vdash \psi \colon\tau}{\Sigma \vdash (\varphi \psi)\colon\tau'}
+        \Gamma \vdash \top \colon \bullet \and
+        \Gamma \vdash p_i \colon \bullet \and
+        \inferrule{\Gamma \vdash \Phi \colon \bullet}{\Gamma \vdash \langle a \rangle_i \Phi \colon \bullet} \and
+        \inferrule{\Gamma \vdash \Phi \colon \bullet}{\Gamma \vdash \{\emph{i} \leftarrow \emph{j}\}\Phi \colon
+        \bullet} \and
+        \inferrule{\Gamma^-\vdash\Phi\colon \tau}{\Gamma \vdash \neg \Phi \colon \tau} \and
+        \inferrule{\Gamma\vdash\Phi \colon \tau \\ \Gamma\vdash\Psi\colon \tau}{\Gamma \vdash \Phi \vee
+        \Psi \colon  \tau} \and
+        \inferrule{\nu \in \{+, 0\} }{\Gamma, X^\nu \colon\tau \vdash X\colon\tau} \and
+        \inferrule{\Gamma,X^\nu\colon\sigma\vdash \Phi\colon\tau}{\Gamma\vdash \lambda X^\nu \colon \tau
+        .\Phi\colon\sigma^\nu\rightarrow\tau} \and
+        \inferrule{\Gamma,X^+ \colon \tau \vdash \Phi\colon\tau}{\Gamma \vdash \mu X \colon\tau. \Phi\colon\tau} \and
+        \inferrule{\Gamma\vdash \Phi\colon\sigma^+ \rightarrow \tau \\ \Gamma\vdash\Psi\colon\sigma}{\Gamma \vdash
+        \Phi\Psi \colon \tau} \and
+        \inferrule{\Gamma\vdash \Phi\colon\sigma^- \rightarrow \tau \\ \Gamma^-\vdash\Psi\colon\sigma}{\Gamma \vdash
+        \Phi\Psi \colon \tau} \and
+        \inferrule{\Gamma\vdash \Phi\colon\sigma^0 \rightarrow \tau \\ \Gamma \vdash \Psi\colon\sigma \\ \Gamma^-
+        \vdash\Psi\colon\sigma}{\Gamma \vdash \Phi\Psi \colon \tau} \and
     \end{mathpar}
 \end{figure}
-PHFLk, tailPHFLk
+
+To define the semantics of PHFL formulas we need mapping $\eta$ that associates each variable to an element of its
+type semantic, i.e. $\eta(X) \in \mathcal{T}\llbracket\tau\rrbracket$ for $X$ of type $\tau$. Let $\Phi$ be a
+well-typed formula of type $\tau$ and $eta$ a variable mapping, then the semantics $\llbracket\Gamma \vdash \Phi
+\colon \tau \rrbracket(\eta)$ is defined inductively on $\Phi$ which maps to an element of
+$\mathcal{T}\llbracket\tau\rrbracket$ as explained in Figure~\ref{figure:phfl-semantic}.
+
+\begin{figure}
+    \caption{Semantics of PHFL formulas.}
+    \label{figure:phfl-semantic}
+    \begin{align*}
+        \llbracket \Gamma \vdash \top \colon \bullet \rrbracket(\eta) &= Q^d\\
+        \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket(\eta) &= \{\emph{q} \in Q^d \mid
+        \exists \emph{q'} \in \llbracket \Gamma \vdash \Phi \colon \bullet \rrbracket . \emph{q}
+        \overset{a, i}{\rightarrow} \emph{q'}\}\\
+        \llbracket \Gamma \vdash \Phi \vee \Psi \colon \bullet \rrbracket(\eta) &= \llbracket \Gamma \vdash \Phi
+        \colon \tau \rrbracket (\eta) \sqcup_\tau \llbracket \Gamma \vdash \Psi \colon \tau \rrbracket (\eta)\\
+        \llbracket \Gamma \vdash \neg \Phi \colon \tau \rrbracket(\eta) &= \neg_\tau \llbracket \Gamma^- \vdash \Phi
+        \colon \tau \rrbracket (\eta)\\
+        \llbracket \Gamma \vdash \{\emph{i} \leftarrow \emph{j}\} \Phi \colon \bullet \rrbracket(\eta) &=
+        \{\{\emph{i} \leftarrow \emph{j}\}(\emph{q}) \mid \emph{q} \in \llbracket \Gamma \vdash \Phi \colon \bullet
+        \rrbracket (\eta)\}\\
+        \llbracket \Gamma, X \colon \tau \vdash X \colon \tau \rrbracket(\eta) &= \eta(X)\\
+        \llbracket \Gamma \vdash \mu X \colon \tau .\Phi \colon \tau \rrbracket(\eta) &= LFP \llbracket \Gamma \vdash
+        \lambda X^+ \colon \tau . \Phi \colon \tau \rrbracket (\eta)\\
+        \llbracket \Gamma \vdash \lambda X^\nu \colon \sigma. \Phi \colon \sigma^\nu \rightarrow \tau \rrbracket
+        (\eta) &= \mathcal{X} \mapsto \llbracket \Gamma, X^\nu \colon \sigma \vdash \Phi \colon \tau \rrbracket
+        (\eta[X \mapsto \mathcal{X}])\\
+        \llbracket \Gamma \vdash \Phi \Psi \colon \tau \rrbracket(\eta) &= \llbracket \Gamma \vdash \Phi \colon \sigma
+        ^\nu \rightarrow \tau \rrbracket (\eta)(\llbracket \Gamma \vdash \Psi \colon \sigma \rrbracket (\eta)))
+    \end{align*}
+
+    where $\eta[X \mapsto \mathcal{X}]$ is a mapping $\eta'$ that is equal to $\eta$ but $\eta'(X) = \mathcal{X}$ and
+    $\emph{q} \overset{a, i}{\rightarrow} \emph{q'}$ stands for $q_i \overset{a}{\rightarrow} {q_i}'$ and for all $j \neq i$
+    holds
+    $q_j = {q_j}'$.
+\end{figure}
+
+In this thesis we are interested in PHFL formulas that have a specific order. For this, a formula $\Phi$ have order $k$
+if $k = max(\{ord(\tau)\mid \mu X \colon \tau. \Psi \text{ is a subformula of } \Phi\})$. The set of formulas that have
+order at most $k$ is denoted by $PHFL^k$.
+
+Next, we want to define a restriction on PHFL formulas. This restriction is called tail-recursive and ensures that
+some combinations of subformulas don't appear in an PHFL formula. For this, let the logical connective $wedge$ be a
+ further primitive of PHFL formula syntax.
+
+\begin{definition}
+    Let $\Phi = \mu X \colon \tau. \Psi$ a PHFL formula. $\Phi$ is called \emph{tail-recursive} if no subformula of
+    $\Psi$ is one of the following forms:
+    \begin{compactitem}
+        \item $\Psi_1\Psi_2$,
+        \item $\neg\Psi_1$ and
+        \item $\Psi_2 \wedge \Psi_1$
+    \end{compactitem}
+    where $X$ occurs free in  $\Psi_2$. See Figure~\ref{figure:phfl-tail-recursive} for an inductive definition of
+    tail-recursive formulas.
+\end{definition}
+
+\begin{figure}
+    \caption{Derivation Rules for PHFL formulas that shall be tail-recursive.}
+    \label{figure:phfl-tail-recursive}
+    \begin{mathpar}
+        \bar{Y} \vdash tail(p_i, \bar{X}) \and
+        \inferrule{X \in \bar{X} \cup \bar{Y}}{\bar{Y} \vdash tail(X, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset)}{\bar{Y} \vdash tail(\neg \Phi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\{\emph{i} \leftarrow \emph{j}\} \Phi,
+        \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \bar{X})}{\bar{Y} \vdash tail
+        (\Phi \vee \Psi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\langle a \rangle_i \Phi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset)}{\bar{Y} \vdash tail([a]_i \Phi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset) \\ \bar{Y} \vdash tail(\Psi, \bar{X})}{\bar{Y} \vdash tail
+        (\Phi \wedge \Psi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \emptyset)}{\bar{Y} \vdash tail
+        (\Phi \Psi, \bar{X})} \and
+        \inferrule{\bar{Y} \cup \{Z\} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\lambda Z^\nu \colon tau . \Phi,
+        \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X} \cup \{Z\})}{\bar{Y} \vdash tail(\mu Z \colon \tau . \Phi,
+        \bar{X})}
+    \end{mathpar}
+\end{figure}
