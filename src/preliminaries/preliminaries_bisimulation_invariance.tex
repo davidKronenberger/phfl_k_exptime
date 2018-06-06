@@ -22,7 +22,28 @@ with labeled vertices and edges. Formally, it is the following.
 \end{definition}
 
 For all $q_1, q_2 \in Q$ and all $a \in \Sigma$ we write $q_1 \overset{a}{\rightarrow} q_2$ for $(q_1, a, q_2) \in
-\Delta$. On this systems or rather on the states of the systems it is possible to define relations. The
+\Delta$.
+
+\begin{example}
+    As mentioned above, LTS can be seen as a graph with labeled vertices and edges. One example for a LTS is
+    $\mathcal{T} = (\{0, 1, 2, 3, 4\}, \{a, b\}, \{p, q\}, \Delta, \nu)$
+\begin{center}\begin{tikzpicture}[]
+                  \node [place] (w1) [label=above:$q$] {0};
+                  \node [place] (c1) [below=of w1,label=above:$p~q$] {2};
+                  \node [place] (s) [below=of c1,label=above:$q$] {4};
+                  \node [place] (e1) [left=of c1] {1}
+                  edge [pre,bend left] (w1)
+                  edge [post,bend right] (s)
+                  edge [post] (c1);
+                  \node [place] (l1) [right=of c1] {3}
+                  edge [pre] (c1)
+                  edge [pre,bend left] (s)
+                  edge [post,bend right] node[auto, swap] {2} (w1);
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+On this systems or rather on the states of the systems it is possible to define relations. The
 following relation describes those states that have the same behaviour. For this, let be $\mathcal{T}_1 = (Q_1,
 \Sigma_1, P_1, \Delta_1, \nu_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma_2, P_2, \Delta_2, \nu_2)$ two LTSs.
 
@@ -43,18 +64,25 @@ following relation describes those states that have the same behaviour. For this
 \end{definition}
 
 Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these properties. A query
-is a function that maps a LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ to a subset of $Q$.
+is a mapping that associates a LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ to a subset
+$M^{\mathcal{T}}$ of $Q \times \dots \times Q$. Remark, that any isomorphism $f: \mathcal{T} \simeq
+\mathcal{T}'$ is also an isomorphism of $M^{\mathcal{T}}$ and $M^{{\mathcal{T}}'}$.
 
 \begin{definition}
     \label{definition:query}
-    A function $\mathcal{Q} : \mathscr{T} \rightarrow \mathscr{Q}, \mathcal{T} \mapsto Q^\mathcal{T}$ is called a
-    \emph{query},
+    A function $\mathcal{Q} : \mathscr{T} \rightarrow \mathscr{Q} \times \dots \times \mathscr{Q}, [\mathcal{T}]_\simeq
+    \mapsto M^{\mathcal{T}}$ is called a
+    \emph{$r$-adic query},
     where
     \begin{compactitem}
-        \item $\mathscr{T}$ is the set of all LTS,
-        \item $\mathscr{Q}$ is the set of all sets of states and
-        \item $\mathcal{T} = (Q^\mathcal{T}, \Sigma^\mathcal{T}, P^\mathcal{T}, \Delta^\mathcal{T}, \nu^\mathcal{T})
-        \in \mathscr{T}$ is a LTS.
+        \item $\mathscr{T}$ is the set of all equivalence classes of LTS relative to isomorphism,
+        \item $\mathscr{Q}$ is the set of all equivalence classes of sets of states relative to isomorphism,
+        \item $[\mathcal{T}]_\simeq = ([Q^\mathcal{T}]_\simeq, [\Sigma^\mathcal{T}]_\simeq, [P^\mathcal{T}]_\simeq,
+        [\Delta^\mathcal{T}]_\simeq, [\nu^\mathcal{T}]_\simeq) \in \mathscr{T}$ is the equivalence class of LTS
+        $\mathcal{T}$ relative to isomorphism and
+        \item $M^{\mathcal{T}} \in \mathcal{P}([Q^\mathcal{T}]_\simeq \times \dots \times [Q^\mathcal{T}]_\simeq)$ is a
+        set of tuples of states from $[\mathcal{T}]_\simeq$, i.e. $(q_1, \dots, q_r) \in M^{\mathcal{T}}$ with $q_1,
+        \dots, q_r \in [Q^\mathcal{T}]_\simeq$.
     \end{compactitem}
 \end{definition}
 
@@ -67,22 +95,25 @@ graph haven't labels.
 
 \begin{definition}
     \label{definition:bisimulationInvariant}
-    Let $\mathcal{T}$, $\mathcal{T}' \in \mathscr{T}$ be two LTSs with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$
-    and $\mathcal{T}' = (Q', \Sigma', P', \Delta', \nu')$. Furthermore, let be $q \in Q$ and $q' \in Q'$.
+    Let $\mathcal{T}$, $\mathcal{T}'$ be two LTSs with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$
+    and $\mathcal{T}' = (Q', \Sigma', P', \Delta', \nu')$. Furthermore, let be $(q_1, \dots, q_r) \in Q \times \dots
+    \times Q$ and $({q_1}', \dots, {q_n}') \in Q' \times \dots \times Q'$.
 
-    A query $\mathcal{Q}$ is called \emph{bisimulation invariant} if $(\mathcal{T}, q) \sim (\mathcal{T}', q')$
-    implies that
-    $q \in \mathcal{Q}(\mathcal{T})$ iff $q' \in \mathcal{Q}(\mathcal{T'})$.
+    A query $\mathcal{Q}$ is called \emph{bisimulation invariant} if $(\mathcal{T}, q_i) \sim (\mathcal{T}', q_i')$
+    for all $1 \leq i \leq r$ implies that $(q_1, \dots, q_r) \in \mathcal{Q}([\mathcal{T}]_\simeq)$ iff $({q_1}',
+    \dots, {q_n}') \in \mathcal{Q}([\mathcal{T}']_\simeq)$.
 \end{definition}
 
 The second category of a query tells us which complexity class a query belongs to.
 
 \begin{definition}
     \label{definition:queryBelongsToComplexityClass}
-    Let $\mathcal{T} \in \mathscr{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ and $q \in Q$.
+    Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ and $(q_1, \dots, q_{r}) \in Q \times
+    \dots \times Q$.
 
-    A query $\mathcal{Q}$ belongs to a complexity class $\mathcal{C}$ if there is an algorithm in $\mathcal{C}$ for
-    deciding on input $(\mathcal{T}, q)$ whether $q \in \mathcal{Q}(\mathcal{T})$.
+    A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is an algorithm in $\mathcal{C}$ for
+    deciding on input $(\mathcal{T}, (q_1, \dots, q_{r}))$ whether $(q_1, \dots, q_{r}) \in \mathcal{Q}
+    ([\mathcal{T}]_\simeq)$.
 \end{definition}
 
 This definition leads us to the next chapter and the definitions for descriptive complexity.

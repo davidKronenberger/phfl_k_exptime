@@ -13,6 +13,8 @@ $\mu$-calculus~\cite{kozen1983results} in~\cite{viswanathan2004higher}. The high
 restriction called tail-recursive for this higher order cases we are interested to compare with the in
 Chapter~\ref{subsec:descriptiveComplexity} introduced complexity classes \exptime{$k$} and \expspace{$k$}.
 
+\subsubsection{PHFL Types}
+
 Before defining formulas of PHFL we need to introduce the PHFL types. These definitions are guided
 by~\cite{viswanathan2004higher} and~\cite{lange2014capturing}.
 
@@ -30,7 +32,7 @@ $\mathcal{A} \rightarrow \mathcal{B}$ is the partial order of monotone functions
 \[\mathcal{A} \rightarrow \mathcal{B} = \{f:A\rightarrow B \mid \forall x,y \in A. x\leq_A y\Rightarrow f(x)\leq_B f(y)\}\]
 
 \begin{definition}
-    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS, then $\mathcal{T}\llbracket\tau\rrbracket$ the semantic
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS, then $\mathcal{T}\llbracket\tau\rrbracket$ the semantics
     of type $\tau$ is defined by $\tau$ as follows:
         \[\mathcal{T}\llbracket\tau\rrbracket=
         \begin{cases}
@@ -65,6 +67,8 @@ follows:
 \end{definition}
 
 Next, we want to define the syntax of PHFL formulas.
+
+\subsubsection{PHFL Syntax}
 
 \begin{definition}
     Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS and $X, Y, \dots$ a finite set of variables, then
@@ -131,15 +135,17 @@ judgement $\vdash \Phi:\tau$ is derivable for some type $\tau$.
     \end{mathpar}
 \end{figure}
 
+\subsubsection{PHFL Semantics}
+
 To define the semantics of PHFL formulas we need mapping $\eta$ that associates each variable to an element of its
-type semantic, i.e. $\eta(X) \in \mathcal{T}\llbracket\tau\rrbracket$ for $X$ of type $\tau$. Let $\Phi$ be a
+type semantics, i.e. $\eta(X) \in \mathcal{T}\llbracket\tau\rrbracket$ for $X$ of type $\tau$. Let $\Phi$ be a
 well-typed formula of type $\tau$ and $eta$ a variable mapping, then the semantics $\llbracket\Gamma \vdash \Phi
 \colon \tau \rrbracket(\eta)$ is defined inductively on $\Phi$ which maps to an element of
-$\mathcal{T}\llbracket\tau\rrbracket$ as explained in Figure~\ref{figure:phfl-semantic}.
+$\mathcal{T}\llbracket\tau\rrbracket$ as explained in Figure~\ref{figure:phfl-semantics}.
 
 \begin{figure}
     \caption{Semantics of PHFL formulas.}
-    \label{figure:phfl-semantic}
+    \label{figure:phfl-semantics}
     \begin{align*}
         \llbracket \Gamma \vdash \top \colon \bullet \rrbracket(\eta) &= Q^d\\
         \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket(\eta) &= \{\emph{q} \in Q^d \mid
@@ -171,6 +177,8 @@ $\mathcal{T}\llbracket\tau\rrbracket$ as explained in Figure~\ref{figure:phfl-se
 In this thesis we are interested in PHFL formulas that have a specific order. For this, a formula $\Phi$ have order $k$
 if $k = max(\{ord(\tau)\mid \mu X \colon \tau. \Psi \text{ is a subformula of } \Phi\})$. The set of formulas that have
 order at most $k$ is denoted by $PHFL^k$.
+
+\subsubsection{tail-recursive PHFL}
 
 Next, we want to define a restriction on PHFL formulas. This restriction is called tail-recursive and ensures that
 some combinations of subformulas don't appear in an PHFL formula. For this, let the logical connective $wedge$ be a

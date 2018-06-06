@@ -11,6 +11,8 @@ known extension is called Higher Order Logic~\cite{vanBenthem2001higher}, abbrev
 increase the expressive power of FO by allowing relation variables over any order. For this, we have to define the
 types of higher order variables.
 
+\subsubsection{HO Syntax}
+
 \begin{definition}
     \emph{HO types} are defined inductive as follows:
     \begin{compactitem}
@@ -38,10 +40,13 @@ a signature holding the constants, functions and relations of arbitrary HO types
         and $t_i$ is a term over $\tau_i$, with $i \in \{1, \dots, n\}$,
         \item if $\varphi$ and $\psi$ are two HO formulas over $\sigma$, then $\neg\varphi$, $\varphi\wedge\psi$ and $\varphi
         \vee \psi$ are also HO formulas over $\sigma$,
-        \item if $\varphi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type, then $\exists X\varphi$ and
-        $\forall X\varphi$ are also HO formulas over $\sigma$.
+        \item if $\varphi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type $\tau$, then $\exists
+        X \colon \tau.\varphi$ and
+        $\forall X \colon \tau.\varphi$ are also HO formulas over $\sigma$.
     \end{compactitem}
 \end{definition}
+
+\subsubsection{HO Semantics}
 
 The first step in direction of the semantics of HO formulas is to interpret the universes of the different HO types.
 
@@ -57,8 +62,8 @@ Moreover, $\alpha$ is a function that assigns all variables to an element of the
 variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
 
 \begin{definition}
-    Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable allocation over universe $\mathcal{U}$. The
-    satisfaction of a HO formula is defined inductively as follows:
+    Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
+    semantics of a HO formula is defined inductively as follows:
     \begin{compactitem}
         \item $\mathcal{A}, \alpha \models (X = Y)$ iff $\alpha(X) = \alpha(Y)$
         \item $\mathcal{A}, \alpha \models R(t_1, \dots t_n)$ iff $(t_1^{\mathcal{A}}[\alpha], \dots
@@ -72,10 +77,14 @@ variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
         \alpha\models\psi$,
         \item $\mathcal{A}, \alpha \models \varphi \vee \psi$ iff $\mathcal{A}, \alpha\models\varphi$ or $\mathcal{A},
         \alpha\models\psi$,
-        \item $\mathcal{A}, \alpha \models \exists X\varphi$ iff there is an allocation of $X$, $a = \alpha(X) \in D_{\tau}
-        (\mathcal{U})$, that $\mathcal{A}, \alpha[X/a] \models \varphi$, where $\tau$ is the type of $X$ and
-        \item $\mathcal{A}, \alpha \models \forall X\varphi$ iff all possible allocations of $X$, $a = \alpha(X) \in
-        D_{\tau}(\mathcal{U})$ holds that $\mathcal{A}, \alpha[X/a] \models \varphi$, where $\tau$ is the type of $X$.
+        \item $\mathcal{A}, \alpha \models \exists \colon \tau.X\varphi$ iff there is an assignment of $X$, $a = \alpha
+        (X) \in D_{\tau}
+        (\mathcal{U})$, that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the type of $X$ and
+        \item $\mathcal{A}, \alpha \models \forall\colon \tau.X\varphi$ iff all possible assignments of $X$, $a =
+        \alpha(X) \in
+        D_{\tau}(\mathcal{U})$ holds that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the
+        type of
+        $X$.
         \end{compactitem}
 \end{definition}
 
@@ -86,10 +95,13 @@ Another possibility to extend FO is to add operators that are not expressible in
 of them, the least fixpoint and the partial fixpoint operator. Instead of defining the operators for FO we are
 here interested to define this operators for HO. First, we regard the least fixpoint operator.
 
+\subsubsection{HO + LFP}
+
 \begin{definition}
    Let $F: \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then $X \in \mathscr{P}(A)$
    is called a \emph{fixpoint} of $F$ if $F(X) = X$. Let $X$ be a fixpoint of $F$, then $X$ is called the \emph{least
-   fixpoint} of $F$, abbreviated as LFP($F$), if all other fixpoints $Y$ of $F$ including $X$ i.e. $X \subseteq Y$.
+   fixpoint} of $F$, abbreviated as $\mathit{LFP}$($F$), if all other fixpoints $Y$ of $F$ including $X$ i.e. $X
+   \subseteq Y$ for all fixpoints $Y$ of $F$.
 \end{definition}
 
 Like in~\cite{freireMartins2011descriptive} we want to define special operators that are working on HO type
@@ -102,76 +114,85 @@ universes.
     \dots, x_k$. Each $\sigma$-structure $\mathcal{A}$ with universe $\mathcal{U}$ induces the operator
     \begin{align*}
         F_\varphi^\mathcal{A} : \mathscr{P}(D_\tau(\mathcal{U})) &\longrightarrow \mathscr{P}(D_\tau(\mathcal{U}))\\
-        A &\longmapsto F_\varphi^\mathcal{A}(A) := \{(a_1, \dots, a_k) \mid \mathcal{A} \models \varphi(A, a_1, \dots, a_k)\}
+        A &\longmapsto F_\varphi^\mathcal{A}(A) := \{(a_1, \dots, a_k) \mid \mathcal{A} \models \varphi(A, a_1,
+        \dots, a_k)\}
     \end{align*}
+    where $a_1 \in D_{\tau_1}(\mathcal{U})$, \dots, $a_k \in D_{\tau_k}(\mathcal{U})$.
 \end{definition}
 
 From Knaster-Tarski~\cite{tarski1955lattice} we know that for an operator $F: \mathscr{P}(A) \rightarrow \mathscr{P}
-(A)$ the LFP($F$) exists if $F$ is monoton, that means for all $X, Y \subseteq A$ if $X \subseteq Y$ then $F(X)
-\subseteq F(Y)$ holds. To make $F_\varphi^\mathcal{A}$ monoton we have to restrict $\varphi(X, x_1, \dots, x_k)$ in this way
-that variable $X$ occurs in an even number of negations within of $\varphi$~\cite{freireMartins2011descriptive}. Those
-functions are called \textit{positive in} $X$. With these information we are able to define the least fixpoint
-operator for HO formulas, denoted by HO(LFP).
+(A)$ the $\mathit{LFP}$($F$) exists if $F$ is monotone, that means for all $X, Y \subseteq A$ if $X \subseteq Y$ then
+$F(X) \subseteq F(Y)$ holds. To make $F_\varphi^\mathcal{A}$ monotone we have to restrict $\varphi(X, x_1, \dots,
+x_k)$ in this way that variable $X$ occurs in an even number of negations within of
+$\varphi$~\cite{freireMartins2011descriptive}. Those functions are called \textit{positive in} $X$. With these
+information we are able to define the least fixpoint operator for HO formulas, denoted by HO($\mathit{LFP}$).
 
 \begin{definition}
-    Let $\sigma$ be a signature. The set of \emph{HO(LFP) formulas} enhances the set of HO formulas with the
+    Let $\sigma$ be a signature. The set of \emph{HO($\mathit{LFP}$) formulas} enhances the set of HO formulas with the
     following formation rule:
     \begin{compactitem}
-        \item $[LFP_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$ is a HO(LFP) formula over
-        $\sigma$ with free variables $v_1, \dots, v_k$ iff $\varphi(X, x_1, \dots, x_k)$ is a HO(LFP) formula with
-        free variables $X, x_1, \dots, x_k$, where $\varphi$ is positive in $X$, $X$ has HO type $\tau = (\tau_1,
-        \dots, \tau_k)$, $x_1$ and $v_1$ have HO type $\tau_1$, \dots, $x_k$ and $v_k$ have HO type $\tau_k$ and
-        $\tau_1, \dots \tau_k$ are arbitrary.
+        \item $[\mathit{LFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$ is a HO
+        ($\mathit{LFP}$) formula over $\sigma$ with free variables $v_1, \dots, v_k$ iff $\varphi(X, x_1, \dots, x_k)
+        $ is a HO($\mathit{LFP}$) formula with free variables $X, x_1, \dots, x_k$, where $\varphi$ is positive in
+        $X$, $X$ has HO type $\tau = (\tau_1, \dots, \tau_k)$, $x_1$ and $v_1$ have HO type $\tau_1$, \dots, $x_k$
+        and $v_k$ have HO type $\tau_k$ and $\tau_1, \dots \tau_k$ are arbitrary.
     \end{compactitem}
 \end{definition}
 
-As in HO, with HO(LFP)$^k$ we mean the set of all those HO(LFP) formulas whose variables have order less or equal $k$.
+As in HO, with HO($\mathit{LFP}$)$^k$ we mean the set of all those HO($\mathit{LFP}$) formulas whose variables have
+order less or equal $k$.
 
 \begin{definition}
-    Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable allocation over universe $\mathcal{U}$. The
-    satisfaction of a HO(LFP) formula extends that of HO formulas with the following definition:
+    Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
+    semantics of a HO($\mathit{LFP}$) formula extends that of HO formulas with the following definition:
     \begin{compactitem}
-        \item $\mathcal{A}, \alpha \models [LFP_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$
-        iff $(\alpha(v_1), \dots, \alpha(v_k)) \in LFP(F_\varphi^\mathcal{A})$.
+        \item $\mathcal{A}, \alpha \models [\mathit{LFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots,
+        v_k)$ iff $(\alpha(v_1), \dots, \alpha(v_k)) \in \mathit{LFP}(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
+
+Since the $\mathit{LFP}$ operator restricts formulas to be positive in a variable, the next operator hasn't any
+restriction. That means the number of negations on a variable can be odd or even.
+
+\subsubsection{HO + PFP}
 
 Next, we define the partial fixpoint operator for HO formulas like in~\cite{schewe2006fixpoint}. For this, we define
 first the partial fixpoint operator generally.
 
 \begin{definition}
     Let $F: \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then the \emph{partial
-    fixpoint} of $F$, abbreviated as PFP($F$), is defined as follows:
-    \[PFP(F):=\begin{cases}
+    fixpoint} of $F$, abbreviated as $\mathit{PFP}$($F$), is defined as follows:
+    \[\mathit{PFP}(F):=\begin{cases}
                F^{i+1}(\emptyset)=F^i(\emptyset),  & \text{if such } i >= 0 \text{ exists}\\
                \emptyset, & \text{otherwise,}
     \end{cases}\]
     where $F^0(\emptyset) = \emptyset$, $F^1(\emptyset) = F(\emptyset)$, $F^2(\emptyset) = F(F(\emptyset))$, and so on.
 \end{definition}
 
-With this knowledge we can define and add the partial fixpoint operator to HO formulas, denoted as HO(PFP).
+Remark, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. With this knowledge we can define and
+add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
 
 \begin{definition}
-    Let $\sigma$ be a signature. The set of \emph{HO(PFP) formulas} enhances the set of HO formulas with the
+    Let $\sigma$ be a signature. The set of \emph{HO($\mathit{PFP}$) formulas} enhances the set of HO formulas with the
     following formation rule:
     \begin{compactitem}
-        \item $[PFP_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$ is a HO(PFP) formula over
-        $\sigma$ with free variables $v_1, \dots, v_k$ iff $\varphi(X, x_1, \dots, x_k)$ is a HO(PFP) formula with
+        \item $[\mathit{PFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$ is a HO($\mathit{PFP}$) formula over
+        $\sigma$ with free variables $v_1, \dots, v_k$ iff $\varphi(X, x_1, \dots, x_k)$ is a HO($\mathit{PFP}$) formula with
         free variables $X, x_1, \dots, x_k$, where $X$ has HO type $\tau = (\tau_1, \dots, \tau_k)$, $x_1$ and $v_1$
         have HO type $\tau_1$, \dots, $x_k$ and $v_k$ have HO type $\tau_k$ and $\tau_1, \dots \tau_k$ are arbitrary.
     \end{compactitem}
 \end{definition}
 
-HO(PFP)$^k$ is the set of all those HO(PFP) formulas whose variables have order less or equal $k$.
+HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose variables have order less or equal $k$.
 
 \begin{definition}
-    Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable allocation over universe $\mathcal{U}$. The
-    satisfaction of a HO(PFP) formula extends that of HO formulas with the following definition:
+    Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
+    semantics of a HO($\mathit{PFP}$) formula extends that of HO formulas with the following definition:
     \begin{compactitem}
-        \item $\mathcal{A}, \alpha \models [PFP_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$
-        iff $(\alpha(v_1), \dots, \alpha(v_k)) \in PFP(F_\varphi^\mathcal{A})$.
+        \item $\mathcal{A}, \alpha \models [\mathit{PFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$
+        iff $(\alpha(v_1), \dots, \alpha(v_k)) \in \mathit{PFP}(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
 
-In the next chapter we want to compare the here defined HO(PFP) and HO(LFP) with PHFL from
+In the next chapter we want to compare the here defined HO($\mathit{PFP}$) and HO($\mathit{LFP}$) with PHFL from
 Chapter~\ref{subsec:polyadicHigherOrderFixpointLogic}.
