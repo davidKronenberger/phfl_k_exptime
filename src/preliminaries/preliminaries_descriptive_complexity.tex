@@ -24,6 +24,14 @@ One way to describe complexity classes is with the help of \textit{Turing Machin
     \end{compactitem}
 \end{definition}
 
+\begin{example}
+    \label{example:dtm}
+    As an example for a $\mathit{DTM}$ let
+    \[M = (\{q_0, q_f, q_r\}, \{a, b\}, \{a, b, \Box\}, \delta, q_0, \Box, \{q_f\}, \{q_r\})\]
+    where $\delta(q_0, a)= (q_0, \Box, R)$, $\delta(q_0, b) = (q_r, b, L)$, $\delta(q_0, \Box) = (q_f, \Box, N)$.
+    $M$ is a $\mathit{DTM}$ that accepts all input words that contain no symbol $b$, i.e. $L(M) = \{a\}^*$.
+\end{example}
+
 Configurations are snapshots of $\mathit{DTM}$s working on an input word. This includes the working tape, the current
 state and the current position of the reading head. Formally, $C_i^M(w) = \Gamma^m \cdot Q \cdot (\Gamma^n | \Box)$
 is called the $i$-th configuration of a $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ for input word
@@ -59,6 +67,16 @@ initial state of $M$. A run of $\mathit{DTM}$ $M$ on input word $w$ is a sequenc
 either an accepting or rejecting state. A run is accepting if there is a $n \in \mathcal{N}$ such that $C_0^M(w)
 \rightarrow_M C_1^M(w) \rightarrow_M \dots \rightarrow_M C_n^M(w)$ and $C_n^M(w)$ contains an accepting state of $M$.
 
+\begin{example}
+    \label{example:run_of_dtm}
+    Let $M$ be the $\mathit{DTM}$ from Example~\ref{example:dtm} and $w_1 = aaba$, $w_2 = aaaa$ two input words. The
+    run of $M$ on $w_1$ is
+    \[C_0^M(w_1) = q_0aaba \rightarrow_M q_0aba \rightarrow_M q_0ba \rightarrow_M q_r\Box ba = C_3^M(w_1)\]
+    and the run of $M$ on $w_2$ is
+    \[C_0^M(w_2) = q_0aaaa \rightarrow_M q_0aaa \rightarrow_M q_0aa \rightarrow_M q_0a \rightarrow_M q_0\Box
+    \rightarrow_M q_f\Box = C_5^M(w_2)\]
+\end{example}
+
 Remark, that it is possible to define $\mathit{DTM}$s that does not accept or reject any input word. For example, let
 $M = (\{q_0\}, \{a\}, \{a, \Box\}, \delta, \emptyset, \emptyset)$, where $\delta(q_0, x) = (q_0, x, N)$ with $x \in
 \{a, \Box\}$. $M$ is a DTM where any calculation of an input word $w$ looks as follows $q_0w \rightarrow_M q_0w
@@ -77,6 +95,10 @@ steps. In case of space classes the output is based on the longest transition.
     computes $w$ and $C_0^M(w) \rightarrow_M C_1^M(w) \rightarrow_M \dots \rightarrow_M C_m^M(w)$ is a run of $M$ on
     $w$.
 \end{definition}
+
+\begin{example}
+    
+\end{example}
 
 Now, it is possible to group the $\mathit{DTM}$s by functions. Those groups are our computational complexity classes.
 In this thesis we are interested in exponential time classes and exponential space classes.
@@ -98,7 +120,7 @@ all $k \geq 1$.
     $k$-EXPTIME $=$ $\mathit{TIME}$($exp(k, f(n))$) and $k$-EXPSPACE $= \mathit{SPACE}(exp(k, f(n)))$.
 \end{definition}
 
-Remark that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the biggest configuration of a
+Remark, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the biggest configuration of a
 $\mathit{DTM}$ while computing a word.
 
 From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
