@@ -25,20 +25,29 @@ For all $q_1, q_2 \in Q$ and all $a \in \Sigma$ we write $q_1 \overset{a}{\right
 \Delta$.
 
 \begin{example}
-    As mentioned above, LTS can be seen as a graph with labeled vertices and edges. One example for a LTS is
-    $\mathcal{T} = (\{0, 1, 2, 3, 4\}, \{a, b\}, \{p, q\}, \Delta, \nu)$
-\begin{center}\begin{tikzpicture}[]
-                  \node [place] (w1) [label=above:$q$] {0};
-                  \node [place] (c1) [below=of w1,label=above:$p~q$] {2};
-                  \node [place] (s) [below=of c1,label=above:$q$] {4};
-                  \node [place] (e1) [left=of c1] {1}
-                  edge [pre,bend left] (w1)
-                  edge [post,bend right] (s)
-                  edge [post] (c1);
-                  \node [place] (l1) [right=of c1] {3}
-                  edge [pre] (c1)
-                  edge [pre,bend left] (s)
-                  edge [post,bend right] node[auto, swap] {2} (w1);
+    \label{example:lts}
+    As mentioned above, LTS can be seen as a graph with labeled vertices and edges. For example, a LTS is
+    $\mathcal{T} = (\{q_1, q_2, q_3, q_4, q_5\}, \{a, b\}, \{p_1, p_2\}, \Delta, \nu)$, where $\Delta = \{(q_1, a, q_2)
+    , (q_2, a, q_3), (q_2, b, q_3), (q_2, b, q_5), (q_5, a, q_4), (q_4, a, q_3), (q_4, b, q_3), (q_4, b, q_1)\}$,
+    $\nu(q_1) = \nu(q_2) = \nu(q_4) = \nu(q_5) = \{p_1\}$ and $\nu(q_3) = \emptyset$. $\mathcal{T}$ can be visualized as
+    follows.
+\begin{center}
+    \begin{tikzpicture}[]
+                  \node [place] (q1) [label=above:$p_1$] {$q_1$};
+                  \node  (temp) [left=of q1] {};
+                  \node  (label) [left=of temp] {$\mathcal{T}:$};
+                  \node [place] (q3) [below=of q1] {$q_3$};
+                  \node [place] (q5) [below=of q3,label=above:$p_1$] {$q_5$};
+                  \node [place] (q2) [left=of q3,label=left:$p_1$] {$q_2$}
+                  edge [post,bend left] node[above] {a} (q3)
+                  edge [post,bend right] node[above] {b} (q3)
+                  edge [post,bend right] node[left, below] {b} (q5)
+                  edge [pre,bend left] node[left, above] {a} (q1);
+                  \node [place] (q4) [right=of q3,label=right:$p_1$] {$q_4$}
+                  edge [post,bend left] node[auto, swap] {b} (q3)
+                  edge [post,bend right] node[auto, swap] {a} (q3)
+                  edge [pre,bend left] node[right, below] {a} (q5)
+                  edge [post,bend right] node[right, above] {b} (q1);
 \end{tikzpicture}
 \end{center}
 \end{example}
@@ -62,6 +71,17 @@ following relation describes those states that have the same behaviour. For this
     (\mathcal{T}_2, q_2)$, if there
     is a bisimulation $R$ such that $(q_1, q_2) \in R$.
 \end{definition}
+
+\begin{example}
+    \label{example:bisimilar}
+    Let $\mathcal{T}$ be like in Example~\ref{example:lts}. It is true, that $(\mathcal{T}, q_1) \sim
+    (\mathcal{T}, q_5)$ and $(\mathcal{T}, q_2) \sim (\mathcal{T}, q_4)$ because $R = \{(q_1, q_5), (q_2, q_4), (q_3,
+    q_3)\}$ is a bisimulation and includes $(q_1, q_5)$ and $(q_2, q_4)$. It is easy to prove, that $\sim$ is an
+    equivalence relation. So it holds, that $(\mathcal{T}, q_5) \sim (\mathcal{T}, q_1)$ and $(\mathcal{T}, q_4) \sim
+    (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Remark, that $(\mathcal{T}, q_1) \not\sim
+    (\mathcal{T}, q_3)$ because $\nu(q_1) \neq \nu(q_3)$ and $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_2)$ because
+    $q_2$ can make $b$-transitions but $q_1$ has no $b$-transitions.
+\end{example}
 
 Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these properties. A query
 is a mapping that associates a LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ to a subset
@@ -96,7 +116,7 @@ graph haven't labels.
 \begin{definition}
     \label{definition:bisimulationInvariant}
     Let $\mathcal{T}$, $\mathcal{T}'$ be two LTSs with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$
-    and $\mathcal{T}' = (Q', \Sigma', P', \Delta', \nu')$. Furthermore, let be $(q_1, \dots, q_r) \in Q \times \dots
+    and $\mathcal{T}' = (Q', \Sigma', P', \Delta', \nu')$. Moreover, let be $(q_1, \dots, q_r) \in Q \times \dots
     \times Q$ and $({q_1}', \dots, {q_n}') \in Q' \times \dots \times Q'$.
 
     A query $\mathcal{Q}$ is called \emph{bisimulation invariant} if $(\mathcal{T}, q_i) \sim (\mathcal{T}', q_i')$
@@ -116,4 +136,19 @@ The second category of a query tells us which complexity class a query belongs t
     ([\mathcal{T}]_\simeq)$.
 \end{definition}
 
-This definition leads us to the next chapter and the definitions for descriptive complexity.
+\begin{example}
+    This example is mainly from~\cite{lange2014capturing}. Let $\mathcal{Q}$ be a $2$-adic query that maps from a
+    LTS to its set of pairs of states that are bisimilar. As example, let $\mathcal{T}$ the LTS from
+    Example~\ref{example:lts}. This LTS the query $\mathcal{Q}$ maps to the following set of pairs:
+
+    \[\mathcal{Q}([\mathcal{T}]_\simeq) = \{(q_1, q_1), \dots, (q_5, q_5), (q_1, q_5), (q_5, q_1), (q_2, q_4), (q_4,
+    q_2)\}\]
+
+    Known from~\cite{lange2014capturing}, bisimilarity can be decided in P. So there is an algorithm in P for deciding on
+    input $(\mathcal{T}, (q_1, q_2))$ whether $(q_1, q_2) \in \mathcal{Q}([\mathcal{T}]_\simeq)$, i.e. $\mathcal{Q}$
+    belongs to complexity class P. Furthermore, as mentioned in Example~\ref{example:bisimilar} bisimilarity is an
+    equivalence relation, it follows that $\mathcal{Q}$ is bisimulation invariant.
+\end{example}
+
+The Definition~\ref{definition:queryBelongsToComplexityClass} leads us to the next chapter and the definitions for
+descriptive complexity.
