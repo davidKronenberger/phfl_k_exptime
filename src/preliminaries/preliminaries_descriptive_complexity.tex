@@ -97,7 +97,12 @@ steps. In case of space classes the output is based on the longest transition.
 \end{definition}
 
 \begin{example}
-    
+    \label{example:time_and_space}
+    Let $w_1$ and $w_2$ the two words of Example~\ref{example:run_of_dtm}. It is easy to see, that $\mathit{STEPS}(w_1)
+    = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 5$ and $\mathit{STORAGE}(w_1) = 5$. Moreover, because
+    the maximal number of steps for an input word of length $4$ occurs if the input word contains only symbol $a$, it
+    holds that $\mathit{TIME}(4) = 5$ or more general $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n + 1$ holds,
+    because the input word will only be made smaller.
 \end{example}
 
 Now, it is possible to group the $\mathit{DTM}$s by functions. Those groups are our computational complexity classes.
@@ -121,7 +126,11 @@ all $k \geq 1$.
 \end{definition}
 
 Remark, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the biggest configuration of a
-$\mathit{DTM}$ while computing a word.
+$\mathit{DTM}$ while computing a word. An example for a problem that is in $1$-EXPSPACE is the problem to recognize
+if two regular expressions represent different languages~\cite{meyer1972equivalence}. Two check if a $\mathit{DTM}$
+holds in at most $k$ steps is a problem that lies in $1$-EXPTIME. In~\cite{rintanen2004complexity} is described a
+problem that lies in $2$-EXPTIME. This problem is described as the partially observation of games and the question if a
+winning strategy of this game exists.
 
 From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
 and the complexity classes $k$-EXPTIME and $k$-EXPSPACE follow the queries that we want to investigate.
