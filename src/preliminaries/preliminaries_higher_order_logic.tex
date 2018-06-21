@@ -22,7 +22,7 @@ types of higher order variables.
     \end{compactitem}
 \end{definition}
 
-The HO type of individuals is $\tau = \odot$. These objects have the \textit{HO order} $0$. The HO type $\tau = (\tau_1,
+The HO type of individuals is $\tau = \odot$. These objects have the \textit{HO order} $1$. The HO type $\tau = (\tau_1,
 \dots, \tau_n)$ is that of relations between objects of HO types $\tau_1, \dots, \tau_n$ and have the HO order $1 + max
 (order(\tau_1), \dots, order(\tau_n))$. For each HO type we have a countable infinite set of variables.
 \textit{Terms} of a HO type are just a variable of that HO type. Furthermore, let $\sigma$ be a signature over an
@@ -39,8 +39,8 @@ relational vocabulary i.e. holding only relations of arbitrary HO types.
         \item if $\varphi$ and $\psi$ are two HO formulas over $\sigma$, then $\neg\varphi$, $\varphi\wedge\psi$ and $\varphi
         \vee \psi$ are also HO formulas over $\sigma$,
         \item if $\varphi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type $\tau$, then $\exists
-        X \colon \tau.\varphi$ and
-        $\forall X \colon \tau.\varphi$ are also HO formulas over $\sigma$.
+        X:\tau.\varphi$ and
+        $\forall X:\tau.\varphi$ are also HO formulas over $\sigma$.
     \end{compactitem}
 \end{definition}
 
@@ -52,7 +52,8 @@ The first step in direction of the semantics of HO formulas is to interpret the 
     Let $\mathcal{U}$ be the global universe. The universes of the HO types are defined inductively as follows:
     \begin{compactitem}
         \item $D_\odot(\mathcal{U}) = \mathcal{U}$,
-        \item $D_{(\tau_1, \dots, \tau_n)}(\mathcal{U}) = \mathcal{P}(D_{\tau_1} \times \dots \times D_{\tau_n})$
+        \item $D_{(\tau_1, \dots, \tau_n)}(\mathcal{U}) = \mathcal{P}(D_{\tau_1}(\mathcal{U}) \times \dots \times
+        D_{\tau_n}(\mathcal{U}))$
     \end{compactitem}
 \end{definition}
 
@@ -75,10 +76,11 @@ variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
         \alpha\models\psi$,
         \item $\mathcal{A}, \alpha \models \varphi \vee \psi$ iff $\mathcal{A}, \alpha\models\varphi$ or $\mathcal{A},
         \alpha\models\psi$,
-        \item $\mathcal{A}, \alpha \models \exists \colon \tau.X\varphi$ iff there is an assignment of $X$, $a = \alpha
+        \item $\mathcal{A}, \alpha \models \exists X:\tau.\varphi$ iff there is an assignment of $X$, $a =
+        \alpha
         (X) \in D_{\tau}
         (\mathcal{U})$, that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the type of $X$ and
-        \item $\mathcal{A}, \alpha \models \forall\colon \tau.X\varphi$ iff all possible assignments of $X$, $a =
+        \item $\mathcal{A}, \alpha \models \forall X:\tau.\varphi$ iff all possible assignments of $X$, $a =
         \alpha(X) \in
         D_{\tau}(\mathcal{U})$ holds that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the
         type of
@@ -88,6 +90,16 @@ variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
 
 We can categorize the formulas by the order of all occurring variables. With HO$^k$ we mean the set of all those
 formulas whose variables have order less or equal $k$.
+
+\begin{example}
+    \label{example:ho}
+    This example is mainly from~\cite{vanBenthem2001higher}. The following formula $\varphi$ describes Peano's
+    induction axiom. Peano's induction axiom reveals that every set of natural numbers, which contains $0$ and is
+    also closed under immediate successors, contains all natural numbers.
+    \[\varphi = \forall P:(\odot).(P(0) \wedge \forall I:\odot.(P(I) \Rightarrow P(I + 1)) \Rightarrow \forall N
+   :\odot.(P(N)))\]
+    Remark, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
+\end{example}
 
 Another possibility to extend FO is to add operators that are not expressible in FO. Here, we are interested in two
 of them, the least fixpoint and the partial fixpoint operator. Instead of defining the operators for FO we are
@@ -103,6 +115,19 @@ here interested to define this operators for HO. First, we regard the least fixp
    \subseteq Y$ for all fixpoints $Y$ of $F$.
 \end{definition}
 
+From Knaster-Tarski~\cite{tarski1955lattice} we know that for an operator $F: \mathscr{P}(A) \rightarrow \mathscr{P}
+(A)$ the $\mathit{LFP}$($F$) exists if $F$ is monotone, that means for all $X, Y \subseteq A$ if $X \subseteq Y$ then
+$F(X) \subseteq F(Y)$ holds.
+
+\begin{example}
+    \label{example:lfp}
+    In remember to Example~\ref{example:ho} we can define Peano's induction axiom also with an least fixpoint
+    operator. This example is mainly from~\cite{hetzl2017higher}. Let $A = \mathbb{Z}$ and $F(X) = X \cup \{0\} \cup
+    \{x + 1 \mid x \in X\}$ the operator on $A$. Obviously, $F$ is monotone and fixpoints of $F$ are of the form
+    $[-k, \infty[~\subseteq\mathbb{Z}$ for $k \in \mathbb{N}$. The least fixpoint of operator $F$ describes Peano's
+    induction axiom, i.e. $\mathit{LFP}(F) = \mathbb{N}$.
+\end{example}
+
 Like in~\cite{freireMartins2011descriptive} we want to define special operators that are working on HO type
 universes.
 
@@ -112,19 +137,17 @@ universes.
     variable of HO type $\tau_k$ and $\varphi(X, x_1, \dots, x_k)$ a formula over $\sigma$ with free variables $X, x_1,
     \dots, x_k$. Each $\sigma$-structure $\mathcal{A}$ with universe $\mathcal{U}$ induces the operator
     \begin{align*}
-        F_\varphi^\mathcal{A} : \mathscr{P}(D_\tau(\mathcal{U})) &\longrightarrow \mathscr{P}(D_\tau(\mathcal{U}))\\
+        F_\varphi^\mathcal{A}:\mathscr{P}(D_\tau(\mathcal{U})) &\longrightarrow \mathscr{P}(D_\tau(\mathcal{U}))\\
         A &\longmapsto F_\varphi^\mathcal{A}(A) := \{(a_1, \dots, a_k) \mid \mathcal{A} \models \varphi(A, a_1,
         \dots, a_k)\}
     \end{align*}
     where $a_1 \in D_{\tau_1}(\mathcal{U})$, \dots, $a_k \in D_{\tau_k}(\mathcal{U})$.
 \end{definition}
 
-From Knaster-Tarski~\cite{tarski1955lattice} we know that for an operator $F: \mathscr{P}(A) \rightarrow \mathscr{P}
-(A)$ the $\mathit{LFP}$($F$) exists if $F$ is monotone, that means for all $X, Y \subseteq A$ if $X \subseteq Y$ then
-$F(X) \subseteq F(Y)$ holds. To make $F_\varphi^\mathcal{A}$ monotone we have to restrict $\varphi(X, x_1, \dots,
-x_k)$ in this way that variable $X$ occurs in an even number of negations within of
-$\varphi$~\cite{freireMartins2011descriptive}. Those functions are called \textit{positive in} $X$. With these
-information we are able to define the least fixpoint operator for HO formulas, denoted by HO($\mathit{LFP}$).
+To make $F_\varphi^\mathcal{A}$ monotone we have to restrict $\varphi(X, x_1, \dots, x_k)$ in this way that variable
+$X$ occurs in an even number of negations within of $\varphi$~\cite{freireMartins2011descriptive}. Those formulas
+are called \textit{positive in} $X$. With these information we are able to define the least fixpoint operator for HO
+formulas, denoted by HO($\mathit{LFP}$).
 
 \begin{definition}
     Let $\sigma$ be a signature. The set of \emph{HO($\mathit{LFP}$) formulas} enhances the set of HO formulas with the
@@ -149,6 +172,19 @@ order less or equal $k$.
         v_k)$ iff $(\alpha(v_1), \dots, \alpha(v_k)) \in \mathit{LFP}(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
+
+\begin{example}
+    \label{example:ho_lfp}
+    This example is mainly from~\cite{freireMartins2011descriptive}. This example describes the reachability of two
+    vertices in a graph. For this, let $\sigma = \{E:(\odot, \odot)\}$ our signature holding a binary relation
+    representing the edges in a graph. Then
+    \[[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee \exists z:\odot.(E(x_1, z) \wedge X(z, x_2)))](s, t)\]
+    describes the reachability of vertex $t$ from vertex $s$. Remark, that $[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee
+    \exists z:\odot.(E(x_1, z) \wedge X(z, x_2)))]$ describes the transitive closure of $E$. This formula is one of
+    $HO(LFP)^1$.
+    %\[[LFP_{X,x}(\forall X:(\odot).(\forall Y:\odot.(X(Y) \vee Y = 0 \vee \exists Z:\odot.(X(Z) \wedge Y = (Z + 1)))
+%))]\]
+\end{example}
 
 Since the $\mathit{LFP}$ operator restricts formulas to be positive in a variable, the next operator hasn't any
 restriction. That means the number of negations on a variable can be odd or even.
@@ -192,6 +228,18 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
         iff $(\alpha(v_1), \dots, \alpha(v_k)) \in \mathit{PFP}(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
+
+\begin{example}
+    This example is mainly from~\cite{abiteboul1995computing}.
+    \begin{align*}
+    [PFP_{G, x, y}(&G(x, y) \wedge \neg \exists z:\odot.(G(x, z) \wedge G(z, y)) \vee \\
+    &\exists z:\odot.(\neg G(x, z)\wedge\neg G(z, x) \wedge \neg G(y, z) \wedge G(z, y)))](s, t)
+    \end{align*}
+    This formula describes a graph $G$, where all edges between $(s, t)$ will be removed, if there is a path of
+    length $2$ between $s$ and $t$. If there is a vertex that is not directly connected to $s$ or $t$, an edge $(s,
+    t)$ will be inserted. This process will be iterated while some changes occurs.
+
+\end{example}
 
 In the next chapter we want to compare the here defined HO($\mathit{PFP}$) and HO($\mathit{LFP}$) with PHFL from
 Chapter~\ref{subsec:polyadicHigherOrderFixpointLogic}.
