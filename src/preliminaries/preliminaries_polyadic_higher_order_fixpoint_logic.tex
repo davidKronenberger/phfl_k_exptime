@@ -137,8 +137,9 @@ ensure that a formula is well-typed.
 
 A type judgment is called \textit{derivable} if it generates a derivation tree respectively to the rules of
 Figure~\ref{figure:phfl-typing-rules}. A formula $\Phi$ is called \textit{well-typed} if the type
-judgement $\vdash \Phi:\tau$ is derivable for some type $\tau$.
-
+judgement $\vdash \Phi:\tau$ is derivable for some type $\tau$. Remark, that we are here only interested in
+well-typed formulas. For those formulas where also the variable types are obviously, we omitt the type on the
+variables.
 
 
 \subsubsection{PHFL Semantics}
@@ -150,8 +151,7 @@ well-typed formula of type $\tau$ and $eta$ a variable mapping, then the semanti
 $\mathcal{T}\llbracket\tau\rrbracket$ as explained in Figure~\ref{figure:phfl-semantics}.
 Remark, that $\eta[X \mapsto \mathcal{X}]$ is a mapping $\eta'$ that is equal to $\eta$ but $\eta'(X) = \mathcal{X}$ and
 $\emph{q} \overset{a, i}{\rightarrow} \emph{q'}$ stands for $q_i \overset{a}{\rightarrow} {q_i}'$ and for all $j \neq i$
-holds
-$q_j = {q_j}'$.
+holds $q_j = {q_j}'$.
 
 \begin{figure}
     \caption{Semantics of PHFL formulas.}
@@ -189,6 +189,14 @@ $q_j = {q_j}'$.
 In this thesis we are interested in PHFL formulas that have a specific order. For this, a formula $\Phi$ have order $k$
 if $k = max(\{ord(\tau)\mid \mu X \colon \tau. \Psi \text{ is a subformula of } \Phi\})$. The set of formulas that have
 order at most $k$ is denoted by PHFL$^k$.
+
+\begin{example}
+    This example is mainly from~\cite{lange2014capturing}. The following formula $\Phi$ describes trace
+    equivalence of two states in a LTS i.e. it denotes those pairs $(q_1, q_2)$ for which $q_1$ has the same traces
+    like $q_2$ and vice versa.
+    \[\Phi ::= (\mu F. \lambda X, Y. X \Leftrightarrow Y \wedge \underset{a \in \Sigma}{\bigwedge} F \langle a
+    \rangle_1 X \langle a \rangle_2 Y)\top \top\]
+\end{example}
 
 \subsubsection{tail-recursive PHFL}
 
@@ -228,3 +236,12 @@ $\wedge$ and $[a]_i$, nor in $\Psi$ of formula $\Phi\Psi$.
 \end{figure}
 
 The set of all tail-recursive PHFL formulas that have order at most $k$ is denoted by PHFL$^k_{tail}$.
+
+\begin{example}
+    These examples are mainly from~\cite{lange2014capturing}. Looking on Figure~\ref{figure:phfl-tail-recursive}, we can
+    see, that $\Phi_1 = \mu X.[a]_1 X$ isn't tail recursive, because $X$ occurs underneath of $[a]_1$. Also $\Phi_2 =
+    \mu F .\lambda X. (F X) \wedge (F(F X))$ isn't tail-recursive because $F$ occurs on the left side of the logical
+    operator $\wedge$. The second reason, why $\Phi_2$ isn't tail-recursive is because $F$ also occurs in $F X$ of
+    subformula $F (F X)$. An example of a formula that is tail-recursive is given by:
+    \[(\mu F. \lambda X. (F \langle a \rangle_1 X) \vee (X \wedge \langle a \rangle_2 (F X)) (\mu Y.Y))\]
+\end{example}
