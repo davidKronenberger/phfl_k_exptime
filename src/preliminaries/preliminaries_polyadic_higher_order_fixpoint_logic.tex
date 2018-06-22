@@ -22,9 +22,9 @@ by~\cite{viswanathan2004higher} and~\cite{lange2014capturing}.
 
 \begin{definition}
     The syntax of \emph{PHFL types} are given by the grammar
-    \[\sigma, \tau ::= \bullet \mid \sigma^\nu \rightarrow \tau,\]
-    where $\nu$ is called \textit{variance}. The \emph{variances} of PHFL are defined by the grammar
-    \[\nu ::= + \mid - \mid 0.\]
+    \[\sigma, \tau ::= \bullet \mid \sigma^v \rightarrow \tau,\]
+    where $v$ is called \textit{variance}. The \emph{variances} of PHFL are defined by the grammar
+    \[v ::= + \mid - \mid 0.\]
 \end{definition}
 
 All types will be interpreted as a partially ordered sets. Partial orders are relations that are reflexiv, transitiv
@@ -34,15 +34,15 @@ $\mathcal{A} \rightarrow \mathcal{B}$ is the partial order of monotone functions
 \[\mathcal{A} \rightarrow \mathcal{B} = \{f:A\rightarrow B \mid \forall x,y \in A. x\leq_A y\Rightarrow f(x)\leq_B f(y)\}\]
 
 \begin{definition}
-    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ be a LTS, then $\mathcal{T}\llbracket\tau\rrbracket$ the semantics
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a LTS, then $\mathcal{T}\llbracket\tau\rrbracket$ the semantics
     of type $\tau$ is defined by $\tau$ as follows:
         \[\mathcal{T}\llbracket\tau\rrbracket=
         \begin{cases}
             (\mathcal{P}(Q^d), \subseteq),  & \text{if }\tau = \bullet\\
-            (\mathcal{T}\llbracket\sigma_1\rrbracket)^\nu \rightarrow \mathcal{T}\llbracket\sigma_2\rrbracket, &
-            \text{if }\tau = \sigma_1^\nu\rightarrow \sigma_2
+            (\mathcal{T}\llbracket\sigma_1\rrbracket)^v \rightarrow \mathcal{T}\llbracket\sigma_2\rrbracket, &
+            \text{if }\tau = \sigma_1^v\rightarrow \sigma_2
         \end{cases},\]
-    where for any partial order $\mathcal{A} = (A, \leq_A)$, $\mathcal{A}^\nu = (A, \leq_A^\nu)$ is a partial order
+    where for any partial order $\mathcal{A} = (A, \leq_A)$, $\mathcal{A}^v = (A, \leq_A^v)$ is a partial order
     with $\leq_A^+ = \leq_A$, $\leq_A^- = \{(a, b) \mid (b, a) \in \leq_A\}$ and $\leq_A^0 = \leq_A^+ \cap \leq_A^-$.
 \end{definition}
 
@@ -85,9 +85,9 @@ Next, we want to define the syntax of PHFL formulas.
         \inferrule{\Gamma^-\vdash\Phi\colon \tau}{\Gamma \vdash \neg \Phi \colon \tau} \and
         \inferrule{\Gamma\vdash\Phi \colon \tau \\ \Gamma\vdash\Psi\colon \tau}{\Gamma \vdash \Phi \vee
         \Psi \colon  \tau} \and
-        \inferrule{\nu \in \{+, 0\} }{\Gamma, X^\nu \colon\tau \vdash X\colon\tau} \and
-        \inferrule{\Gamma,X^\nu\colon\sigma\vdash \Phi\colon\tau}{\Gamma\vdash \lambda X^\nu \colon \tau
-        .\Phi\colon\sigma^\nu\rightarrow\tau} \and
+        \inferrule{v \in \{+, 0\} }{\Gamma, X^v \colon\tau \vdash X\colon\tau} \and
+        \inferrule{\Gamma,X^v\colon\sigma\vdash \Phi\colon\tau}{\Gamma\vdash \lambda X^v \colon \tau
+        .\Phi\colon\sigma^v\rightarrow\tau} \and
         \inferrule{\Gamma,X^+ \colon \tau \vdash \Phi\colon\tau}{\Gamma \vdash \mu X \colon\tau. \Phi\colon\tau} \and
         \inferrule{\Gamma\vdash \Phi\colon\sigma^+ \rightarrow \tau \\ \Gamma\vdash\Psi\colon\sigma}{\Gamma \vdash
         \Phi\Psi \colon \tau} \and
@@ -103,12 +103,12 @@ Next, we want to define the syntax of PHFL formulas.
     of variables, then
     \emph{PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
     \[\Phi,\Psi::=\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid \{\emph{i}
-    \leftarrow \emph{j}\} \Phi \mid X \mid \lambda X^\nu\colon\tau.\Phi \mid \Phi \Psi \mid \mu X\colon\tau.\Phi,
+    \leftarrow \emph{j}\} \Phi \mid X \mid \lambda X^v\colon\tau.\Phi \mid \Phi \Psi \mid \mu X\colon\tau.\Phi,
     where\]
     \begin{compactitem}
         \item $\emph{i} = (i_1,\dots, i_n)$, $\emph{j} = (j_1,\dots,j_n)$, $i, j, i_1,\dots,i_n, j_1, \dots j_n, n\in
         \mathbb{N}$,
-        \item $\nu$ is an arbitrary variance,
+        \item $v$ is an arbitrary variance,
         \item $\tau$ is an arbitrary type,
         \item $p \in P$ is an arbitrary property and
         \item $a \in \Sigma$ is an arbitrary action.
@@ -122,17 +122,17 @@ interpreted as, the position of the $i$-th pebble fulfills property $p$. $\langl
 $i$-th pebble along an $a$-transition and check if there holds $\Phi$. With the formula $\{\emph{i}\leftarrow
 \emph{j}\} \Phi$ is mentioned, that all pebbles from tuple $\emph{j}$ are moved to the tuple $\emph{i}$ and after
 this $\Phi$ have to be fulfilled. It is important that $\emph{i}$ and $\emph{j}$ have the same size. $\lambda
-X^\nu\colon\tau.\Phi$ is interpreted as a function that expects arguments of
-$\mathcal{T}\llbracket\tau^\nu\rrbracket$. We can see, that the formulas can also have types. For this, we have
+X^v\colon\tau.\Phi$ is interpreted as a function that expects arguments of
+$\mathcal{T}\llbracket\tau^v\rrbracket$. We can see, that the formulas can also have types. For this, we have
 ensure that a formula is well-typed.
 
 \begin{definition}
-    Let $X_1, \dots, X_n$ variables, $\Phi$ a PHFL formula, $\nu_1, \dots, \nu_n$ variances and $\tau, \tau_1, \dots,
-    \tau_n$ types, then $\Gamma = X_1^{\nu_1}\colon \tau_1, \dots X_n^{\nu_n} \colon \tau_n$ is
+    Let $X_1, \dots, X_n$ variables, $\Phi$ a PHFL formula, $v_1, \dots, v_n$ variances and $\tau, \tau_1, \dots,
+    \tau_n$ types, then $\Gamma = X_1^{v_1}\colon \tau_1, \dots X_n^{v_n} \colon \tau_n$ is
     called a \emph{type environment} and $\Gamma \vdash \Phi:\tau$
-    is called a \emph{type judgement}. Let $\Gamma^- = X_1^{\nu_1^-}\colon \tau_1, \dots
-    X_n^{\nu_n^-} \colon \tau_n$ be a type environment then $\Gamma^- = X_1^{\nu_1^-}\colon \tau_1, \dots
-    X_n^{\nu_n^-} \colon \tau_n$, where $-^- = +$, $+^- = -$ and $0^- = 0$.
+    is called a \emph{type judgement}. Let $\Gamma^- = X_1^{v_1^-}\colon \tau_1, \dots
+    X_n^{v_n^-} \colon \tau_n$ be a type environment then $\Gamma^- = X_1^{v_1^-}\colon \tau_1, \dots
+    X_n^{v_n^-} \colon \tau_n$, where $-^- = +$, $+^- = -$ and $0^- = 0$.
 \end{definition}
 
 A type judgment is called \textit{derivable} if it generates a derivation tree respectively to the rules of
@@ -176,13 +176,13 @@ holds $q_j = {q_j}'$.
         %\llbracket         \Gamma
  %       \vdash
   %      \lambda X^+ \colon \tau.\Phi \colon \tau \rrbracket (\eta)\\
-        \llbracket \Gamma \vdash \lambda X^\nu \colon \sigma. \Phi \colon \sigma^\nu \rightarrow \tau \rrbracket
-        (\eta) =\text{ }& F \in \mathcal{T}\llbracket \sigma^\nu \rightarrow \tau \rrbracket \text{ s.t. }\\
+        \llbracket \Gamma \vdash \lambda X^v \colon \sigma. \Phi \colon \sigma^v \rightarrow \tau \rrbracket
+        (\eta) =\text{ }& F \in \mathcal{T}\llbracket \sigma^v \rightarrow \tau \rrbracket \text{ s.t. }\\
         &\forall \mathcal{X} \in
-        \mathcal{T}\llbracket \sigma \rrbracket. F(\mathcal{X}) = \llbracket \Gamma, X^\nu \colon \sigma \vdash \Phi \colon \tau
+        \mathcal{T}\llbracket \sigma \rrbracket. F(\mathcal{X}) = \llbracket \Gamma, X^v \colon \sigma \vdash \Phi \colon \tau
         \rrbracket (\eta[X \mapsto \mathcal{X}])\\
         \llbracket \Gamma \vdash \Phi \Psi \colon \tau \rrbracket(\eta) =\text{ }& \llbracket \Gamma \vdash \Phi \colon \sigma
-        ^\nu \rightarrow \tau \rrbracket (\eta)(\llbracket \Gamma \vdash \Psi \colon \sigma \rrbracket (\eta)))
+        ^v \rightarrow \tau \rrbracket (\eta)(\llbracket \Gamma \vdash \Psi \colon \sigma \rrbracket (\eta)))
     \end{align*}
 \end{figure}
 
@@ -228,7 +228,7 @@ $\wedge$ and $[a]_i$, nor in $\Psi$ of formula $\Phi\Psi$.
         (\Phi \wedge \Psi, \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \emptyset)}{\bar{Y} \vdash tail
         (\Phi \Psi, \bar{X})} \and
-        \inferrule{\bar{Y} \cup \{Z\} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\lambda Z^\nu \colon \tau . \Phi,
+        \inferrule{\bar{Y} \cup \{Z\} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\lambda Z^v \colon \tau . \Phi,
         \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X} \cup \{Z\})}{\bar{Y} \vdash tail(\mu Z \colon \tau . \Phi,
         \bar{X})}
@@ -243,5 +243,5 @@ The set of all tail-recursive PHFL formulas that have order at most $k$ is denot
     \mu F .\lambda X. (F X) \wedge (F(F X))$ isn't tail-recursive because $F$ occurs on the left side of the logical
     operator $\wedge$. The second reason, why $\Phi_2$ isn't tail-recursive is because $F$ also occurs in $F X$ of
     subformula $F (F X)$. An example of a formula that is tail-recursive is given by:
-    \[(\mu F. \lambda X. (F \langle a \rangle_1 X) \vee (X \wedge \langle a \rangle_2 (F X)) (\mu Y.Y))\]
+    \[(\nu F. \lambda X. (F \langle a \rangle_1 X) \vee (X \wedge \langle a \rangle_2 (F X)) (\mu Y.Y))\]
 \end{example}
