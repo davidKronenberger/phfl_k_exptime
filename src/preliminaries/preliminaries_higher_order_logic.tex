@@ -4,14 +4,14 @@
 %%
 
 
-\subsection{Higher Order Logic}\label{subsec:higherOrderLogic}
+\section{Higher Order Logic}\label{sec:higherOrderLogic}
 
 For comparing the complexity classes with PHFL, we have to detour over combinations of extensions of FO. The first well
 known extension is called Higher Order Logic~\cite{vanBenthem2001higher}, abbreviated with HO. In HO we
 increase the expressive power of FO by allowing relation variables over any order. For this, we have to define the
 types of higher order variables.
 
-\subsubsection{HO Syntax}
+\subsection{HO Syntax}\label{subsec:hoSyntax}
 
 \begin{definition}
     \emph{HO types} are defined inductive as follows:
@@ -24,32 +24,32 @@ types of higher order variables.
 
 The HO type of individuals is $\tau = \odot$. These objects have the \textit{HO order} $1$. The HO type $\tau = (\tau_1,
 \dots, \tau_n)$ is that of relations between objects of HO types $\tau_1, \dots, \tau_n$ and have the HO order $1 + max
-(order(\tau_1), \dots, order(\tau_n))$. For each HO type we have a countable infinite set of variables.
-\textit{Terms} of a HO type are just a variable of that HO type. Furthermore, let $\sigma$ be a signature over an
-relational vocabulary i.e. holding only relations of arbitrary HO types.
+(order(\tau_1), \dots, order(\tau_n))$. For each HO type we have a countably infinite set of variables. Furthermore,
+let $\sigma$ be a signature over an relational vocabulary i.e. holding only relations of arbitrary HO types.
 
 \begin{definition}
     The set of \emph{HO formulas} over $\sigma$ is defined inductively as follows:
     \begin{compactitem}
         \item $X = Y$ is a HO formula over $\sigma$ if $X$ and $Y$ are variables of the same type,
         \item $R(t_1, \dots, t_n)$ is a HO formula over $\sigma$ if $R \in \sigma$ is a relation with arity $n$ and
-        $t_1, \dots, t_n$ are terms of type $\odot$,
+        $t_1, \dots, t_n$ are variables of type $\odot$,
         \item $X(t_1, \dots, t_n)$ is a HO formula over $\sigma$ if $X$ is a variable of type $(\tau_1, \dots, \tau_n)$
-        and $t_i$ is a term over $\tau_i$, with $i \in \{1, \dots, n\}$,
+        and $t_i$ is a variable of type $\tau_i$, with $i \in \{1, \dots, n\}$,
         \item if $\varphi$ and $\psi$ are two HO formulas over $\sigma$, then $\neg\varphi$, $\varphi\wedge\psi$ and $\varphi
         \vee \psi$ are also HO formulas over $\sigma$,
         \item if $\varphi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type $\tau$, then $\exists
-        X:\tau.\varphi$ and
-        $\forall X:\tau.\varphi$ are also HO formulas over $\sigma$.
+        X\colon\tau.\,\varphi$ and
+        $\forall X\colon\tau.\,\varphi$ are also HO formulas over $\sigma$.
     \end{compactitem}
 \end{definition}
 
-\subsubsection{HO Semantics}
+\subsection{HO Semantics}\label{subsec:hoSemantics}
 
 The first step in direction of the semantics of HO formulas is to interpret the universes of the different HO types.
 
 \begin{definition}
-    Let $\mathcal{U}$ be the global universe. The universes of the HO types are defined inductively as follows:
+    Let $\mathcal{A}$ be a $\sigma$-structure over universe $\mathcal{U}$ then the universes of the
+    HO types are defined inductively as follows:
     \begin{compactitem}
         \item $D_\odot(\mathcal{U}) = \mathcal{U}$,
         \item $D_{(\tau_1, \dots, \tau_n)}(\mathcal{U}) = \mathcal{P}(D_{\tau_1}(\mathcal{U}) \times \dots \times
@@ -57,7 +57,7 @@ The first step in direction of the semantics of HO formulas is to interpret the 
     \end{compactitem}
 \end{definition}
 
-Moreover, $\alpha$ is a function that assigns all variables to an element of the appropriated universe, i.e. if
+Moreover, $\alpha$ is a function that assigns all variables to an element of the appropriate universe, i.e. if
 variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
 
 \begin{definition}
@@ -66,21 +66,21 @@ variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
     \begin{compactitem}
         \item $\mathcal{A}, \alpha \models (X = Y)$ iff $\alpha(X) = \alpha(Y)$
         \item $\mathcal{A}, \alpha \models R(t_1, \dots t_n)$ iff $(t_1^{\mathcal{A}}[\alpha], \dots
-        t_n^{\mathcal{A}}[\alpha]) \in R^{\mathcal{A}}$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of term
+        t_n^{\mathcal{A}}[\alpha]) \in R^{\mathcal{A}}$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of variable
         $t_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
         \item $\mathcal{A}, \alpha \models X(t_1, \dots t_n)$ iff $(t_1^{\mathcal{A}}[\alpha], \dots
-        t_n^{\mathcal{A}}[\alpha]) \in \alpha(X)$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of term
+        t_n^{\mathcal{A}}[\alpha]) \in \alpha(X)$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of variable
         $t_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
         \item $\mathcal{A}, \alpha \models \neg\varphi$ iff $\mathcal{A}, \alpha\not\models\varphi$,
         \item $\mathcal{A}, \alpha \models \varphi \wedge \psi$ iff $\mathcal{A}, \alpha\models\varphi$ and $\mathcal{A},
         \alpha\models\psi$,
         \item $\mathcal{A}, \alpha \models \varphi \vee \psi$ iff $\mathcal{A}, \alpha\models\varphi$ or $\mathcal{A},
         \alpha\models\psi$,
-        \item $\mathcal{A}, \alpha \models \exists X:\tau.\varphi$ iff there is an assignment of $X$, $a =
+        \item $\mathcal{A}, \alpha \models \exists X\colon\tau.\,\varphi$ iff there is an assignment of $X$, $a =
         \alpha
         (X) \in D_{\tau}
         (\mathcal{U})$, that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the type of $X$ and
-        \item $\mathcal{A}, \alpha \models \forall X:\tau.\varphi$ iff all possible assignments of $X$, $a =
+        \item $\mathcal{A}, \alpha \models \forall X\colon\tau.\,\varphi$ iff all possible assignments of $X$, $a =
         \alpha(X) \in
         D_{\tau}(\mathcal{U})$ holds that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the
         type of
@@ -91,37 +91,37 @@ variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
 We can categorize the formulas by the order of all occurring variables. With HO$^k$ we mean the set of all those
 formulas whose variables have order less or equal $k$.
 
-\begin{example}
+\begin{example}{\cite{vanBenthem2001higher}}
     \label{example:ho}
-    This example is mainly from~\cite{vanBenthem2001higher}. The following formula $\varphi$ describes Peano's
-    induction axiom. Peano's induction axiom reveals that every set of natural numbers, which contains $0$ and is
-    also closed under immediate successors, contains all natural numbers.
-    \[\varphi = \forall P:(\odot).(P(0) \wedge \forall I:\odot.(P(I) \Rightarrow P(I + 1)) \Rightarrow \forall N
-   :\odot.(P(N)))\]
-    Remark, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
+    The following formula $\varphi$ describes Peano's induction axiom. Peano's induction axiom reveals that every set
+    of natural numbers, which contains $0$ and is also closed under immediate successors, contains all natural numbers.
+    \[\varphi = \forall P\colon(\odot).\,(P(0) \wedge \forall I\colon\odot.\,(P(I) \Rightarrow P(I + 1)) \Rightarrow
+    \forall N \colon\odot.\,(P(N)))\]
+    Note, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
 \end{example}
 
 Another possibility to extend FO is to add operators that are not expressible in FO. Here, we are interested in two
 of them, the least fixpoint and the partial fixpoint operator. Instead of defining the operators for FO we are
 here interested to define this operators for HO. First, we regard the least fixpoint operator.
 
-\subsubsection{HO + LFP}
-\label{chapter:ho_plus_lfp}
+\subsection{HO + LFP}
+\label{subsec:hoPlusLfp}
 
 \begin{definition}
-   Let $F: \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then $X \in \mathscr{P}(A)$
+   Let $F\colon \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then $X \in \mathscr{P}
+   (A)$
    is called a \emph{fixpoint} of $F$ if $F(X) = X$. Let $X$ be a fixpoint of $F$, then $X$ is called the \emph{least
    fixpoint} of $F$, abbreviated as $\mathit{LFP}$($F$), if all other fixpoints $Y$ of $F$ including $X$ i.e. $X
    \subseteq Y$ for all fixpoints $Y$ of $F$.
 \end{definition}
 
-From Knaster-Tarski~\cite{tarski1955lattice} we know that for an operator $F: \mathscr{P}(A) \rightarrow \mathscr{P}
-(A)$ the $\mathit{LFP}$($F$) exists if $F$ is monotone, that means for all $X, Y \subseteq A$ if $X \subseteq Y$ then
-$F(X) \subseteq F(Y)$ holds.
+From Knaster-Tarski~\cite{tarski1955lattice} we know that if an operator $F\colon \mathscr{P}(A) \rightarrow
+\mathscr{P}(A)$ is monotone $\mathit{LFP}$($F$) exists. $F$ is monotone iff for all $X, Y \subseteq A$ if $X
+\subseteq Y$ then $F(X) \subseteq F(Y)$ holds.
 
 \begin{example}
     \label{example:lfp}
-    In remember to Example~\ref{example:ho} we can define Peano's induction axiom also with an least fixpoint
+    In remember to Example~\ref{example:ho} we can define Peano's induction axiom also with a least fixpoint
     operator. This example is mainly from~\cite{hetzl2017higher}. Let $A = \mathbb{Z}$ and $F(X) = X \cup \{0\} \cup
     \{x + 1 \mid x \in X\}$ the operator on $A$. Obviously, $F$ is monotone and fixpoints of $F$ are of the form
     $[-k, \infty[~\subseteq\mathbb{Z}$ for $k \in \mathbb{N}$. The least fixpoint of operator $F$ describes Peano's
@@ -135,10 +135,11 @@ universes.
     Let $\sigma$ an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau_1, \dots, \tau_k)$,
     $\tau_1, \dots \tau_k$ arbitrary HO types, $x_1$ a variable of HO type $\tau_1$, \dots, $x_k$ a
     variable of HO type $\tau_k$ and $\varphi(X, x_1, \dots, x_k)$ a formula over $\sigma$ with free variables $X, x_1,
-    \dots, x_k$. Each $\sigma$-structure $\mathcal{A}$ with universe $\mathcal{U}$ induces the operator
+    \dots, x_k$. For each $\sigma$-structure $\mathcal{A}$ with universe $\mathcal{U}$, $\varphi(A, a_1, \dots, a_k)$
+    induces the operator
     \begin{align*}
-        F_\varphi^\mathcal{A}:\mathscr{P}(D_\tau(\mathcal{U})) &\longrightarrow \mathscr{P}(D_\tau(\mathcal{U}))\\
-        A &\longmapsto F_\varphi^\mathcal{A}(A) := \{(a_1, \dots, a_k) \mid \mathcal{A} \models \varphi(A, a_1,
+        F_\varphi^\mathcal{A}\colon\mathscr{P}(D_\tau(\mathcal{U})) &\longrightarrow \mathscr{P}(D_\tau(\mathcal{U}))\\
+        A &\longmapsto F_\varphi^\mathcal{A}(A) \coloneqq \{(a_1, \dots, a_k) \mid \mathcal{A} \models \varphi(A, a_1,
         \dots, a_k)\}
     \end{align*}
     where $a_1 \in D_{\tau_1}(\mathcal{U})$, \dots, $a_k \in D_{\tau_k}(\mathcal{U})$.
@@ -146,7 +147,7 @@ universes.
 
 To make $F_\varphi^\mathcal{A}$ monotone we have to restrict $\varphi(X, x_1, \dots, x_k)$ in this way that variable
 $X$ occurs in an even number of negations within of $\varphi$~\cite{freireMartins2011descriptive}. Those formulas
-are called \textit{positive in} $X$. With these information we are able to define the least fixpoint operator for HO
+are called \textit{positive in} $X$. With this information we are able to define the least fixpoint operator for HO
 formulas, denoted by HO($\mathit{LFP}$).
 
 \begin{definition}
@@ -176,35 +177,35 @@ order less or equal $k$.
 \begin{example}
     \label{example:ho_lfp}
     This example is mainly from~\cite{freireMartins2011descriptive}. This example describes the reachability of two
-    vertices in a graph. For this, let $\sigma = \{E:(\odot, \odot)\}$ our signature holding a binary relation
+    vertices in a graph. For this, let $\sigma = \{E\colon(\odot, \odot)\}$ our signature holding a binary relation
     representing the edges in a graph. Then
-    \[[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee \exists z:\odot.(E(x_1, z) \wedge X(z, x_2)))](s, t)\]
-    describes the reachability of vertex $t$ from vertex $s$. Remark, that $[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee
-    \exists z:\odot.(E(x_1, z) \wedge X(z, x_2)))]$ describes the transitive closure of $E$. This formula is one of
+    \[[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))](s, t)\]
+    describes the reachability of vertex $t$ from vertex $s$. Note, that $[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee
+    \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))]$ describes the transitive closure of $E$. This formula is one of
     $HO(LFP)^1$.
-    %\[[LFP_{X,x}(\forall X:(\odot).(\forall Y:\odot.(X(Y) \vee Y = 0 \vee \exists Z:\odot.(X(Z) \wedge Y = (Z + 1)))
+    %\[[LFP_{X,x}(\forall X:(\odot).\,(\forall Y:\odot.\,(X(Y) \vee Y = 0 \vee \exists Z:\odot.\,(X(Z) \wedge Y = (Z + 1)))
 %))]\]
 \end{example}
 
 Since the $\mathit{LFP}$ operator restricts formulas to be positive in a variable, the next operator hasn't any
 restriction. That means the number of negations on a variable can be odd or even.
 
-\subsubsection{HO + PFP}
+\subsection{HO + PFP}\label{subsec:ho+Pfp}
 
 Next, we define the partial fixpoint operator for HO formulas like in~\cite{schewe2006fixpoint}. For this, we define
 first the partial fixpoint operator generally.
 
 \begin{definition}
-    Let $F: \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then the \emph{partial
+    Let $F\colon \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then the \emph{partial
     fixpoint} of $F$, abbreviated as $\mathit{PFP}$($F$), is defined as follows:
-    \[\mathit{PFP}(F):=\begin{cases}
-               F^{i+1}(\emptyset)=F^i(\emptyset),  & \text{if such } i >= 0 \text{ exists}\\
+    \[\mathit{PFP}(F)\coloneqq\begin{cases}
+               F^{i+1}(\emptyset)=F^i(\emptyset),  & \text{if such } i \in \{0,\dots,|A|\} \text{ exists}\\
                \emptyset, & \text{otherwise,}
     \end{cases}\]
     where $F^0(\emptyset) = \emptyset$, $F^1(\emptyset) = F(\emptyset)$, $F^2(\emptyset) = F(F(\emptyset))$, and so on.
 \end{definition}
 
-Remark, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. With this knowledge we can define and
+Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. With this knowledge we can define and
 add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
 
 \begin{definition}
@@ -232,8 +233,8 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
 \begin{example}
     This example is mainly from~\cite{abiteboul1995computing}.
     \begin{align*}
-    [PFP_{G, x, y}(&G(x, y) \wedge \neg \exists z:\odot.(G(x, z) \wedge G(z, y)) \vee \\
-    &\exists z:\odot.(\neg G(x, z)\wedge\neg G(z, x) \wedge \neg G(y, z) \wedge G(z, y)))](s, t)
+    [PFP_{G, x, y}(&G(x, y) \wedge \neg \exists z\colon\odot.\,(G(x, z) \wedge G(z, y)) \vee \\
+    &\exists z\colon\odot.\,(\neg G(x, z)\wedge\neg G(z, x) \wedge \neg G(y, z) \wedge G(z, y)))](s, t)
     \end{align*}
     This formula describes a graph $G$, where all edges between $(s, t)$ will be removed, if there is a path of
     length $2$ between $s$ and $t$. If there is a vertex that is not directly connected to $s$ or $t$, an edge $(s,
@@ -242,4 +243,4 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
 \end{example}
 
 In the next chapter we want to compare the here defined HO($\mathit{PFP}$) and HO($\mathit{LFP}$) with PHFL from
-Chapter~\ref{subsec:polyadicHigherOrderFixpointLogic}.
+Chapter~\ref{sec:polyadicHigherOrderFixpointLogic}.

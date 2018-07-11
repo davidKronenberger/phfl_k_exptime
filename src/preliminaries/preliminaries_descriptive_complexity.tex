@@ -3,14 +3,17 @@
 %% 27.04.2018
 %%
 
-\subsection{Descriptive Complexity}\label{subsec:descriptiveComplexity}
+\section{Descriptive Complexity}\label{sec:descriptiveComplexity}
 
 One way to describe complexity classes is with the help of \textit{Turing Machines}~\cite{hopcroft1994einfuehrung}.
+A Turing Machine is a theoretical model moving over a tape with symbols. The reading head of
+those machines is positioned always over one cell of this tape and scans the symbol of the current cell. After scanning
+the symbol, the machine is able to override the symbol and move the reading head one cell left, right or stand still.
+Formally, a Turing Machine is the following.
 
 \begin{definition}
-    The seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ is called a \emph{Deterministic Turing Machine}
-    ($\mathit{DTM}$),
-    where
+    A seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ is called a \emph{Deterministic Turing Machine}
+    ($\mathit{DTM}$), where
     \begin{compactitem}
         \item $Q$ is the finite set of states,
         \item $\Sigma$ is the input alphabet,
@@ -33,20 +36,20 @@ One way to describe complexity classes is with the help of \textit{Turing Machin
 \end{example}
 
 Configurations are snapshots of $\mathit{DTM}$s working on an input word. This includes the working tape, the current
-state and the current position of the reading head. Formally, $C_i^M(w) = \Gamma^m \cdot Q \cdot (\Gamma^n | \Box)$
-is called the $i$-th configuration of a $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ for input word
-$w \in \Sigma^*$, where $m \geq 0$ and $n \geq 1$. In addition, $\Gamma^m$ represents the word of all symbols left
-from the reading head position to the last symbol that is unequal to the blank symbol. $\Gamma^n$ represents the word
-of all symbols right of the reading head position to the last symbol that is unequal to the blank symbol. If there
-are no symbols unequal to the blank symbol right of the reading head position, the blank symbol $\Box$ of $M$ is used
+state and the current position of the reading head. Formally, $C_i^M = \Gamma^m \cdot Q \cdot (\Gamma^n | \Box)$
+is called the $i$-th configuration of a $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$, where $m \geq
+0$ and $n \geq 1$. In addition, $\Gamma^m$ represents the word of all symbols left
+from reading head position to the last symbol that is not equal to the blank symbol. $\Gamma^n$ represents the word
+of all symbols right of the reading head position to the last symbol that is not equal to the blank symbol. If there
+are no symbols not equal to the blank symbol right of the reading head position, the blank symbol $\Box$ of $M$ is used
 instead of $\Gamma^n$.
 
 \begin{definition}
-    Let $C_i^M(w) = \gamma_1^i\dots\gamma_{m_i}^i{q_i}{\gamma_1^i}'\dots{\gamma_{n_i}^i}'$, $C_j^M(w) =
+    Let $C_i^M = \gamma_1^i\dots\gamma_{m_i}^i{q_i}{\gamma_1^i}'\dots{\gamma_{n_i}^i}'$, $C_j^M =
     \gamma_1^j\dots\gamma_{m_j}^j{q_j}{\gamma_1^j}'\dots{\gamma_{n_j}^j}'$ two configurations of a $\mathit{DTM}$ $M = (Q, \Sigma,
     \Gamma,
-    \delta, q_0, \Box, F)$ for input word $w \in \Sigma^*$ with $i \neq j$. $C_j^M(w)$ is the next configuration
-    of $C_i^M(w)$ written as $C_i^M(w) \rightarrow_M C_j^M(w)$ iff $j = i + 1$ and
+    \delta, q_0, \Box, F)$ with $i \neq j$. $C_j^M$ is the next configuration
+    of $C_i^M$ written as $C_i^M \rightarrow_M C_j^M$ iff $j = i + 1$ and
     \begin{compactitem}
         \item $m_j = m_i - 1$, $\gamma_1^j = \gamma_1^i, \dots \gamma_{m_j}^j = \gamma_{m_j}^i$, $n_j = n_i + 1$,
         ${\gamma_1^j}' = \gamma_{m_i}^i, {\gamma_2^j}' = a, {\gamma_3^j}' = {\gamma_2^i}' \dots {\gamma_{n_j}^j}' =
@@ -58,51 +61,56 @@ $\delta (q_i, {\gamma_1^i}') = (q_j, a, R)$ or
 = a, {\gamma_2^j}' = {\gamma_2^i}' \dots {\gamma_{n_j}^j}' = {\gamma_{n_j}^i}'$ and $\delta
         (q_i, {\gamma_1^i}') = (q_j, a, N)$.
     \end{compactitem}
-    $C_i^M(w) \rightarrow_M C_j^M(w)$ is called a \emph{transition} of $M$ on $w$.
+    $C_i^M \rightarrow_M C_j^M$ is called a \emph{transition} of $M$.
 \end{definition}
 
-The start configuration for an input word $w$ of a $\mathit{DTM}$ $M$ is $C_0^M(w) = q_0w$, where $q_0$ is the
-initial state of $M$. A run of $\mathit{DTM}$ $M$ on input word $w$ is a sequence of transitions, $C_0^M(w)
-\rightarrow_M C_1^M(w) \rightarrow_M C_2^M(w) \rightarrow_M \dots \rightarrow_M C_n^M(w)$, where $C_n^M(w)$ includes
-either an accepting or rejecting state. A run is accepting if there is a $n \in \mathcal{N}$ such that $C_0^M(w)
-\rightarrow_M C_1^M(w) \rightarrow_M \dots \rightarrow_M C_n^M(w)$ and $C_n^M(w)$ contains an accepting state of $M$.
+The start configuration for an input word $w$ of a $\mathit{DTM}$ $M$ is $C_0^M = q_0w$, where $q_0$ is the
+initial state of $M$. A run of $\mathit{DTM}$ $M$ on input word $w$ is a sequence of transitions, $C_0^M
+\rightarrow_M C_1^M \rightarrow_M C_2^M \rightarrow_M \dots$. A run of $\mathit{DTM}$ $M$ on input word $w$ is
+terminating, if there is a configuration $C_n^M$ for some $n \in \mathbb{N}$ such that the state of $C_n^M$ is either
+an accepting or rejecting state of $M$. A run is accepting if the state of $C_n^M$ is an accepting state of $M$.
 
 \begin{example}
     \label{example:run_of_dtm}
     Let $M$ be the $\mathit{DTM}$ from Example~\ref{example:dtm} and $w_1 = aaba$, $w_2 = aaaa$ two input words. The
     run of $M$ on $w_1$ is
-    \[C_0^M(w_1) = q_0aaba \rightarrow_M q_0aba \rightarrow_M q_0ba \rightarrow_M q_r\Box ba = C_3^M(w_1)\]
+    \[C_0^M = q_0aaba \rightarrow_M \Box q_0aba \rightarrow_M \Box \Box q_0ba \rightarrow_M \Box q_r\Box ba = C_3^M\]
     and the run of $M$ on $w_2$ is
-    \[C_0^M(w_2) = q_0aaaa \rightarrow_M q_0aaa \rightarrow_M q_0aa \rightarrow_M q_0a \rightarrow_M q_0\Box
-    \rightarrow_M q_f\Box = C_5^M(w_2)\]
+    \begin{align*}
+        C_0^M =\,&q_0aaaa \rightarrow_M \Box q_0aaa \rightarrow_M \Box \Box q_0aa \rightarrow_M \Box \Box \Box q_0 a
+        \rightarrow_M \Box \Box \Box \Box q_0 \Box \\
+        &\rightarrow_M \Box \Box \Box \Box q_f \Box = C_5^M
+    \end{align*}
+    Note, that both runs are terminating runs. The run on input word $w_2$ is an accepting run.
 \end{example}
 
-Remark, that it is possible to define $\mathit{DTM}$s that does not accept or reject any input word. For example, let
+Note, that it is possible to define $\mathit{DTM}$s that do not accept or reject some input words. For example, let
 $M = (\{q_0\}, \{a\}, \{a, \Box\}, \delta, \emptyset, \emptyset)$, where $\delta(q_0, x) = (q_0, x, N)$ with $x \in
 \{a, \Box\}$. $M$ is a DTM where any calculation of an input word $w$ looks as follows $q_0w \rightarrow_M q_0w
 \rightarrow_M \dots$. It never reaches an accepting or rejecting state. In this thesis, we are only interested in
-$\mathit{DTM}$s that reaches an accepting or rejecting state in finite time on any input word.
+$\mathit{DTM}$s that reaches an accepting or rejecting state in finite time on any input word. Those $\mathit{DTM}$s
+we are calling terminating $\mathit{DTM}$s.
 
 Known from computational complexity theory~\cite{papadimitriou1994complexity}, the time and space classes
 can be defined by functions. These functions have as input a natural number that represents the length of an input
-word of a $\mathit{DTM}$. In case of time classes the output of the functions depends on the number of configuration
-steps. In case of space classes the output is based on the longest transition.
+word of a terminating $\mathit{DTM}$. In case of time classes the output of the functions depends on the number of
+configuration steps. In case of space classes the output is based on the longest transition.
 
 \begin{definition}
-    Let $M$ be a $\mathit{DTM}$. $\mathit{TIME}(n):= max(\mathit{STEPS}(w)\mid |w| = n)$, where $\mathit{STEPS}(w)$
-    is the number of transitions while $M$ computes $w$. $\mathit{SPACE}(n) := max(\mathit{STORAGE}(w)\mid |w| = n)$,
-    where $\mathit{STORAGE}(w) := max(length(C_i^M)\mid i\in\{1, \dots m\})$ is the longest configuration while $M$
-    computes $w$ and $C_0^M(w) \rightarrow_M C_1^M(w) \rightarrow_M \dots \rightarrow_M C_m^M(w)$ is a run of $M$ on
-    $w$.
+    Let $M$ be a terminating $\mathit{DTM}$. $\mathit{TIME}(n):= max($ $\mathit{STEPS}(w)\mid |w| = n)$, where
+    $\mathit{STEPS}(w)$ is the number of transitions of $M$ running on input word $w$. $\mathit{SPACE}(n) := max
+    (\mathit{STORAGE}(w)\mid |w| = n)$, where $\mathit{STORAGE}(w) := max(length(C_i^M)\mid i\in\{1, \dots m\})$ is
+    the longest configuration while $M$ runs on input word $w$ and $C_0^M \rightarrow_M C_1^M \rightarrow_M \dots
+    \rightarrow_M C_m^M$ is this run of $M$ on $w$.
 \end{definition}
 
 \begin{example}
     \label{example:time_and_space}
-    Let $w_1$ and $w_2$ the two words of Example~\ref{example:run_of_dtm}. It is easy to see, that $\mathit{STEPS}(w_1)
-    = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 5$ and $\mathit{STORAGE}(w_1) = 5$. Moreover, because
-    the maximal number of steps for an input word of length $4$ occurs if the input word contains only symbol $a$, it
-    holds that $\mathit{TIME}(4) = 5$ or more general $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n + 1$ holds,
-    because the input word will only be made smaller.
+    Let $w_1$ and $w_2$ the two words from Example~\ref{example:run_of_dtm}. It is easy to see, that $\mathit{STEPS}
+    (w_1) = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 5$ and $\mathit{STORAGE}(w_1) = 5$. Moreover,
+    because the maximal number of steps for an input word of length $4$ occurs if the input word contains only symbol
+    $a$, it holds that $\mathit{TIME}(4) = 5$ or more general $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n + 1$
+    holds, because the input word will only be made smaller.
 \end{example}
 
 Now, it is possible to group the $\mathit{DTM}$s by functions. Those groups are our computational complexity classes.
@@ -121,18 +129,23 @@ With the help of function $exp$, we are now able to define the complexity classe
 all $k \geq 1$.
 
 \begin{definition}
-    Let $k \in \mathbb{N} \setminus \{0\}$ and $f: \mathbb{N} \rightarrow \mathbb{N}$ be a polynomial function then
-    $k$-EXPTIME $=$ $\mathit{TIME}$($exp(k, f(n))$) and $k$-EXPSPACE $= \mathit{SPACE}(exp(k, f(n)))$.
+    $k$-EXPTIME is the set of all those problems where a $\mathit{DTM}$ $M$, a constant $k \in \mathbb{N}
+    \setminus\{0\}$ and a polynomial function $f: \mathbb{N} \rightarrow \mathbb{N}$ exist such that
+    $M$ can decide a problem in $\mathit{TIME}$($exp(k, f(n))$).
+    $k$-EXPSPACE is the set of all those problems where a $\mathit{DTM}$ $M$, a constant $k \in \mathbb{N}
+    \setminus\{0\}$ and a polynomial function $f: \mathbb{N} \rightarrow \mathbb{N}$ exist such that
+    $M$ can decide a problem in $\mathit{SPACE}$($exp(k, f(n))$).
 \end{definition}
 
-Remark, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the biggest configuration of a
-$\mathit{DTM}$ while computing a word.
+Remember, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the biggest configuration of a
+$\mathit{DTM}$ while run on an input word.
 
 An example for a problem that is in $1$-EXPSPACE is the problem to recognize
-if two regular expressions represent different languages~\cite{meyer1972equivalence}. Two check if a $\mathit{DTM}$
-holds in at most $k$ steps is a problem that lies in $1$-EXPTIME. In~\cite{rintanen2004complexity} is described a
-problem that lies in $2$-EXPTIME. This problem is described as the partially observation of games and the question if
-winning strategies of these games exist.
+if two regular expressions represent different languages~\cite{meyer1972equivalence}. To check if a $\mathit{DTM}$
+holds in at most $k$ steps is a problem that lies in $1$-EXPTIME. In~\cite{bruse2017space} it was proven that the
+model checking problem for $\mathit{HFL}^{k + 1}_{tail}$ is in $k$-EXPSPACE. $\mathit{HFL}^{k + 1}_{tail}$ is the
+class of all tail-recursive $1$-adic PHFL formulas with order at most $k + 1$. See
+Section~\ref{sec:polyadichigherorderfixpointlogic} for further information about PHFL.
 
 From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
 and the complexity classes $k$-EXPTIME and $k$-EXPSPACE follow the queries that we want to investigate.

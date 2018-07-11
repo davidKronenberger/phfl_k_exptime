@@ -3,7 +3,7 @@
 %% 16.05.2018
 %%
 
-\subsection{Bisimulation Invariance}\label{subsec:bisimulationInvariance}
+\section{Bisimulation Invariance}\label{sec:bisimulationInvariance}
 
 First of all, we need the definition of \textit{labeled transition systems}. A labeled transition system is a graph
 with labeled vertices and edges. Formally, it is the following.
@@ -53,19 +53,18 @@ For all $q_1, q_2 \in Q$ and all $a \in \Sigma$ we write $q_1 \overset{a}{\right
 \end{example}
 
 On this systems or rather on the states of the systems it is possible to define relations. The
-following relation describes those states that have the same behaviour. For this, let be $\mathcal{T}_1 = (Q_1,
-\Sigma_1, P_1, \Delta_1, \nu_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma_2, P_2, \Delta_2, \nu_2)$ two LTSs.
+following relation describes those states that have the same behaviour.
 
 \begin{definition}
-    A \emph{bisimulation} is a binary relation $R \subseteq Q_1 \times Q_2$ that fulfills for all $(q_1, q_2) \in R$
+    Let be $\mathcal{T}_1 = (Q_1, \Sigma, P, \Delta_1, \nu_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma, P, \Delta_2, \nu_2)
+    $ two LTS. A \emph{bisimulation} is a binary relation $R \subseteq Q_1 \times Q_2$ that fulfills for all $(q_1,
+    q_2) \in R$
     \begin{compactitem}
         \item $\nu_1 (q_1) = \nu_2 (q_2)$,
-        \item for all $a_1 \in \Sigma_1$ and all $q_1' \in Q_1$, if $q_1 \overset{a_1}{\rightarrow} q_1' \in
-        \Delta_1$, then there is a state $q_2' \in Q_2$ with $a_1 \in \Sigma_2$, $q_2
-        \overset{a_1}{\rightarrow} q_2' \in \Delta_2$ and $(q_1', q_2') \in R$ and
-        \item for all $a_2 \in \Sigma_2$ and all $q_2' \in Q_2$, if $q_2 \overset{a_2}{\rightarrow} q_2' \in
-        \Delta_2$, then there is a state $q_1' \in Q_1$ with $a_2 \in \Sigma_1$, $q_1
-        \overset{a_2}{\rightarrow} q_1' \in \Delta_1$ and $(q_1', q_2') \in R$.
+        \item for all $a \in \Sigma$ and all $q_1' \in Q_1$, if $q_1 \overset{a}{\rightarrow} q_1'$, then there
+        is a state $q_2' \in Q_2$, $q_2 \overset{a}{\rightarrow} q_2'$ and $(q_1', q_2') \in R$ and
+        \item for all $a \in \Sigma$ and all $q_2' \in Q_2$, if $q_2 \overset{a}{\rightarrow} q_2'$, then there is a
+        state $q_1' \in Q_1$, $q_1 \overset{a}{\rightarrow} q_1'$ and $(q_1', q_2') \in R$.
     \end{compactitem}
     We call two states $q_1 \in Q_1$, $q_2 \in Q_2$ \emph{bisimilar}, noted as $(\mathcal{T}_1, q_1) \sim
     (\mathcal{T}_2, q_2)$, if there
@@ -74,54 +73,42 @@ following relation describes those states that have the same behaviour. For this
 
 \begin{example}
     \label{example:bisimilar}
-    Let $\mathcal{T}$ be like in Example~\ref{example:lts}. It is true, that $(\mathcal{T}, q_1) \sim
-    (\mathcal{T}, q_5)$ and $(\mathcal{T}, q_2) \sim (\mathcal{T}, q_4)$ because $R = \{(q_1, q_5), (q_2, q_4), (q_3,
-    q_3)\}$ is a bisimulation and includes $(q_1, q_5)$ and $(q_2, q_4)$. It is easy to prove, that $\sim$ is an
-    equivalence relation. So it holds, that $(\mathcal{T}, q_5) \sim (\mathcal{T}, q_1)$ and $(\mathcal{T}, q_4) \sim
-    (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Remark, that $(\mathcal{T}, q_1) \not\sim
-    (\mathcal{T}, q_3)$ because $\nu(q_1) \neq \nu(q_3)$ and $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_2)$ because
-    $q_2$ can make $b$-transitions but $q_1$ has no $b$-transitions.
+    Let $\mathcal{T}$ be like in Example~\ref{example:lts}. In this example, we compare states of the same LTS. It is
+    true, that $(\mathcal{T}, q_1) \sim (\mathcal{T}, q_5)$ and $(\mathcal{T}, q_2) \sim (\mathcal{T}, q_4)$ because
+    $R = \{(q_1, q_5), (q_2, q_4), (q_3, q_3)\}$ is a bisimulation and includes $(q_1, q_5)$ and $(q_2, q_4)$. It is
+    easy to prove, that $\sim$ is an equivalence relation. So it holds, that $(\mathcal{T}, q_5) \sim (\mathcal{T},
+    q_1)$ and $(\mathcal{T}, q_4) \sim (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Note, that
+    $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_3)$ because $\nu(q_1) \neq \nu(q_3)$ and $(\mathcal{T}, q_1)
+    \not\sim (\mathcal{T}, q_2)$ because $q_2$ can make $b$-transitions but $q_1$ has no $b$-transitions.
 \end{example}
 
-Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these properties. A query
-is a mapping that associates a LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ to a subset
-$M^{\mathcal{T}}$ of $Q \times \dots \times Q$. Remark, that any isomorphism $f: \mathcal{T} \simeq
-\mathcal{T}'$ is also an isomorphism of $M^{\mathcal{T}}$ and $M^{{\mathcal{T}}'}$.
+Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these properties.
 
-\begin{definition}
+\begin{definition}{\cite{otto1999bisimulation}}
     \label{definition:query}
-    A function $\mathcal{Q} : \mathscr{T} \rightarrow \mathscr{Q} \times \dots \times \mathscr{Q}, [\mathcal{T}]_\simeq
-    \mapsto M^{\mathcal{T}}$ is called a
-    \emph{$r$-adic query},
-    where
-    \begin{compactitem}
-        \item $\mathscr{T}$ is the set of all equivalence classes of LTS relative to isomorphism,
-        \item $\mathscr{Q}$ is the set of all equivalence classes of sets of states relative to isomorphism,
-        \item $[\mathcal{T}]_\simeq = ([Q^\mathcal{T}]_\simeq, [\Sigma^\mathcal{T}]_\simeq, [P^\mathcal{T}]_\simeq,
-        [\Delta^\mathcal{T}]_\simeq, [\nu^\mathcal{T}]_\simeq) \in \mathscr{T}$ is the equivalence class of LTS
-        $\mathcal{T}$ relative to isomorphism and
-        \item $M^{\mathcal{T}} \in \mathcal{P}([Q^\mathcal{T}]_\simeq \times \dots \times [Q^\mathcal{T}]_\simeq)$ is a
-        set of tuples of states from $[\mathcal{T}]_\simeq$, i.e. $(q_1, \dots, q_r) \in M^{\mathcal{T}}$ with $q_1,
-        \dots, q_r \in [Q^\mathcal{T}]_\simeq$.
-    \end{compactitem}
+    A \emph{$r$-adic query} $\mathcal{Q}$ is a mapping that associates with each LTS $\mathcal{T} = (Q, \Sigma, P,
+    \Delta, \nu)$ a subset $\mathcal{Q}^{\mathcal{T}}$ of $Q \times \dots \times Q$ such that any isomorphism $f:
+    \mathcal{T} \simeq \mathcal{T}'$ is also an isomorphism of the expansions $(\mathcal{T}, \mathcal{Q}^{\mathcal{T}})$
+    and $({\mathcal{T}}', \mathcal{Q}^{{\mathcal{T}}'})$. Note, that $\mathcal{Q}^{\mathcal{T}}$ is a set of $r$-adic
+    tuples of states, i.e. $(q_1, \dots, q_r) \in \mathcal{Q}^{\mathcal{T}}$ with $q_1, \dots, q_r \in Q$.
 \end{definition}
 
 The queries defined in Definition~\ref{definition:query} can be categorized. Here we are interested in two of these
 categories. The first category is called \textit{bisimulation invariant}. This category describes those queries that
 can't distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
 \textit{Kripke structures}. A Kripke structure
-is a transition system. Remark, that transition systems  have only one type of actions. This means the edges of the
+is a transition system. Note, that transition systems  have only one type of actions. This means the edges of the
 graph haven't labels.
 
 \begin{definition}
     \label{definition:bisimulationInvariant}
-    Let $\mathcal{T}$, $\mathcal{T}'$ be two LTSs with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$
-    and $\mathcal{T}' = (Q', \Sigma', P',$ $ \Delta', \nu')$. Moreover, let be $(q_1, \dots, q_r) \in Q \times \dots
-    \times Q$ and $({q_1}', \dots, {q_n}') \in Q' \times \dots \times Q'$.
+    Let $\mathcal{T}$, $\mathcal{T}'$ be two LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$
+    and $\mathcal{T}' = (Q', \Sigma, P,$ $ \Delta', \nu')$. Moreover, let be $(q_1, \dots, q_r) \in Q \times \dots
+    \times Q$ and $({q_1}', \dots, {q_r}') \in Q' \times \dots \times Q'$.
 
     A query $\mathcal{Q}$ is called \emph{bisimulation invariant} if $(\mathcal{T}, q_i) \sim (\mathcal{T}', q_i')$
-    for all $1 \leq i \leq r$ implies that $(q_1, \dots, q_r) \in \mathcal{Q}([\mathcal{T}]_\simeq)$ iff $({q_1}',
-    \dots, {q_n}') \in \mathcal{Q}([\mathcal{T}']_\simeq)$.
+    for all $1 \leq i \leq r$ implies that $(q_1, \dots, q_r) \in \mathcal{Q}^\mathcal{T}$ iff $({q_1}',
+    \dots, {q_r}') \in \mathcal{Q}^{{\mathcal{T}}'}$.
 \end{definition}
 
 The second category of a query tells us which complexity class a query belongs to.
@@ -131,22 +118,22 @@ The second category of a query tells us which complexity class a query belongs t
     Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ and $(q_1, \dots, q_{r}) \in Q \times
     \dots \times Q$.
 
-    A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is an algorithm in $\mathcal{C}$ for
-    deciding on input $(\mathcal{T}, (q_1, \dots, q_{r}))$ whether $(q_1, \dots, q_{r}) \in \mathcal{Q}
-    ([\mathcal{T}]_\simeq)$.
+    A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is a DTM (see
+    Chapter~\ref{sec:descriptiveComplexity}) in $\mathcal{C}$ for deciding on input $(\mathcal{T}, (q_1, \dots,
+    q_{r}))$ whether $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$.
 \end{definition}
 
-\begin{example}
-    This example is mainly from~\cite{lange2014capturing}. Let $\mathcal{Q}$ be a $2$-adic query that maps from a
-    LTS to its set of pairs of states that are bisimilar. As example, let $\mathcal{T}$ the LTS from
-    Example~\ref{example:lts}. The query $\mathcal{Q}$ maps $\mathcal{T}$ to the following set of pairs:
-    \[\mathcal{Q}([\mathcal{T}]_\simeq) = \{(q_1, q_1), \dots, (q_5, q_5), (q_1, q_5), (q_5, q_1), (q_2, q_4), (q_4,
+\begin{example}{\cite{lange2014capturing}}
+    Let $\mathcal{Q}$ be a $2$-adic query that maps a LTS to the set of pairs of states that are bisimilar. As
+    example, let $\mathcal{T}$ the LTS from Example~\ref{example:lts}. The query $\mathcal{Q}$ maps $\mathcal{T}$ to
+    the following set of pairs:
+    \[\mathcal{Q}^\mathcal{T} = \{(q_1, q_1), \dots, (q_5, q_5), (q_1, q_5), (q_5, q_1), (q_2, q_4), (q_4,
     q_2)\}\]
-    Known from~\cite{lange2014capturing}, bisimilarity can be decided in P. So there is an algorithm in P for deciding on
-    input $(\mathcal{T}, (q_1, q_2))$ whether $(q_1, q_2) \in \mathcal{Q}([\mathcal{T}]_\simeq)$, i.e. $\mathcal{Q}$
-    belongs to complexity class P. Furthermore, as mentioned in Example~\ref{example:bisimilar} bisimilarity is an
+    Because bisimilarity can be decided in P, there is an algorithm in P for deciding on input $(\mathcal{T}, (q_1,
+    q_2))$ whether $(q_1, q_2) \in \mathcal{Q}^\mathcal{T}$, i.e. $\mathcal{Q}$ belongs to complexity class P.
+    Furthermore, as mentioned in Example~\ref{example:bisimilar}, $\sim$ is an
     equivalence relation, it follows that $\mathcal{Q}$ is bisimulation invariant.
 \end{example}
 
-The Definition~\ref{definition:queryBelongsToComplexityClass} leads us to the next chapter and the definitions for
-descriptive complexity.
+Definition~\ref{definition:queryBelongsToComplexityClass} leads us to Section~\ref{sec:descriptiveComplexity} and
+the definitions for descriptive complexity.
