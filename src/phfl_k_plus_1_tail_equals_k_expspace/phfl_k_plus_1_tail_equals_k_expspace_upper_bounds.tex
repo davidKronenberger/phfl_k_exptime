@@ -1,0 +1,35 @@
+%%
+%% Author: DKron
+%% 22.07.2018
+%%
+
+\section{Upper Bound of PHFL$^{k}_{tail}$}
+\label{sec:phfl_k_plus_1_tail_equals_k_expspace_upper_bounds}
+To show that the upper bound of PHFL$^{k + 1}_{tail}$ is \expspace{$k$} we can make a reduction from the model
+checking problem of PHFL$^{k}_{tail}$ to the model checking problem of HFL$^k_{tail}$. Remember, that HFL$^k_{tail}$
+is set of tail-recursive $1$-adic PHFL$^k$ formulas. In combination to the following theorem we get the upper bound
+of PHFL$^k_{tail}$.
+
+\begin{theorem}{\cite{bruse2017space}}
+    \label{theorem:hfl_k_plus_1_in_k_expspace}
+    The model checking problem of HFL$^{k + 1}_{tail}$ formulas lies in $k$-EXPSPACW, where $k > 0$.
+\end{theorem}
+
+\begin{lemma}
+    \label{lemma:model_check_phfl_k_tail}
+    The model checking problem of PHFL$^{k}_{tail}$ formulas is reducible to the model checking problem of
+    HFL$^k_{tail}$ formulas.
+\end{lemma}
+
+\begin{proof}
+    This proof is similar to the proof of Lemma~\ref{lemma:model_check_phfl_k}. The tail-recursive fragment of the
+    PHFL$^k$ and HFL$^k$ formulas do not influence the construction of the proof of
+    Lemma~\ref{lemma:model_check_phfl_k}.
+\end{proof}
+The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k_tail} and
+Theorem~\ref{theorem:hfl_k_plus_1_in_k_expspace}.
+
+\begin{theorem}
+    \label{theorem:phfl_k_in_k_exptime}
+    The model checking problem of PHFL$^{k + 1}_{tail}$ formulas lies in $k$-EXPSPACE, where $k > 0$.
+\end{theorem}

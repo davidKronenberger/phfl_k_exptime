@@ -168,13 +168,15 @@ with $\emph{q}, \emph{q'} \in Q^d$, $\emph{q} \overset{a, i}{\rightarrow} \emph{
     \label{figure:phfl-semantics}
     \begin{align*}
         \llbracket \Gamma \vdash \top \colon \bullet \rrbracket(\eta) =\,& Q^d\\
+        \llbracket \Gamma \vdash p_i \colon \bullet \rrbracket(\eta) =\,& \{(q_1, \dots, q_d) \in Q^d \mid p \in \nu
+        (q_i)\}\\
         \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket(\eta) =\,& \{\emph{q} \in Q^d \mid
         \exists \emph{q'} \in \llbracket \Gamma \vdash \Phi \colon \bullet \rrbracket.\,\emph{q}
         \overset{a, i}{\rightarrow} \emph{q'}\}\\
         \llbracket \Gamma \vdash \Phi \vee \Psi \colon \tau \rrbracket(\eta) =\,& \llbracket \Gamma \vdash \Phi
         \colon \tau \rrbracket (\eta) \sqcup_\tau \llbracket \Gamma \vdash \Psi \colon \tau \rrbracket (\eta)\\
         \llbracket \Gamma \vdash \neg \Phi \colon \tau \rrbracket(\eta) =\,& Q^d \setminus \llbracket \Gamma^- \vdash \Phi
-        \colon \bullet \rrbracket (\eta)\\
+        \colon \tau \rrbracket (\eta)\\
         \llbracket \Gamma \vdash \{\emph{i} \leftarrow \emph{j}\} \Phi \colon \bullet \rrbracket(\eta) =\,&
         \{\{\emph{i} \leftarrow \emph{j}\}(\emph{q}) \mid \emph{q} \in \llbracket \Gamma \vdash \Phi \colon \bullet
         \rrbracket (\eta)\}\\
@@ -201,6 +203,7 @@ if $k = max(\{ord(\tau)\mid \Psi \colon \tau$ \textit{is a subformula of} $\Phi\
 order at most $k$ is denoted by PHFL$^k$.
 
 \begin{example}{\cite{lange2014capturing}}
+    \label{example:phfl}
     The following formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes those pairs $
     (q_1, q_2)$ for which $q_1$ has the same traces like $q_2$ and vice versa.
     \[\Phi \Coloneqq (\mu F. \lambda X, Y. X \Leftrightarrow Y \wedge \underset{a \in \Sigma}{\bigwedge} F \langle a

@@ -19,11 +19,13 @@ formulas. In combination to the following theorem we get the upper bound of PHFL
     the input LTS $\mathcal{T}$ and the input formula $\varphi$ of the problem $\mathcal{T}, \emph{s}
     \overset{?}{\models} \varphi$.
     Let $\mathcal{T}_{PHFL} = (Q, \Sigma, P, \Delta_{PHFL}, \nu_{PHFL})$ a LTS and $\emph{s} = (s_1, \dots, s_d)$ a
-    state tuple to check if it is a model of a $d$-adic PHFL$^k$ formula $\varphi_{PHFL}$, i.e. $\mathcal{T}_{PHFL}
-    \overset{?}{\models} \varphi_{PHFL}$. Then $\mathcal{T}_{HFL} = (Q \times \dots \times Q, \Sigma_1 \cup \dots
-    \cup \Sigma_d, P_1 \times \dots \times P_d, \Delta_{HFL}, \nu_{HFL})$, where
+    state tuple to check if it is a model of a $d$-adic PHFL$^k$ formula $\varphi_{PHFL}$, i.e. $\mathcal{T}_{PHFL},
+    \emph{s} \overset{?}{\models} \varphi_{PHFL}$. Then $\mathcal{T}_{HFL} = (Q^d, \Sigma_1 \cup
+    \dots \cup \Sigma_d \cup S_1 \cup \dots \cup S_d, P_1 \times \dots \times P_d, \Delta_{HFL}, \nu_{HFL})$, where
     \begin{compactitem}
         \item $\Sigma_i = \{a_i \mid a \in \Sigma\}$,
+        \item $S_k = \{s_{(i_1, \dots, i_k) \leftarrow (j_1, \dots, j_k)} \mid i_1, \dots, i_k, j_1, \dots, j_k \in
+        \{1, \dots, d\} \wedge i_1 \neq \dots \neq i_k \wedge j_1 \neq \dots \neq j_k\}$,
         \item $P_i = \{p_i \mid p \in P\}$,
         \item $i \in \{1, \dots, d\}$,
         \item $\Delta_{HFL} =$
@@ -52,130 +54,185 @@ formulas. In combination to the following theorem we get the upper bound of PHFL
                   \Delta_{PHFL} \wedge \dots \wedge (q_{i_d}, a_d, q_{j_d}) \in \Delta_{PHFL}
                   \wedge a_1, \dots a_d \in \Sigma\}
         \end{align*} and
-        \item $\nu_{HFL} \colon Q \times \dots \times Q \rightarrow 2^{P_1, \dots, P_d}, $
+        \item $\nu_{HFL} \colon Q^d \rightarrow 2^{P_1, \dots, P_d}, $
 
         $\nu_{HFL}((q_1, \dots, q_d)) = \{p_1 \mid p \in \nu_{PHFL}(q_1)\} \cup \dots \cup \{p_d \mid p \in
         \nu_{PHFL}(q_d)\}$,
     \end{compactitem}
     is the transformed LTS to check if it is a model of the transformed HFL formula $\varphi_{HFL}$, i.e.
-    $\mathcal{T}_{HFL}, \emph{s} \overset{?}{\models} \varphi_{HFL}$. As mentioned above, the PHFL$^k$ formula
-    $\varphi_{PHFL}$ has also be transformed to $\varphi_{HFL}$. For this let $\psi_{PHFL}$ a subformula of
-    $\varphi_{PHFL}$ and $\psi_{HFL}$ a subformula of $\varphi_{HFL}$. All subformulas of the form $\psi_{PHFL} =
-    \langle a \rangle_i \Phi$ for $i \in \{1, \dots, d\}$ will be transformed to $\psi_{HFL} = \langle
-    a_i \rangle \Phi$. Next, we have to transform all subformulas of the form $\psi_{PHFL} = \{\emph{i}
-    \leftarrow \emph{j}\} \Phi$, where $\emph{i} = (i_1, \dots, i_n)$, $\emph{j} = (j_i, \dots, j_n)$ and $n, i_1,
-    \dots, i_n, j_1, \dots, j_n \in \{1, \dots, d\}$, to $\psi_{HFL} = \langle s_{\emph{i} \leftarrow \emph{j}}
-    \rangle \Phi$. All other subormulas have not to be transformed.
+    $\mathcal{T}_{HFL}, \emph{s} \overset{?}{\models} \varphi_{HFL}$.
+
+    The following example shows the transforming of a LTS for the model check of a $2$-adic PHFL$^k$ formula to the
+    LTS for the model check of the transformed HFL$^k$ formula. Let $\mathcal{T}_{PHFL}$ the LTS for the model check
+    $\mathcal{T}_{PHFL}, \emph{s} \overset{?}{\models} \varphi_{PHFL}$ and $\mathcal{T}_{HFL}$ the transformed LTS
+    for the model check $\mathcal{T}_{HFL}, \emph{s}
+    \overset{?}{\models} \varphi_{PHFL}$.
+        \begin{center}
+            \begin{tikzpicture}[]
+                \node [place] (q1) {$1$};
+                \node  (temp1) [left=of q1] {};
+                \node  (label) [left=of q1] {$\mathcal{T}_{PHFL}:$};
+                \node  (temp2) [right=of q1] {};
+                \node [place] (q2) [below=of temp2,label=left:$p$] {$2$}
+                edge [pre] node[left] {a} (q1);
+                \node [place] (q3) [right=of temp2,label=right:$q$] {$3$}
+                edge [pre] node[auto, swap] {b} (q1)
+                edge [pre] node[right] {c} (q2);
+            \end{tikzpicture}
+        \end{center}
+        \begin{center}
+            \begin{tikzpicture}[]
+                \node [place] (q11) {$(1, 1)$};
+                \node (label) [left=of q11] {$\mathcal{T}_{HFL}:$};
+                \node  (temp1) [right=of q11] {};
+                \node [place] (q12) [right=of temp1,label=above:{$p_2$}] {$(1, 2)$}
+                edge [pre] node[above] {$a_2$} (q11);
+                \node  (temp2) [right=of q12] {};
+                \node [place] (q13) [right=of temp2, label=above:{$q_2$}] {$(1, 3)$}
+                edge [pre] node[above] {$c_2$} (q12)
+                edge [pre, bend right=40] node[above] {$b_2$} (q11);
+                \node [place] (q21) [below=of q11,label=left:{$p_1$}] {$(2, 1)$}
+                edge [pre] node[left] {$a_1$} (q11);
+                \node [place] (q22) [below=of q12,label=right:{$p_1, p_2$}] {$(2, 2)$}
+                edge [pre, bend right] node[above] {$a_2, s_{(2)\leftarrow(1)}$} (q21)
+                edge [pre] node[right] {$a_1, s_{(1)\leftarrow(2)}$} (q12);
+                \node [place] (q23) [below=of q13,label=right:{$p_1, q_2$}] {$(2, 3)$}
+                edge [pre, bend right=30] node[below] {$c_2$} (q22)
+                edge [pre] node[right] {$a_1$} (q13)
+                edge [pre, bend left=18] node[right, below] {$b_2$} (q21);
+                \node [place] (q31) [below=of q21,label=below:{$q_1$}] {$(3, 1)$}
+                edge [pre, bend left=80] node[left] {$b_1$} (q11)
+                edge [pre] node[left] {$c_1$} (q21);
+                \node [place] (q32) [below=of q22,label=below:{$q_1, p_2$}] {$(3, 2)$}
+                edge [pre] node[above] {$a_2, s_{(2)\leftarrow(1)}$} (q31)
+                edge [pre, bend left=28] node[left] {$b_1$} (q12)
+                edge [pre, bend right=40] node[right] {$c_1$} (q22);
+                \node [place] (q33) [below=of q23,label=below:{$q_1, q_2$}] {$(3, 3)$}
+                edge [pre] node[above] {$c_2, s_{(2)\leftarrow(1)}$} (q32)
+                edge [pre, bend left=40] node[right] {$c_1, s_{(1)\leftarrow(2)}$} (q23)
+                edge [pre, bend right=80] node[right] {$b_1, s_{(1)\leftarrow(2)}$} (q13)
+                edge [pre, bend left=40] node[right, below] {$b_2, s_{(2)\leftarrow(1)}$} (q31);
+            \end{tikzpicture}
+        \end{center}
+
+    As mentioned above, the PHFL$^k$ formula $\varphi_{PHFL}$ has also be transformed to $\varphi_{HFL}$. We
+    transform $\varphi_{PHFL}$ by induction. For induction base we have three cases.
+    \begin{compactitem}
+        \item $\varphi_{PHFL} = \top$ have to be transformed to $\varphi_{HFL} = \top$,
+
+        \item $\varphi_{PHFL} = X$ to $\varphi_{HFL} = X$ and
+
+        \item $\varphi_{PHFL} = p_i$ to $\varphi_{HFL} = p_i$. Note, that $p_i$ of formula $\varphi_{PHFL}$ is
+        property $p \in P$ of the element with index $i$ in a $d$-tuple and $p_i$ of formula $\varphi_{HFL}$ is
+        property $p_i \in P_i$.
+    \end{compactitem}
+    By induction hypothesis we have for subformulas $\psi_{PHFL}$ and ${\psi'}_{PHFL}$ of $\varphi_{PHFL}$ subformulas
+    $\psi_{HFL}$ and ${\psi'}_{HFL}$ of $\varphi_{HFL}$.
+    \begin{compactitem}
+        \item Then $\varphi_{PHFL} = \langle a \rangle_i \psi_{PHFL}$ will be transformed to $\varphi_{HFL} =
+        \langle a_i \rangle \psi_{HFL}$,
+
+        \item $\varphi_{PHFL} = \psi_{PHFL} \vee {\psi'}_{PHFL}$ to $\varphi_{HFL} =
+        \psi_{HFL} \vee {\psi'}_{HFL}$ and
+
+        \item $\varphi_{PHFL} = \neg \psi_{PHFL}$ to $\varphi_{HFL} = \neg \psi_{HFL}$.
+
+        \item Next, $\varphi_{PHFL} = \{\emph{i} \leftarrow \emph{j}\} \psi_{PHFL}$, where $\emph{i} = (i_1, \dots,
+        i_n)$, $\emph{j} = (j_i, \dots, j_n)$ and $n, i_1, \dots, i_n, j_1, \dots, j_n \in \{1, \dots, d\}$ will be
+        transformed to $\varphi_{HFL} = \langle s_{\emph{i} \leftarrow \emph{j}} \rangle \psi_{HFL}$.
+
+        \item Furthermore, $\varphi_{PHFL} = \mu (X \colon \tau).\,\psi_{PHFL}$ will be transformed to $\varphi_{HFL}
+        = (X \colon \tau).\,\psi_{HFL}$,
+
+        \item $\varphi_{PHFL} = \lambda (X^v \colon \tau).\, \psi_{PHFL}$ to $\varphi_{HFL} = \lambda (X^v \colon \tau).\,
+        \psi_{HFL}$ and
+
+        \item $\varphi_{PHFL} = \psi_{PHFL}{\psi'}_{PHFL}$ to $\varphi_{HFL} = \psi_{HFL}{\psi'}_{HFL}$.
+    \end{compactitem}
+
+    As an example we want to transform the PHFL$^1$ formula of Example~\ref{example:phfl} to a HFL$^1$ formula.
+    \[\varphi_{PHFL} = (\mu F. \lambda X, Y. X \Leftrightarrow Y \wedge \underset{a \in \Sigma}{\bigwedge} F
+    \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top\]
+    will be transformed to
+    \[\varphi_{HFL} = (\mu F. \lambda X, Y. X \Leftrightarrow Y \wedge \underset{a \in \Sigma}{\bigwedge} F \langle a_1
+    \rangle X \langle a_2 \rangle Y)\top \top.\]
 
     Next, we want to show the correctness of this construction. For this, we prove by induction on formula
     $\varphi_{PHFL}$: $\mathcal{T}_{PHFL}, \emph{s} \models \varphi_{PHFL}$ iff $\mathcal{T}_{HFL}, \emph{s} \models
-    \varphi_{HFL}$, where $\emph{s} = (s_1, \dots, s_d)$. The only important induction basis case is that of
-    propositions.
+    \varphi_{HFL}$, where $\emph{s} = (s_1, \dots, s_d)$.
     \begin{compactitem}
-        \item $\varphi_{PHFL} = p_i \colon $
+        \item In case of $\varphi_{PHFL} = \top$, $\mathcal{T}_{PHFL}, \emph{s} \models \varphi_{PHFL}$
+        is always true. The same holds for $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$, where $\varphi_{HFL} =
+        \top$.
 
-        $\mathcal{T}_{PHFL}, \emph{s} \models \varphi_{PHFL}$
+        \item If $\varphi_{PHFL} = p_i$ then $\mathcal{T}_{PHFL},
+        \emph{s} \models \varphi_{PHFL}$ iff $p \in \nu_{PHFL}(s_i)$. By our construction that is exactly the case if
+        $p_i \in \nu_{HFL}(\emph{s})$ which means that $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$ where
+        $\varphi_{HFL} = p_i$.
 
-        iff $p \in \nu_{PHFL}(s_i)$
-
-        iff $p_i \in \nu_{HFL}(\emph{s})$
-
-        iff $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$ where $\varphi_{HFL} = p_i$.
+        \item The last induction base case is $\varphi_{PHFL} = X$. $\mathcal{T}_{PHFL}, \emph{s} \models
+        \varphi_{PHFL}$ exactly then if $\emph{s} \in \eta{X}$, where $\eta$ is a variable mapping. The same variable
+        mapping is used for the HFL$^k$ formula which means that $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$.
     \end{compactitem}
-
-    The following cases are the only non-trivial one to show the correctness. The other cases do not use the
-    modal operators and are handled as in PHFL$^k$.
-
+    By induction hypothesis we have for subformulas $\psi_{PHFL}$ and ${\psi'}_{PHFL}$ of $\varphi_{PHFL}$
+    subformulas $\psi_{HFL}$ and ${\psi'}_{HFL}$ of $\varphi_{HFL}$ such that $\mathcal{T}_{PHFL}, \emph{s} \models
+    \psi_{PHFL}$ iff $\mathcal{T}_{HFL}, \emph{s} \models \psi_{HFL}$ and $\mathcal{T}_{PHFL}, \emph{s} \models
+    {\psi'}_{PHFL}$ iff $\mathcal{T}_{HFL}, \emph{s} \models {\psi'}_{HFL}$.
     \begin{compactitem}
-        \item $\varphi_{PHFL} = \langle a \rangle_i \psi_{PHFL} \colon $
+        \item Let $\varphi_{PHFL} = \langle a \rangle_i \psi_{PHFL}$, then $\mathcal{T}_{PHFL}, \emph{s} \models
+        \varphi_{PHFL}$ iff there exists $\emph{s'}$ with $\emph{s} \overset{a, i}{\rightarrow} \emph{s'}$ and
+        $\mathcal{T}_{PHFL}, \emph{s'} \models \psi_{PHFL}$. This is exactly the case if there exists $\emph{s'}$
+        with $(s_i, a, {s_i}') \in \Delta_{PHFL}$ and $\mathcal{T}_{PHFL}, \emph{s'} \models \psi_{PHFL}$ if there
+        exists $\emph{s'}$ with $(\emph{s}, a_i, \emph{s'}) \in \Delta_{HFL}$ and by induction hypothesis it exists
+        $\psi_{HFL}$ such that $\mathcal{T}_{HFL}, \emph{s'} \models \psi_{HFL}$. This is the definition of the
+        semantics of HFL formula $\varphi_{HFL} = \langle a_i \rangle \psi_{HFL}$ which means that
+        $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$.
 
-        $\mathcal{T}_{PHFL}, \emph{s} \models \varphi_{PHFL}$
+        \item If $\varphi_{PHFL} = \psi_{PHFL} \vee {\psi'}_{PHFL}$ then $\mathcal{T}_{PHFL}, \emph{s} \models
+        \varphi_{PHFL}$ iff $\mathcal{T}_{PHFL}, \emph{s} \models \psi_{PHFL}$ or $\mathcal{T}_{PHFL}, \emph{s}
+        \models {\psi'}_{PHFL}$. By induction hypothesis it holds that $\mathcal{T}_{HFL}, \emph{s} \models
+        \psi_{HFL}$ or $\mathcal{T}_{HFL}, \emph{s} \models {\psi'}_{HFL}$ what is exactly the same as
+        $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$, where $\varphi_{HFL} = \psi_{HFL} \vee {\psi'}_{HFL}$.
 
-        iff $\exists \emph{s'}$ with $\emph{s} \overset{a, i}{\rightarrow} \emph{s'}$ and $\mathcal{T}_{PHFL}, \emph{s'}
-        \models \psi_{PHFL}$
+        \item If $\varphi_{PHFL} = \neg \psi_{PHFL}$ then $\mathcal{T}_{PHFL}, \emph{s} \models \varphi_{PHFL}$ iff
+        $\mathcal{T}_{PHFL}, \emph{s} \not\models \psi_{PHFL}$. By induction hypothesis it holds that
+        $\mathcal{T}_{HFL}, \emph{s} \not\models \psi_{HFL}$ what is exactly the same as $\mathcal{T}_{HFL}, \emph{s}
+        \models \varphi_{HFL}$, where $\varphi_{HFL} = \neg\psi_{HFL}$.
 
-        iff $\exists \emph{s'}$ with $(s_i, a, {s_i}') \in \Delta_{PHFL}$ and $\mathcal{T}_{PHFL}, \emph{s'}
-        \models \psi_{PHFL}$
+        \item If $\varphi_{PHFL} = \{(i_1, \dots, i_n) \leftarrow (j_1, \dots, j_n)\} \psi_{PHFL}$ then
+        $\mathcal{T}_{PHFL}, \emph{s} \models \varphi_{PHFL}$ iff there exists $\emph{s'}$ and $a_1,
+        \dots, a_n \in \Sigma$ with $(s_{i_1}, a_1, {s'}_{j_1}), \dots, (s_{i_n}, a_n, {s'}_{j_n})$ $ \in \Delta_{PHFL}$
+        and $\mathcal{T}_{PHFL}, \emph{s'} \models \psi_{PHFL}$ by construction it exists $\emph{s'}$ with $
+        (\emph{s}, s_{(i_1, \dots, i_n) \leftarrow (j_1, \dots, j_n)}, \emph{s'}) \in \Delta_{HFL}$ and by induction
+        hypothesis it exists $\psi_{HFL}$ such that $\mathcal{T}_{HFL}, \emph{s'} \models \psi_{HFL}$. That is
+        exactly the case if $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$ where $\varphi_{HFL} = \langle s_{
+        (i_1, \dots, i_n) \leftarrow (j_1, \dots, j_n)} \rangle \psi_{HFL}$.
 
-        iff $\exists \emph{s'}$ with $(\emph{s}, a_i, \emph{s'}) \in \Delta_{HFL}$ and by induction hypothesis it
-        exists $\psi_{HFL}$ such that $\mathcal{T}_{HFL}, \emph{s'} \models \psi_{HFL}$
+        \item If $\varphi_{PHFL} = \mu(X \colon \tau).\,\psi_{PHFL}$ then $\mathcal{T}_{PHFL}, \emph{s}
+        \models \varphi_{PHFL}$ iff $\mathcal{T}_{PHFL}, \emph{s} \models \psi_{PHFL}$ where for variable mapping
+        $\eta$ holds $\eta[X \mapsto \mathcal{X}]$ and $\mathcal{X} \in \mathcal{T}_{PHFL} \llbracket \tau
+        \rrbracket$ is the least fixpoint. By induction hypothesis it exists $\psi_{HFL}$ such that
+        $\mathcal{T}_{HFL}, \emph{s} \models \psi_{HFL}$ where for variable mapping $\eta$ holds $\eta[X \mapsto
+        \mathcal{X}]$ and $\mathcal{X} \in \mathcal{T}_{HFL} \llbracket \tau \rrbracket$. That is exactly the case if
+        $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$ where $\varphi_{HFL} = \mu(X \colon \tau).\,\psi_{HFL}$.
 
-        iff $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$ where $\varphi_{HFL} = \langle a_i \rangle \psi_{HFL}$.
-        \item $\varphi_{PHFL} = \{(i_1, \dots, i_n) \leftarrow (j_1, \dots, j_n)\} \psi_{PHFL} \colon $
+        \item If $\varphi_{PHFL} = \lambda (X^v \colon \sigma).\,\psi_{PHFL}$ then $\mathcal{T}_{PHFL}, \emph{s}
+        \models \varphi_{PHFL}$ iff it exists a function $F \in \mathcal{T}_{PHFL}\llbracket \sigma^v \rightarrow \tau
+        \rrbracket$ such that $\mathcal{T}_{PHFL}, \emph{s} \models \psi_{PHFL}$ where for variable mapping $\eta$
+        holds $\eta[X \mapsto F]$. This is exactly the case if there exists a function $F \in
+        \mathcal{T}_{HFL}\llbracket \sigma^v \rightarrow \tau \rrbracket$ where for variable mapping $\eta$ holds
+        $\eta[X \mapsto F]$ and by induction hypothesis it exists $\psi_{HFL}$ with $\mathcal{T}_{HFL}, \emph{s}
+        \models \varphi_{HFL}$ where $\varphi_{HFL} = \lambda (X^v \colon \sigma).\,\psi_{HFL}$.
 
-        $\mathcal{T}_{PHFL}, \emph{s} \models \varphi_{PHFL}$
-
-        iff $\exists \emph{s'}$ and $\exists a_1, \dots, a_n \in \Sigma$ with $(s_{i_1}, a_1, {s'}_{j_1}), \dots,
-        (s_{i_n}, a_n, {s'}_{j_n}) \in \Delta_{PHFL}$ and $\mathcal{T}_{PHFL}, \emph{s'} \models \psi_{PHFL}$
-
-        iff $\exists \emph{s'}$ with $(\emph{s}, s_{(i_1, \dots, i_n) \leftarrow (j_1, \dots, j_n)}, \emph{s'}) \in
-        \Delta_{HFL}$ and by induction hypothesis it exists $\psi_{HFL}$ such that $\mathcal{T}_{HFL}, \emph{s'}
-        \models \psi_{HFL}$
-
-        iff $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL}$ where $\varphi_{HFL} = \langle s_{(i_1, \dots, i_n)
-        \leftarrow (j_1, \dots, j_n)} \rangle \psi_{HFL}$.
+        \item If $\varphi_{PHFL} = \psi_{PHFL}{\psi'}_{PHFL}$ then $\mathcal{T}_{PHFL}, \emph{s}
+        \models \varphi_{PHFL}$ iff $\mathcal{T}_{PHFL}, \emph{s} \models \psi_{PHFL}({\psi'}_{PHFL})$. By induction
+        hypothesis it exists $\psi_{HFL}$ and ${\psi'}_{HFL}$ with $\mathcal{T}_{HFL}, \emph{s} \models \psi_{HFL}
+        ({\psi'}_{HFL})$. This is exactly the same as $\mathcal{T}_{HFL}, \emph{s} \models \varphi_{HFL})$
+        where $\varphi_{HFL} = \lambda (X^v \colon \sigma).\,\psi_{HFL}{\psi'}_{HFL}$.
     \end{compactitem}
     This shows the correctness of the construction and so that the model checking problem of PHFL$^k$ is reducable to
     the model checking problem of HFL$^k$.
 \end{proof}
-
-The following example shows the transforming of a LTS for the model check of a $2$-adic PHFL$^k$ formula to the LTS for
-the model check of the transformed HFL$^k$ formula.
-
-\begin{example}
-    \label{example:upper_bounds_phfl_k}
-    Let $\mathcal{T}_{PHFL}$ the LTS for the model check $\mathcal{T}_{PHFL}, \emph{s} \overset{?}{\models}
-    \varphi_{PHFL}$ and $\mathcal{T}_{HFL}$ the, after the proof of Lemma~\ref{lemma:model_check_phfl_k} described
-    transformation
-    process, LTS for the model check $\mathcal{T}_{HFL}, \emph{s} \overset{?}{\models} \varphi_{PHFL}$.
-    \begin{center}
-        \begin{tikzpicture}[]
-            \node [place] (q1) {$1$};
-            \node  (temp1) [left=of q1] {};
-            \node  (label) [left=of q1] {$\mathcal{T}_{PHFL}:$};
-            \node  (temp2) [right=of q1] {};
-            \node [place] (q2) [below=of temp2,label=left:$p$] {$2$}
-            edge [pre] node[left] {a} (q1);
-            \node [place] (q3) [right=of temp2,label=right:$q$] {$3$}
-            edge [pre] node[auto, swap] {b} (q1)
-            edge [pre] node[right] {c} (q2);
-        \end{tikzpicture}
-    \end{center}
-    \begin{center}
-        \begin{tikzpicture}[]
-            \node [place] (q11) {$(1, 1)$};
-            \node (label) [left=of q11] {$\mathcal{T}_{HFL}:$};
-            \node  (temp1) [right=of q11] {};
-            \node [place] (q12) [right=of temp1,label=above:{$p_2$}] {$(1, 2)$}
-            edge [pre] node[above] {$a_2$} (q11);
-            \node  (temp2) [right=of q12] {};
-            \node [place] (q13) [right=of temp2, label=above:{$q_2$}] {$(1, 3)$}
-            edge [pre] node[above] {$c_2$} (q12)
-            edge [pre, bend right=40] node[above] {$b_2$} (q11);
-            \node [place] (q21) [below=of q11,label=left:{$p_1$}] {$(2, 1)$}
-            edge [pre] node[left] {$a_1$} (q11);
-            \node [place] (q22) [below=of q12,label=right:{$p_1, p_2$}] {$(2, 2)$}
-            edge [pre, bend right] node[above] {$a_2, s_{(2)\leftarrow(1)}$} (q21)
-            edge [pre] node[right] {$a_1, s_{(1)\leftarrow(2)}$} (q12);
-            \node [place] (q23) [below=of q13,label=right:{$p_1, q_2$}] {$(2, 3)$}
-            edge [pre, bend right=30] node[below] {$c_2$} (q22)
-            edge [pre] node[right] {$a_1$} (q13)
-            edge [pre, bend left=18] node[right, below] {$b_2$} (q21);
-            \node [place] (q31) [below=of q21,label=below:{$q_1$}] {$(3, 1)$}
-            edge [pre, bend left=80] node[left] {$b_1$} (q11)
-            edge [pre] node[left] {$c_1$} (q21);
-            \node [place] (q32) [below=of q22,label=below:{$q_1, p_2$}] {$(3, 2)$}
-            edge [pre] node[above] {$a_2, s_{(2)\leftarrow(1)}$} (q31)
-            edge [pre, bend left=28] node[left] {$b_1$} (q12)
-            edge [pre, bend right=40] node[right] {$c_1$} (q22);
-            \node [place] (q33) [below=of q23,label=below:{$q_1, q_2$}] {$(3, 3)$}
-            edge [pre] node[above] {$c_2, s_{(2)\leftarrow(1)}$} (q32)
-            edge [pre, bend left=40] node[right] {$c_1, s_{(1)\leftarrow(2)}$} (q23)
-            edge [pre, bend right=80] node[right] {$b_1, s_{(1)\leftarrow(2)}$} (q13)
-            edge [pre, bend left=40] node[right, below] {$b_2, s_{(2)\leftarrow(1)}$} (q31);
-        \end{tikzpicture}
-    \end{center}
-\end{example}
 
 The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k} and Theorem~\ref{theorem:hfl_k_in_k_exptime}.
 
