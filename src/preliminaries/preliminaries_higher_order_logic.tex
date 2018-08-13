@@ -31,10 +31,10 @@ let $\sigma$ be a signature over an relational vocabulary i.e. holding only rela
     The set of \emph{HO formulas} over $\sigma$ is defined inductively as follows:
     \begin{compactitem}
         \item $X = Y$ is a HO formula over $\sigma$ if $X$ and $Y$ are variables of the same type,
-        \item $R(t_1, \dots, t_n)$ is a HO formula over $\sigma$ if $R \in \sigma$ is a relation with arity $n$ and
-        $t_1, \dots, t_n$ are variables of type $\odot$,
-        \item $X(t_1, \dots, t_n)$ is a HO formula over $\sigma$ if $X$ is a variable of type $(\tau_1, \dots, \tau_n)$
-        and $t_i$ is a variable of type $\tau_i$, with $i \in \{1, \dots, n\}$,
+        \item $R(x_1, \dots, x_n)$ is a HO formula over $\sigma$ if $R \in \sigma$ is a relation with arity $n$ and
+        $x_1, \dots, x_n$ are variables of type $\odot$,
+        \item $X(x_1, \dots, x_n)$ is a HO formula over $\sigma$ if $X$ is a variable of type $(\tau_1, \dots, \tau_n)$
+        and $x_i$ is a variable of type $\tau_i$, with $i \in \{1, \dots, n\}$,
         \item if $\varphi$ and $\psi$ are two HO formulas over $\sigma$, then $\neg\varphi$, $\varphi\wedge\psi$ and $\varphi
         \vee \psi$ are also HO formulas over $\sigma$,
         \item if $\varphi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type $\tau$, then $\exists
@@ -65,12 +65,12 @@ variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
     semantics of a HO formula is defined inductively as follows:
     \begin{compactitem}
         \item $\mathcal{A}, \alpha \models (X = Y)$ iff $\alpha(X) = \alpha(Y)$
-        \item $\mathcal{A}, \alpha \models R(t_1, \dots t_n)$ iff $(t_1^{\mathcal{A}}[\alpha], \dots
-        t_n^{\mathcal{A}}[\alpha]) \in R^{\mathcal{A}}$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of variable
-        $t_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
-        \item $\mathcal{A}, \alpha \models X(t_1, \dots t_n)$ iff $(t_1^{\mathcal{A}}[\alpha], \dots
-        t_n^{\mathcal{A}}[\alpha]) \in \alpha(X)$, where $t_i^{\mathcal{A}}[\alpha]$ is the value of variable
-        $t_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
+        \item $\mathcal{A}, \alpha \models R(x_1, \dots x_n)$ iff $(x_1^{\mathcal{A}}[\alpha], \dots
+        x_n^{\mathcal{A}}[\alpha]) \in R^{\mathcal{A}}$, where $x_i^{\mathcal{A}}[\alpha]$ is the value of variable
+        $x_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
+        \item $\mathcal{A}, \alpha \models X(x_1, \dots x_n)$ iff $(x_1^{\mathcal{A}}[\alpha], \dots
+        x_n^{\mathcal{A}}[\alpha]) \in \alpha(X)$, where $x_i^{\mathcal{A}}[\alpha]$ is the value of variable
+        $x_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
         \item $\mathcal{A}, \alpha \models \neg\varphi$ iff $\mathcal{A}, \alpha\not\models\varphi$,
         \item $\mathcal{A}, \alpha \models \varphi \wedge \psi$ iff $\mathcal{A}, \alpha\models\varphi$ and $\mathcal{A},
         \alpha\models\psi$,
@@ -174,9 +174,8 @@ order less or equal $k$.
     \end{compactitem}
 \end{definition}
 
-\begin{example}
-    \label{example:ho_lfp}
-    This example is mainly from~\cite{freireMartins2011descriptive}. This example describes the reachability of two
+\begin{example}{\cite{freireMartins2011descriptive}}
+    \label{example:ho_lfp} This example describes the reachability of two
     vertices in a graph. For this, let $\sigma = \{E\colon(\odot, \odot)\}$ our signature holding a binary relation
     representing the edges in a graph. Then
     \[[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))](s, t)\]

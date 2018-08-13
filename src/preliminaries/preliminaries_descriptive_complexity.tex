@@ -5,7 +5,17 @@
 
 \section{Descriptive Complexity}\label{sec:descriptiveComplexity}
 
-One way to describe complexity classes is with the help of \textit{Turing Machines}~\cite{hopcroft1994einfuehrung}.
+The main aim of \emph{descriptive complexity} is to describe the complexity classes known from
+computational complexity theory with logics. While computational complexity theory distinguishes time and space
+classes, descriptive complexity theory characterizes classes with logical resources instead of a reference to
+automaton models or space and time bounds.
+
+The first known result in the area of descriptive complexity comes from Fagin. In 1974 he showed that the complexity
+class NP coincides with $\exists SO$~\cite{fagin1974generalized}, the existential fragment of second-order logic.
+
+To describe complexity classes with logics we have to explain what complexity classes are from the viewpoint of
+computational complexity theory. One way to describe complexity classes is with the help of \textit{Turing
+Machines}~\cite{hopcroft1994einfuehrung}.
 A Turing Machine is a theoretical model moving over a tape with symbols. The reading head of
 those machines is positioned always over one cell of this tape and scans the symbol of the current cell. After scanning
 the symbol, the machine is able to override the symbol and move the reading head one cell left, right or stand still.
@@ -128,6 +138,7 @@ With the help of function $exp$, we are now able to define the complexity classe
 all $k \geq 1$.
 
 \begin{definition}
+    \label{definition:k_exptime_and_k_expspace}
     $k$-EXPTIME is the set of all those problems where a $\mathit{DTM}$ $M$, a constant $k \in \mathbb{N}
     \setminus\{0\}$ and a polynomial function $f: \mathbb{N} \rightarrow \mathbb{N}$ exist such that
     $M$ can decide a problem in $\mathit{TIME}$($exp(k, f(n))$).
@@ -145,25 +156,3 @@ holds in at most $k$ steps is a problem that lies in $1$-EXPTIME. In~\cite{bruse
 model checking problem for $\mathit{HFL}^{k + 1}_{tail}$ is in $k$-EXPSPACE. $\mathit{HFL}^{k + 1}_{tail}$ is the
 class of all tail-recursive $1$-adic PHFL formulas with order at most $k + 1$. See
 Section~\ref{sec:polyadichigherorderfixpointlogic} for further information about PHFL.
-
-From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
-and the complexity classes $k$-EXPTIME and $k$-EXPSPACE follow the queries that we want to investigate.
-
-\begin{definition}
-    \label{definition:kExptimekExpspace}
-    \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
-    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 1$.
-\end{definition}
-
-The main aim of \emph{descriptive complexity} is to describe the complexity classes known from
-computational complexity theory with logics. While computational complexity theory distinguishes time and space
-classes, descriptive complexity theory characterizes classes with logical resources instead of a reference to
-automaton models or space and time bounds.
-
-The first known result in the area of descriptive complexity comes from Fagin. In 1974 he showed that the complexity
-class NP coincides with $\exists SO$~\cite{fagin1974generalized}, the existential fragment of second-order logic.
-
-In the next chapter we introduce the polyadic higher order fixed point logic and a restriction called tail-recursive
-devised by Lange and Lozes in~\cite{lange2014capturing}. We want to compare the in
-Definition~\ref{definition:kExptimekExpspace} presented queries with these logics to make a further contribution in
-the theory of descriptive complexity.

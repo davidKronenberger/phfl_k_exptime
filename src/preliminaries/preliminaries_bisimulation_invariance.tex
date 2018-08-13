@@ -10,14 +10,14 @@ with labeled vertices and edges. Formally, it is the following.
 
 \begin{definition}
     \label{definition:lts}
-    A quintuple $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ is called a \emph{labeled transition system} (\emph{LTS}),
+    A quintuple $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ is called a \emph{labeled transition system} (\emph{LTS}),
     where
     \begin{compactitem}
         \item $Q$ is a set of states,
         \item $\Sigma$ is a finite set of actions,
         \item $P$ is a finite set of propositions,
         \item $\Delta \subseteq Q \times \Sigma \times Q$ is the labeled transition relation and
-        \item $\nu: Q \rightarrow 2^P$ is a function that maps each state to a set of propositions.
+        \item $v: Q \rightarrow 2^P$ is a function that maps each state to a set of propositions.
     \end{compactitem}
 \end{definition}
 
@@ -27,10 +27,10 @@ For all $q_1, q_2 \in Q$ and all $a \in \Sigma$ we write $q_1 \overset{a}{\right
 \begin{example}
     \label{example:lts}
     As mentioned above, LTS can be seen as a graph with labeled vertices and edges. For example, a LTS is
-    $\mathcal{T} = (\{q_1, q_2, q_3, q_4, q_5\}, \{a, b\}, \{p_1,$ $ p_2\}, \Delta, \nu)$, where $\Delta = \{(q_1, a,
+    $\mathcal{T} = (\{q_1, q_2, q_3, q_4, q_5\}, \{a, b\}, \{p_1,$ $ p_2\}, \Delta, v)$, where $\Delta = \{(q_1, a,
 q_2)
     , (q_2, a, q_3), (q_2, b, q_3), (q_2, b, q_5), (q_5, a, q_4), (q_4, $ $a, q_3), (q_4, b, q_3), (q_4, b, q_1)\}$,
-    $\nu(q_1) = \nu(q_2) = \nu(q_4) = \nu(q_5) = \{p_1\}$ and $\nu(q_3) = \emptyset$. $\mathcal{T}$ can be visualized as
+    $v(q_1) = v(q_2) = v(q_4) = v(q_5) = \{p_1\}$ and $v(q_3) = \emptyset$. $\mathcal{T}$ can be visualized as
     follows.
 \begin{center}
     \begin{tikzpicture}[]
@@ -39,12 +39,12 @@ q_2)
                   \node  (label) [left=of temp] {$\mathcal{T}:$};
                   \node [place] (q3) [below=of q1] {$q_3$};
                   \node [place] (q5) [below=of q3,label=above:$p_1$] {$q_5$};
-                  \node [place] (q2) [left=of q3,label=left:$p_1$] {$q_2$}
+                  \node [place] (q2) [left=of q3,label=left:$p_2$] {$q_2$}
                   edge [post,bend left] node[above] {a} (q3)
                   edge [post,bend right] node[above] {b} (q3)
                   edge [post,bend right] node[left, below] {b} (q5)
                   edge [pre,bend left] node[left, above] {a} (q1);
-                  \node [place] (q4) [right=of q3,label=right:$p_1$] {$q_4$}
+                  \node [place] (q4) [right=of q3,label=right:$p_2$] {$q_4$}
                   edge [post,bend left] node[auto, swap] {b} (q3)
                   edge [post,bend right] node[auto, swap] {a} (q3)
                   edge [pre,bend left] node[right, below] {a} (q5)
@@ -57,11 +57,11 @@ On this systems or rather on the states of the systems it is possible to define 
 following relation describes those states that have the same behaviour.
 
 \begin{definition}
-    Let be $\mathcal{T}_1 = (Q_1, \Sigma, P, \Delta_1, \nu_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma, P, \Delta_2, \nu_2)
+    Let be $\mathcal{T}_1 = (Q_1, \Sigma, P, \Delta_1, v_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma, P, \Delta_2, v_2)
     $ two LTS. A \emph{bisimulation} is a binary relation $R \subseteq Q_1 \times Q_2$ that fulfills for all $(q_1,
     q_2) \in R$
     \begin{compactitem}
-        \item $\nu_1 (q_1) = \nu_2 (q_2)$,
+        \item $v_1 (q_1) = v_2 (q_2)$,
         \item for all $a \in \Sigma$ and all $q_1' \in Q_1$, if $q_1 \overset{a}{\rightarrow} q_1'$, then there
         is a state $q_2' \in Q_2$, $q_2 \overset{a}{\rightarrow} q_2'$ and $(q_1', q_2') \in R$ and
         \item for all $a \in \Sigma$ and all $q_2' \in Q_2$, if $q_2 \overset{a}{\rightarrow} q_2'$, then there is a
@@ -79,7 +79,7 @@ following relation describes those states that have the same behaviour.
     $R = \{(q_1, q_5), (q_2, q_4), (q_3, q_3)\}$ is a bisimulation and includes $(q_1, q_5)$ and $(q_2, q_4)$. It is
     easy to prove, that $\sim$ is an equivalence relation. So it holds, that $(\mathcal{T}, q_5) \sim (\mathcal{T},
     q_1)$ and $(\mathcal{T}, q_4) \sim (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Note, that
-    $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_3)$ because $\nu(q_1) \neq \nu(q_3)$ and $(\mathcal{T}, q_1)
+    $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_3)$ because $v(q_1) \neq v(q_3)$ and $(\mathcal{T}, q_1)
     \not\sim (\mathcal{T}, q_2)$ because $q_2$ can make $b$-transitions but $q_1$ has no $b$-transitions.
 \end{example}
 
@@ -88,10 +88,9 @@ Furthermore, we can describe properties of LTS. \textit{Queries} are one way to 
 \begin{definition}{\cite{otto1999bisimulation}}
     \label{definition:query}
     A \emph{$r$-adic query} $\mathcal{Q}$ is a mapping that associates with each LTS $\mathcal{T} = (Q, \Sigma, P,
-    \Delta, \nu)$ a subset $\mathcal{Q}^{\mathcal{T}}$ of $Q \times \dots \times Q$ such that any isomorphism $f:
+    \Delta, v)$ a subset $\mathcal{Q}^{\mathcal{T}}$ of $Q^r$ such that any isomorphism $f:
     \mathcal{T} \simeq \mathcal{T}'$ is also an isomorphism of the expansions $(\mathcal{T}, \mathcal{Q}^{\mathcal{T}})$
-    and $({\mathcal{T}}', \mathcal{Q}^{{\mathcal{T}}'})$. Note, that $\mathcal{Q}^{\mathcal{T}}$ is a set of $r$-adic
-    tuples of states, i.e. $(q_1, \dots, q_r) \in \mathcal{Q}^{\mathcal{T}}$ with $q_1, \dots, q_r \in Q$.
+    and $({\mathcal{T}}', \mathcal{Q}^{{\mathcal{T}}'})$.
 \end{definition}
 
 The queries defined in Definition~\ref{definition:query} can be categorized. Here we are interested in two of these
@@ -103,9 +102,9 @@ graph haven't labels.
 
 \begin{definition}
     \label{definition:bisimulationInvariant}
-    Let $\mathcal{T}$, $\mathcal{T}'$ be two LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$
-    and $\mathcal{T}' = (Q', \Sigma, P,$ $ \Delta', \nu')$. Moreover, let be $(q_1, \dots, q_r) \in Q \times \dots
-    \times Q$ and $({q_1}', \dots, {q_r}') \in Q' \times \dots \times Q'$.
+    Let $\mathcal{T}$, $\mathcal{T}'$ be two LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$
+    and $\mathcal{T}' = (Q', \Sigma, P,$ $ \Delta', v')$. Moreover, let be $(q_1, \dots, q_r) \in Q^r$ and $({q_1}',
+    \dots, {q_r}') \in {Q^r}'$.
 
     A query $\mathcal{Q}$ is called \emph{bisimulation invariant} if $(\mathcal{T}, q_i) \sim (\mathcal{T}', q_i')$
     for all $1 \leq i \leq r$ implies that $(q_1, \dots, q_r) \in \mathcal{Q}^\mathcal{T}$ iff $({q_1}',
@@ -116,9 +115,7 @@ The second category of a query tells us which complexity class a query belongs t
 
 \begin{definition}
     \label{definition:queryBelongsToComplexityClass}
-    Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, \nu)$ and $(q_1, \dots, q_{r}) \in Q \times
-    \dots \times Q$.
-
+    Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ and $(q_1, \dots, q_{r}) \in Q^r$.
     A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is a DTM (see
     Chapter~\ref{sec:descriptiveComplexity}) in $\mathcal{C}$ for deciding on input $(\mathcal{T}, (q_1, \dots,
     q_{r}))$ whether $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$.
@@ -136,5 +133,17 @@ The second category of a query tells us which complexity class a query belongs t
     equivalence relation, it follows that $\mathcal{Q}$ is bisimulation invariant.
 \end{example}
 
-Definition~\ref{definition:queryBelongsToComplexityClass} leads us to Section~\ref{sec:descriptiveComplexity} and
-the definitions for descriptive complexity.
+From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
+and the complexity classes $k$-EXPTIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace} follow
+the queries that we want to investigate.
+
+\begin{definition}
+    \label{definition:kExptimekExpspace}
+    \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
+    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 1$.
+\end{definition}
+
+In the next chapter we introduce the polyadic higher order fixed point logic and a restriction called tail-recursive
+devised by Lange and Lozes in~\cite{lange2014capturing}. We want to compare the in
+Definition~\ref{definition:kExptimekExpspace} presented queries with these logics to make a further contribution in
+the theory of descriptive complexity.
