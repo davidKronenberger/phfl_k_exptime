@@ -14,32 +14,27 @@ types of higher order variables.
 \subsection{HO Syntax}\label{subsec:hoSyntax}
 
 \begin{definition}
-    \emph{HO types} are defined inductive as follows:
-    \begin{compactitem}
-        \item $\tau = \odot$ is a HO type,
-        \item $\tau = (\tau_1, \dots, \tau_n)$ is a HO type, if $\tau_1, \dots, \tau_n$ are
-        HO types.
-    \end{compactitem}
+    \emph{HO types} are given by the grammar
+    \[ \tau \Coloneqq \odot \mid (\tau, \dots, \tau) \]
 \end{definition}
 
-The HO type of individuals is $\tau = \odot$. These objects have the \textit{HO order} $1$. The HO type $\tau = (\tau_1,
-\dots, \tau_n)$ is that of relations between objects of HO types $\tau_1, \dots, \tau_n$ and have the HO order $1 + max
-(order(\tau_1), \dots, order(\tau_n))$. For each HO type we have a countably infinite set of variables. Furthermore,
-let $\sigma$ be a signature over an relational vocabulary i.e. holding only relations of arbitrary HO types.
+The HO type of individuals is $\tau = \odot$. These objects have the \textit{HO order} $1$. The HO type $\tau = (\tau',
+\dots, \tau')$ is that of relations between objects of HO type $\tau'$ and have the HO order $1 + order(\tau')$. For
+each HO type we have a countably infinite set of variables. Furthermore, let $\sigma$ be a signature over an
+relational vocabulary i.e. holding only relations of arbitrary HO types.
 
 \begin{definition}
-    The set of \emph{HO formulas} over $\sigma$ is defined inductively as follows:
+    Let $\mathcal{V} = \{X_1, X_2, \dots \}$ a countable infinite set of variables $\sigma$ a signature, then \emph{HO
+    formulas} $\Phi, \Psi, \dots$ over $\sigma$ are defined by the grammar
+    \[\Phi, \Psi \Coloneqq R(x_1, \dots, x_n) \mid Y(y_1, \dots, y_n) \mid \neg \Phi \mid \Phi \vee \Psi \mid \exists
+    (X \colon \tau).\,\Phi\]
+    where
     \begin{compactitem}
-        \item $X = Y$ is a HO formula over $\sigma$ if $X$ and $Y$ are variables of the same type,
-        \item $R(x_1, \dots, x_n)$ is a HO formula over $\sigma$ if $R \in \sigma$ is a relation with arity $n$ and
-        $x_1, \dots, x_n$ are variables of type $\odot$,
-        \item $X(x_1, \dots, x_n)$ is a HO formula over $\sigma$ if $X$ is a variable of type $(\tau_1, \dots, \tau_n)$
-        and $x_i$ is a variable of type $\tau_i$, with $i \in \{1, \dots, n\}$,
-        \item if $\varphi$ and $\psi$ are two HO formulas over $\sigma$, then $\neg\varphi$, $\varphi\wedge\psi$ and $\varphi
-        \vee \psi$ are also HO formulas over $\sigma$,
-        \item if $\varphi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type $\tau$, then $\exists
-        X\colon\tau.\,\varphi$ and
-        $\forall X\colon\tau.\,\varphi$ are also HO formulas over $\sigma$.
+        \item $R \in \sigma$ is a relation of individuals with arity $n$ and $x_1, \dots, x_n \in \mathcal{V}$ of HO
+        type $\odot$,
+        \item $Y \in \mathcal{V}$ of HO type $(\tau', \dots, \tau')$ and $y_1, \dots, y_n \in \mathcal{V}$ of HO type
+        $\tau'$ respectively and
+        \item $X \in \mathcal{V}$ of HO type $\tau$.
     \end{compactitem}
 \end{definition}
 
@@ -52,39 +47,28 @@ The first step in direction of the semantics of HO formulas is to interpret the 
     HO types are defined inductively as follows:
     \begin{compactitem}
         \item $D_\odot(\mathcal{U}) = \mathcal{U}$,
-        \item $D_{(\tau_1, \dots, \tau_n)}(\mathcal{U}) = \mathcal{P}(D_{\tau_1}(\mathcal{U}) \times \dots \times
-        D_{\tau_n}(\mathcal{U}))$
+        \item $D_{(\tau, \dots, \tau)}(\mathcal{U}) = \mathcal{P}(D_{\tau}(\mathcal{U})^n)$
     \end{compactitem}
 \end{definition}
 
 Moreover, $\alpha$ is a function that assigns all variables to an element of the appropriate universe, i.e. if
-variable $X$ is of type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$.
+variable $X$ is of HO type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$. With $\alpha[X \rightarrow \mathcal{X}]$,
+where $\mathcal{X} \in D_\tau(\mathcal{U})$ and $X$ of HO type $\tau$, we mean the variable assignment $\alpha'$,
+where $\alpha'(X) = \mathcal{X}$ and $\alpha'(Y) = \alpha(Y)$ for all $Y \neq X$.
 
 \begin{definition}
     Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
     semantics of a HO formula is defined inductively as follows:
     \begin{compactitem}
-        \item $\mathcal{A}, \alpha \models (X = Y)$ iff $\alpha(X) = \alpha(Y)$
-        \item $\mathcal{A}, \alpha \models R(x_1, \dots x_n)$ iff $(x_1^{\mathcal{A}}[\alpha], \dots
-        x_n^{\mathcal{A}}[\alpha]) \in R^{\mathcal{A}}$, where $x_i^{\mathcal{A}}[\alpha]$ is the value of variable
-        $x_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
-        \item $\mathcal{A}, \alpha \models X(x_1, \dots x_n)$ iff $(x_1^{\mathcal{A}}[\alpha], \dots
-        x_n^{\mathcal{A}}[\alpha]) \in \alpha(X)$, where $x_i^{\mathcal{A}}[\alpha]$ is the value of variable
-        $x_i$ under $\alpha$ in $\mathcal{A}$ defined as in FO,
+        \item $\mathcal{A}, \alpha \models R(x_1, \dots x_n)$ iff $(\alpha(x_1), \dots
+        \alpha(x_n)) \in R^{\mathcal{A}}$,
+        \item $\mathcal{A}, \alpha \models Y(y_1, \dots y_n)$ iff $(\alpha(y_1), \dots
+        \alpha(y_n)) \in \alpha(Y)$,
         \item $\mathcal{A}, \alpha \models \neg\varphi$ iff $\mathcal{A}, \alpha\not\models\varphi$,
-        \item $\mathcal{A}, \alpha \models \varphi \wedge \psi$ iff $\mathcal{A}, \alpha\models\varphi$ and $\mathcal{A},
-        \alpha\models\psi$,
         \item $\mathcal{A}, \alpha \models \varphi \vee \psi$ iff $\mathcal{A}, \alpha\models\varphi$ or $\mathcal{A},
         \alpha\models\psi$,
-        \item $\mathcal{A}, \alpha \models \exists X\colon\tau.\,\varphi$ iff there is an assignment of $X$, $a =
-        \alpha
-        (X) \in D_{\tau}
-        (\mathcal{U})$, that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the type of $X$ and
-        \item $\mathcal{A}, \alpha \models \forall X\colon\tau.\,\varphi$ iff all possible assignments of $X$, $a =
-        \alpha(X) \in
-        D_{\tau}(\mathcal{U})$ holds that $\mathcal{A}, \alpha[X \rightarrow a] \models \varphi$, where $\tau$ is the
-        type of
-        $X$.
+        \item $\mathcal{A}, \alpha \models \exists (X\colon\tau).\,\varphi$ iff there exists $\mathcal{X} \in D_{\tau}
+        (\mathcal{U})$ with $\mathcal{A}, \alpha[X \rightarrow \mathcal{X}] \models \varphi$
         \end{compactitem}
 \end{definition}
 
@@ -132,17 +116,16 @@ Like in~\cite{freireMartins2011descriptive} we want to define special operators 
 universes.
 
 \begin{definition}
-    Let $\sigma$ an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau_1, \dots, \tau_k)$,
-    $\tau_1, \dots \tau_k$ arbitrary HO types, $x_1$ a variable of HO type $\tau_1$, \dots, $x_k$ a
-    variable of HO type $\tau_k$ and $\varphi(X, x_1, \dots, x_k)$ a formula over $\sigma$ with free variables $X, x_1,
-    \dots, x_k$. For each $\sigma$-structure $\mathcal{A}$ with universe $\mathcal{U}$, $\varphi(A, a_1, \dots, a_k)$
-    induces the operator
+    Let $\sigma$ an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau', \dots, \tau')$,
+    $\tau'$ an arbitrary HO type, $x_1, \dots x_n$ variables of HO type $\tau'$ and $\varphi(X, x_1, \dots, x_k)$ a
+    formula over $\sigma$ with free variables $X, x_1, \dots, x_k$. For each $\sigma$-structure $\mathcal{A}$ with
+    universe $\mathcal{U}$, $\varphi(A, a_1, \dots, a_k)$ induces the operator
     \begin{align*}
         F_\varphi^\mathcal{A}\colon\mathscr{P}(D_\tau(\mathcal{U})) &\longrightarrow \mathscr{P}(D_\tau(\mathcal{U}))\\
-        A &\longmapsto F_\varphi^\mathcal{A}(A) \coloneqq \{(a_1, \dots, a_k) \mid \mathcal{A} \models \varphi(A, a_1,
-        \dots, a_k)\}
+        A &\longmapsto F_\varphi^\mathcal{A}(A) \coloneqq \{(a_1, \dots, a_n) \mid \mathcal{A} \models \varphi(A, a_1,
+        \dots, a_n)\}
     \end{align*}
-    where $a_1 \in D_{\tau_1}(\mathcal{U})$, \dots, $a_k \in D_{\tau_k}(\mathcal{U})$.
+    where $a_1 \dots, a_n \in D_{\tau'}(\mathcal{U})$.
 \end{definition}
 
 To make $F_\varphi^\mathcal{A}$ monotone we have to restrict $\varphi(X, x_1, \dots, x_k)$ in this way that variable
@@ -154,11 +137,10 @@ formulas, denoted by HO($\mathit{LFP}$).
     Let $\sigma$ be a signature. The set of \emph{HO($\mathit{LFP}$) formulas} enhances the set of HO formulas with the
     following formation rule:
     \begin{compactitem}
-        \item $[\mathit{LFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$ is a HO
-        ($\mathit{LFP}$) formula over $\sigma$ with free variables $v_1, \dots, v_k$ iff $\varphi(X, x_1, \dots, x_k)
-        $ is a HO($\mathit{LFP}$) formula with free variables $X, x_1, \dots, x_k$, where $\varphi$ is positive in
-        $X$, $X$ has HO type $\tau = (\tau_1, \dots, \tau_k)$, $x_1$ and $v_1$ have HO type $\tau_1$, \dots, $x_k$
-        and $v_k$ have HO type $\tau_k$ and $\tau_1, \dots \tau_k$ are arbitrary.
+        \item $[\mathit{LFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots, v_n)$ is a HO
+        ($\mathit{LFP}$) formula over $\sigma$ with free variables $v_1, \dots, v_n$ iff $\varphi(X, x_1, \dots, x_n)
+        $ is a HO($\mathit{LFP}$) formula with free variables $X, x_1, \dots, x_n$, where $\varphi$ is positive in
+        $X$, $X$ has HO type $\tau = (\tau', \dots, \tau')$, $x_1, v_1, \dots, x_n, v_n$ have HO type $\tau'$.
     \end{compactitem}
 \end{definition}
 
@@ -169,8 +151,8 @@ order less or equal $k$.
     Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
     semantics of a HO($\mathit{LFP}$) formula extends that of HO formulas with the following definition:
     \begin{compactitem}
-        \item $\mathcal{A}, \alpha \models [\mathit{LFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots,
-        v_k)$ iff $(\alpha(v_1), \dots, \alpha(v_k)) \in \mathit{LFP}(F_\varphi^\mathcal{A})$.
+        \item $\mathcal{A}, \alpha \models [\mathit{LFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots,
+        v_n)$ iff $(\alpha(v_1), \dots, \alpha(v_n)) \in \mathit{LFP}(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
 
@@ -178,10 +160,10 @@ order less or equal $k$.
     \label{example:ho_lfp} This example describes the reachability of two
     vertices in a graph. For this, let $\sigma = \{E\colon(\odot, \odot)\}$ our signature holding a binary relation
     representing the edges in a graph. Then
-    \[[LFP_{X, x_1, x_2}(E(x_1, x_2) \vee \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))](s, t)\]
-    describes the reachability of vertex $t$ from vertex $s$. Note, that $[LFP_{X, x_1, x_2}($ $E(x_1, x_2) \vee
-    \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))]$ describes the transitive closure of $E$. This formula is one of
-    $HO(LFP)^1$.
+    \[[LFP\;(E(x_1, x_2) \vee \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))](s, t)\]
+    describes the reachability of vertex $t$ from vertex $s$. Note, that $[LFP\;($ $E(x_1, x_2) \vee
+    \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))]$ describes the transitive closure of $E$. This formula is
+    one of $HO(LFP)^1$.
     %\[[LFP_{X,x}(\forall X:(\odot).\,(\forall Y:\odot.\,(X(Y) \vee Y = 0 \vee \exists Z:\odot.\,(X(Z) \wedge Y = (Z + 1)))
 %))]\]
 \end{example}
@@ -211,10 +193,10 @@ add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
     Let $\sigma$ be a signature. The set of \emph{HO($\mathit{PFP}$) formulas} enhances the set of HO formulas with the
     following formation rule:
     \begin{compactitem}
-        \item $[\mathit{PFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$ is a HO($\mathit{PFP}$) formula over
-        $\sigma$ with free variables $v_1, \dots, v_k$ iff $\varphi(X, x_1, \dots, x_k)$ is a HO($\mathit{PFP}$) formula with
-        free variables $X, x_1, \dots, x_k$, where $X$ has HO type $\tau = (\tau_1, \dots, \tau_k)$, $x_1$ and $v_1$
-        have HO type $\tau_1$, \dots, $x_k$ and $v_k$ have HO type $\tau_k$ and $\tau_1, \dots \tau_k$ are arbitrary.
+        \item $[\mathit{PFP}_{X, x_1, \dots, x_n}\varphi(X, x_1, \dots, x_n)](v_1, \dots, v_n)$ is a HO
+        ($\mathit{PFP}$) formula over $\sigma$ with free variables $v_1, \dots, v_n$ iff $\varphi(X, x_1, \dots, x_n)
+        $ is a HO($\mathit{PFP}$) formula with free variables $X, x_1, \dots, x_n$, where $X$ has HO type $\tau =
+        (\tau', \dots, \tau')$, $x_1, v_1, \dots, x_n, v_n$ have HO type $\tau'$.
     \end{compactitem}
 \end{definition}
 
@@ -224,15 +206,15 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
     Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
     semantics of a HO($\mathit{PFP}$) formula extends that of HO formulas with the following definition:
     \begin{compactitem}
-        \item $\mathcal{A}, \alpha \models [\mathit{PFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots, v_k)$
-        iff $(\alpha(v_1), \dots, \alpha(v_k)) \in \mathit{PFP}(F_\varphi^\mathcal{A})$.
+        \item $\mathcal{A}, \alpha \models [\mathit{PFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots,
+        v_n)$ iff $(\alpha(v_1), \dots, \alpha(v_n)) \in \mathit{PFP}(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
 
 \begin{example}
     This example is mainly from~\cite{abiteboul1995computing}.
     \begin{align*}
-    [PFP_{G, x, y}(&G(x, y) \wedge \neg \exists z\colon\odot.\,(G(x, z) \wedge G(z, y)) \vee \\
+    [PFP\;(&G(x, y) \wedge \neg \exists z\colon\odot.\,(G(x, z) \wedge G(z, y)) \vee \\
     &\exists z\colon\odot.\,(\neg G(x, z)\wedge\neg G(z, x) \wedge \neg G(y, z) \wedge G(z, y)))](s, t)
     \end{align*}
     This formula describes a graph $G$, where all edges between $(s, t)$ will be removed, if there is a path of

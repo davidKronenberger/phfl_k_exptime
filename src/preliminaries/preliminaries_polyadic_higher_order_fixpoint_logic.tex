@@ -1,4 +1,3 @@
-
 %%
 %% Author: Davidov
 %% 16.05.2018
@@ -106,24 +105,26 @@ Next, we want to define the syntax of PHFL formulas.
 \end{figure}
 
 \begin{definition}
-    Let $P$ a set of propositions, $\Sigma$ a set of actions and $\mathcal{V} = \{X_1, \dots, X_n\}$ a finite set
-    of variables, then
+    Let $P$ a set of propositions, $\Sigma$ a set of actions and $\mathcal{V} = \{X_1, X_2, \dots\}$ a countable
+    infinite
+    set of variables, then
     \emph{$d$-adic PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
     \begin{align*}
         \Phi,\Psi\Coloneqq&\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid
         \{\emph{i}
-        \leftarrow \emph{j}\,\} \Phi \mid X_1 \mid \lambda (X_1^v\colon\tau).\Phi \mid \Phi \Psi\mid  \\
-        &\mu (X_1\colon\tau).\Phi
+        \leftarrow \emph{j}\,\} \Phi \mid X \mid \lambda (X^v\colon\tau).\Phi \mid \Phi \Psi\mid  \\
+        &\mu (X\colon\tau).\Phi
     \end{align*}
     where
     \begin{compactitem}
         \item $\emph{i} = (1,\dots, d)$, $\emph{j} = (e(1), \dots, e(d))$ and $e: \{1, \dots, d\} \rightarrow
         \{1, \dots, d\}$,
         \item $i \in \{1, \dots, d\}$
-        \item $v$ is an arbitrary variance,
-        \item $\tau$ is an arbitrary type,
-        \item $p \in P$ is an arbitrary property and
-        \item $a \in \Sigma$ is an arbitrary action.
+        \item $v$ is a variance,
+        \item $\tau$ is a type,
+        \item $p \in P$,
+        \item $a \in \Sigma$ and
+        \item $X \in \mathcal{V}$.
     \end{compactitem}
 \end{definition}
 
@@ -163,16 +164,19 @@ types are obvious, we omit the type on the variables.
         \llbracket \Gamma \vdash \top \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& Q^d\\
         \llbracket \Gamma \vdash p_i \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1, \dots, q_d) \in Q^d \mid p \in v
         (q_i)\}\\
-        \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{\emph{q} \in Q^d \mid
-        \exists \emph{q'} \in \llbracket \Gamma \vdash \Phi \colon \bullet \rrbracket^\eta_\mathcal{T}.\,\emph{q}
-        \overset{a, i}{\rightarrow} \emph{q'}\}\\
+        \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1,
+        \dots, q_d) \in Q^d \mid \text{ it exists } \\& ({q'}_1, \dots, {q'}_d) \in \llbracket \Gamma \vdash \Phi \colon
+\bullet \rrbracket^\eta_\mathcal{T} \text{ such that } \\&q_i \overset{a}{\rightarrow} {q'}_i \text{ and for all } j
+        \neq
+        i \text{ holds } q_j = {q'}_j\}\\
         \llbracket \Gamma \vdash \Phi \vee \Psi \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \llbracket \Gamma \vdash \Phi
         \colon \tau \rrbracket ^\eta_\mathcal{T} \sqcup_\tau \llbracket \Gamma \vdash \Psi \colon \tau \rrbracket ^\eta_\mathcal{T}\\
         \llbracket \Gamma \vdash \neg \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& Q^d \setminus \llbracket
         \Gamma^- \vdash \Phi
         \colon \bullet \rrbracket ^\eta_\mathcal{T}\\
         \llbracket \Gamma \vdash \{\emph{i} \leftarrow \emph{j}\} \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,&
-        \{\{\emph{i} \leftarrow \emph{j}\}(\emph{q}) \mid \emph{q} \in \llbracket \Gamma \vdash \Phi \colon \bullet
+        \{\{(q_1, \dots, q_d) \in Q^d \mid \\ &(q_{j_1}, \dots, q_{j_d}) \in \llbracket \Gamma \vdash \Phi
+        \colon \bullet
         \rrbracket ^\eta_\mathcal{T}\}\\
         \llbracket \Gamma, X \colon \tau \vdash X \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \eta(X)\\
         \llbracket \Gamma \vdash \mu (X \colon \tau).\,\Phi \colon \tau \rrbracket^\eta_\mathcal{T} =\,&
@@ -208,25 +212,39 @@ order at most $k$ is denoted by PHFL$^k$.
 
 \begin{example}{\cite{lange2014capturing}}
     \label{example:phfl_order_2}
-    The following $2$-adic PHFL$^2$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
+    The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
     those pairs $(q_1, q_2)$ for which $q_1$ has the same traces like $q_2$ and vice versa.
     \begin{align*}
-        \Phi = &(\mu (F \colon \bullet_{PHFL}^0 \rightarrow (\bullet_{PHFL}^0 \rightarrow \bullet_{PHFL})).\,
-        \lambda (X \colon \bullet_{PHFL}).\, \lambda (Y \colon \bullet_{PHFL}).\, \\&X \Leftrightarrow Y \wedge
+        \Phi = &(\mu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
+        \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&X \Leftrightarrow Y \wedge
         \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top
     \end{align*}
 \end{example}
 
 \begin{example}{\cite{lange2014capturing}}
     \label{example:phfl_order_0}
-    The following $2$-adic PHFL$^0$ formula $\Phi$ describes bisimilarity i.e. it denotes
+    The following $2$-adic PHFL$^0$ formula $\Phi_\sim$ describes bisimilarity i.e. it denotes
     those pairs $(q_1, q_2)$ such that $q_1 \sim q_2$ and vice versa.
     \begin{align*}
-        \Phi = \nu (X \colon \bullet_{PHFL}).\,
+        \Phi_\sim = \nu (X \colon \bullet).\,
         \underset{a \in \Sigma}{\bigwedge} [a]_1 \langle a \rangle_2 X \wedge [a]_2 \langle a \rangle_1 X \wedge
         \underset{p \in P}{\bigwedge} p_1 \Leftrightarrow p_2
     \end{align*}
 \end{example}
+
+Before looking at the tail-recursive fragment see the following definition of $r$-adic queries that are associated to a
+closed $d$-adic formula $\Phi$.
+
+\begin{definition}
+    Given a dimension $d$ of PHFL, a type judgment $\Gamma$, a variable assignment $\eta$ and a closed $d$-adic PHFL
+    formula $\Phi$ we call a $r$-adic query $\mathcal{Q}^r_\Phi$ associated to $\Phi$ if there is for all LTS
+    $\mathcal{T}$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{T}$ a $(s_1, \dots, s_d) \in
+    \llbracket \Gamma \vdash \Phi \colon \bullet \rrbracket^\eta_\mathcal{T}$ such that $q_i = s_i$ for all $i \in
+    \{1, \dots, min(\{r, d\})\}$.
+\end{definition}
+
+For example $\mathcal{Q}^2_{\Phi_\sim}$ is the same query as in Example~\ref{example:query_bisimulation}, where
+$\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0}.
 
 \subsection{Tail-Recursive PHFL}\label{subsec:tail-recursivePhfl}
 

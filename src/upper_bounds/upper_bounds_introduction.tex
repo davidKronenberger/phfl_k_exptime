@@ -108,26 +108,24 @@ The following example shows the transforming of a LTS by Definition~\ref{definit
             edge [pre, bend left=10] node[auto] {$s_{(2, 1)}$} (q12)
             edge [pre] node[left] {$a_1$} (q11);
             \node [place] (q22) [below=of q12,label=right:{$p_1, p_2$}] {$(2, 2)$}
-            edge [pre, bend right=13] node[below] {$a_2$} (q21)
-            edge [post, bend left=13] node[below] {$s_{(1, 1)}$} (q21)
-            edge [pre, bend left=25] node[right] {$a_1$} (q12)
-            edge [post, bend right=25] node[right] {$s_{(2, 2)}$} (q12);
+            edge [pre] node[below] {$a_2, s_{(1, 1)}$} (q21)
+            edge [pre, bend left=25] node[right] {$a_1, s_{(2, 2)}$} (q12);
             \node [place] (q23) [below=of q13,label=right:{$p_1, q_2$}] {$(2, 3)$}
-            edge [pre, bend left=30] node[below] {$c_2, s_{(1, 1)}$} (q22)
+            edge [pre, bend left=30] node[below] {$c_2$} (q22)
+            edge [post, bend right=30] node[above] {$s_{(1, 1)}$} (q22)
             edge [pre] node[right] {$a_1$} (q13);
             \node [place] (q31) [below=of q21,label=below:{$q_1$}] {$(3, 1)$}
             edge [pre, bend left=80] node[left] {$b_1$} (q11)
             edge [pre] node[left] {$c_1$} (q21);
             \node [place] (q32) [below=of q22,label=below:{$q_1, p_2$}] {$(3, 2)$}
             edge [pre] node[above] {$a_2$} (q31)
-            edge [pre] node[left] {$c_1, s_{(2, 2)}$} (q22);
+            edge [pre, bend left=25] node[left] {$c_1$} (q22)
+            edge [post, bend right=25] node[right] {$s_{(2, 2)}$} (q22);
             \node [place] (q33) [below=of q23,label=below:{$q_1, q_2$}] {$(3, 3)$}
-            edge [pre, bend right=13] node[below] {$c_2$} (q32)
-            edge [post, bend left=13] node[below] {$s_{(1, 1)}$} (q32)
-            edge [pre, bend left=25] node[right] {$c_1$} (q23)
-            edge [post, bend right=25] node[right] {$s_{(2, 2)}$} (q23)
-            edge [post, bend right=100] node[right] {$s_{(2, 2)}$} (q13)
-            edge [post, bend left=40] node[right, below] {$s_{(1, 1)}$} (q31);
+            edge [pre] node[below] {$c_2, s_{(1, 1)}$} (q32)
+            edge [pre] node[right] {$c_1, s_{(2, 2)}$} (q23)
+            edge [pre, bend right=100] node[right] {$s_{(2, 2)}$} (q13)
+            edge [pre, bend left=40] node[right, below] {$s_{(1, 1)}$} (q31);
         \end{tikzpicture}
     \end{center}
 \end{example}
