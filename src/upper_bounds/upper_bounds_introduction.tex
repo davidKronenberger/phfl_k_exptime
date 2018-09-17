@@ -75,15 +75,15 @@ The following example shows the transforming of a LTS by Definition~\ref{definit
     following LTS. Note, that for readability not all edges are drawn in this representation of $\mathcal{T}_d$.
     The edges that are missing are those that uses action $s_{(1, 2)}$ (except $(1, 1)$ to $(1,
     1)$) and the following edges are also not drawn
-    $\{(1, 1) \overset{s_{(1, 1)}}{\rightarrow} (1, 2),
-    (1, 1) \overset{s_{(1, 1)}}{\rightarrow} (1, 3),
-    (3, 1) \overset{s_{(2, 1)}}{\rightarrow} (1, 3),
-    (1, 1) \overset{s_{(2, 2)}}{\rightarrow} (2, 1),
+    $\{(1, 2) \overset{s_{(1, 1)}}{\rightarrow} (1, 1),
+    (1, 3) \overset{s_{(1, 1)}}{\rightarrow} (1, 1),
+    (1, 3) \overset{s_{(2, 1)}}{\rightarrow} (3, 1),
+    (2, 1) \overset{s_{(2, 2)}}{\rightarrow} (1, 1),
     (2, 2) \overset{S_d}{\rightarrow} (2, 2),
-    (3, 2) \overset{s_{(2, 1)}}{\rightarrow} (2, 3),
-    (1, 3) $ $\overset{s_{(2, 1)}}{\rightarrow} (3, 1),
-    (1, 1) \overset{s_{(2, 2)}}{\rightarrow} (3, 1),
     (2, 3) \overset{s_{(2, 1)}}{\rightarrow} (3, 2),
+    (3, 1) $ $\overset{s_{(2, 1)}}{\rightarrow} (1, 3),
+    (3, 1) \overset{s_{(2, 2)}}{\rightarrow} (1, 1),
+    (3, 2) \overset{s_{(2, 1)}}{\rightarrow} (2, 3),
     (3, 3) \overset{S_d}{\rightarrow} (3, 3),
     (1, 2) \overset{b_1}{\rightarrow} (3, 2),
     $ $(1, 3) \overset{b_1}{\rightarrow} (3, 3),
@@ -177,7 +177,7 @@ Now, we are ready to define the function that maps a PHFL$^k$ formula to a HFL$^
         F(\langle a \rangle_i \psi) &= \langle a_i \rangle F(\psi) \\
         F(\psi \vee \psi') &= F(\psi) \vee F(\psi') \\
         F(\neg \psi) &= \neg F(\psi) \\
-        F(\{\emph{i} \leftarrow \emph{j}\,\} \psi) &= \langle s_{(e(1), \dots, e(d))} \rangle F(\psi)  \\
+        F(\{\emph{j}\,\} \psi) &= \langle s_{\emph{j}} \rangle F(\psi)  \\
         F(\mu (X \colon \tau).\,\psi) &= \mu (X \colon T(\tau)).\,F(\psi) \\
         F(\lambda (X^v \colon \tau).\, \psi) &= \lambda (X^v \colon T(\tau)).\, F(\psi) \\
         F(\psi{\psi'}) &= F(\psi)F({\psi'})
@@ -185,7 +185,7 @@ Now, we are ready to define the function that maps a PHFL$^k$ formula to a HFL$^
 \end{definition}
 
 \begin{example}
-    As an example we want to transform the $2$-adic PHFL$^2$ formula of Example~\ref{example:phfl} to a HFL$^2$ formula.
+    As an example we want to transform the $2$-adic PHFL$^2$ formula of Example~\ref{example:phfl_order_2} to a HFL$^2$ formula.
     \begin{align*}
         \varphi = &(\mu (F \colon \bullet_{PHFL}^0 \rightarrow (\bullet_{PHFL}^0 \rightarrow \bullet_{PHFL})).\,
         \lambda (X \colon \bullet_{PHFL}).\, \lambda (Y \colon \bullet_{PHFL}).\, \\&X \Leftrightarrow Y \wedge
@@ -342,24 +342,24 @@ reducible to the semantics of HFL$^k$.
         Because $F(\neg \psi) = \neg F(\psi)$ the first set is exactly the semantics of
         \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
 
-        \item In case of $\varphi = \{(1, \dots, d) \leftarrow (e(1), \dots, e(d))\} \psi$ then
+        \item In case of $\varphi = \{(e(1), \dots, e(d))\}\,\psi$ then
         \begin{align*}
-            \llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = \{&\{(1, \dots, d)
-            \leftarrow (e(1), \dots, e(d))\}(q_1, \dots, q_d) \mid \\&(q_1, \dots, q_d) \in \llbracket \Gamma \vdash
-            \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}\}.
+            \llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = \{&(q_1, \dots,
+            q_d) \in Q^d \mid \\&(q_{e(1)}, \dots, q_{e(d)}) \in \llbracket \Gamma \vdash \Phi
+            \colon \bullet_{PHFL}
+            \rrbracket ^\eta_\mathcal{T}\}.
         \end{align*}
-        By induction hypothesis $({q_1}, \dots, {q_d}) \in \llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ because $({q_1}, \dots, {q_d}) \in \llbracket \Gamma
-        \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}$.
-        Moreover, $\{(1, \dots, d)\leftarrow (e(1), \dots, e(d))\}(q_1, \dots, q_d)$ changes state tuple $(q_1,
-        \dots, q_d)$ to $(q_{e(1)},\dots, q_{e(d)})$. In other words the state tuple $(q_1, \dots, q_d)$ that
-        fulfills $\psi$ will be 'moved' to state tuple $(e(1), \dots, e(d))$. This movement is integrated in the
-        construction of $\mathcal{T}_d$. There is for every endomorphism $e$ a
-        substitution action $s_{(e(1), \dots, e(d))}$ that is used to get this set of state tuples that can be
-        reached by using $e$ on other state tuples. With $F(\{(1, \dots, d) \leftarrow (e(1), \dots, e(d))\}
-        \psi) = \langle s_{(e(1), \dots, e(d))} \rangle F(\psi)$ we get the state tuples that have the action $(q_{e
-        (1)}, \dots, q_{e(d)}) \overset{s_{(e(1), \dots, e(d))}}{\rightarrow} (q_1, \dots, q_d)$ where $(q_1, \dots,
-        q_d) \in \llbracket T(\Gamma) \vdash F(\psi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$.
+        By induction hypothesis $({q_{e(1)}}, \dots, {q_{e(d)}}) \in \llbracket T(\Gamma) \vdash F(\psi) \colon T
+        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ because $({q_{e(1)}}, \dots, {q_{e(d)}}) \in
+        \llbracket \Gamma \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}$.
+        Moreover, the state tuple $({q_{e(1)}}, \dots, {q_{e(d)}})$ that fulfills $\psi$ is reached by 'moving' from
+        state tuple $({q_{1}}, \dots, {q_{d}})$ to $({q_{e(1)}}, \dots, {q_{e(d)}})$. This movement is
+        integrated in the construction of $\mathcal{T}_d$. There is for each endomorphism $e$ a
+        substitution action $s_{(e(1), \dots, e(d))}$ for each tuple state. With $F(\{(e(1), \dots, e(d))\}
+        \psi) = \langle s_{(e(1), \dots, e(d))} \rangle F(\psi)$ we get the state tuples that have the action $(q_1,
+        \dots, q_d)$ $ \overset{s_{(e(1), \dots, e(d))}}{\rightarrow} (q_{e
+        (1)}, \dots, q_{e(d)})$ where $(q_1, \dots, q_d) \in \llbracket T(\Gamma) \vdash F(\psi) \colon T
+        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$.
         It follows that
         \[\llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = \llbracket T(\Gamma)
         \vdash F(\varphi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]

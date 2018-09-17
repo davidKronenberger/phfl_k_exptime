@@ -1,3 +1,4 @@
+
 %%
 %% Author: Davidov
 %% 27.04.2018
@@ -23,7 +24,7 @@ Formally, a Turing Machine is the following.
 
 \begin{definition}
     A seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ is called a \emph{Deterministic Turing Machine}
-    ($\mathit{DTM}$), where
+    ($\mathit{DTM}$), if
     \begin{compactitem}
         \item $Q$ is the finite set of states,
         \item $\Sigma$ is the input alphabet,
@@ -33,7 +34,7 @@ Formally, a Turing Machine is the following.
         \item $q_0 \in Q$ is the initial state,
         \item $\Box \in \Gamma \setminus \Sigma$ is the blank symbol,
         \item $F \subseteq Q$ is the set of accepting states and
-        \item $R \subseteq Q$ is the set of rejecting states.
+        \item $R \subseteq Q, F \cap R = \emptyset$ is the set of rejecting states.
     \end{compactitem}
 \end{definition}
 
@@ -46,49 +47,49 @@ Formally, a Turing Machine is the following.
 \end{example}
 
 Configurations are snapshots of $\mathit{DTM}$s working on an input word. This includes the working tape, the current
-state and the current position of the reading head. Formally, $C_i^M = \Gamma^m \cdot Q \cdot (\Gamma^n | \Box)$
-is called the $i$-th configuration of a $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$, where $m \geq
-0$ and $n \geq 1$. In addition, $\Gamma^m$ represents the word of all symbols left
-from reading head position to the last symbol that is not equal to the blank symbol. $\Gamma^n$ represents the word
-of all symbols right of the reading head position to the last symbol that is not equal to the blank symbol. If there
-are no symbols not equal to the blank symbol right of the reading head position, the blank symbol $\Box$ of $M$ is used
-instead of $\Gamma^n$.
+state and the current position of the reading head. Formally, $C_i^M = (q_i, h_i, t_i)$ is called the $i$-th
+configuration of a $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ of the computation on some input
+word, where $q_i \in Q$ is the current state, $h_i \in \mathbb{N}$ is the reading head position and $t: \mathbb{N}
+\rightarrow \Gamma$ represents the full tape content. In addition, $t(i)$ represents the content of tape cell $i$.
 
 \begin{definition}
-    Let $C_i^M = \gamma_1^i\dots\gamma_{m_i}^i{q_i}{\gamma_1^i}'\dots{\gamma_{n_i}^i}'$, $C_j^M =
-    \gamma_1^j\dots\gamma_{m_j}^j{q_j}{\gamma_1^j}'\dots$ ${\gamma_{n_j}^j}'$ two configurations of a $\mathit{DTM}$ $M
-    = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ with $i \neq j$. $C_j^M$ is the next configuration of $C_i^M$
-    written as $C_i^M \rightarrow_M C_j^M$ iff $j = i + 1$ and
+    Let $C_i^M = (q_i, h_i, t_i)$, $C_j^M = (q_j, h_j, t_j)$ two configurations of a
+    $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ with $i \neq j$. $C_j^M$ is the next configuration
+    of $C_i^M$ written as $C_i^M \rightarrow_M C_j^M$ iff
     \begin{compactitem}
-        \item $m_j = m_i - 1$, $\gamma_1^j = \gamma_1^i, \dots \gamma_{m_j}^j = \gamma_{m_j}^i$, $n_j = n_i + 1$,
-        ${\gamma_1^j}' = \gamma_{m_i}^i, {\gamma_2^j}' = a, {\gamma_3^j}' = {\gamma_2^i}' \dots {\gamma_{n_j}^j}' =
-        {\gamma_{{n_j}- 1}^i}'$ and $\delta(q_i, {\gamma_1^i}') = (q_j, a, L)$ or
-        \item $m_j = m_i + 1$, $\gamma_1^j = \gamma_1^i, \dots \gamma_{m_j-1}^j = \gamma_{m_j-1}^i, \gamma_{m_j}^j
-        = a$, $n_j = n_i - 1$, ${\gamma_1^j}' = {\gamma_2^i}', \dots {\gamma_{n_j}^j}' = {\gamma_{{n_j}+1}^i}'$ and
-$\delta (q_i, {\gamma_1^i}') = (q_j, a, R)$ or
-        \item $m_j = m_i$, $\gamma_1^j = \gamma_1^i, \dots \gamma_{m_j}^j = \gamma_{m_j}^i$, $n_j = n_i$, ${\gamma_1^j}'
-= a, {\gamma_2^j}' = {\gamma_2^i}' \dots {\gamma_{n_j}^j}' = {\gamma_{n_j}^i}'$ and $\delta
-        (q_i, {\gamma_1^i}') = (q_j, a, N)$.
+        \item $j = i + 1$,
+
+        \item $h_j = h_i + d$,
+
+        \item $t_j(h_i) = a$, $t_j(k) = t_i(k)$, $k \neq h_i$,
+
+        \item $\delta(q_i, t_i(h_i)) = (q_j, a, D)$
     \end{compactitem}
-    $C_i^M \rightarrow_M C_j^M$ is called a \emph{transition} of $M$.
+    where $D \in \{L, R, N\}$, $d = f(D)$ and $f(L) = -1$, $f(R) = 1$ and $f(N) = 0$. $C_i^M \rightarrow_M C_j^M$ is
+    called a \emph{transition} of $M$.
 \end{definition}
 
-The start configuration for an input word $w$ of a $\mathit{DTM}$ $M$ is $C_0^M = q_0w$, where $q_0$ is the
-initial state of $M$. A run of $\mathit{DTM}$ $M$ on input word $w$ is a sequence of transitions, $C_0^M
-\rightarrow_M C_1^M \rightarrow_M C_2^M \rightarrow_M \dots$. A run of $\mathit{DTM}$ $M$ on input word $w$ is
-terminating, if there is a configuration $C_n^M$ for some $n \in \mathbb{N}$ such that the state of $C_n^M$ is either
-an accepting or rejecting state of $M$. A run is accepting if the state of $C_n^M$ is an accepting state of $M$.
+The start configuration for an input word $w = a_1\dots a_n$ of a $\mathit{DTM}$ $M$ is $C_0^M = (q_0, 0, h_{0})$,
+where $q_0$ is the initial state of $M$ and $h_0(k) = a_k$ for $1 \leq k \leq n$ and $h_0(l) = \Box$ for $l \neq k$. A
+run of $\mathit{DTM}$ $M$ on input word $w$ is a sequence of transitions, $C_0^M \rightarrow_M C_1^M \rightarrow_M
+C_2^M \rightarrow_M \dots$. A run of $\mathit{DTM}$ $M$ on input word $w$ is terminating, if there is a
+configuration $C_n^M$ for some $n \in \mathbb{N}$ such that the state of $C_n^M$ is either an accepting or rejecting
+state of $M$. A run is accepting if the state of $C_n^M$ is an accepting state of $M$.
 
 \begin{example}
     \label{example:run_of_dtm}
-    Let $M$ be the $\mathit{DTM}$ from Example~\ref{example:dtm} and $w_1 = aaba$, $w_2 = aaaa$ two input words. The
-    run of $M$ on $w_1$ is
-    \[C_0^M = q_0aaba \rightarrow_M \Box q_0aba \rightarrow_M \Box \Box q_0ba \rightarrow_M \Box q_r\Box ba = C_3^M\]
+    Let $M$ be the $\mathit{DTM}$ from Example~\ref{example:dtm} and $w_1 = aaba$, $w_2 = aaaa$ two input words. For
+    better readability we illustrate tape content functions as infinite words. The run of $M$ on $w_1$ is
+    \begin{align*}
+        C_0^M = &\,(q_0, 0, aaba\Box \dots) \rightarrow_M (q_0, 1, \Box aba\Box \dots) \rightarrow_M  (q_0, 2, \Box \Box
+        ba\Box \dots)\\&\, \rightarrow_M (q_r, 1, \Box \Box ba\Box \dots) = C_3^M
+    \end{align*}
     and the run of $M$ on $w_2$ is
     \begin{align*}
-        C_0^M =\,&q_0aaaa \rightarrow_M \Box q_0aaa \rightarrow_M \Box \Box q_0aa \rightarrow_M \Box \Box \Box q_0 a
-        \rightarrow_M \Box \Box \Box \Box q_0 \Box \\
-        &\rightarrow_M \Box \Box \Box \Box q_f \Box = C_5^M
+        C_0^M =\,&(q_0, 0, aaaa\Box \dots) \rightarrow_M (q_0, 1, \Box aaa\Box \dots) \rightarrow_M (q_0, 2, \Box \Box
+        aa\Box \dots) \\&\,\rightarrow_M
+        (q_0, 3, \Box \Box \Box a\Box \dots) \rightarrow_M (q_0, 4, \Box \Box \Box \Box \Box \dots) \\&\,\rightarrow_M
+        (q_f, 4, \Box \Box \Box \Box \Box \dots) = C_5^M
     \end{align*}
     Note, that both runs are terminating runs. The run on input word $w_2$ is an accepting run.
 \end{example}
@@ -108,18 +109,19 @@ configuration steps. In case of space classes the output is based on the longest
 \begin{definition}
     Let $M$ be a terminating $\mathit{DTM}$. $\mathit{TIME}(n):= max($ $\mathit{STEPS}(w)\mid |w| = n)$, where
     $\mathit{STEPS}(w)$ is the number of transitions of $M$ running on input word $w$. $\mathit{SPACE}(n) := max
-    (\mathit{STORAGE}(w)\mid |w| = n)$, where $\mathit{STORAGE}(w) := max(length(C_i^M)\mid i\in\{1, \dots m\})$ is
-    the longest configuration while $M$ runs on input word $w$ and $C_0^M \rightarrow_M C_1^M \rightarrow_M \dots
-    \rightarrow_M C_m^M$ is this run of $M$ on $w$.
+    (\mathit{STORAGE}(w)\mid |w| = n)$, where $\mathit{STORAGE}(w) := max(h_i\mid i\in\{1, \dots m\} \text{ and }
+    C_i^M = (q_i, h_i, t_i))$ is the most right head position of $M$ while $M$ runs on input word $w$ and $C_0^M
+    \rightarrow_M
+    C_1^M \rightarrow_M \dots \rightarrow_M C_m^M$ is this run of $M$ on $w$.
 \end{definition}
 
 \begin{example}
     \label{example:time_and_space}
     Let $w_1$ and $w_2$ the two words from Example~\ref{example:run_of_dtm}. It is easy to see, that $\mathit{STEPS}
-    (w_1) = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 5$ and $\mathit{STORAGE}(w_1) = 5$. Moreover,
+    (w_1) = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 2$ and $\mathit{STORAGE}(w_1) = 4$. Moreover,
     because the maximal number of steps for an input word of length $4$ occurs if the input word contains only symbol
-    $a$, it holds that $\mathit{TIME}(4) = 5$ or more general $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n + 1$
-    holds, because the input word will only be made smaller.
+    $a$, it holds that $\mathit{TIME}(4) = 5$ or more general $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n$
+    holds, because the input word will only be made smaller and we do not move right of the word.
 \end{example}
 
 Now, it is possible to group the $\mathit{DTM}$s by functions. Those groups are our computational complexity classes.
@@ -139,12 +141,10 @@ all $k \geq 1$.
 
 \begin{definition}
     \label{definition:k_exptime_and_k_expspace}
-    $k$-EXPTIME is the set of all those problems where a $\mathit{DTM}$ $M$, a constant $k \in \mathbb{N}
-    \setminus\{0\}$ and a polynomial function $f: \mathbb{N} \rightarrow \mathbb{N}$ exist such that
-    $M$ can decide a problem in $\mathit{TIME}$($exp(k, f(n))$).
-    $k$-EXPSPACE is the set of all those problems where a $\mathit{DTM}$ $M$, a constant $k \in \mathbb{N}
-    \setminus\{0\}$ and a polynomial function $f: \mathbb{N} \rightarrow \mathbb{N}$ exist such that
-    $M$ can decide a problem in $\mathit{SPACE}$($exp(k, f(n))$).
+    $k$-EXPTIME is the set of all those problems where a $\mathit{DTM}$ $M$ and a polynomial function $f: \mathbb{N}
+    \rightarrow \mathbb{N}$ exist such that $M$ can decide a problem in $\mathit{TIME}$($exp(k, f(n))$).
+    $k$-EXPSPACE is the set of all those problems where a $\mathit{DTM}$ $M$ and a polynomial function $f: \mathbb{N}
+    \rightarrow \mathbb{N}$ exist such that $M$ can decide a problem in $\mathit{SPACE}$($exp(k, f(n))$).
 \end{definition}
 
 Remember, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the biggest configuration of a

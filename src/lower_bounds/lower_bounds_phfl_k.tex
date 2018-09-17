@@ -6,12 +6,14 @@
 
 \section{Lower Bound of PHFL$^k$}\label{sec:lowerBoundOfPhfl}
 
-We have to show that if a query is in \exptime{$k$}, then it can be expressed by a PHFL$^k$ formula. It is
-possible to show this by encoding the run of a $k$-EXPTIME Turing Machine by a query. Because this kind of proof is
-arduous we prove this by make a detour over HO(LFP)$^k$. This and following ideas are oriented
-on~\cite{lange2014capturing}. In~\cite{lange2014capturing} was shown that PHFL$^1$ captures \exptime{$1$}.
-
-It was proven that HO(LFP)$^{k + 1}$ coincides with $k$-fold exponential time over finite and ordered structures.
+As mentioned in the introduction of this chapter we can show that the lower bound of PHFL$^k$ is \exptime{$k$} by
+make a detour over HO(LFP)$^{k+1}$. This and following ideas are oriented on~\cite{lange2014capturing} where was
+shown that PHFL$^1$ captures \exptime{$1$}. The first thing we will see is that it was proven that HO(LFP)$^{k +
+1}$ coincides with $k$-fold exponential time over finite and ordered structures. To use this we have to encode the
+bisimulation invariant fragment of HO$^{k+1}$ into PHFL$^k$. For this we first define an abbreviation for the HO(LFP)
+formulas that uses the LFP operator. Next, we define a function that uses this abbreviation and these of
+Section~\ref{sec:existential_quantifiers_in_phfl} to map a HO(LFP)$^{k+1}$ formula to a PHFL$^k$ formula. Finally, we
+show that the semantics of the HO(LFP)$^{k+1}$ formula coincides with the transformed PHFL$^k$ formula.
 
 \begin{theorem}{\cite{freireMartins2011descriptive}}\label{theorem:hoLfpEqualsExptime}
     For all $k \geq 1$, HO(LFP)$^{k + 1} = k$-EXPTIME over finite and ordered structures.
@@ -22,256 +24,63 @@ The proof follows the idea to encode the run of a $k$-EXPTIME Turing Machine $M$
 1}$ formula $\phi$ can be evaluated by a $k$-EXPTIME Turing Machine $M_\phi$.
 
 Because Theorem~\ref{theorem:hoLfpEqualsExptime} holds it is also possible to prove that the lower bound of PHFL$^k$
-is in \exptime{$k$} by encoding the bisimulation invariant fragment of HO(LFP)$^{k + 1}$ into PHFL$^k$. At first
-remember that the signatures of formulas of HO(LFP) are all relational. Because we are working on LTS, the
-relations in the signatures have either arity one or two. Relations with arity one represents the propostions and
-those with arity two the actions of an LTS.
+is in \exptime{$k$} by encoding the bisimulation invariant fragment of HO(LFP)$^{k + 1}$ into PHFL$^k$. To encode the
+bisimulation invariant fragment of HO(LFP)$^{k + 1}$ into PHFL$^k$ we have to define a function that transforms a HO
+(LFP)$^{k + 1}$ formula to a PHFL$^k$ formula. Note that the types and variables of an HO formula have to be also
+transformed. See Section~\ref{sec:existential_quantifiers_in_phfl} for further details.
 
-To encode the bisimulation invariant fragment of HO(LFP)$^{k + 1}$ into PHFL$^k$ we have to define a function that
-transforms a HO(LFP)$^{k + 1}$ formula to a PHFL$^k$ formula. Furthermore, we have to translate the variables. The
-reason is that a variable in HO(LFP)$^{k + 1}$ can have different types then a variable in PHFL$^k$. While HO(LFP)
-$^{k + 1}$ includes variables for example of kind set of sets, PHFL$^k$ has not this kind of type. The following
-definition translates all HO types with order $2$ or greater. The first-order variables have to be encode
-differently, and will be regarded later.
+Before we give the definition of the transforming function, we define a PHFL formula for HO formulas that uses the
+LFP operator.
 
 \begin{definition}
-    \label{definition:lower_bound_type_function}
-    Let $T$ be a function that maps a type of HO to a type of PHFL defined inductive over the type
-    of HO as follows:
-
-    \begin{align*}
-        T((\odot, \dots, \odot)) &= \bullet\\
-        T((\tau', \dots, \tau')) &= T(\tau')^+ \rightarrow (T(\tau')^+ \rightarrow \dots \rightarrow (T(\tau')^+
-        \rightarrow \bullet) \dots )
-    \end{align*}
+    For any HO variable $X$ of HO type $\tau = (\tau', \dots, \tau')$ where $\tau' \neq \odot$ and any HO variables
+    $x_1, v_1, \dots, $ $x_n, v_n$ HO type $\tau'$ and any PHFL formula $\Phi$ let
+    \[LFP^\tau X.\,\Phi \coloneqq (\dots ((\mu (X \colon T(\tau)).\,\Phi(X, x_1, \dots, x_n))(v_1))(v_2))\dots)(v_n).\]
+    In case of $\tau = (\odot, \dots, \odot)$ and $v_1, \dots, v_n$ have index $i_1, \dots, i_n$ respectively let
+    \[LFP^{\tau} X.\,\Phi \coloneqq \{(i_1, \dots, i_n, n + 1, \dots, d)\} \mu (X \colon \bullet).\,\Phi(X).\]
 \end{definition}
 
-Note that $ord(T(\tau)) = order(\tau) - 2$ for all $\tau$ with order $2$ or greater.
-
-\begin{example}
-    Let $\tau$ be a type of HO
-    \[\tau = ((((\odot)), ((\odot))), (((\odot)), ((\odot))))\]
-    then by Definition~\ref{definition:lower_bound_type_function} of type function $T$
-    \[T(\tau) = ((\bullet \rightarrow \bullet) \rightarrow ((\bullet \rightarrow \bullet) \rightarrow \bullet))
-    \rightarrow (((\bullet \rightarrow \bullet) \rightarrow ((\bullet \rightarrow \bullet) \rightarrow \bullet))
-    \rightarrow \bullet).\]
-\end{example}
-
-With this type function $T$ a HO(LFP)$^{k + 1}$ variable $X$ of type $\tau$ can be translated to a PHFL$^k$ variable
-with type $T(\tau)$. Please note that $\tau$ has order $2$ or greater. As mentioned above PHFL$^k$ has not HO types like
-set of sets. But PHFL$^k$ has functions. Each set $A$ can be seen as a special function $f\colon X \rightarrow \{0,
-1\}$. The origin set $X$ is a superset of $A$. Then function $f$ maps those elements $x$ of $X$ to $1$ if $x \in A$
-and all other elements in $X$ to $0$. Those functions are called characteristic functions.
+Remember that we have defined the signatures of HO(LFP) relational. Because we are working on LTS, the relations in
+the signatures have either arity one or two. Relations with arity one represents the propostions and those with arity
+two the actions of an LTS. Now we are able to define the function to translate a bisimulation invariant HO(LFP)$^{k+1}$
+formula to a PHFL$^k$.
 
 \begin{definition}
-    \label{definition:lower_bound_variable_function}
-    Let $Y$ a HO variable of type $\tau = (\tau', \dots, \tau')$, $y_1, \dots, y_n$ HO variables of type
-    $\tau'$ respectively and $d$ the dimension of PHFL, then $V$ is a function that maps a variable
-    of HO(LFP)$^{k + 1}$ to a
-    variable $V(Y)$ of PHFL$^k$ defined inductive over the type of $Y$ as follows:
-    \[V(Y)=
-    \begin{cases}
-        Y',  & \text{if }\tau = (\odot, \dots, \odot)\\
-        Y'', & \text{if }\tau \neq (\odot, \dots, \odot) \text{ and } \tau \neq \odot,
-    \end{cases}\]
-    where $Y' \subseteq Q^d$ such that $(q_1, \dots, q_n, q_{n + 1}, \dots, q_d) \in Y'$ iff $(q_1, \dots, q_n) \in Y$
-    and $Y''$ is a function of type $T(\tau)$ defined as follows:
-    \begin{align*}
-        (\dots((Y'(V(y_1)))(V(y_2)))\dots)(V(y_n)) &= Q^d &\text{ iff } (y_1, \dots, y_n) \in Y\\
-        (\dots((Y'(V(y_1)))(V(y_2)))\dots)(V(y_n)) &= \emptyset &\text{ iff } (y_1, \dots, y_n) \not\in Y
-    \end{align*}
-\end{definition}
-
-HO formulas of kind $X(x_1,\dots, x_n)$ are translated for $X$ of type $\tau =
-(\tau', \dots, \tau')$ as
-\[X(x_1, \dots, x_n) \coloneqq (\dots ((X(x_1))(x_2))\dots)(x_n)\]
-and for $X$ of type $\tau = (\odot, \dots, \odot)$  where $x_1, \dots, x_n$ have index $i_1, \dots, i_n$ as
-\[X(x_1, \dots, x_n) \coloneqq \{(1, \dots, d) \leftarrow (i_1, \dots, i_n, n + 1, \dots, d)\} X.\]
-Note that the dimension $d$ of PHFL is big enough to translate all second-order variables of HO to an order 0 variable
-of PHFL. In more detail $s$ is the maximal arity of second-order variables in an HO formula and $d > s$.
-
-\begin{example}
-    Let $\mathcal{A}$ a $\sigma$-structure over universe $\mathcal{U} = \{1, 2, 3\}$ and $X$ a HO(LFP)$^{k + 1}$
-    variable of type $((\odot, \odot), (\odot, \odot))$ defined as
-    \[X = \{(\{(1, 1)\}, \{(2, 2)\}), (\{(1, 1), (2, 2)\}, \{(3, 3)\})\}\]
-    then $Y = V(X)$ is a PHFL$^k$ variable of type $\bullet \rightarrow (\bullet \rightarrow \bullet)$ such that $Y
-    (\{(1, 1)\}) = f$, $Y(\{(1, 1), (2, 2)\}) = g$ and $Y(z) = h$ for $z \in Q^d$ and $z \neq \{(1, 1)\}$ and $z \neq \{
-    (1, 1), (2, 2)\}$. $f$, $g$ and $h$ are functions of type $\bullet \rightarrow \bullet$ where $f(\{(2, 2)\}) = g
-    (\{(3, 3)\}) = Q^d$ and $f(z) = g(z') = h(z'') = \emptyset$ for $z, z', z'' \in Q^d$ and $z \neq \{(2, 2)\}$ and
-    $z' \neq \{(3, 3)\}$.
-\end{example}
-
-As mentioned above the first order variables of HO(LFP)$^{k + 1}$ have to be encoded differently. The reason is that
-the base type in PHFL is at least a set of tuples of states. So single states can't be depict directly by another
-variable. In this thesis the idea is to use the polyadic fragment of PHFL to represent the different first-order
-variables. Each first-order variable represents one component in PHFL, that means each variable increases the
-dimension of PHFL. The assignment of a first-order variable $x_i$ in HO is then the current state of the $i$-th
-component in PHFL. This is mainly from~\cite{lange2014capturing}.
-
-Without loss of generality the first-order variables are enumerated as $x_1, \dots, x_f, x_{f + 1}, \dots, x_q$,
-where $x_1, \dots, x_f$ are the free and $x_{f+1}, \dots, x_q$ are the quantified variables. Note that the dimension
-$d$ of PHFL is also big enough to distinguish all different first-order variables, that means $d > q$.
-
-The usage of first-order variable $x_i$ in proposition $p$ in HO can be interpreted such that the variable
-assignment of $x_i$ have to fulfill $p$. In PHFL that is equal to that the $i$-th component of a $d$-tuple
-fulfills $p$, i.e. $p(x_i)$ is equal to $p_i$.
-
-The usage of first-order variables $x_i$ and $x_j$ in action $a$, i.e. $a(x_i, x_j)$, can be interpreted as an
-$a$-movement from assigned state of $x_i$ to assigned state of $x_j$. In PHFL that is equal to an $a$-movement from
-component $i$ to component $j$ such that the state where component $j$ is located is reachable from the state where
-component $i$ is located. That means $a(x_i, x_j)$ is equal to $\langle a \rangle_i\{(1, \dots, d) \leftarrow (i, j,
-3, \dots, d)\} \Phi_\sim$ where $\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0} that defines $\sim$.
-
-Because we encode the bisimulation-invariant fragment of HO(LFP)$^{k + 1}$, the first-order quantification can be
-encoded by moving through all states reachable by one of the free variables. If we regard $\exists (x_i \colon
-\odot).\,\Phi$ then it can be understand as, check if we reach a state tuple where $\Phi$ holds once the $i$-th
-component is replaced by one of the free variables. This can be formalized in PHFL as \[\exists_i \Phi \coloneqq
-\bigvee_{j=1}^f \{(1, \dots, d) \leftarrow (1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X \colon \bullet).\,\Phi \vee
-\bigvee_{a \in \Sigma} \langle a \rangle_i X.\]
-
-Before regarding higher-order quantification we look at least fixpoints. Because of our translation of variables in
-Definition~\ref{definition:lower_bound_variable_function} the replacement of LFP is straight forward. If $X$ is a
-variable of HO type $\tau = (\tau', \dots, \tau')$, $x_1, v_1, \dots, x_n, v_n$ variables of HO type $\tau'$
-respectively, $V(X)$ a variable of PHFL type $T(\tau)$ and $V(x_1), V(v_1), \dots, V(x_n), V(v_n)$
-variables of PHFL type $T(\tau')$ respectively, then HO(LFP)$^{k + 1}$ formula
-\[[LFP\;\Phi(X, x_1,\dots, x_n)](v_1, \dots, v_n)\]
-can be translated to a PHFL$^k$ formula
-\[LFP^\tau \coloneqq (\dots ((\mu (X \colon T(\tau).\,\Phi')(V(v_1)))(V(v_2)))\dots)(V(v_n))\]
-In case of $\tau = (\odot, \dots, \odot)$ and $v_1, \dots, v_n$ have index $i_1, \dots, i_n$ respectively then
-\[[LFP\;\Phi(X, x_1,\dots, x_n)](v_1, \dots, v_n)\]
-can be translated to a PHFL$^k$ formula
-\[LFP^{(\odot, \dots, \odot)} \coloneqq \{(1, \dots, d) \leftarrow (i_1, \dots, i_n, n + 1, \dots, d)\} \mu (X \colon
-\bullet).\,\Phi\]
-
-The last thing we have to consider is the higher-order quantification. For this we have to understand that we need an
-iteration through all elements of an HO type $\tau$. That means we need a formula that tells us what is the next element
-of $\tau$. This is possible if we have some order on the set $D_\tau(\mathcal{U})$.
-
-\begin{remark}
-    In~\cite{otto1999bisimulation} was shown that it is possible to define a $2$-adic formula $\Phi_<$ that defines a
-    transitive relation $<$ such that $< \cap > = \emptyset$ and $< \cup > = \not\sim$. In this thesis $<$ is a total
-    order on states of an LTS.
-\end{remark}
-
-We first define formulas that tells us given two elements of same type which one is the smaller one. Note that the
-dimension $d$ of PHFL is twice as big as the maximum of $s$ and $q$. This is necessary to compare two elements of
-$Q^{m}$, where $m = max({s, q})$ and $d = 2 * m$. The used variables in the following definition are all transformed by
-variable function $V$ of Definition~\ref{definition:lower_bound_variable_function}. Also the usage of the variables
-are written in HO syntax for a better readability.
-
-\begin{definition}
-    \label{definition:lower_bound_less}
-    The PHFL$^k$ formula $<^\tau$ where $k = ord(T(\tau))$ is defined inductive over the type $\tau$ as follows:
-
-    \begin{align*}
-        <^\odot \coloneqq &\,\Phi_< \\
-        <^{\odot \times \dots \times \odot} \coloneqq &\,\underset{i = 1}{\overset{m}{\bigvee}}\{(1, \dots, d)
-        \leftarrow (i, i + m, 3, \dots, d)\} <^\odot \wedge \\
-        &\,\underset{j = 1}{\overset{i - 1}{\bigwedge}}\{(1, \dots, d) \leftarrow (j + m, j, 3, \dots, d)\} \neg
-        <^\odot\\
-        <^{\tau' \times \dots \times \tau'}(x_1, y_1, \dots, x_1, y_n) \coloneqq &\,\underset{i =
-        1}{\overset{n}{\bigvee}}<^{\tau'}(x_i, y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
-        \neg <^{\tau'}(y_j, x_j)\\
-        <^{(\odot, \dots, \odot)}(X, Y) \coloneqq &\,\exists_{i_1}.\, \dots \exists_{i_n}. \\&\,\{(1, \dots, d)
-        \leftarrow  (i_1, \dots, i_n, n + 1, \dots, d)\}Y \wedge \\&\,\neg \{(1, \dots, d) \leftarrow (i_1, \dots,
-        i_n, n + 1, \dots, d)\} X\,\wedge\\&\, \forall_{j_1}. \,\dots \forall_{j_n}. \\&\,\{(1, \dots, d)
-        \leftarrow (j_1, \dots, j_n, n+1, \dots, m, \\&\,i_1, \dots, i_n, m + n + 1, \dots, d)\}<^{\odot
-        \times \dots \times \odot} \Rightarrow (\\&\,\{(1, \dots, d) \leftarrow (j_1, \dots, j_n, n + 1, \dots, d)\}X
-        \Rightarrow \\&\,\neg \{(1, \dots, d) \leftarrow (j_1, \dots, j_n, n + 1, \dots, d)\} Y)
-        \\
-        <^{(\tau', \dots, \tau')}(X, Y) \coloneqq &\,\exists^{\tau'}x_1. \,\dots \exists^{\tau'}x_n. \\&\,Y(x_1,
-        \dots, x_n)
-        \wedge \neg X(x_1, \dots, x_n)\,\wedge \\&\,\forall^{\tau'}y_1. \,\dots \forall^{\tau'}y_n. \\&\,<^{\tau'
-        \times \dots \times \tau'}
-        (y_1, x_1, \dots, y_n, x_n) \Rightarrow \\&\,(X(y_1, \dots, y_n) \Rightarrow Y(y_1, \dots, y_n))
-    \end{align*}
-    where the formulas of kind $\exists^\tau x.\phi$ are the in PHFL defined higher-order quantification for HO type
-    $\tau$
-    and formulas of kind $\forall^\tau x.\phi$ are the counterparts.
-\end{definition}
-
-Before we define the formulas we want to explain the defined orders. We say that a tuple $x$ is smaller than a tuple
-$y$ if there is an index $i$ such that the element in $x$ on $i$ is smaller then the element in $y$ on $i$ and there
-is no position $j$ left of $i$ such that the element in $x$ on $j$ is bigger then the element in $y$ on $j$. We say
-that a set $x$ is smaller than a set $y$ if there is an element $e$ in $x$ that is not in $y$ and all smaller
-elements $f$ to $e$ are only in $x$ if $f$ is also in $y$. After we have now orders of any HO type we can define
-formulas that returns the successor of the input element.
-
-\begin{definition}
-    The PHFL$^k$ formula $next^\tau$ where $k = ord(T(\tau))$ is defined by the type $\tau$ as follows:
-    \begin{align*}
-        next^{(\odot, \dots, \odot)} \coloneqq &\,\lambda (X \colon \bullet).\, (\neg X \wedge \forall_{m +
-        1}\dots\forall_{m + m}<^{\odot \times \dots \times \odot}\, \Rightarrow \\&\,\{(1, \dots, d) \leftarrow (m +
-        1, \dots, m + m, m + 1, \dots, d)\} X) \,\vee \\&\,(X \wedge \exists_{m + 1}\dots\exists_{m + m} <^{\odot
-        \times \dots \times \odot} \,\wedge \\&\,\{(1, \dots, d) \leftarrow (m + 1, \dots, m + m, m + 1, \dots, d)\}
-        \neg X)\\
-        next^{(\tau_1, \dots, \tau_n)} \coloneqq &\,\lambda (X \colon T ((\tau_1, \dots, \tau_n))).\,(\neg X(x_1,
-        \dots, x_n)\wedge \forall^{\tau_1}y_1.\, \dots \forall^{\tau_n}y_n. \\&\, <^{\tau_1 \times \dots \times
-        \tau_n}(y_1, x_1, \dots, y_n, x_n) \Rightarrow  X(y_1, \dots, y_n)) \vee \\&\,(X(x_1, \dots, x_n) \wedge
-        \exists^{\tau_1}y_1.\, \dots \exists^{\tau_n}y_n.\, \\&\,<^{\tau_1 \times \dots \times \tau_n} (y_1, x_1,
-        \dots, y_n, x_n)\,\wedge \neg X(y_1, \dots, y_n))
-    \end{align*}
-\end{definition}
-
-The idea of the two formulas are based on binary incrementation. Remember that a set $X$ can be represented by
-characteristic functions. This can be extended to a binary string where each position of this string represents an
-element of the superset $A$, where $X \subseteq A$. Because each position in the binary string represents an element
-of $A$ and a position have always represent the same element in $A$, the elements in $A$ have to be ordered. If the
-position $i$ in the binary string is $1$ then this means that the element with index $i$ in $A$ is also in $X$ and if
-the position $i$ in the binary string is $0$ then the element with index $i$ in $A$ is not in $X$. This binary
-representation of $X$ in regard to $A$ can be extended to a function $f\colon \mathcal{P}(A) \rightarrow {0, \dots,
-|\mathcal{P}(A)| - 1}$ such that each element $X$ of $\mathcal{P}(A)$ will be mapped to its binary string in regard
-to $A$. Mapped to HO types let $\tau = (\tau', \dots, \tau')$ an HO type and $\mathcal{U}$ the universe of a
-$\sigma$-structure then $f \colon D_\tau(\mathcal{U}) \rightarrow \{0, \dots, |D_\tau(\mathcal{U})| - 1\}$ is a
-bijection of an element $X \in D_\tau(\mathcal{U})$ to its binary representation. The order of the elements of
-$D_{\tau'}(\mathcal{U})^n$ is given by the formula $<^{\tau' \times \dots \times \tau'}$ of
-Definition~\ref{definition:lower_bound_less}. We can say that $Y \in D_\tau(\mathcal{U})$ is the direct successor of
-$X \in D_\tau(\mathcal{U})$ if $f(Y) = (f(X) + 1)$ modulo $|D_\tau(\mathcal{U})|$. In detail that means the
-$i$-th bit is $1$ in $f(Y)$ if it is either $0$ in $X$ and all lower bits are $1$ in $X$ or it is $1$ in $X$ and
-there is a bit lower then $i$ that is $0$ in $X$.
-
-We are now able to define the higher-order quantification in PHFL.
-\begin{definition}
-    Let $\tau = (\tau', \dots, \tau')$ be an HO type where $\tau' \neq \odot$ then $\exists^{\tau}X .\,\Phi(X)$ is
-    defined as follows:
-    \begin{align*}
-        \exists^{\tau}X.\, \Phi(X) \coloneqq &\,(\mu (F \colon T(\tau) \rightarrow \bullet).\, \lambda (X \colon T(\tau)
-        ).\,
-        \Phi(X)
-        \vee F(next^\tau X))\\&\,(\lambda (x_1 \colon \tau').\, \dots \lambda (x_n \colon \tau').\,\bot)
-    \end{align*}
-    In case of $\tau = (\odot, \dots, \odot)$, $\exists^{\tau}X .\,\Phi(X)$ is defined as
-    \[        \exists^{\tau}X.\, \Phi(X) \coloneqq (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
-    \colon \bullet).\, \Phi(X) \vee F(next^{\tau} X)) \bot
-    \]
-\end{definition}
-
-The last step is to define a function that translates bisimulation invariant HO(LFP)$^{k + 1}$ formulas in PHFL$^k$.
-This is done straight forward with the definitions and explanations that we give before.
-
-\begin{definition}
-    Let $F$ be function that maps a bisimulation invariant HO(LFP)$^k$ formula to a PHFL$^k$ formula defined inductive
-    on bisimulation invariant HO(LFP)$^k$ formula $\Phi$ as follows:
+    Let $F$ be the function that maps a bisimulation invariant HO(LFP)$^{k+1}$ formula to a PHFL$^k$ formula defined
+    inductive on bisimulation invariant HO(LFP)$^{k+1}$ formula $\Phi$ as follows:
     \begin{align*}
         F(p(x_i)) \coloneqq &\, p_i \\
-        F(a(x_i, x_j)) \coloneqq &\, \langle a \rangle_i \{(1, \dots, d) \leftarrow (i, j, 3, \dots, d)\} \Phi_\sim \\
+        F(a(x_i, x_j)) \coloneqq &\, \langle a \rangle_i \{(i, j, 3, \dots, d)\} \Phi_\sim \\
         F(\Phi \vee \Psi) \coloneqq &\, F(\Phi) \vee F(\Psi) \\
         F(\neg \Phi) \coloneqq &\, \neg F(\Phi) \\
-        F(\exists (x_i \colon \odot).\,\Phi) \coloneqq &\, \exists_i \Phi \\
-        F(\exists (X \colon \tau).\,\Phi) \coloneqq &\, \exists^\tau X. \Phi(X) \\
-        F([LFP\;\Phi(X, x_1, \dots, x_n)](v_1, \dots, v_n)) \coloneqq &\,LFP^\tau \\
+        F(\exists (x_i \colon \odot).\,\Phi) \coloneqq &\, \exists_i F(\Phi) \\
+        F(\exists (X \colon \tau).\,\Phi) \coloneqq &\, \exists^\tau X.\,F(\Phi(X)) \\
+        F([LFP\;\Phi(X, x_1, \dots, x_n)](v_1, \dots, v_n)) \coloneqq &\,LFP^\tau X.\, F(\Phi) \\
         F(X(x_1, \dots, x_n)) \coloneqq &\, (\dots ((X(x_1))(x_2))\dots)(x_n)\\
-        F(X(x_{i_1}, \dots, x_{i_n})) \coloneqq &\, \{(1, \dots, d) \leftarrow (i_1, \dots, i_n, n + 1, \dots, d)\}X
+        F(X(x_{i_1}, \dots, x_{i_n})) \coloneqq &\, \{(i_1, \dots, i_n, n + 1, \dots, d)\}X
     \end{align*}
 \end{definition}
 
-With all this definitions and explanations the following lemma holds.
+The last step is to show that the semantics of a given HO(LFP)$^{k+1}$ formula coincides with the semantics of the by
+function $F$ encoded PHFL$^k$ formula.
 
 \begin{lemma}
     \label{lemma:ho_lfp_equals_phfl}
     Let $r \geq 1$ and $k \geq 0$. For every bisimulation invariant formula $\Phi$ of HO(LFP)$^{k + 1}$ there is a
     PHFL$^k$ formula $\Psi$ such that $\mathcal{Q}_\Phi^r = \mathcal{Q}_\Psi^r$.
 \end{lemma}
+
+\begin{proof}
+    The usage of first-order variable $x_i$ in proposition $p$ in HO can be interpreted such that the variable
+    assignment of $x_i$ have to fulfill $p$. In PHFL that is equal to that state where the $i$-th component is
+    located fulfills $p$.
+
+    The usage of first-order variables $x_i$ and $x_j$ in action $a$, i.e. $a(x_i, x_j)$, can be interpreted as an
+    $a$-movement from assigned state of $x_i$ to assigned state of $x_j$. In PHFL that is equal to an $a$-movement from
+    component $i$ to component $j$ such that the state where component $j$ is located is reachable from the state where
+    component $i$ is located. That means $a(x_i, x_j)$ is equal to $\langle a \rangle_i\{(1, \dots, d) \leftarrow (i, j,
+    3, \dots, d)\} \Phi_\sim$ where $\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0} that defines $\sim$.
+\end{proof}
 
 The combination of Lemma~\ref{lemma:ho_lfp_equals_phfl}, Theorem~\ref{theorem:hoLfpEqualsExptime} and
 Theorem~\ref{theorem:phfl_k_in_k_exptime} proves the following theorem.

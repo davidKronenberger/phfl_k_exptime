@@ -10,7 +10,7 @@ introduced by M. Lange and E. Lozes in~\cite{lange2014capturing}. It is defined 
 Definition~\ref{definition:lts}) and extends the polyadic modal $\mu$-calculus~\cite{otto1999bisimulation} with
 higher order fixpoints like M. Viswanathan and R. Viswanathan it did with monadic case of modal
 $\mu$-calculus~\cite{kozen1983results} in~\cite{viswanathan2004higher}. The logic of M. Viswanathan and R
-.Viswanathan with name higher order fixed point logic is a combination of propositional logic, modality operators and
+.Viswanathan with name higher order fixed point logic is a combination of propositional logic, modal operators and
 a simply typed $\lambda$-calculus with fixed point operators. The higher order cases of PHFL and a restriction called
 tail-recursive for this higher order cases we are interested to compare with the in
 Chapter~\ref{sec:descriptiveComplexity} introduced complexity classes \exptime{$k$} and \expspace{$k$}.
@@ -28,12 +28,15 @@ by~\cite{viswanathan2004higher} and~\cite{lange2014capturing}.
 \end{definition}
 
 All types will be interpreted as a partially ordered sets. Partial orders are relations that are reflexive, transitive
-and antisymmetric. Let $\mathcal{A} = (A, \leq_A)$ and $\mathcal{B} = (B, \leq_B)$ be two partial orders then
+and antisymmetric. Let $\mathcal{A} = (A, \leq_A)$ and $\mathcal{B} = (B, \leq_B)$ be two partial orders. Then
 $\mathcal{A} \rightarrow \mathcal{B}$ is the partial order of monotone functions ordered pointwise, i.e.
-\[\mathcal{A} \rightarrow \mathcal{B} = \{f\colon A\rightarrow B \mid \forall x,y \in A.\,x\leq_A y\Rightarrow f(x)
+\[\mathcal{A} \rightarrow \mathcal{B} = \{f\colon A\rightarrow B \mid \text{ for all } x,y \in A.\,x\leq_A y \text{
+implies }
+f(x)
 \leq_B f(y)\}\]
 and the ordering relation is given by
-\[f \leq_{\mathcal{A}\rightarrow\mathcal{B}} g\text{ iff } \forall x\in \mathcal{A}.\,f(x) \leq_{\mathcal{B}} g(x)\].
+\[f \leq_{\mathcal{A}\rightarrow\mathcal{B}} g\text{ iff } \text{ for all } x\in \mathcal{A}.\,f(x) \leq_{\mathcal{B}} g
+(x)\].
 
 \begin{definition}
     Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a LTS and $d \in \mathbb{N}$ the dimension of PHFL,
@@ -96,11 +99,11 @@ Next, we want to define the syntax of PHFL formulas.
         .\Phi\colon\sigma^v\rightarrow\tau} \and
         \inferrule{\Gamma,X^+ \colon \tau \vdash \Phi\colon\tau}{\Gamma \vdash \mu (X \colon\tau). \Phi\colon\tau} \and
         \inferrule{\Gamma\vdash \Phi\colon\sigma^+ \rightarrow \tau \\ \Gamma\vdash\Psi\colon\sigma}{\Gamma \vdash
-        \Phi\Psi \colon \tau} \and
+        \Phi\,\Psi \colon \tau} \and
         \inferrule{\Gamma\vdash \Phi\colon\sigma^- \rightarrow \tau \\ \Gamma^-\vdash\Psi\colon\sigma}{\Gamma \vdash
-        \Phi\Psi \colon \tau} \and
+        \Phi\,\Psi \colon \tau} \and
         \inferrule{\Gamma\vdash \Phi\colon\sigma^0 \rightarrow \tau \\ \Gamma \vdash \Psi\colon\sigma \\ \Gamma^-
-        \vdash\Psi\colon\sigma}{\Gamma \vdash \Phi\Psi \colon \tau} \and
+        \vdash\Psi\colon\sigma}{\Gamma \vdash \Phi\,\Psi \colon \tau} \and
     \end{mathpar}
 \end{figure}
 
@@ -111,14 +114,11 @@ Next, we want to define the syntax of PHFL formulas.
     \emph{$d$-adic PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
     \begin{align*}
         \Phi,\Psi\Coloneqq&\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid
-        \{\emph{i}
-        \leftarrow \emph{j}\,\} \Phi \mid X \mid \lambda (X^v\colon\tau).\Phi \mid \Phi \Psi\mid  \\
-        &\mu (X\colon\tau).\Phi
+        \{\emph{j}\,\} \Phi \mid X \mid \lambda (X^v\colon\tau).\Phi \mid \Phi\,\Psi\mid  \mu (X\colon\tau).\Phi
     \end{align*}
     where
     \begin{compactitem}
-        \item $\emph{i} = (1,\dots, d)$, $\emph{j} = (e(1), \dots, e(d))$ and $e: \{1, \dots, d\} \rightarrow
-        \{1, \dots, d\}$,
+        \item $\emph{j} = (e(1), \dots, e(d))$ and $e: \{1, \dots, d\} \rightarrow \{1, \dots, d\}$,
         \item $i \in \{1, \dots, d\}$
         \item $v$ is a variance,
         \item $\tau$ is a type,
@@ -131,13 +131,13 @@ Next, we want to define the syntax of PHFL formulas.
 For convenience, we use some other further standard notations like $\Phi \wedge \Psi$, $[a]_i\Phi$, $\nu
 X \colon \tau.\Phi$ or $\Phi \Leftrightarrow \Psi$. Note, that this logic is defined over LTS. The formulas are
 often interpreted as a game played by two players moving pebbles along the transitions of an LTS. The two players
-are often called Prover and Refuter. So, $p_i$ can be interpreted as, the position of the $i$-th pebble fulfills
+are called Prover and Refuter. So, $p_i$ can be interpreted as, the position of the $i$-th pebble fulfills
 property $p$. $\langle a \rangle_i \Phi$ means, Prover has to move the $i$-th pebble along an $a$-transition and
-check if there holds $\Phi$. With the formula $\{\emph{i}\leftarrow\emph{j}\,\} \Phi$ is mentioned, that all pebbles
-from tuple $\emph{i}$ are moved from Prover to the tuple $\emph{j}$ and after this $\Phi$ have to be fulfilled. In
-case of negation these movements have do be made from the Refuter. $\lambda (X^v\colon\tau).\Phi$ is interpreted as a
-function that expects arguments of $(\llbracket\tau\rrbracket_\mathcal{T})^v$. We can see, that the formulas can also
-have types. For this, we have ensure that a formula is well-typed.
+check if there holds $\Phi$. With the formula $\{\emph{j}\,\} \Phi$ is mentioned, that all pebbles
+are moved from Prover to the positions described by tuple $\emph{j}$ and after this $\Phi$ have to
+be fulfilled. The player who has to move the pebbles changes on negations. $\lambda (X^v\colon\tau).\Phi$ is
+interpreted as a function that expects arguments of $(\llbracket\tau\rrbracket_\mathcal{T})^v$. We see, that the
+formulas also have types. For this, we have ensure that a formula is well-typed.
 
 \begin{definition}
     Let $X_1, \dots, X_n$ variables, $\Phi$ a PHFL formula, $v_1, \dots, v_n$ variances and $\tau, \tau_1, \dots,
@@ -148,11 +148,11 @@ have types. For this, we have ensure that a formula is well-typed.
     X_n^{v_n^-} \colon \tau_n$, where $-^- = +$, $+^- = -$ and $0^- = 0$.
 \end{definition}
 
-A type judgment is called \textit{derivable} if a derivation tree exists respectively to the rules of
+A type judgment is called \textit{derivable} if it generates a derivation tree according to the rules of
 Figure~\ref{figure:phfl-typing-rules}. This type system ensures that we do not create senseless formulas like
-$\langle a \rangle_i p_j$ set on $p_k$. Furthermore, it guarantees monotonicity by control negations. A formula
-$\Phi$ is called \textit{well-typed} if the type judgement $\emptyset \vdash \Phi:\tau$ is derivable for some type
-$\tau$. Note, that we are here only interested in well-typed formulas. For those formulas where also the variable
+$\langle a \rangle_i p_j p_k$. Furthermore, it can order formulas with semantics and guarantees so monotonicity. A
+formula $\Phi$ is called \textit{well-typed} if the type judgement $\emptyset \vdash \Phi:\tau$ is derivable for some
+type $\tau$. Note, that we are here only interested in well-typed formulas. For those formulas where also the variable
 types are obvious, we omit the type on the variables.
 
 \subsection{PHFL Semantics}\label{subsec:phflSemantics}
@@ -174,7 +174,7 @@ types are obvious, we omit the type on the variables.
         \llbracket \Gamma \vdash \neg \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& Q^d \setminus \llbracket
         \Gamma^- \vdash \Phi
         \colon \bullet \rrbracket ^\eta_\mathcal{T}\\
-        \llbracket \Gamma \vdash \{\emph{i} \leftarrow \emph{j}\} \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,&
+        \llbracket \Gamma \vdash \{\emph{j}\} \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,&
         \{\{(q_1, \dots, q_d) \in Q^d \mid \\ &(q_{j_1}, \dots, q_{j_d}) \in \llbracket \Gamma \vdash \Phi
         \colon \bullet
         \rrbracket ^\eta_\mathcal{T}\}\\
@@ -188,32 +188,32 @@ types are obvious, we omit the type on the variables.
  %       \vdash
   %      \lambda X^+ \colon \tau.\Phi \colon \tau \rrbracket ^\eta_\mathcal{T}\\
         \llbracket \Gamma \vdash \lambda (X^v \colon \sigma).\,\Phi \colon \sigma^v \rightarrow \tau \rrbracket
-        ^\eta_\mathcal{T} =\,& F \in \llbracket \sigma^v \rightarrow \tau \rrbracket_\mathcal{T} \text{ s.t. } \forall
+        ^\eta_\mathcal{T} =\,& F \in \llbracket \sigma^v \rightarrow \tau \rrbracket_\mathcal{T} \text{ such that for
+        all }
         \mathcal{X} \in \llbracket \sigma \rrbracket_\mathcal{T}.\, \\
         &F(\mathcal{X}) = \llbracket \Gamma, X^v \colon \sigma \vdash \Phi \colon \tau \rrbracket^{\eta[X \mapsto
         \mathcal{X}]}_\mathcal{T}\\
-        \llbracket \Gamma \vdash \Phi \Psi \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \llbracket \Gamma \vdash \Phi \colon \sigma
+        \llbracket \Gamma \vdash \Phi\,\Psi \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \llbracket \Gamma \vdash \Phi
+        \colon \sigma
         ^v \rightarrow \tau \rrbracket ^\eta_\mathcal{T}(\llbracket \Gamma \vdash \Psi \colon \sigma \rrbracket ^\eta_\mathcal{T})
     \end{align*}
 \end{figure}
 
-To define the semantics of PHFL formulas we need mapping $\eta$ that associates each variable to an element of its
+To define the semantics of PHFL formulas we need a mapping $\eta$ that associates to each variable an element of its
 type semantics, i.e. $\eta(X) \in \llbracket\tau\rrbracket_\mathcal{T}$ for $X$ of type $\tau$. Let $\Phi$ be a
 well-typed formula of type $\tau$, $\mathcal{T}$ a LTS and $\eta$ a variable mapping, then the semantics
 $\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ are defined inductively on $\Phi$ which maps to
 an element of $\llbracket\tau\rrbracket_\mathcal{T}$ as explained in Figure~\ref{figure:phfl-semantics}.
-Note, that $\eta[X \mapsto \mathcal{X}]$ is a mapping $\eta'$ that is equal to $\eta$ but $\eta'(X) = \mathcal{X}$ and
-with $\emph{q}, \emph{q'} \in Q^d$, $\emph{q} \overset{a, i}{\rightarrow} \emph{q'}$ stands for $q_i
-\overset{a}{\rightarrow} {q_i}'$ and for all $j \neq i$ holds $q_j = {q_j}'$.
+Note, that $\eta[X \mapsto \mathcal{X}]$ is a mapping $\eta'$ that is equal to $\eta$ but $\eta'(X) = \mathcal{X}$.
 
-In this thesis we are interested in PHFL formulas that have a specific order. For this, a formula $\Phi$ have order $k$
+In this thesis we are interested in PHFL formulas that have a specific order. For this, a formula $\Phi$ has order $k$
 if $k = max(\{ord(\tau)\mid \Psi \colon \tau$ \textit{is a subformula of} $\Phi\})$. The set of formulas that have
 order at most $k$ is denoted by PHFL$^k$.
 
 \begin{example}{\cite{lange2014capturing}}
     \label{example:phfl_order_2}
     The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
-    those pairs $(q_1, q_2)$ for which $q_1$ has the same traces like $q_2$ and vice versa.
+    those pairs $(q_1, q_2)$ for which $q_1$ has the same traces as $q_2$ and vice versa.
     \begin{align*}
         \Phi = &(\mu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
         \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&X \Leftrightarrow Y \wedge
@@ -256,28 +256,30 @@ $\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0}.
         \bar{Y} \vdash tail(p_i, \bar{X}) \and
         \inferrule{X \in \bar{X} \cup \bar{Y}}{\bar{Y} \vdash tail(X, \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset)}{\bar{Y} \vdash tail(\neg \Phi, \bar{X})} \and
-        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\{\emph{i} \leftarrow \emph{j}\} \Phi,
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\{\emph{j}\} \Phi,
         \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \bar{X})}{\bar{Y} \vdash tail
         (\Phi \vee \Psi, \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\langle a \rangle_i \Phi, \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset)}{\bar{Y} \vdash tail([a]_i \Phi, \bar{X})} \and
+        \inferrule{\bar{Y} \cup \{Z\} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\lambda Z^v \colon \tau . \Phi,
+        \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset) \\ \bar{Y} \vdash tail(\Psi, \bar{X})}{\bar{Y} \vdash tail
         (\Phi \wedge \Psi, \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \emptyset)}{\bar{Y} \vdash tail
-        (\Phi \Psi, \bar{X})} \and
-        \inferrule{\bar{Y} \cup \{Z\} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\lambda Z^v \colon \tau . \Phi,
-        \bar{X})} \and
+        (\Phi\,\Psi, \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X} \cup \{Z\})}{\bar{Y} \vdash tail(\mu Z \colon \tau . \Phi,
+        \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X} \cup \{Z\})}{\bar{Y} \vdash tail(\nu Z \colon \tau . \Phi,
         \bar{X})}
     \end{mathpar}
 \end{figure}
 
 Next, we want to define a fragment of PHFL formulas. This fragment is called tail-recursive and ensures that
-some combinations of subformulas don't appear in an PHFL formula. For this, let the logical connective
-$\wedge$ and the modality operators $[a]_i$ be further primitives of PHFL formula syntax. Intuitively, tail-recursive
-PHFL formulas are PHFL formulas, where all least fixpoint variables do not occur freely under the operators
-$\wedge$, $\neg$ and $[a]_i$, nor in $\Psi$ of formula $\Phi\Psi$.
+some combinations of subformulas do not appear in an PHFL formula. For this, let the logical connective
+$\wedge$, the modality operators $[a]_i$ and the greatest fixpoint operator $\nu$ be further primitives of PHFL formula
+syntax. Intuitively, tail-recursive PHFL formulas are PHFL formulas where all fixpoint variables do not occur freely
+under the operators $\neg$ and $[a]_i$ nor in $\Psi$ of formulas of the type $\Phi\,\Psi$ or $\Psi \wedge \Phi$.
 
 \begin{definition}
     A closed PHFL formula $\Phi$ is called \emph{tail-recursive} if $\emptyset \vdash tail(\Phi, \emptyset)$ is
@@ -289,8 +291,8 @@ The set of all tail-recursive PHFL formulas that have order at most $k$ is denot
 \begin{example}{\cite{lange2014capturing}}
     Looking at Figure~\ref{figure:phfl-tail-recursive}, we can see, that $\Phi_1 = \mu X.[a]_1 X$ is not tail
     recursive, because $X$ occurs under $[a]_1$. Also $\Phi_2 = \mu F .\lambda X. (F X) \wedge (F(F X))$
-    isn't tail-recursive because $F$ occurs on the left side of the logical operator $\wedge$. The second reason, why
-    $\Phi_2$ isn't tail-recursive is because $F$ also occurs in $F X$ of subformula $F (F X)$. An example of a
+    is not tail-recursive because $F$ occurs on the left side of the logical operator $\wedge$. The second reason why
+    $\Phi_2$ is not tail-recursive is because $F$ also occurs in $F X$ of subformula $F (F X)$. An example of a
     formula that is tail-recursive is given by:
-    \[(\nu F. \lambda X. (F \langle a \rangle_1 X) \vee (X \wedge \langle a \rangle_2 (F X)) (\mu Y.Y))\]
+    \[\nu F. \lambda X. (F \langle a \rangle_1 X) \vee (X \wedge \langle a \rangle_2 (F X))\bot\]
 \end{example}

@@ -63,9 +63,9 @@ following relation describes those states that have the same behaviour.
     \begin{compactitem}
         \item $v_1 (q_1) = v_2 (q_2)$,
         \item for all $a \in \Sigma$ and all $q_1' \in Q_1$, if $q_1 \overset{a}{\rightarrow} q_1'$, then there
-        is a state $q_2' \in Q_2$, $q_2 \overset{a}{\rightarrow} q_2'$ and $(q_1', q_2') \in R$ and
+        is a state $q_2' \in Q_2$, such that $q_2 \overset{a}{\rightarrow} q_2'$ and $(q_1', q_2') \in R$ and
         \item for all $a \in \Sigma$ and all $q_2' \in Q_2$, if $q_2 \overset{a}{\rightarrow} q_2'$, then there is a
-        state $q_1' \in Q_1$, $q_1 \overset{a}{\rightarrow} q_1'$ and $(q_1', q_2') \in R$.
+        state $q_1' \in Q_1$, such that $q_1 \overset{a}{\rightarrow} q_1'$ and $(q_1', q_2') \in R$.
     \end{compactitem}
     We call two states $q_1 \in Q_1$, $q_2 \in Q_2$ \emph{bisimilar}, noted as $(\mathcal{T}_1, q_1) \sim
     (\mathcal{T}_2, q_2)$, if there
@@ -95,10 +95,9 @@ Furthermore, we can describe properties of LTS. \textit{Queries} are one way to 
 
 The queries defined in Definition~\ref{definition:query} can be categorized. Here we are interested in two of these
 categories. The first category is called \textit{bisimulation invariant}. This category describes those queries that
-can't distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
-\textit{Kripke structures}. A Kripke structure
-is a transition system. Note, that transition systems  have only one type of actions. This means the edges of the
-graph haven't labels.
+can not distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
+\textit{Kripke structures}. A Kripke structure is a transition system. Note, that transition systems have only one
+type of actions.
 
 \begin{definition}
     \label{definition:bisimulationInvariant}
@@ -117,7 +116,7 @@ The second category of a query tells us which complexity class a query belongs t
     \label{definition:queryBelongsToComplexityClass}
     Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ and $(q_1, \dots, q_{r}) \in Q^r$.
     A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is a DTM (see
-    Chapter~\ref{sec:descriptiveComplexity}) in $\mathcal{C}$ for deciding on input $(\mathcal{T}, (q_1, \dots,
+    Section~\ref{sec:descriptiveComplexity}) in $\mathcal{C}$ for deciding on input $(\mathcal{T}, (q_1, \dots,
     q_{r}))$ whether $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$.
 \end{definition}
 
@@ -135,13 +134,13 @@ The second category of a query tells us which complexity class a query belongs t
 \end{example}
 
 From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
-and the complexity classes $k$-EXPTIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace} follow
+and the complexity classes $k$-EXP-TIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace} follow
 the queries that we want to investigate.
 
 \begin{definition}
     \label{definition:kExptimekExpspace}
     \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
-    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 1$.
+    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 0$.
 \end{definition}
 
 In the next chapter we introduce the polyadic higher order fixed point logic and a restriction called tail-recursive

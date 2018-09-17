@@ -8,7 +8,7 @@
 
 For comparing the complexity classes with PHFL, we have to detour over combinations of extensions of FO. The first well
 known extension is called Higher Order Logic~\cite{vanBenthem2001higher}, abbreviated with HO. In HO we
-increase the expressive power of FO by allowing relation variables over any order. For this, we have to define the
+increase the expressive power of FO by allowing relation variables of any order. For this, we have to define the
 types of higher order variables.
 
 \subsection{HO Syntax}\label{subsec:hoSyntax}
@@ -18,10 +18,10 @@ types of higher order variables.
     \[ \tau \Coloneqq \odot \mid (\tau, \dots, \tau) \]
 \end{definition}
 
-The HO type of individuals is $\tau = \odot$. These objects have the \textit{HO order} $1$. The HO type $\tau = (\tau',
-\dots, \tau')$ is that of relations between objects of HO type $\tau'$ and have the HO order $1 + order(\tau')$. For
-each HO type we have a countably infinite set of variables. Furthermore, let $\sigma$ be a signature over an
-relational vocabulary i.e. holding only relations of arbitrary HO types.
+The HO type of individuals is $\tau = \odot$. These objects have the \textit{order} $1$. The HO type $\tau = (\tau',
+\dots, \tau')$ is that of relations between objects of HO type $\tau'$ and has the order $1 + order(\tau')$. For
+each HO type we have a countably infinite set of variables. Furthermore, let $\sigma$ be a signature over a
+relational vocabulary i.e. $\sigma$ just contains relation symbols.
 
 \begin{definition}
     Let $\mathcal{V} = \{X_1, X_2, \dots \}$ a countable infinite set of variables $\sigma$ a signature, then \emph{HO
@@ -33,7 +33,7 @@ relational vocabulary i.e. holding only relations of arbitrary HO types.
         \item $R \in \sigma$ is a relation of individuals with arity $n$ and $x_1, \dots, x_n \in \mathcal{V}$ of HO
         type $\odot$,
         \item $Y \in \mathcal{V}$ of HO type $(\tau', \dots, \tau')$ and $y_1, \dots, y_n \in \mathcal{V}$ of HO type
-        $\tau'$ respectively and
+        $\tau'$ and
         \item $X \in \mathcal{V}$ of HO type $\tau$.
     \end{compactitem}
 \end{definition}
@@ -79,8 +79,8 @@ formulas whose variables have order less or equal $k$.
     \label{example:ho}
     The following formula $\varphi$ describes Peano's induction axiom. Peano's induction axiom reveals that every set
     of natural numbers, which contains $0$ and is also closed under immediate successors, contains all natural numbers.
-    \[\varphi = \forall P\colon(\odot).\,(P(0) \wedge \forall I\colon\odot.\,(P(I) \Rightarrow P(I + 1)) \Rightarrow
-    \forall N \colon\odot.\,(P(N)))\]
+    \[\varphi = \forall (P\colon(\odot)).\,(P(0) \wedge \forall (I\colon\odot).\,(P(I) \Rightarrow P(I + 1)) \Rightarrow
+    \forall (N \colon\odot).\,(P(N)))\]
     Note, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
 \end{example}
 
@@ -105,8 +105,8 @@ From Knaster-Tarski~\cite{tarski1955lattice} we know that if an operator $F\colo
 
 \begin{example}
     \label{example:lfp}
-    In remember to Example~\ref{example:ho} we can define Peano's induction axiom also with a least fixpoint
-    operator. This example is mainly from~\cite{hetzl2017higher}. Let $A = \mathbb{Z}$ and $F(X) = X \cup \{0\} \cup
+    Peano's induction axiom defined as HO$^2$ formula in Example~\ref{example:ho} can be also defined with a least
+    fixpoint operator. This example is mainly from~\cite{hetzl2017higher}. Let $A = \mathbb{Z}$ and $F(X) = X \cup \{0\} \cup
     \{x + 1 \mid x \in X\}$ the operator on $A$. Obviously, $F$ is monotone and fixpoints of $F$ are of the form
     $[-k, \infty[~\subseteq\mathbb{Z}$ for $k \in \mathbb{N}$. The least fixpoint of operator $F$ describes Peano's
     induction axiom, i.e. $\mathit{LFP}(F) = \mathbb{N}$.
@@ -139,7 +139,7 @@ formulas, denoted by HO($\mathit{LFP}$).
     \begin{compactitem}
         \item $[\mathit{LFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots, v_n)$ is a HO
         ($\mathit{LFP}$) formula over $\sigma$ with free variables $v_1, \dots, v_n$ iff $\varphi(X, x_1, \dots, x_n)
-        $ is a HO($\mathit{LFP}$) formula with free variables $X, x_1, \dots, x_n$, where $\varphi$ is positive in
+        $ is a HO($\mathit{LFP}$) formula with free variables $X, x_1, \dots, x_n$, if $\varphi$ is positive in
         $X$, $X$ has HO type $\tau = (\tau', \dots, \tau')$, $x_1, v_1, \dots, x_n, v_n$ have HO type $\tau'$.
     \end{compactitem}
 \end{definition}
@@ -158,23 +158,21 @@ order less or equal $k$.
 
 \begin{example}{\cite{freireMartins2011descriptive}}
     \label{example:ho_lfp} This example describes the reachability of two
-    vertices in a graph. For this, let $\sigma = \{E\colon(\odot, \odot)\}$ our signature holding a binary relation
-    representing the edges in a graph. Then
+    vertices in a graph. For this, let $\sigma = \{E\colon(\odot, \odot)\}$ a signature where $E$ represents the
+    edges in a graph. Then
     \[[LFP\;(E(x_1, x_2) \vee \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))](s, t)\]
     describes the reachability of vertex $t$ from vertex $s$. Note, that $[LFP\;($ $E(x_1, x_2) \vee
     \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))]$ describes the transitive closure of $E$. This formula is
-    one of $HO(LFP)^1$.
+    in $HO(LFP)^1$.
     %\[[LFP_{X,x}(\forall X:(\odot).\,(\forall Y:\odot.\,(X(Y) \vee Y = 0 \vee \exists Z:\odot.\,(X(Z) \wedge Y = (Z + 1)))
 %))]\]
 \end{example}
 
-Since the $\mathit{LFP}$ operator restricts formulas to be positive in a variable, the next operator hasn't any
-restriction. That means the number of negations on a variable can be odd or even.
-
 \subsection{HO + PFP}\label{subsec:ho+Pfp}
 
-Next, we define the partial fixpoint operator for HO formulas like in~\cite{schewe2006fixpoint}. For this, we define
-first the partial fixpoint operator generally.
+Next, we define the partial fixpoint operator for HO formulas~\cite{schewe2006fixpoint}. Since the
+$\mathit{LFP}$ operator restricts formulas to be positive in a variable, the partial fixpoint operator has not any
+restriction. For this, we define first the partial fixpoint operator generally.
 
 \begin{definition}
     Let $F\colon \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then the \emph{partial
@@ -211,8 +209,7 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
     \end{compactitem}
 \end{definition}
 
-\begin{example}
-    This example is mainly from~\cite{abiteboul1995computing}.
+\begin{example}{\cite{abiteboul1995computing}}
     \begin{align*}
     [PFP\;(&G(x, y) \wedge \neg \exists z\colon\odot.\,(G(x, z) \wedge G(z, y)) \vee \\
     &\exists z\colon\odot.\,(\neg G(x, z)\wedge\neg G(z, x) \wedge \neg G(y, z) \wedge G(z, y)))](s, t)
@@ -220,8 +217,4 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
     This formula describes a graph $G$, where all edges between $(s, t)$ will be removed, if there is a path of
     length $2$ between $s$ and $t$. If there is a vertex that is not directly connected to $s$ or $t$, an edge $(s,
     t)$ will be inserted. This process will be iterated while some changes occurs.
-
 \end{example}
-
-In the next chapter we want to compare the here defined HO($\mathit{PFP}$) and HO($\mathit{LFP}$) with PHFL from
-Chapter~\ref{sec:polyadichigherorderfixpointlogic}.
