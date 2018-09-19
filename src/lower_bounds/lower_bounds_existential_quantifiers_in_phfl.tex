@@ -143,11 +143,11 @@ After we have now orders of any HO type we can define formulas that returns the 
         1, \dots, m + m, m + 1, \dots, d)\} X) \,\vee \\&\,(X \wedge \exists_{m + 1}\dots\exists_{m + m} <^{\odot
         \times \dots \times \odot} \,\wedge \\&\,\{(m + 1, \dots, m + m, m + 1, \dots, d)\}
         \neg X)\\
-        next^{(\tau_1, \dots, \tau_n)} \coloneqq &\,\lambda (X \colon T ((\tau_1, \dots, \tau_n))).\,(\neg (\dots((X
-        (x_1))(x_2))\dots) (x_n) \\&\, \wedge \forall^{\tau_1}y_1.\, \dots \forall^{\tau_n}y_n.\,<^{\tau_1 \times
-        \dots \times \tau_n}(y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow  (\dots((X(y_1))(y_2))\dots)(y_n)) \,\vee
-        \\&\,((\dots ((X(x_1))(x_2)) \dots)(x_n) \wedge \exists^{\tau_1}y_1.\, \dots \exists^{\tau_n}y_n.\, \\&\,
-        <^{\tau_1 \times \dots \times \tau_n}
+        next^{(\tau', \dots, \tau')} \coloneqq &\,\lambda (X \colon T ((\tau', \dots, \tau'))).\,(\neg (\dots((X
+        (x_1))(x_2))\dots) (x_n) \\&\, \wedge \forall^{\tau'}y_1.\, \dots \forall^{\tau'}y_n.\,<^{\tau' \times
+        \dots \times \tau'}(y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow  (\dots((X(y_1))(y_2))\dots)(y_n)) \,\vee
+        \\&\,((\dots ((X(x_1))(x_2)) \dots)(x_n) \wedge \exists^{\tau'}y_1.\, \dots \exists^{\tau'}y_n.\, \\&\,
+        <^{\tau' \times \dots \times \tau'}
         (y_1, x_1,
         \dots, y_n, x_n)\,\wedge \neg (\dots((X(y_1))(y_2))\dots)(y_n))
     \end{align*}

@@ -5,4 +5,150 @@
 
 \section{Lower Bound of PHFL$^{k + 1}_{tail}$}\label{sec:lowerBoundOfPhflTail}
 
-Lorem Ipsum
+The lower bound of PHFL$^{k+1}_{tail}$ can be proven similar to the lower bound of PHFL$^k$. The main idea is not to
+show directly, that the lower bound of PHFL$^{k+1}_{tail}$ is \expspace{$k$} but rather by detour over the
+bisimulation-invariant fragment of HO(PFP)$^{k+1}$. In the first subsection we show that a Turing Machine that is in
+$k$-EXPSPACE can be encoded by a HO(PFP)$^{k+1}$ formula. The next subsection uses this statement to show that the
+lower bound of PHFL$^{k+1}_{tail}$ is \expspace{$k$} by encoding formulas of HO(PFP)$^{k+1}$ in PHFL$^{k+1}_{tail}$.
+
+\subsection{$k$-EXPSPACE in HO(PFP)$^{k+1}$}\label{subsec:kExpspaceInHopfp}
+
+In this subsection we want to show that a run of an $exp(k, f(n))$ space bounded DTM can be encoded by some
+HO$^{k+1}$ formula. The main idea of this statement is an extension of the result of Abiteboul and
+Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(PFP)$^1$ coincides with $0$-EXPSPACE.
+
+%Because a finite $\sigma$-structure $\mathcal{A}$ for some relational signature $\sigma$ cannot be fed to a Turing
+%%machine directly, we have to encode $\mathcal{A}$ to an input word $\langle \mathcal{A} \rangle$. We refer the
+%interested reader to~\ref{}
+
+\begin{lemma}
+    \label{lemma:expspace_in_ho_pfp}
+    Given a DTM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ in $k$-EXPSPACE and some input word $w \in
+    \Sigma^*$ then there exists a formula $\Psi$ in HO(PFP)$^{k+1}$ such that a run of $M$ on $w$ is accepting iff
+    $\Psi$ is true.
+\end{lemma}
+
+\begin{proof}
+    Let $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ be a $exp(k, f(n))$ space bounded DTM and $w
+    \in \Sigma$ some input word. Furthermore, let $\sigma$ a relational signature, $\sigma_< = \sigma \cup
+    <$ an extension of $\sigma$ and $\mathcal{A}$ a finite $\sigma_<$-structure including $<^\mathcal{A}$ that
+    represents a linear ordering on the universe $\mathcal{U}$ of $\mathcal{A}$. Finally, let $\tau$ be an HO type of
+    order $k + 1$.
+    To prove this lemma we want to define a relational representation of the final configuration of $M$ on $w$
+    as a partial fixpoint of some HO$^{k+1}$ formula. For this we set up the underlying HO$^{k+1}$ formula
+    $\varphi$ such that the iterates $(F_\varphi^\mathcal{A})^{i+1}(\emptyset)$ over $D_\tau
+    (\mathcal{U})$ represent the $i$-th configuration of $M$ on input $w$, for every $i$ until termination.
+
+    Before we can define the configurations of $M$ in HO we have to make some preparations. Remember that a
+    configuration of $M$ is a relation between the current state, the current reading head position and
+    the current tape content represented by a function. These configurations will be combined in one relation $X$.
+    Because the size of the formula we build have to be polynomial and the reading head of $M$ can be on
+    one of $exp(k, f(n))$ cells for example, we have to encode the number in sets of order $k + 1$. Furthermore, to do
+    not exceed the bound of order $k + 1$, we have to split the tape content function in this way that in one tuple
+    $x$ of $X$ is just the current state, the current head position and one position of the tape with its content. By
+    syntax of HO types each component of $x \in X$ have to be of the same type, so to access the different states and
+    tape symbols they have to be numerated. $\{0, \dots, |Q| - 1\}$ for states and $\{0, \dots, |\Gamma| - 1\}$ for tape
+    symbols.
+
+    The next step is to define some abbreviations that we want to use in the definitions of the configurations. The
+    first and most important abbreviation is the definition of orders of any HO type. These orders are defined similar
+    to the defined formulas of Definition~\ref{definition:lower_bound_less}.
+    \begin{align*}
+        <^\odot(x, y) \coloneqq &\,<^\mathcal{A}(x, y) \\
+        <^{\tau' \times \dots \times \tau'}(x_1, y_1, \dots, x_n, y_n) \coloneqq &\,\underset{i =
+        1}{\overset{n}{\bigvee}}<^{\tau'}(x_i, y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
+        \neg <^{\tau'}(y_j, x_j)\\
+        <^{(\tau', \dots, \tau')}(X, Y) \coloneqq &\,\exists (x_1 \colon {\tau'}). \,\dots \exists(x_n \colon
+        {\tau'}).\, Y(x_1, \dots, x_n)
+        \\&\,\wedge \neg X(x_1, \dots, x_n)\,\wedge \forall (y_1 \colon {\tau'}). \,\dots
+        \forall(y_1 \colon {\tau'}).\,\\&\,<^{\tau'\times \dots \times \tau'}
+        (y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow (X(y_1, \dots, y_n) \Rightarrow Y(y_1, \dots, y_n))
+    \end{align*}
+    With these formulas it is possible to define another two important abbreviations. On the one hand equality
+    of two variables of arbitrary type and on the other hand the successor of a given element. If $X$ and
+    $Y$ are two variables of type $\tau$ then the equality of $X$ and $Y$ is given by the formula
+    \[X = Y \coloneqq \neg<^\tau(X, Y) \wedge \neg <^\tau(Y, X).\]
+    Finally, if $X$ and $Y$ are two variables of type $\tau$ then the prove that $Y$ is the successor of $X$ is given by
+    the formula
+    \[next^{\tau}(X, Y) \coloneqq\; <^\tau(X, Y) \wedge \forall (Z \colon \tau).\, <^\tau(Z, Y) \Rightarrow\;<^\tau
+    (Z, X).\]
+
+    Now we are able to define the configurations in HO(PFP)$^k$. The first configuration is the initial configuration
+    $C_0^M$. For input word $w$ this is given by the formula
+    \begin{align*}
+        \varphi_0(q, h, i, b) \coloneqq &\,q = q_0 \wedge h = 0 \wedge (\neg <^\tau(|w|, i) \Rightarrow b = w_{i})\,
+        \vee\\&\,(\neg <^\tau (i, |w|) \wedge \neg i = |w| \Rightarrow b = \Box))
+    \end{align*}
+    where $q$ is the current state, $h$ the current head position, $i$ a tape index and $b$ the symbol on $i$. $q_0$,
+    $0$, $|w|$, $w_{i}$ and $\Box$ are the numerical representations as sets of the same elements in $Q$ and $\Gamma$.
+
+    To iterate through all configurations of $M$ on input $w$, we need a variable $X$ of type $\tau =
+    (\tau', \tau', \tau', \tau')$ where $\tau'$ has order $k + 1$, so $X$ has order $k + 2$. On an iteration
+    $(F_\varphi^\mathcal{A})^{i+1}(\emptyset)$ for the following formula $\varphi$ the variable $X$ includes
+    all configurations that will be reached within $i$ transitions.
+    \begin{align*}
+        \varphi(X, q, h, i, b) \coloneqq &\,(\neg \exists (q_{old} \colon \tau').\, \neg\exists
+        (h_{old}
+        \colon \tau').\, \neg\exists (i_{old} \colon \tau').\, \neg\exists (b_{old} \colon \tau').\,\\
+        &\, X(q_{old}, h_{old}, i_{old}, b_{old}) \wedge \varphi_0(q, h, i, b)) \,\vee \\
+        &\,(\exists (q_{old} \colon \tau').\, \exists (h_{old} \colon \tau').\, \exists (i_{old} \colon
+        \tau').\, \exists (b_{old} \colon \tau').\,\\
+        &\, X(q_{old}, h_{old}, i_{old}, b_{old}) \wedge \xi(X, q, h, i, b))
+    \end{align*}
+    Note that $\varphi_0$ is invoked only in the first iteration and thus provides the correct initialisation. The
+    formula $\xi$ collects the transitions of those tuples in $X$ according to the transition function $\delta$ of
+    $M$. In each iteration exactly one configuration will be added to $X$ because $M$ is deterministic.
+    The formula $\xi$ is given by
+    \begin{align*}
+        \xi(X, q, h, i, b) \coloneqq &\,\exists (q_{old} \colon \tau').\, \exists (h_{old} \colon
+        \tau').\, \exists (i_{old} \colon \tau').\, \exists (b_{old} \colon \tau').\, \\
+        &\,\exists (q_{new} \colon \tau').\, \exists (b_{new} \colon \tau').\,X(q_{old}, h_{old}, i_{old},
+        b_{old}) \,\wedge \\
+        &\, (\underset{\delta(q_{old}, b_{old}) = (q_{new}, b_{new}, d)}{\bigvee} q = q_{new} \wedge h =
+        h_{old} + d \wedge i = i_{old}\,\wedge\\&\, ((\neg i = h_{old} \wedge b =
+        b_{old}) \vee (i = h_{old} \wedge b = b_{new})))
+    \end{align*}
+    where $h = h_{old} + d$ depends on $d$ and is given by
+    \[h = h_{old} + d \coloneqq
+    \begin{cases}
+        next^\tau(h_{old}, h),  & \text{if } d = L\\
+        next^\tau(h, h_{old}),  & \text{if } d = R\\
+        h = h{old},  & \text{if } d = N
+    \end{cases}\]
+
+    Because $M$ terminates the formula
+    \[\psi_0(q', h', i', b') \coloneqq [\mathit{PFP}\;\varphi(X, q, h, i, b)](q', h', i', b') \]
+    is guaranteed to define the relational description of the final configuration of $M$ on input word $w$.
+    Finally, the formula
+    \[\psi \coloneqq \exists (h' \colon \tau').\, \exists (i' \colon \tau').\, \exists (b' \colon \tau').\,
+    \underset{q' \in F}{\bigvee} \psi_0(q', h', i', b')\]
+    defines the acceptance of $M$ on input $w$.
+\end{proof}
+
+\subsection{Bisimulation Invariant HO(PFP)$^{k+1}$ to PHFL$^{k+1}_{tail}$}\label{subsec:bisimulationInvariantHopfptoPhfl}
+
+As mentioned in the introduction of this section the main idea is not to show directly, that the lower bound of
+PHFL$^{k+1}_{tail}$ is \expspace{$k$} but rather by detour over the bisimulation-invariant fragment of HO(PFP)
+$^{k+1}$. In the previous subsection we have seen that a DTM in \expspace{$k$} can performed by a HO(PFP)$^{k+1}$
+formula. This statement we want to use and want to encode a given bisimulation-invariant HO(PFP)$^{k+1}$ into
+PHFL$^{k+1}_{tail}$. Because the encoding of the HO$^{k+1}$ part is already proven in
+Section~\ref{sec:existential_quantifiers_in_phfl} and Section~\ref{sec:lowerBoundOfPhfl} to be in PHFL$^k$ and these
+encodings are all tail-recursive the PFP operator is the only kind of HO(PFP)$^{k+1}$ formula that we have to encode
+in this subsection.
+
+\begin{lemma}
+    \label{lemma:ho_pfp_equals_phfl_tail}
+    Let $r \geq 1$ and $k \geq 0$. For every bisimulation invariant formula $\Phi$ of HO(PFP)$^{k + 1}$ there is a
+    PHFL$^{k+1}_{tail}$ formula $\Psi$ such that $\mathcal{Q}_\Phi^r = \mathcal{Q}_\Psi^r$.
+\end{lemma}
+
+\begin{proof}
+    We have to encode the PFP operator...
+\end{proof}
+
+The combination of Lemma~\ref{lemma:ho_pfp_equals_phfl_tail}, Lemma~\ref{lemma:expspace_in_ho_pfp} and
+Theorem~\ref{theorem:phfl_k_plus_1_tail_in_k_expspace} proves the following theorem.
+
+\begin{theorem}
+    Let $k \geq 0$. PHFL$^{k+1}$ captures \expspace{$k$} over labeled transition systems.
+\end{theorem}
