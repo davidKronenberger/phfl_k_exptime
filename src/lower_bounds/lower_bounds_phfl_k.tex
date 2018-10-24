@@ -1,4 +1,3 @@
-
 %%
 %% Author: DKron
 %% 17.08.2018
@@ -46,6 +45,7 @@ two the actions of an LTS. Now we are able to define the function to translate a
 formula to a PHFL$^k$.
 
 \begin{definition}
+    \label{definition:lower_bounds_phfl_formula_function}
     Let $F$ be the function that maps a bisimulation invariant HO(LFP)$^{k+1}$ formula to a PHFL$^k$ formula defined
     inductive on bisimulation invariant HO(LFP)$^{k+1}$ formula $\Phi$ as follows:
     \begin{align*}
@@ -62,7 +62,53 @@ formula to a PHFL$^k$.
 \end{definition}
 
 The last step is to show that the semantics of a given HO(LFP)$^{k+1}$ formula coincides with the semantics of the by
-function $F$ encoded PHFL$^k$ formula.
+function $F$ encoded PHFL$^k$ formula. For this we need a last definition for the semantics of the formulas. As
+described in Section~\ref{sec:existential_quantifiers_in_phfl} the variables in HO of types with order $3$ or higher
+are not supported in PHFL. Also first-order variables are not supported. For this we define a function that maps a
+given variable mapping for a HO formula to the correct variable mapping for PHFL semantics. This function ignores the
+mapping of first-order variables, maps second-order variables also to sets and higher-order variables to the
+corresponding characteristic function. Note, that the sets of order $2$ in HO have order $0$ in PHFL. The first-order
+variables of an HO formula that are marked as ignored in the following function, can be mapped to anything because we
+do not use them in PHFL directly.
+
+\begin{definition}
+    \label{definition:lower_bound_variable_function}
+    Let $d$ a dimension of PHFL and $\eta$ a variable mapping for a HO(LFP)$^{k+1}$ formula, then function
+    $V$ maps $\eta$ to a variable mapping that can be used for a PHFL$^k$ formula with dimension $d$ where
+    \[V(\eta)(X)=
+    \begin{cases}
+        \text{ignored}, & \text{if } X \text{ is of type } \odot \\
+        A,  & \text{if } X \text{ is of type } (\odot, \dots, \odot)\\
+        F, & \text{if } X \text{ is of type } (\tau, \dots, \tau) \text{ and } \tau \neq \odot,
+    \end{cases}\]
+    where $A \subseteq Q^d$ such that $(q_1, \dots, q_n, q_{n + 1}, \dots, q_d) \in A$ iff $(q_1, \dots, q_n) \in
+    \eta(X)$ and $F$ is a function of type $T((\tau, \dots, \tau))$ defined as follows:
+    \begin{align*}
+        (\dots((F(V(\eta)(X_1)))(V(\eta)(X_2)))\dots)(V(\eta)(X_n)) &= Q^d &\text{ iff } (X_1, \dots, X_n) \in \eta(X)\\
+        (\dots((F(V(\eta)(X_1)))(V(\eta)(X_2)))\dots)(V(\eta)(X_n)) &= \emptyset &\text{ iff } (X_1, \dots, X_n)
+        \not\in \eta(X)
+    \end{align*}
+\end{definition}
+
+The following example shows how a set of higher type will be translate to its characteristic function via the
+function $V$ of Definition~\ref{definition:lower_bound_variable_function}.
+
+\begin{example}
+    Let $\mathcal{A}$ a $\sigma$-structure over universe $\mathcal{U} = \{1, 2, 3\}$ and $X$ a HO(LFP)$^{k + 1}$
+    variable of type $((\odot, \odot), (\odot, \odot))$ mapped through variable mapping $\eta$ to
+    \[\eta(X) = \{(\{(1, 1)\}, \{(2, 2)\}), (\{(1, 1), (2, 2)\}, \{(3, 3)\})\}\]
+    then $V(\eta)(X)$ is a PHFL$^k$ function of type $\bullet \rightarrow (\bullet \rightarrow \bullet)$ such
+    that $V(\eta)(X)$ $(\{(1, 1)\}) = f$, $V(\eta)(X)(\{(1, 1), (2, 2)\}) = g$ and $V(\eta)(X)(z) = h$ for $z \in
+    Q^d$ and $z \neq \{(1, 1)\}$ and $z \neq \{(1, 1), (2, 2)\}$. $f$, $g$ and $h$ are functions of type $\bullet
+    \rightarrow \bullet$ where $f(\{(2, 2)\}) = g(\{(3, 3)\}) = Q^d$ and $f(z) = g(z') = h(z'') = \emptyset$ for $z,
+    z', z'' \in Q^d$ and $z \neq \{(2, 2)\}$ and $z' \neq \{(3, 3)\}$.
+\end{example}
+
+Because we are interested in the bisimulation-invariant fragment of HO( LFP)$^{k+1}$ we give a further definition that
+makes the proof of the following lemma more comfortable. This definition gives for a given LTS and tuple of states a
+reduced LTS of all those states that are reachable by at least one state of the given state tuple.
+
+Finally we have to show the following lemma.
 
 \begin{lemma}
     \label{lemma:ho_lfp_equals_phfl}
@@ -71,15 +117,221 @@ function $F$ encoded PHFL$^k$ formula.
 \end{lemma}
 
 \begin{proof}
-    The usage of first-order variable $x_i$ in proposition $p$ in HO can be interpreted such that the variable
-    assignment of $x_i$ have to fulfill $p$. In PHFL that is equal to that state where the $i$-th component is
-    located fulfills $p$.
+    This lemma can be proven by showing for all HO(LFP)$^{k+1}$ formulas $\Phi$ with free first-order variables $x_1,
+    \dots, x_f$ and quantified first-order variables $x_{f+1}, \dots, x_q$, all LTS $\mathcal{T} = (Q, \Sigma, P,
+    \Delta, v)$ and all variable mappings $\eta$ that it holds that $\mathcal{T}, \eta \models \Phi$ iff $\emph{q} =
+    (\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0)$ and $\emph{q} \in \llbracket
+    \Gamma \vdash F(\Phi)\colon \bullet \rrbracket^{V(\eta)}_{\mathcal{T}}$, where $q_0
+    \in Q$ is an arbitrary state, $F$ is the formula function of
+    Definition~\ref{definition:lower_bounds_phfl_formula_function} and $V$ the variable mapping function of
+    Definition~\ref{definition:lower_bound_variable_function}. This statement can be proven by induction over formula
+    $\Phi$.
+    \begin{compactitem}
+        \item In case of $\Phi = p(x_i)$ then $\mathcal{T}, \eta \models \Phi$ holds exactly then if $\eta(x_i) \in
+        p^\mathcal{T}$. Translated to the normal LTS definition of $\mathcal{T}$ it is the same as $p \in v(\eta(x_i))$.
+        With $F(\Phi) = p_i$ this is exactly
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{i-1}), \eta(x_{i}), \eta(x_{i+1}), \dots, \eta(x_f),\\& q_0, \dots, q_0) \in
+            \llbracket \Gamma \vdash F(\Phi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.
+        \end{align*}
+        \item In case of $\Phi = a(x_i, x_j)$ then $\mathcal{T}, \eta \models \Phi$ holds exactly then if $(\eta(x_i)
+        , \eta(x_j))$ $ \in a^\mathcal{T}$. Translated to the normal LTS definition of $\mathcal{T}$ it is the same as $
+        \eta(x_i) \overset{a}{\rightarrow} \eta(x_j)$. Let $g: \{1, 2\} \rightarrow \{i, j\}$ be a function.
+        By  definition of the semantics of $\langle a \rangle_i \Phi$ the tuple
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{g(1) - 1}), \eta(x_{g(1)}), \eta(x_{g(1)+1}), \dots, \eta(x_{g(2)-1}), \eta
+            (x_{g(2)}),\\& \eta(x_{g(2)+1}), \dots, \eta(x_f), q_0, \dots, q_0))
+        \end{align*}
+        is an element of the semantics of $\langle a \rangle_i \Phi$ if
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{g(1) - 1}), q_m, \eta(x_{g(1)+1}), \dots, \eta(x_{g(2)-1}), q_n,\\& \eta(x_{g(2)
+            +1}), \dots, \eta(x_f), q_0, \dots, q_0)
+        \end{align*}
+        is an element of the semantics of $\Phi$ where $\eta(x_i)$ can
+        move by an $a$ action to $q_m$ if $g(1) = i$ or to $q_n$ if $g(2) = i$. Because $\eta(x_j)$ is the state that
+        have to be reached via an $a$ action from $\eta(x_i)$ we have to check if $q_m = \eta(x_j)$ in case of $g(1)
+        = j$ and in case of $g(2) = j$ we have to check if $q_n = \eta(x_i)$. If two states are equal in an LTS is
+        similar to check if those states are bisimilar. $\sim$ is given by formula $\Phi_\sim$ of
+        Example~\ref{example:phfl_order_0}.
+        Because this formula returns those $d$-tuples where the first and second component are bisimilar, we have to
+        move the $i$-th and $j$-th component to the first and second component. This is given by $\{(i, j, 3, \dots, d
+        )\} \Phi_\sim$. Summarizing all this steps with $F(\Phi) = \langle a \rangle_i \{(i, j, 2, \dots, d)\}
+        \Phi_\sim$ it follows
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{g(1) - 1}), \eta(x_{g(1)}), \eta(x_{g(1)+1}), \dots, \eta(x_{g(2)-1}), \eta
+            (x_{g(2)}),\\& \eta(x_{g(2)+1}), \dots, \eta(x_f), q_0, \dots, q_0)) \in \llbracket \Gamma \vdash F(\Phi)
+            \colon \bullet \rrbracket
+        \end{align*}
+        if $(\eta(x_i), \eta(x_j))$ $ \in a^\mathcal{T}$ and
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{g(1) - 1}), \eta(x_{g(1)}), \eta(x_{g(1)+1}), \dots, \eta(x_{g(2)-1}), \eta
+            (x_{g(2)}),\\& \eta(x_{g(2)+1}), \dots, \eta(x_f), q_0, \dots, q_0)) \not\in \llbracket \Gamma \vdash
+            F(\Phi) \colon \bullet \rrbracket
+        \end{align*}
+        if $(\eta(x_i), \eta(x_j))$ $ \not\in a^\mathcal{T}$.
 
-    The usage of first-order variables $x_i$ and $x_j$ in action $a$, i.e. $a(x_i, x_j)$, can be interpreted as an
-    $a$-movement from assigned state of $x_i$ to assigned state of $x_j$. In PHFL that is equal to an $a$-movement from
-    component $i$ to component $j$ such that the state where component $j$ is located is reachable from the state where
-    component $i$ is located. That means $a(x_i, x_j)$ is equal to $\langle a \rangle_i\{(1, \dots, d) \leftarrow (i, j,
-    3, \dots, d)\} \Phi_\sim$ where $\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0} that defines $\sim$.
+        \item In case of $\Phi = X(x_{i_1}, \dots, x_{i_n})$ where $X$ is a free variable of HO type $(\odot, \dots,
+        \odot)$ and $x_{i_1}, \dots, x_{i_n}$ are free first-order variables then $\mathcal{T}, \eta \models \Phi$
+        holds exactly then if $(\eta(x_{i_1}), \dots \eta(x_{i_n})) \in \eta(X)$. Because of definition of $V$ the
+        tuple $(\eta(x_{i_1}), \dots \eta(x_{i_n}), \eta(x_{n + 1}), \dots, \eta(x_{f}), q_0, \dots, q_0)$ is in $V
+        (\eta)(X)$ if $(\eta(x_{i_1}),\dots \eta(x_{i_n})) \in \eta(X)$ and is not in $V(\eta)(X)$ otherwise. Because
+        the components $i_1, \dots, i_n$ for first-order variables $x_{i_1}, \dots, x_{i_n}$ have not to be $1,
+        \dots, n$ respectively, we first move them to this components and check then if
+        \[(\eta(x_{i_1}), \dots \eta(x_{i_n}), \eta(x_{n + 1}), \dots, \eta(x_{f}), q_0, \dots, q_0) \in V(\eta)(X).\]
+        So it holds with $F(\Phi) = {(i_1, \dots, i_n, n+1, \dots, d)}X$ and function $g: \{1, \dots, n\}
+        \rightarrow \{i_1, \dots, i_n\}$ that
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{g(1)-1}), \eta(x_{g(1)}), \eta(x_{g(1)+1}), \dots \eta(x_{g(2)-1}), \eta
+            (x_{g(2)}),\\& \eta(x_{g(2)+1}), \dots, \eta(x_{g(n)-1}), \eta(x_{g(n)}), \eta(x_{g(n)+1}), \dots, \eta
+            (x_f),\\& q_0, \dots, q_0) \in \llbracket \Gamma \vdash F(\Phi) \colon \bullet \rrbracket^{V(\eta)
+            }_\mathcal{T}
+        \end{align*}
+        if $(\eta(x_{i_1}), \dots \eta(x_{i_n})) \in \eta(X)$ and
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{g(1)-1}), \eta(x_{g(1)}), \eta(x_{g(1)+1}), \dots \eta(x_{g(2)-1}), \eta
+            (x_{g(2)}),\\& \eta(x_{g(2)+1}), \dots, \eta(x_{g(n)-1}), \eta(x_{g(n)}), \eta(x_{g(n)+1}), \dots, \eta
+            (x_f),\\& q_0, \dots, q_0) \not\in \llbracket \Gamma \vdash F(\Phi) \colon \bullet \rrbracket^{V(\eta)
+            }_\mathcal{T}
+        \end{align*}
+        if $(\eta(x_{i_1}), \dots \eta(x_{i_n})) \not\in \eta(X)$.
+
+        \item In case of $\Phi = X(X_1, \dots, X_n)$ where $X$ is a free variable of HO type $(\tau, \dots,
+        \tau)$ and $X_1, \dots, X_n$ are free variables of HO type $\tau$ then $\mathcal{T}, \eta \models \Phi$
+        holds exactly then if $(\eta(X_1), \dots \eta(X_n)) \in \eta(X)$. Because of definition of $V$ it follows
+        \[(\dots((V(\eta)(X)(V(\eta)(X_1)))(V(\eta)(X_2)))\dots)(V(\eta)(X_n)) = Q^d\]
+        if $(\eta(X_1), \dots \eta(X_n)) \in \eta(X)$ and
+        \[(\dots((V(\eta)(X)(V(\eta)(X_1)))(V(\eta)(X_2)))\dots)(V(\eta)(X_n)) = \emptyset\]
+        if $(\eta(X_1), \dots \eta(X_n)) \not\in \eta(X)$. With $F(\Phi) = (\dots ((X(X_1))(X_2))$ $\dots)(X_n)$
+        it follows
+        \[ (\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket \Gamma \vdash F(\Phi) \colon
+        \bullet \rrbracket^{V(\eta)}_\mathcal{T} = Q^d.\]
+        if $(\eta(X_1), \dots \eta(X_n))\in \eta(X)$ and
+        \[ (\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \not\in \llbracket \Gamma \vdash F(\Phi) \colon \bullet
+        \rrbracket^{V(\eta)}_\mathcal{T} = \emptyset.\]
+        if $(\eta(X_1), \dots \eta(X_n)) \not\in \eta(X)$.
+    \end{compactitem}
+    By induction hypothesis it holds for HO(LFP)$^{k+1}$ formulas $\Psi$ and $\Psi'$ with free variables $x_1, \dots,
+    x_f$ and quantified first-order variables $x_{f+1}, \dots, x_q$ that for all LTS $\mathcal{T}$ and all variable
+    mappings $\eta$ that $\mathcal{T}, \eta \models \Psi$ iff $ (\eta(x_1), \dots, \eta(x_f),$ $ q_0, \dots, q_0) \in
+    \llbracket \Gamma \vdash F(\Psi) \colon \bullet^{V(\eta)}_\mathcal{T}$ and $\mathcal{T}, \eta \models \Psi'$ iff $
+    (\eta(x_1), \dots, \eta(x_f), q_0, \dots, $ $q_0) \in \llbracket \Gamma \vdash F(\Psi') \colon \bullet^{V(\eta)
+    }_\mathcal{T}$.
+    \begin{compactitem}
+        \item In case of $\Phi = \neg \Psi$ it follows that $\mathcal{T}, \eta \models \Phi$ exactly then if
+        $\mathcal{T}, \eta \not\models \Psi$. By induction hypothesis that is exactly then the case when
+        \[ (\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \not\in \llbracket \Gamma \vdash F(\Psi) \colon \bullet
+        \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        This is exactly the case if
+        \[ (\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \in Q^d \setminus \llbracket \Gamma^- \vdash F(\Psi) \colon
+        \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        And this is exactly the semantics of $F(\Phi) = \neg F(\Psi)$.
+
+        \item In case of $\Phi = \Psi \vee \Psi'$ it follows that $\mathcal{T}, \eta \models \Phi$ exactly then if
+        $\mathcal{T}, \eta \models \Psi$ or $\mathcal{T}, \eta \models \Psi'$. By induction hypothesis that is
+        exactly then the case when
+        \[(\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket \Gamma \vdash F
+        (\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}\]
+        or
+        \[(\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket \Gamma \vdash F
+        (\Psi') \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        Because $\sqcup_{\bullet} = \cup$ this can be combined to
+        \[(\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket \Gamma \vdash F
+        (\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T} \sqcup_\bullet \llbracket \Gamma \vdash F
+        (\Psi') \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T},\]
+        what is the semantics of $F(\Phi) = F(\Psi) \vee F(\Psi')$.
+
+        \item In case of $\Phi = \exists (x_i\colon \odot).\,\Psi$ it follows that $\mathcal{T}, \eta \vdash \Phi$ iff
+        there exists  $\mathcal{X} \in Q$ with $\mathcal{T}, \eta[x_i \rightarrow \mathcal{X}] \models \Psi$. Because
+        $x_i$ is a free variable in $\Psi$ it follows by induction hypothesis that $\mathcal{T}, \eta[x_i
+        \rightarrow \mathcal{X}] \models \Psi$ is exactly the case when
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(x_{i-1}), \eta(x_i), \eta(x_{i+1}), \dots, \eta(x_{f+1}),\\& q_0, \dots, q_0) \in
+            \llbracket \Gamma \vdash F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.
+        \end{align*}
+        Because $x_i$ is bounded in $\Phi$ we have to replace the $i$-th component by one of the free. This is
+        denoted by $\overset{f}{\underset{j=1}{\bigvee}} \{(1, \dots, i-1, j, i+1, \dots, d)\}$.
+        Because of bisimilarity all states of $\mathcal{T}$ have an order and are reachable by moving
+        By replacing the $i$-th component by one of the free first-order variables and check all reachable state
+        tuples, we move over the
+
+        \item In case of $\Phi = \exists (X \colon \tau).\,\Psi$ it follows that $\mathcal{T}, \eta \vdash \Phi$ iff
+        there exists $\mathcal{X} \in D_\tau(Q)$ with $\mathcal{T}, \eta[X \rightarrow \mathcal {X}] \models \Psi$.
+        By induction hypothesis it follows that $(\eta(x_1), \dots, \eta(x_{f}), q_0, \dots, q_0) \in
+        \llbracket \Gamma \vdash F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}$ iff $\mathcal{T}, \eta[X
+        \rightarrow \mathcal {X}] \models \Psi$. By Lemma~\ref{lemma:existential_quantifier} the formula
+        $\exists^\tau X.\, \Psi(X)$ iterates through all elements of $D_\tau(Q)$ and checks if one fulfills $\Psi(X)$
+        by returning $Q^d$.
+        With $F(\Phi) = \exists^\tau X.\, F(\Psi)(X)$ it holds \[(\eta(x_1), \dots, \eta(x_{f}), q_0, \dots, q_0) \in
+        \llbracket \Gamma \vdash F(\Phi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+
+        \item In case of $\Phi = [LFP\,\Psi(X, x_{i_1}, \dots, x_{i_n})](v_{j_1}, \dots, v_{j_n})$, where $X$ is a
+        free variable in $\Psi$ of HO type $(\odot, \dots, \odot)$ and $x_{i_1}, \dots, x_{i_n}$ are free first-order
+        variables of $\Psi$ and $v_{j_1}, \dots, v_{j_n}$ are first-order variables of $\Phi$, then it follows that
+        $\mathcal{T}, \eta \vdash \Phi$ exactly then if $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in LFP
+        (F_\Psi^\mathcal{T})$. By definition of LFP $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in
+        LFP(F_\Psi^\mathcal{T})$ iff $X = F_\Psi^\mathcal{T}(X)$ and $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in
+        F_\Psi^\mathcal{T}(X)$. By definition of $F_\Psi^\mathcal{T}(X)$ it holds $(\eta
+        (v_{j_1}), \dots, \eta(v_{j_n})) \in F_\Psi^\mathcal{T}(X)$ exactly then if $\mathcal{T}, \eta \models \Psi
+        (\eta(X), \eta(v_{j_1}), \dots, \eta(v_{j_n}))$. By induction hypothesis
+        \[(\eta(v_{j_1}), \dots, \eta(v_{j_n}), \eta(x_{n+1}), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket
+        \Gamma \vdash F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        Because of construction of variable mapping $V$ and $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in \eta(X)$ the
+        tuple $(\eta(v_{j_1}), \dots, \eta(v_{j_n}), \eta(x_{n+1}), \dots, \eta(x_f), q_0, \dots, q_0)$ is also in $V
+        (\eta)(X)$. By definition of the least fixpoint operator in PHFL this set $X$ is reached if it includes all
+        elements of $\llbracket \Gamma \vdash F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}$. Because of
+        construction of $F_\Psi^\mathcal{T}(X)$ and $X = F_\Psi^\mathcal{T}(X)$ it holds that $(\eta(v_{j_1}),
+        \dots, \eta(v_{j_n})) \in X$ iff
+        \[(\eta(v_{j_1}), \dots, \eta(v_{j_n}), \eta(x_{n+1}), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket
+        \Gamma \vdash F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        Because $X$ is the least fixpoint of $F_\Psi^\mathcal{T}$ the resulting set $X'$ is the smallest set that
+        fulfills $X' \subseteq X$ and so
+        \[(\eta(v_{j_1}), \dots, \eta(v_{j_n}), \eta(x_{n+1}), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket
+        \Gamma \vdash \mu(X\colon \bullet).\,F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        Because the components $j_1, \dots, j_n$ for first-order variables $v_{j_1}, \dots, v_{j_n}$ have not to be $1,
+        \dots, n$ respectively, we first move them to this components and check then the least fixpoint operator.
+        With $F(Phi) = $ it follows
+        \[(\eta(v_{j_1}), \dots, \eta(v_{j_n}), \eta(x_{n+1}), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket
+        \Gamma \vdash \mu(X\colon \bullet).\,F(\Phi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        So it holds with $F(\Phi) = \{j_1, \dots, j_n, n+1, \dots, d\} \mu (X \colon \bullet).\, F(\Psi)$ and
+        function $g: \{1, \dots, n\} \rightarrow \{j_1, \dots, j_n\}$ that
+        \begin{align*}
+            (\eta(x_1),& \dots, \eta(v_{g(1)-1}), \eta(v_{g(1)}), \eta(v_{g(1)+1}), \dots \eta(v_{g(2)-1}), \eta
+            (v_{g(2)}),\\& \eta(v_{g(2)+1}), \dots, \eta(v_{g(n)-1}), \eta(v_{g(n)}), \eta(v_{g(n)+1}), \dots, \eta
+            (x_f),\\& q_0, \dots, q_0) \in \llbracket \Gamma \vdash F(\Phi) \colon \bullet \rrbracket^{V(\eta)
+            }_\mathcal{T}
+        \end{align*}
+        exactly then if $\mathcal{T}, \eta \vdash \Phi$.
+
+        \item In case of $\Phi = [LFP\,\Psi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$, where $X$ is a
+        free variable in $\Psi$ of HO type $(\tau, \dots, \tau)$ and $X_1, \dots, X_n$ are free first-order
+        variables of $\Psi$ of type $\tau$ and $V_1, \dots, V_n$ are free variables of $\Phi$ also of type $\tau$, then
+        it follows that $\mathcal{T}, \eta \vdash \Phi$ exactly then if $(\eta(X_1), \dots, \eta(X_n) \in LFP
+        (F_\Psi^\mathcal{T})$. By definition of LFP $(\eta(V_1), \dots, \eta(V_n)) \in
+        LFP(F_\Psi^\mathcal{T})$ iff $X = F_\Psi^\mathcal{T}(X)$ and $(\eta(V_1), \dots, \eta(V_n)) \in
+        F_\Psi^\mathcal{T}(X)$. By definition of $F_\Psi^\mathcal{T}(X)$ it holds $(\eta
+        (V_1), \dots, \eta(V_n)) \in F_\Psi^\mathcal{T}(X)$ exactly then if $\mathcal{T}, \eta \models \Psi
+        (\eta(X), \eta(V_1), \dots, \eta(V_n))$. By induction hypothesis
+        \[(\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket \Gamma \vdash F(\Psi) \colon \bullet
+        \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        Because of construction of variable mapping $V$ and $(\eta(V_1), \dots, \eta(V_n)) \in \eta(X)$ it holds
+        $(\dots((V(\eta)(X)(V(\eta)(V_1)))(V(\eta)(V_2))) \dots (V(\eta)(V_n)) = Q^d$
+        and so the tuple $(\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0)$ is also in $(\dots((V(\eta)(X)(V(\eta)(V_1)
+        ))(V(\eta)(V_2))) \dots (V(\eta)(V_n))$. By definition of the least fixpoint operator in PHFL this function
+        $V(\eta)(X)$ is reached if it includes all
+        elements of $\llbracket \Gamma \vdash F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}$. Because of
+        construction of $F_\Psi^\mathcal{T}(X)$ and $X = F_\Psi^\mathcal{T}(X)$ it holds that $(\eta(V_{1}),
+        \dots, \eta(V_{n})) \in X$ iff
+        \[(\eta(x_1), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket
+        \Gamma \vdash F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        Because $X$ is the least fixpoint of $F_\Psi^\mathcal{T}$ the resulting set $X'$ is the smallest set that
+        fulfills $X' \subseteq X$ and so
+        \[(\eta(x_{1}), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket
+        \Gamma \vdash \mu(X\colon \bullet).\,F(\Psi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        With $F(Phi) = (\dots ((\mu (X \colon T(\tau)).\,\Phi(X, X_1, \dots, X_n))(V_1))(V_2))\dots)(V_n)$ it follows
+        \[(\eta(x_{1}), \dots, \eta(x_f), q_0, \dots, q_0) \in \llbracket
+        \Gamma \vdash \mu(X\colon \bullet).\,F(\Phi) \colon \bullet \rrbracket^{V(\eta)}_\mathcal{T}.\]
+        exactly then if $\mathcal{T}, \eta \vdash \Phi$.
+    \end{compactitem}
 \end{proof}
 
 The combination of Lemma~\ref{lemma:ho_lfp_equals_phfl}, Theorem~\ref{theorem:hoLfpEqualsExptime} and

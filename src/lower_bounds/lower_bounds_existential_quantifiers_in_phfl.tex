@@ -6,29 +6,30 @@
 
 \section{Existential Quantifiers in PHFL}\label{sec:existential_quantifiers_in_phfl}
 
-In this section we define PHFL$^{k}$ formulas that describes existential quantification over HO variables of order $k
-\geq 1$. But before we can define these formulas we have to translate the types.
+In this section we define PHFL$^{k}$ formulas that describes existential quantification over HO domains of types of
+order $k \geq 1$. But before we can define these formulas we have to translate the types.
 
-The types of HO have to be translated because the most types in HO$^{k + 1}$ do not exist in PHFL$^k$. While HO$^{k +
+Note that the most types in HO$^{k + 1}$ do not exist in PHFL$^k$. While HO$^{k +
 1}$ includes variables for example of kind set of sets, PHFL$^k$ does not support this kind of type.
-But each set $A$ in HO$^{k+1}$ can be described by the characteristic function of $A$ in PHFL$^k$.
+But each set $X$ in HO$^{k+1}$ can be described by the characteristic function of $X$ in PHFL$^k$.
 
-The following definition translates all HO types with order $2$ or greater to types in PHFL. The base type of HO
-has to be encode differently, and will be regarded after this definition.
+The following definition translates all HO types of order $2$ or greater to types in PHFL. The base type of HO
+has to be encode differently, and will be establish after this definition.
 
 \begin{definition}
     \label{definition:lower_bound_type_function}
-    Let $T$ be a function that maps a type of HO of order $2$ or greater to a type of PHFL defined inductive over the
+    $T$ is a function that maps any type of HO of order $2$ or greater to a type of PHFL defined inductive over the
     type of HO as follows:
-
     \begin{align*}
         T((\odot, \dots, \odot)) &= \bullet\\
         T((\tau', \dots, \tau')) &= T(\tau')^+ \rightarrow (T(\tau')^+ \rightarrow \dots \rightarrow (T(\tau')^+
-        \rightarrow \bullet) \dots )
+        \rightarrow \bullet) \dots ),
     \end{align*}
+    where $\tau' \neq \odot$.
 \end{definition}
 
-Note that $ord(T(\tau)) = order(\tau) - 2$ for all $\tau$ with order $2$ or greater.
+Note that the orders of HO types and PHFL types are defined differently. So it holds $ord(T(\tau)) = order(\tau) - 2$
+for all HO types $\tau$ with order $2$ or greater.
 
 \begin{example}
     Let $\tau$ be a type of HO
@@ -42,48 +43,60 @@ Note that $ord(T(\tau)) = order(\tau) - 2$ for all $\tau$ with order $2$ or grea
 \end{example}
 
 With this type function $T$ a HO$^{k + 1}$ variable $X$ of type $\tau$ can be translated to a PHFL$^k$ variable
-with type $T(\tau)$. Please note that $\tau$ has order $2$ or greater. Intuitively the variable $X$ which represents a
-set in HO$^{k+1}$ is represented in PHFL$^k$ as the characteristic function of $X$. Please note that $X$ for type
-$\tau = (\odot, \dots, \odot)$ is also a set in PHFL$^k$ of PHFL type $\bullet$.
+of type $T(\tau)$. Intuitively the variable $X$ which is a set of $D_\tau(\mathcal{U})$ in HO$^{k+1}$ is represented
+in PHFL$^k$ as the characteristic function of $X$ over $D_\tau(\mathcal{U})$. Note that the domain of HO types
+of order $2$ are similar to the domain of base type of PHFL.
 
-As mentioned above the base type of HO have to be encoded differently. The reason is that the base type in PHFL is at
-least a set of tuples of states. So single states can not be depict directly by a variable. In this thesis the
-idea is to use the polyadic fragment of a PHFL$^k$ formula $\Phi$ to represent the different first-order variables of an
-HO$^{k+1}$ formula $\Psi$. Each first-order variable of $\Psi$ represents one component in $\Phi$, that means each
-variable
-increases the dimension of $\Phi$. The assignment of a first-order variable $x_i$ in $\Psi$ is then the current state
-of the $i$-th component in $\Phi$. This is mainly from~\cite{lange2014capturing}.
+As mentioned above the base type of HO has to be encoded differently. The reason is that the base type in PHFL is a
+set of tuples of states and a single state can not be depict directly by a variable. In this thesis the
+idea is to use the polyadic logic of PHFL to represent the different first-order variables of an HO$^{k+1}$ formula
+$\Psi$. Each first-order variable of $\Psi$ represents one component in the corresponding PHFL$^k$ formula $\Phi$, that
+means each variable increases the dimension of $\Phi$. The assignment of a first-order variable $x_i$ in $\Psi$ is
+then the current state of the $i$-th component in $\Phi$.
 
-Without loss of generality the first-order variables are enumerated as $x_1, \dots, x_f, x_{f + 1}, \dots, x_q$,
-where $x_1, \dots, x_f$ are the free and $x_{f+1}, \dots, x_q$ are the quantified variables.
+Let $\Phi$ be an HO$^{k+1}$ formula without loss of generality the first-order variables of $\Phi$ are enumerated as
+$x_1, \dots, x_f, x_{f + 1}, \dots, x_q$, where $x_1, \dots, x_f$ are the free and $x_{f+1}, \dots, x_q$ are the
+quantified variables of $\Phi$.
 
 \begin{remark}
     The PHFL formula $\Phi$ that we get through the encoding of a given HO formula $\Psi$ has dimension
     $d$ that is always big enough to translate all second-order variables of $\Psi$ to an order $0$ variable in
-    $\Phi$. In more detail $s$ is the maximal arity of second-order variables in $\Psi$ and $d > s$. To distiguish all
+    $\Phi$. In more detail $s$ is the maximal arity of second-order variables in $\Psi$ and $d > s$. To distinguish all
     different first-order variables in $\Psi$, the dimension $d$ of $\Phi$ is also bigger then $q$.  Finally, to compare
     two
     elements of $Q^{m}$, where $Q$ is the state set of an LTS and $m = max({s, q})$, the dimension $d$ of $\Phi$ is
     twice as big as the maximum of $s$ and $q$. That means $d = 2 * m$.
 \end{remark}
 
-After we know how to interpret the different HO types and variables we are now able to consider the existential
-quantification. Before we regard higher-order quantification we look at first-order quantification.
+\subsection{First-Order and Second-Order Quantification}\label{subsec:existentialQuantifiers}
 
-Because we encode the bisimulation-invariant fragment of HO(LFP)$^{k + 1}$, the first-order quantification can be
-encoded by moving through all states reachable by one of the free variables and check if we reach a state tuple where
-the bounded formula holds. If we regard $\exists (x_i \colon \odot).\,\Phi$ then it can be understand as, check if we
-reach a state tuple where $\Phi$ holds once the $i$-th component is replaced by one of the free variables. This can
-be formalized in PHFL as
-\[\exists_i \Phi \coloneqq \bigvee_{j=1}^f \{(1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X
-\colon \bullet).\,\Phi \vee \bigvee_{a \in \Sigma} \langle a \rangle_i X.\]
-Now we regard the higher-order quantification. Let $\tau$ a HO type, $\sigma$ a signature and $\mathcal{U}$ the
-universe of a $\sigma$ structure. Because the idea we use for first-order quantification is not obvious to adapt to
-the higher-order quantification, we use another encoding. The idea to obtain higher-order quantification in PHFL is that
-we have to iterate through all possible elements in a domain $D_\tau(\mathcal{U})$ and check if the given formula is
-fulfilled. To make it possible to iterate through $D_\tau(\mathcal{U})$ we need a formula that returns us the
-successor of a given element in $D_\tau(\mathcal{U})$. Eventually, to get the successor of a given element we need some
-order on $D_\tau(\mathcal{U})$. So the first thing we need is the order of any domain.
+After we know how to interpret the different HO types and variables we are now able to consider the existential
+quantification. Before we establish higher-order quantification we look at first-order and second-order quantification.
+
+Because we encode the bisimulation-invariant fragment of HO(LFP)$^{k + 1}$ and HO(PFP)$^{k+1}$, the first-order
+quantification can be encoded by moving through all states reachable from one of the free variables and check if we
+reach a state tuple where the bounded formula holds. If we consider $\exists (x_i \colon \odot).\,\Phi$ then it can be
+understand as, check if we reach a state tuple where $\Phi$ holds once the $i$-th component is replaced by one of the
+free variables.
+
+\begin{definition}
+    Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
+    x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $\exists_i \Phi$ is a PHFL$^k$
+    formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as
+    \[\exists_i \Phi \coloneqq \bigvee_{j=1}^f \{(1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X
+    \colon \bullet).\,\Phi \vee \bigvee_{a \in \Sigma} \langle a \rangle_i X.\]
+\end{definition}
+
+Now we consider the second-order quantification. Let $\tau = (\odot, \dots, \odot)$ a HO type, $\sigma$ a signature and
+$\mathcal{U}$ the universe of a $\sigma$ structure. Because the idea we use for first-order quantification is
+impossible to adapt to the second-order quantification, we use another encoding. The idea to obtain second-order
+quantification in PHFL is that we have to iterate through all possible elements in a domain $D_\tau(\mathcal{U})$ and
+check if the given formula is fulfilled. The first thing that we need for iteration over any element of a domain
+$D_\tau(\mathcal{U})$ is an order on $D_\tau(\mathcal{U})$. If we have the order of $D_\tau(\mathcal{U})$ we can use
+this order to define a formula that returns us the successor of a given element of $D_\tau(\mathcal{U})$ in the scope
+of this order. Finally, this formula can be used to iterate through all elements and check if a given formula is
+fulfilled.
+So the first thing we need is the order of domains of type $(\odot, \dots, \odot)$.
 
 \begin{remark}
     In~\cite{otto1999bisimulation} was shown that it is possible to define a $2$-adic formula $\Phi_<$ that defines a
@@ -91,108 +104,183 @@ order on $D_\tau(\mathcal{U})$. So the first thing we need is the order of any d
     order on states of an LTS.
 \end{remark}
 
-To get an order of any type we define formulas that tells us given two elements of same type which one is the smaller
-one. We say that a tuple $x$ is smaller than a tuple $y$ if there is an index $i$ such that the element in $x$ on $i$
-is smaller then the element in $y$ on $i$ and there is no position $j$ left of $i$ such that the element in $x$ on
-$j$ is bigger then the element in $y$ on $j$. We say that a set $x$ is smaller than a set $y$ if there is an element
-$e$ in $x$ that is not in $y$ and all smaller elements $f$ to $e$ are only in $x$ if $f$ is also in $y$. This is
+To get the order of type $\tau = (\odot, \dots, \odot)$ we define two formulas. The first tells us given two
+sets of type $\tau$ which one is the smaller one. The other formula tells us the same for two tuples in those sets
+of type $\tau$. We say that a tuple $x$ is smaller in respect to $\tau$ than a tuple $y$ if there is an index $i$ such
+that the element in $x$ on $i$ is smaller in respect to $\odot$ then the element in $y$ on $i$ and there is no position
+$j$ left of $i$ such that the element in $x$ on $j$ is bigger in respect to $\odot$ then the element in $y$ on $j$. We
+say that a set $X$ is smaller in respect to $\tau$ than a set $Y$ if there is an element $s_1$ in $X$ that is not in $Y$
+and all smaller elements $s_2$ to $s_1$ in respect to $\odot$ are only in $X$ if $s_2$ is also in $Y$. This is
 formalized in PHFL in the following definition.
 
 \begin{definition}
-    \label{definition:lower_bound_less}
-    The PHFL$^k$ formula $<^\tau$ where $k = ord(T(\tau))$ is defined inductive over the type $\tau$ as follows:
+    \label{definition:lower_bound_less_second}
+    Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
+    x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $<^\odot$, $<^{\odot \times \dots
+    \times \odot}$ and $<^{(\odot, \dots, \odot)}(X, Y)$ are PHFL$^k$ formulas with dimension $d = 2 * m$, where $m =
+    max({q, s})$, defined as:
 
     \begin{align*}
         <^\odot \coloneqq &\,\Phi_< \\
-        <^{\odot \times \dots \times \odot} \coloneqq &\,\underset{i = 1}{\overset{m}{\bigvee}}\{(i, i + m, 3, \dots,
-        d)\} <^\odot \wedge \\
-        &\,\underset{j = 1}{\overset{i - 1}{\bigwedge}}\{(j + m, j, 3, \dots, d)\} \neg
-        <^\odot\\
-        <^{\tau' \times \dots \times \tau'}(x_1, y_1, \dots, x_1, y_n) \coloneqq &\,\underset{i =
-        1}{\overset{n}{\bigvee}}<^{\tau'}(x_i, y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
-        \neg <^{\tau'}(y_j, x_j)\\
-        <^{(\odot, \dots, \odot)}(X, Y) \coloneqq &\,\exists_{i_1}.\, \dots \exists_{i_n}. \{(i_1, \dots, i_n, n
-        + 1, \dots, d)\}Y \wedge \\&\,\neg \{(i_1, \dots,
-        i_n, n + 1, \dots, d)\} X\,\wedge\\&\, \forall_{j_1}. \,\dots \forall_{j_n}. \{(j_1, \dots, j_n, n+1,
-        \dots, m, \\&\,i_1, \dots, i_n, m + n + 1, \dots, d)\}<^{\odot
-        \times \dots \times \odot} \Rightarrow \\&\,(\{(j_1, \dots, j_n, n + 1, \dots, d)\}X
-        \Rightarrow \\&\,\neg \{(j_1, \dots, j_n, n + 1, \dots, d)\} Y)
-        \\
-        <^{(\tau', \dots, \tau')}(X, Y) \coloneqq &\,\exists^{\tau'}x_1. \,\dots \exists^{\tau'}x_n.\,(\dots((Y
-        (x_1))(x_2))
-        \dots) (x_n)
-         \\&\,\wedge \neg (\dots((X(x_1))(x_2)) \dots)(x_n)\,\wedge \\&\,\forall^{\tau'}y_1. \,\dots
-        \forall^{\tau'}y_n.
-        \,<^{\tau'
-        \times \dots \times \tau'}
-        (y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow ((\dots((X(y_1))(y_2)) \dots)(y_n) \\&\,\Rightarrow (\dots((Y(y_1))
-        (y_2)) \dots(y_n))
+        <^{\odot \times \dots \times \odot} \coloneqq
+            &\,\underset{i = 1}{\overset{m}{\bigvee}}\{(i, i + m, 3, \dots, d)\} <^\odot \wedge \\
+            &\,\underset{j = 1}{\overset{i - 1}{\bigwedge}}\{(j + m, j, 3, \dots, d)\} \neg <^\odot \\
+        <^{(\odot, \dots, \odot)}(X, Y) \coloneqq
+            &\,\exists_{i_1}.\, \dots \exists_{i_n}. \{(i_1, \dots, i_n, n + 1,\dots, d)\}Y \wedge \\
+            &\,\neg \{(i_1, \dots, i_n, n + 1, \dots, d)\} X\,\wedge \\
+            &\, \forall_{j_1}. \,\dots \forall_{j_n}. \{(j_1, \dots, j_n, n+1, \dots, m, \\
+            &\,i_1, \dots, i_n, m + n + 1, \dots, d)\}<^{\odot \times \dots \times \odot} \Rightarrow \\
+            &\,(\{(j_1,\dots, j_n, n + 1, \dots, d)\} X \Rightarrow \\
+            &\,\neg \{(j_1, \dots, j_n, n + 1, \dots, d)\} Y)
     \end{align*}
-    where the formulas of kind $\exists^{\tau'} x.\,\phi$ are the in PHFL$^{k-1}$ defined higher-order quantification
-    for HO
-    type $\tau'$ and formulas of kind $\forall^{\tau'} x.\,\phi$ are the counterparts.
 \end{definition}
 
-After we have now orders of any HO type we can define formulas that returns the successor of the input element.
+After we have now orders of the HO types $(\odot, \dots, \odot)$ we can define formulas that returns the successor of
+an input element in respect to the order of $(\odot, \dots, \odot)$. The idea of the following formula is based on
+binary incrementation. Let $\tau = (\odot, \dots, \odot)$ an HO type and $\mathcal{U}$ the universe of a
+$\sigma$-structure. Remember that a set $X \in D_\tau(\mathcal{U})$ can be represented by its characteristic
+function. This can be transformed to a binary string where each position of this string represents an element of
+$D_{\odot}(\mathcal{U})^n$. Because each position in the binary string represents an element of $D_{\odot}
+(\mathcal{U})^n$ and a position have always to represent the same element in $D_{\odot}(\mathcal{U})^n$, the elements
+in $D_{\odot}(\mathcal{U})^n$ have to be ordered. The order of the elements of $D_{\odot}(\mathcal{U})^n$ is given by
+the formula $<^{\odot \times \dots \times \odot}$ of Definition~\ref{definition:lower_bound_less_second}. If the position
+$i$ in the binary string is $1$ then this means that the element with index $i$ in $D_{\odot}(\mathcal{U})^n$ is
+also in $X$ and if the position $i$ in the binary string is $0$ then the element with index $i$ in $D_{\odot}
+(\mathcal{U})^n$ is not in $X$. Note that this binary string is just a visualization of the idea of the data and is
+not a directly visible part of the formula. The user of that formula have to enter a set and its elements are
+represented in that binary string way. The binary representation of $X$ in regard to $D_{\odot}(\mathcal{U})^n$ can be
+extended to a function $f \colon D_\tau(\mathcal{U}) \rightarrow {0, \dots, |D_\tau(\mathcal{U})| - 1}$ such that
+each element $X$ of $D_\tau(\mathcal{U})$ will be mapped to its binary string in regard to $D_{\odot}(\mathcal{U})^n$
+. With this knowledge we can say that $Y \in D_\tau(\mathcal{U})$ is the direct successor of $X \in D_\tau
+(\mathcal{U})$ if $f(Y) = (f(X) + 1)$ modulo $|D_\tau(\mathcal{U})|$. In detail that means that the $i$-th bit is $1$
+in $f(Y)$ if it is either $0$ in $X$ and all lower bits are $1$ in $X$ or it is $1$ in $X$ and there is a bit lower
+then $i$ that is $0$ in $X$.
 
 \begin{definition}
-    The PHFL$^k$ formula $next^\tau$ where $k = ord(T(\tau))$ is defined by the type $\tau$ as follows:
+    \label{definition:lower_bounds_next_second}
+    Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$, quantified variables $x_{f+1}, \dots,
+    x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $next^{(\odot, \dots, \odot)}$
+    is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
+
     \begin{align*}
         next^{(\odot, \dots, \odot)} \coloneqq &\,\lambda (X \colon \bullet).\, (\neg X \wedge \forall_{m +
         1}\dots\forall_{m + m}<^{\odot \times \dots \times \odot}\, \Rightarrow \\&\,\{(m +
         1, \dots, m + m, m + 1, \dots, d)\} X) \,\vee \\&\,(X \wedge \exists_{m + 1}\dots\exists_{m + m} <^{\odot
         \times \dots \times \odot} \,\wedge \\&\,\{(m + 1, \dots, m + m, m + 1, \dots, d)\}
-        \neg X)\\
-        next^{(\tau', \dots, \tau')} \coloneqq &\,\lambda (X \colon T ((\tau', \dots, \tau'))).\,(\neg (\dots((X
-        (x_1))(x_2))\dots) (x_n) \\&\, \wedge \forall^{\tau'}y_1.\, \dots \forall^{\tau'}y_n.\,<^{\tau' \times
-        \dots \times \tau'}(y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow  (\dots((X(y_1))(y_2))\dots)(y_n)) \,\vee
-        \\&\,((\dots ((X(x_1))(x_2)) \dots)(x_n) \wedge \exists^{\tau'}y_1.\, \dots \exists^{\tau'}y_n.\, \\&\,
-        <^{\tau' \times \dots \times \tau'}
-        (y_1, x_1,
-        \dots, y_n, x_n)\,\wedge \neg (\dots((X(y_1))(y_2))\dots)(y_n))
+        \neg X)
     \end{align*}
 \end{definition}
 
-The idea of the two formulas are based on binary incrementation. Let $\tau = (\tau', \dots, \tau')$ an HO type and
-$\mathcal{U}$ the universe of a $\sigma$-structure. Remember that a set $X \in D_\tau(\mathcal{U})$ can be
-represented by its characteristic function. This can be transformed to a binary string where each position of
-this string represents an element of $D_{\tau'}(\mathcal{U})^n$. Because each position in the binary string represents
-an element of $D_{\tau'}(\mathcal{U})^n$ and a position have always to represent the same element in $D_{\tau'}
-(\mathcal{U})^n$, the elements in $D_{\tau'}(\mathcal{U})^n$ have to be ordered. The order of the elements of
-$D_{\tau'}(\mathcal{U})^n$ is given by the formula $<^{\tau' \times \dots \times \tau'}$ of
-Definition~\ref{definition:lower_bound_less}. If the position $i$ in the binary string is $1$ then this means that
-the element with index $i$ in $D_{\tau'}(\mathcal{U})^n$ is also in $X$ and if the position $i$ in the binary string
-is $0$ then the element with index $i$ in $D_{\tau'}(\mathcal{U})^n$ is not in $X$. This binary representation of $X$
-in regard to $D_{\tau'}(\mathcal{U})^n$ can be extended to a function $f\colon D_\tau(\mathcal{U}) \rightarrow {0,
-\dots, |D_\tau(\mathcal{U})| - 1}$ such that each element $X$ of $D_\tau(\mathcal{U})$ will be mapped to its binary
-string in regard to $D_{\tau'}(\mathcal{U})^n$. With this knowledge we can say that $Y \in D_\tau(\mathcal{U})$ is the
-direct successor of $X \in D_\tau(\mathcal{U})$ if $f(Y) = (f(X) + 1)$ modulo $|D_\tau(\mathcal{U})|$. In detail that
-means that the $i$-th bit is $1$ in $f(Y)$ if it is either $0$ in $X$ and all lower bits are $1$ in $X$ or it is $1$
-in $X$ and there is a bit lower then $i$ that is $0$ in $X$.
+With the previous definition we are now able to define the second-order quantification in PHFL.
 
-With the previous definitions we are now able to define the higher-order quantification in PHFL.
 \begin{definition}
-    \label{definition:existential_quantification}
-    Let $\tau = (\tau', \dots, \tau')$ be an HO type where $\tau' \neq \odot$ then $\exists^{\tau}X .\,\Phi(X)$ is
-    defined as follows:
+    \label{definition:existential_quantification_second}
+    Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$, quantified variables $x_{f+1}, \dots,
+    x_q$ and $\Phi$ be a PHFL$^k$ formula with free order $0$ variable $X$. Furthermore, let $s$ be the maximal arity
+    of all second order variables of $\Psi$, then $\exists^{(\odot, \dots, \odot)}X .\,\Phi(X)$
+    is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
+
+    \[\exists^{(\odot, \dots, \odot)}X.\, \Phi(X) \coloneqq (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
+    \colon \bullet).\, \Phi(X) \vee F(next^{(\odot, \dots, \odot)} X)) \bot
+    \]
+\end{definition}
+
+The last step is to show that the given formula of Definition~\ref{definition:existential_quantification_second} defines
+second-order existential quantification in PHFL.
+
+\begin{lemma}
+    \label{lemma:existential_quantifier_second}
+    For all HO types $\tau = (\odot, \dots, \odot)$, all variable mappings $\eta$ and all LTS $\mathcal{T}$ holds
+    \[\llbracket \exists^\tau X.\,\Phi(X)\rrbracket^\eta_\mathcal{T} \equiv \underset{\mathcal{X} \in \llbracket \tau
+    \rrbracket_\mathcal{T}}{\bigsqcup} \llbracket \Phi(X) \rrbracket^{\eta[X\rightarrow \mathcal{X}]}_\mathcal{T}.\]
+\end{lemma}
+
+\begin{proof}
+    TODO
+\end{proof}
+
+\subsection{Higher-Order Quantification}\label{subsec:higher-orderQuantification}
+
+In this subsection we use the second-order existential quantification to define the higher-order
+quantification. The idea to obtain higher-order quantification in PHFL is similar to the higher-order quantifaction.
+We use the existential quantifier of type $\tau = (\odot, \dots, \odot)$ to define the order of domains of kind
+$D_{(\tau, \dots, \tau)}(\mathcal{U})$. This order can then be used to define a formula that returns us the successor
+of a given element of $D_{(\tau, \dots, \tau)}(\mathcal{U})$ in respect to this order. Finally, we use this
+formula to define the existential quantifier of type $(\tau, \dots, \tau)$. This procedure will be lift up to all
+possible types of HO. In this way we get higher-order quantification of any type in PHFL.
+
+So the first thing we need is the order of any domain. Note that a order for type $\tau = (\tau', \dots, \tau')$ always
+depends on the existential quantifiers of type $\tau'$. As in the second-order case we define two formulas. The first
+tells us given two sets of type $\tau$ which one is the smaller one. The other formula tells us the same for two
+tuples in those sets of type $\tau$.
+
+\begin{definition}
+    \label{definition:lower_bound_less_higher}
+    Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
+    x_q$. Furthermore, let $s$ be the maximal arity of all second order variables of $\Psi$ and $\tau \neq \odot$ a HO
+    type, then $<^{(\tau, \dots, \tau)}(X, Y)$ and $<^{\tau \times \dots \times \tau}(X, Y)$ are PHFL$^k$ formulas
+    with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
+    \begin{align*}
+        <^{\tau \times \dots \times \tau}(x_1, y_1, \dots, x_1, y_n) \coloneqq &\,\underset{i =
+        1}{\overset{n}{\bigvee}}<^{\tau}(x_i, y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
+        \neg <^{\tau}(y_j, x_j)\\
+        <^{(\tau, \dots, \tau)}(X, Y) \coloneqq &\,\exists^{\tau}x_1. \,\dots \exists^{\tau}x_n.\,(\dots((Y
+        (x_1))(x_2))\dots) (x_n)\\
+        &\,\wedge \neg (\dots((X(x_1))(x_2)) \dots)(x_n)\,\wedge \\&\,\forall^{\tau}y_1. \,\dots
+        \forall^{\tau}y_n.\,<^{\tau \times \dots \times \tau}
+        (y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow ((\dots((X(y_1))(y_2)) \dots)(y_n) \\&\,\Rightarrow (\dots((Y(y_1))
+        (y_2)) \dots(y_n))
+    \end{align*}
+\end{definition}
+
+After we have now orders of any HO type, always depending on the lower type existential quantifier, we can define
+formulas that returns the successor of an input element in respect to the order of the HO type. The idea of the
+following formula is similar to the successor formula of Definition~\ref{definition:lower_bounds_next_second} and is
+based on binary incrementation. Where here the binary string representation is also not directly visible in the
+formula. The user of that formula have to enter a function and the image of the elements of the origin set of this
+function represents $0$ or $1$ in that binary string.
+
+\begin{definition}
+    \label{definition:lower_bounds_next_higher}
+    Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
+    x_q$. Furthermore, let $s$ be the maximal arity of all second order variables of $\Psi$ and $\tau \neq \odot$ a
+    HO type, then $next^{(\tau, \dots, \tau)}$ is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q,
+    s})$, defined as:
+
+    \begin{align*}
+        next^{(\tau, \dots, \tau)} \coloneqq &\,\lambda (X \colon T ((\tau, \dots, \tau))).\,(\neg (\dots((X
+        (x_1))(x_2))\dots) (x_n) \\&\, \wedge \forall^{\tau}y_1.\, \dots \forall^{\tau}y_n.\,<^{\tau \times
+        \dots \times \tau}(y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow  (\dots((X(y_1))(y_2))\dots)(y_n)) \,\vee
+        \\&\,((\dots ((X(x_1))(x_2)) \dots)(x_n) \wedge \exists^{\tau}y_1.\, \dots \exists^{\tau}y_n.\, \\&\,
+        <^{\tau \times \dots \times \tau}
+        (y_1, x_1, \dots, y_n, x_n)\,\wedge \neg (\dots((X(y_1))(y_2))\dots)(y_n))
+    \end{align*}
+\end{definition}
+
+With the previous definition we are now able to define the higher-order quantification in PHFL.
+
+\begin{definition}
+    \label{definition:existential_quantification_higher}
+    Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$, quantified variables $x_{f+1}, \dots,
+    x_q$ and let $\tau = (\tau', \dots, \tau')$ be a HO type of order $l$ where $\tau' \neq \odot$. Furthermore, let
+    $\Phi$ be a PHFL$^k$
+    formula with free variable $X$ of order $l - 2$ and let $s$ be the maximal arity
+    of all second order variables of $\Psi$, then $\exists^{\tau}X .\,\Phi(X)$
+    is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
     \begin{align*}
         \exists^{\tau}X.\, \Phi(X) \coloneqq &\,(\mu (F \colon T(\tau) \rightarrow \bullet).\, \lambda (X \colon T(\tau)
         ).\,
         \Phi(X)
-        \vee F(next^\tau X))\\&\,(\lambda (x_1 \colon \tau').\, \dots \lambda (x_n \colon \tau').\,\bot)
+        \vee F(next^\tau X))\\&\,(\lambda (x_1 \colon T(\tau')).\, \dots \lambda (x_n \colon T(\tau')).\,\bot)
     \end{align*}
-    In case of $\tau = (\odot, \dots, \odot)$, $\exists^{\tau}X .\,\Phi(X)$ is defined as
-    \[        \exists^{\tau}X.\, \Phi(X) \coloneqq (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
-    \colon \bullet).\, \Phi(X) \vee F(next^{\tau} X)) \bot
-    \]
 \end{definition}
 
-The last step is to show that the given formula of Definition~\ref{definition:existential_quantification} defines
-existential quantification.
+The last step is to show that the given formula of Definition~\ref{definition:existential_quantification_higher} defines
+higher-order existential quantification.
 
 \begin{lemma}
-    \label{lemma:existential_quantifier}
-    For all HO types $\tau$ of order $2$ or greater, all variable mappings $\eta$ and all LTS $\mathcal{T}$ holds
+    \label{lemma:existential_quantifier_higher}
+    For all HO types $\tau$ of order $3$ or greater, all variable mappings $\eta$ and all LTS $\mathcal{T}$ holds
     \[\llbracket \exists^\tau X.\,\Phi(X)\rrbracket^\eta_\mathcal{T} \equiv \underset{\mathcal{X} \in \llbracket \tau
     \rrbracket_\mathcal{T}}{\bigsqcup} \llbracket \Phi(X) \rrbracket^{\eta[X\rightarrow \mathcal{X}]}_\mathcal{T}.\]
 \end{lemma}

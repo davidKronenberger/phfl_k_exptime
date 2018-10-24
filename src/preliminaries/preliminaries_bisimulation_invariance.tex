@@ -83,6 +83,19 @@ following relation describes those states that have the same behaviour.
     \not\sim (\mathcal{T}, q_2)$ because $q_2$ can make $b$-transitions but $q_1$ has no $b$-transitions.
 \end{example}
 
+Because $\sim$ is an equivalence relation it can be used to build a factor structure over an LTS.
+
+\begin{definition}
+    \label{definition:reduced_lts}
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $(q_1, \dots, q_n) \in Q^n$ a tuple then we call $
+    (\mathcal{T}, q_1, \dots, q_n)$ \emph{reduced} iff all states of $\mathcal{T}$ are reachable by at
+    least one $q_i$, where $i \in \{1, \dots, n\}$, and if $\sim$ coincides with equality. For all LTS $\mathcal{T} =
+    (Q, \Sigma, P, \Delta, v)$ and all tuples of states $(q_1, \dots, q_n) \in Q^n$ we associate to $(\mathcal{T}, q_1,
+    \dots, q_n)$ the reduced tuple $RED(\mathcal{T}, q_1, \dots, q_n)$ by factoring $\mathcal{T}$ with respect to
+    $\sim$ and pruning all states of $\mathcal{T}_\sim$ that cannot be reached by at least one $q_i$. The resulting
+    graph is abbreviated with $\mathcal{T}_{(q_1, \dots, q_n)}$.
+\end{definition}
+
 Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these properties.
 
 \begin{definition}{\cite{otto1999bisimulation}}
