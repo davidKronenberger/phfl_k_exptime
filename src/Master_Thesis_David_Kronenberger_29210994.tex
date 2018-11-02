@@ -23,6 +23,9 @@
 \usetikzlibrary{automata}
 \usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
 
+% package for inverse and reverse search
+\usepackage{pdfsync}
+
 % package for urls
 \usepackage{hyperref}
 
@@ -49,7 +52,7 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}[theorem]{Remark}
 
 \newcolumntype{C}[1]{>{\parbox[c][#1][c]{0cm}{}}c<{}}
 

@@ -9,15 +9,17 @@ In this chapter we want to establish the lower bounds of the expressive power of
 lower bounds of PHFL$^k$ and PHFL$^k_{tail}$ can be proven by encoding the run of a Turing Machine by queries.
 Another possibility for the lower bounds can be get by detour over HO(LFP)$^{k+1}$ and HO(PFP)$^{k+1}$. In more detail
 we encode the bisimulation-invariant fragment of HO(LFP)$^{k+1}$ and HO(PFP)$^{k+1}$ into PHFL$^k$ and
-PHFL$^k_{tail}$ respectively. These fragments are enough because PHFL can only express bisimulation-invariant
-formular. To encode the bisimulation-invariant fragment of HO(LFP)$^{k+1}$ and HO(PFP)$^{k+1}$ into PHFL$^k$ and
-PHFL$^{k}_{tail}$ respectively we want to translate HO(LFP)$^{k+1}$ formulas into a PHFL$^k$ formula and HO(PFP)
-$^{k+1}$ into a PHFL$^k_{tail}$ formula. The costliest part of these encodings is that of existential quantifiers. In
-the first section, we show that existential quantifiers with bound variable $X$ of order $k \geq 1$ can be expressed
-by a PHFL$^{k-1}$ formula. In the next section we use this formula to show that the bisimulation invariant fragment
-of HO(LFP)$^{k+1}$ can be encoded into PHFL$^k$ and so that the lower bound of the expressive power of PHFL$^k$ is
-\exptime{$k$}. In the last section we show that the lower bound of the expressive power of PHFL$^k_{tail}$ is
-\expspace{$k$}.
+PHFL$^k_{tail}$ respectively. These fragments are enough because PHFL cannot distinguish between bisimilar structures~\cite{lange2014capturing}. That means PHFL formulas can only define bisimulation-invariant
+graph problems. To encode the bisimulation-invariant fragment of HO(LF\-P)$^{k+1}$ and HO(PFP)$^{k+1}$ into PHFL$^k$ and
+PHFL$^{k}_{tail}$ respectively we want to translate HO(LFP)$^{k+1}$ formulas into a PHFL$^k$ formula and 
+HO(PFP)$^{k+1}$ into a PHFL$^k_{tail}$ formula. The costliest part of these encodings is that of existential quantifiers. In the 
+first section we consider some preparations that are necessary to encode the formulas. After this we show that existential 
+quantifiers with bound variable $X$ of order $k \geq 1$ can be expressed by a PHFL$^{k-1}$ formula. In the next section we 
+use this formula to show that the bisimulation invariant fragment of HO(LFP)$^{k+1}$ can be encoded into PHFL$^k$ and so 
+that the lower bound of the expressive power of PHFL$^k$ is \exptime{$k$}. In the last section we show that the lower bound 
+of the expressive power of PHFL$^k_{tail}$ is \expspace{$k$}.
+
+\input{lower_bounds/lower_bounds_preparation}
 
 \input{lower_bounds/lower_bounds_existential_quantifiers_in_phfl}
 

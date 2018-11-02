@@ -9,6 +9,7 @@
 In this section we define PHFL$^{k}$ formulas that describes existential quantification over HO domains of types of
 order $k \geq 1$. But before we can define these formulas we have to translate the types.
 
+
 Note that the most types in HO$^{k + 1}$ do not exist in PHFL$^k$. While HO$^{k +
 1}$ includes variables for example of kind set of sets, PHFL$^k$ does not support this kind of type.
 But each set $X$ in HO$^{k+1}$ can be described by the characteristic function of $X$ in PHFL$^k$.
@@ -22,8 +23,8 @@ has to be encode differently, and will be establish after this definition.
     type of HO as follows:
     \begin{align*}
         T((\odot, \dots, \odot)) &= \bullet\\
-        T((\tau', \dots, \tau')) &= T(\tau')^+ \rightarrow (T(\tau')^+ \rightarrow \dots \rightarrow (T(\tau')^+
-        \rightarrow \bullet) \dots ),
+        T((\tau', \dots, \tau')) &= T(\tau')^+ \rightarrow (T(\tau')^+ \rightarrow \dotsb \rightarrow (T(\tau')^+
+        \rightarrow \bullet) \dotsb ),
     \end{align*}
     where $\tau' \neq \odot$.
 \end{definition}
@@ -58,32 +59,37 @@ Let $\Phi$ be an HO$^{k+1}$ formula without loss of generality the first-order v
 $x_1, \dots, x_f, x_{f + 1}, \dots, x_q$, where $x_1, \dots, x_f$ are the free and $x_{f+1}, \dots, x_q$ are the
 quantified variables of $\Phi$.
 
-\begin{remark}
-    The PHFL formula $\Phi$ that we get through the encoding of a given HO formula $\Psi$ has dimension
-    $d$ that is always big enough to translate all second-order variables of $\Psi$ to an order $0$ variable in
-    $\Phi$. In more detail $s$ is the maximal arity of second-order variables in $\Psi$ and $d > s$. To distinguish all
-    different first-order variables in $\Psi$, the dimension $d$ of $\Phi$ is also bigger then $q$.  Finally, to compare
-    two
-    elements of $Q^{m}$, where $Q$ is the state set of an LTS and $m = max({s, q})$, the dimension $d$ of $\Phi$ is
-    twice as big as the maximum of $s$ and $q$. That means $d = 2 * m$.
-\end{remark}
-
 \subsection{First-Order and Second-Order Quantification}\label{subsec:existentialQuantifiers}
 
 After we know how to interpret the different HO types and variables we are now able to consider the existential
 quantification. Before we establish higher-order quantification we look at first-order and second-order quantification.
 
-Because we encode the bisimulation-invariant fragment of HO(LFP)$^{k + 1}$ and HO(PFP)$^{k+1}$, the first-order
-quantification can be encoded by moving through all states reachable from one of the free variables and check if we
-reach a state tuple where the bounded formula holds. If we consider $\exists (x_i \colon \odot).\,\Phi$ then it can be
-understand as, check if we reach a state tuple where $\Phi$ holds once the $i$-th component is replaced by one of the
-free variables.
+As mentioned in the introduction of this chapter we encode the bisimulation-invariant fragment of HO(LFP)$^{k + 1}$ and HO(PFP)$^{k+1}$. In Section~\ref{sec:lower_bounds_preparation}  we explained that as a result we can consider reduced LTS, where any state is reachable by at least one of the states $q_1, \dots, q_r$. Because of the total order on states of $\mathcal{T}$ explained in Remark~\ref{remark:transitive_relation} the first-order
+quantification can be encoded by moving through all states reachable from one $q_1, \dots, q_r$ and check if we
+reach a state tuple where the bounded formula holds.
+
+To access the states $q_1, \dots, q_r$ in the PHFL formulas that we get by encoding HO formulas we use the polyadicity and store $q_1, \dots, q_r$ in components that will be never influenced by the PHFL formulas. The following remark explains that the PHFL formulas has a dimension that is big enough to fulfil all the requirements. 
+
+\begin{remark}
+    The PHFL formula $\Phi$ that we get through the encoding of a given HO formula $\Psi$ has dimension
+    $d$ that is always big enough to translate all second-order variables of $\Psi$ to an order $0$ variable in
+    $\Phi$. In more detail $s$ is the maximal arity of second-order variables in $\Psi$ and $d > s$. To distinguish all
+    different first-order variables in $\Psi$, the dimension $d$ of $\Phi$ is also bigger then $q$.  To compare
+    two  elements of $Q^{m}$, where $Q$ is the state set of an LTS and $m = max({s, q})$, the dimension $d$ of 
+    $\Phi$ is  at leas twice as big as the maximum of $s$ and $q$. That means $d >= 2 * m$. Finally, to access the 
+    states $q_1, \dots, q_r$ described in Section~\ref{sec:lower_bounds_preparation} that are not allowed to change, 
+    we extend $d$ with $r$ components. That means the dimension of $\Phi$ is $d = 2* m + r$.
+\end{remark}
+
+If we consider $\exists (x_i \colon \odot).\,\Phi$ then it can be understand as, check if we reach a state tuple where $
+\Phi$ holds once the $i$-th component is replaced by one the components where $q_1, \dots, q_r$ are stored.
 
 \begin{definition}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $\exists_i \Phi$ is a PHFL$^k$
-    formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as
-    \[\exists_i \Phi \coloneqq \bigvee_{j=1}^f \{(1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X
+    formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the 
+    reduced LTS, defined as
+    \[\exists_i \Phi \coloneqq \bigvee_{j=2*m+1}^d \{(1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X
     \colon \bullet).\,\Phi \vee \bigvee_{a \in \Sigma} \langle a \rangle_i X.\]
 \end{definition}
 
@@ -98,12 +104,6 @@ of this order. Finally, this formula can be used to iterate through all elements
 fulfilled.
 So the first thing we need is the order of domains of type $(\odot, \dots, \odot)$.
 
-\begin{remark}
-    In~\cite{otto1999bisimulation} was shown that it is possible to define a $2$-adic formula $\Phi_<$ that defines a
-    transitive relation $<$ such that $< \cap > = \emptyset$ and $< \cup > = \not\sim$. In this thesis $<$ is a total
-    order on states of an LTS.
-\end{remark}
-
 To get the order of type $\tau = (\odot, \dots, \odot)$ we define two formulas. The first tells us given two
 sets of type $\tau$ which one is the smaller one. The other formula tells us the same for two tuples in those sets
 of type $\tau$. We say that a tuple $x$ is smaller in respect to $\tau$ than a tuple $y$ if there is an index $i$ such
@@ -117,8 +117,8 @@ formalized in PHFL in the following definition.
     \label{definition:lower_bound_less_second}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $<^\odot$, $<^{\odot \times \dots
-    \times \odot}$ and $<^{(\odot, \dots, \odot)}(X, Y)$ are PHFL$^k$ formulas with dimension $d = 2 * m$, where $m =
-    max({q, s})$, defined as:
+    \times \odot}$ and $<^{(\odot, \dots, \odot)}(X, Y)$ are PHFL$^k$ formulas with dimension $d = 2 * m + r$, where $m =
+    max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
 
     \begin{align*}
         <^\odot \coloneqq &\,\Phi_< \\
@@ -160,7 +160,7 @@ then $i$ that is $0$ in $X$.
     \label{definition:lower_bounds_next_second}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$, quantified variables $x_{f+1}, \dots,
     x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $next^{(\odot, \dots, \odot)}$
-    is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
+    is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
 
     \begin{align*}
         next^{(\odot, \dots, \odot)} \coloneqq &\,\lambda (X \colon \bullet).\, (\neg X \wedge \forall_{m +
@@ -178,7 +178,7 @@ With the previous definition we are now able to define the second-order quantifi
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$, quantified variables $x_{f+1}, \dots,
     x_q$ and $\Phi$ be a PHFL$^k$ formula with free order $0$ variable $X$. Furthermore, let $s$ be the maximal arity
     of all second order variables of $\Psi$, then $\exists^{(\odot, \dots, \odot)}X .\,\Phi(X)$
-    is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
+    is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
 
     \[\exists^{(\odot, \dots, \odot)}X.\, \Phi(X) \coloneqq (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
     \colon \bullet).\, \Phi(X) \vee F(next^{(\odot, \dots, \odot)} X)) \bot
@@ -219,17 +219,17 @@ tuples in those sets of type $\tau$.
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$. Furthermore, let $s$ be the maximal arity of all second order variables of $\Psi$ and $\tau \neq \odot$ a HO
     type, then $<^{(\tau, \dots, \tau)}(X, Y)$ and $<^{\tau \times \dots \times \tau}(X, Y)$ are PHFL$^k$ formulas
-    with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
+    with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
     \begin{align*}
         <^{\tau \times \dots \times \tau}(x_1, y_1, \dots, x_1, y_n) \coloneqq &\,\underset{i =
         1}{\overset{n}{\bigvee}}<^{\tau}(x_i, y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
         \neg <^{\tau}(y_j, x_j)\\
-        <^{(\tau, \dots, \tau)}(X, Y) \coloneqq &\,\exists^{\tau}x_1. \,\dots \exists^{\tau}x_n.\,(\dots((Y
-        (x_1))(x_2))\dots) (x_n)\\
-        &\,\wedge \neg (\dots((X(x_1))(x_2)) \dots)(x_n)\,\wedge \\&\,\forall^{\tau}y_1. \,\dots
+        <^{(\tau, \dots, \tau)}(X, Y) \coloneqq &\,\exists^{\tau}x_1. \,\dots \exists^{\tau}x_n.\,(\dotsb(Y
+        (x_1))\dotsb) (x_n)\\
+        &\,\wedge \neg (\dotsb(X(x_1)) \dotsb)(x_n)\,\wedge \\&\,\forall^{\tau}y_1. \,\dots
         \forall^{\tau}y_n.\,<^{\tau \times \dots \times \tau}
-        (y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow ((\dots((X(y_1))(y_2)) \dots)(y_n) \\&\,\Rightarrow (\dots((Y(y_1))
-        (y_2)) \dots(y_n))
+        (y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow ((\dotsb(X(y_1)) \dotsb)(y_n) \\&\,\Rightarrow (\dotsb(Y(y_1))
+         \dotsb)(y_n))
     \end{align*}
 \end{definition}
 
@@ -244,16 +244,16 @@ function represents $0$ or $1$ in that binary string.
     \label{definition:lower_bounds_next_higher}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$. Furthermore, let $s$ be the maximal arity of all second order variables of $\Psi$ and $\tau \neq \odot$ a
-    HO type, then $next^{(\tau, \dots, \tau)}$ is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q,
-    s})$, defined as:
+    HO type, then $next^{(\tau, \dots, \tau)}$ is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q,
+    s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
 
     \begin{align*}
-        next^{(\tau, \dots, \tau)} \coloneqq &\,\lambda (X \colon T ((\tau, \dots, \tau))).\,(\neg (\dots((X
-        (x_1))(x_2))\dots) (x_n) \\&\, \wedge \forall^{\tau}y_1.\, \dots \forall^{\tau}y_n.\,<^{\tau \times
-        \dots \times \tau}(y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow  (\dots((X(y_1))(y_2))\dots)(y_n)) \,\vee
-        \\&\,((\dots ((X(x_1))(x_2)) \dots)(x_n) \wedge \exists^{\tau}y_1.\, \dots \exists^{\tau}y_n.\, \\&\,
+        next^{(\tau, \dots, \tau)} \coloneqq &\,\lambda (X \colon T ((\tau, \dots, \tau))).\,(\neg (\dotsb(X
+        (x_1))\dotsb) (x_n) \\&\, \wedge \forall^{\tau}y_1.\, \dots \forall^{\tau}y_n.\,<^{\tau \times
+        \dots \times \tau}(y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow  (\dotsb(X(y_1))\dotsb)(y_n)) \,\vee
+        \\&\,((\dotsb (X(x_1)) \dotsb)(x_n) \wedge \exists^{\tau}y_1.\, \dots \exists^{\tau}y_n.\, \\&\,
         <^{\tau \times \dots \times \tau}
-        (y_1, x_1, \dots, y_n, x_n)\,\wedge \neg (\dots((X(y_1))(y_2))\dots)(y_n))
+        (y_1, x_1, \dots, y_n, x_n)\,\wedge \neg (\dotsb(X(y_1))\dotsb)(y_n))
     \end{align*}
 \end{definition}
 
@@ -266,7 +266,7 @@ With the previous definition we are now able to define the higher-order quantifi
     $\Phi$ be a PHFL$^k$
     formula with free variable $X$ of order $l - 2$ and let $s$ be the maximal arity
     of all second order variables of $\Psi$, then $\exists^{\tau}X .\,\Phi(X)$
-    is a PHFL$^k$ formula with dimension $d = 2 * m$, where $m = max({q, s})$, defined as:
+    is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS,  defined as:
     \begin{align*}
         \exists^{\tau}X.\, \Phi(X) \coloneqq &\,(\mu (F \colon T(\tau) \rightarrow \bullet).\, \lambda (X \colon T(\tau)
         ).\,

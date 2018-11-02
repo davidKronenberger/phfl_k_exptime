@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b2b3c1f9-17d8-43ee-af31-438ed3d07bb4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.tex" beforeDir="false" afterPath="$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.tex" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/auxil/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-96404740">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="7" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="bib" value="1" />
+          <entry key="pdf" value="2" />
+          <entry key="tex" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="BibTeX bibliography file" value="1" />
+          <entry key="LaTeX source file" value="5" />
+          <entry key="PDF" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="tex" value="48" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="LaTeX source file" value="48" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.js.language.service.starts" />
+      <usages-collector id="statistics.spring.boot.run.usages" />
+      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.spring.boot.mvc.usages" />
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lower_bounds/lower_bounds_existential_quantifiers_in_phfl.tex">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2700">
+              <caret line="180" column="35" selection-start-line="180" selection-start-column="35" selection-end-line="180" selection-end-column="35" />
+              <folding>
+                <element signature="e#250#254#2" expanded="true" />
+                <element signature="e#1257#1261#2" expanded="true" />
+                <element signature="e#1263#1267#2" expanded="true" />
+                <element signature="e#1268#1273#2" expanded="true" />
+                <element signature="e#1386#1390#2" expanded="true" />
+                <element signature="e#1401#1405#2" expanded="true" />
+                <element signature="e#1430#1434#3" expanded="true" />
+                <element signature="e#1489#1493#3" expanded="true" />
+                <element signature="e#1517#1521#2" expanded="true" />
+                <element signature="e#1525#1529#2" expanded="true" />
+                <element signature="e#1532#1536#2" expanded="true" />
+                <element signature="e#1556#1560#2" expanded="true" />
+                <element signature="e#1567#1572#2" expanded="true" />
+                <element signature="e#1578#1583#2" expanded="true" />
+                <element signature="e#1684#1688#2" expanded="true" />
+                <element signature="e#1694#1698#2" expanded="true" />
+                <element signature="e#1701#1712#2" expanded="true" />
+                <element signature="e#1716#1720#2" expanded="true" />
+                <element signature="e#1723#1734#2" expanded="true" />
+                <element signature="e#1735#1742#2" expanded="true" />
+                <element signature="e#1764#1768#2" expanded="true" />
+                <element signature="e#1774#1781#2" expanded="true" />
+                <element signature="e#1782#1793#2" expanded="true" />
+                <element signature="e#1794#1801#2" expanded="true" />
+                <element signature="e#1803#1814#2" expanded="true" />
+                <element signature="e#1817#1824#2" expanded="true" />
+                <element signature="e#1825#1836#2" expanded="true" />
+                <element signature="e#1837#1844#2" expanded="true" />
+                <element signature="e#1846#1857#2" expanded="true" />
+                <element signature="e#1858#1865#2" expanded="true" />
+                <element signature="e#1949#1953#3" expanded="true" />
+                <element signature="e#2007#2011#2" expanded="true" />
+                <element signature="e#2065#2069#2" expanded="true" />
+                <element signature="e#2171#2175#2" expanded="true" />
+                <element signature="e#2623#2627#3" expanded="true" />
+                <element signature="e#2660#2664#3" expanded="true" />
+                <element signature="e#2730#2734#3" expanded="true" />
+                <element signature="e#2790#2794#3" expanded="true" />
+                <element signature="e#2848#2852#3" expanded="true" />
+                <element signature="e#2908#2912#3" expanded="true" />
+                <element signature="e#2921#2925#3" expanded="true" />
+                <element signature="e#3009#3013#3" expanded="true" />
+                <element signature="e#3039#3044#2" expanded="true" />
+                <element signature="e#3062#3067#2" expanded="true" />
+                <element signature="e#3087#3092#2" expanded="true" />
+                <element signature="e#3126#3131#2" expanded="true" />
+                <element signature="e#3171#3175#3" expanded="true" />
+                <element signature="e#3216#3220#3" expanded="true" />
+                <element signature="e#3278#3282#3" expanded="true" />
+                <element signature="e#3376#3380#3" expanded="true" />
+                <element signature="e#3415#3419#3" expanded="true" />
+                <element signature="e#3492#3496#3" expanded="true" />
+                <element signature="e#3570#3574#3" expanded="true" />
+                <element signature="e#3599#3603#3" expanded="true" />
+                <element signature="e#3766#3770#3" expanded="true" />
+                <element signature="e#5242#5246#2" expanded="true" />
+                <element signature="e#5250#5255#2" expanded="true" />
+                <element signature="e#5257#5262#2" expanded="true" />
+                <element signature="e#5264#5269#2" expanded="true" />
+                <element signature="e#5284#5290#3" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.tex">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1170">
+              <caret line="78" column="17" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
+              <folding>
+                <element signature="e#493#513#2" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/lower_bounds/lower_bounds_introduction.tex">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>descriptiveComplexity</find>
+      <find>preliminaries_introduction</find>
+      <find>right</find>
+      <find>righta</find>
+      <find>\nu</find>
+      <find>(\eta)</find>
+      <find>X\_[1-9|a-z]*</find>
+      <find>PHFL\$\^\{k-1\}\_\{tail\}</find>
+      <find>PHFL\$\^\{k+</find>
+      <find>X(\_[1-9|a-z]*)</find>
+      <find>frei</find>
+      <find>erro</find>
+      <find>err</find>
+      <find>fixpo</find>
+      <find>higher_order_lo</find>
+      <find>lange</find>
+      <find>otto</find>
+      <find>lower</find>
+      <find>188</find>
+      <find>ma\}(\_|\{|n|i|\}\^i\}</find>
+      <find>n't</find>
+      <find>\Phi\Psi</find>
+      <find>\Phi \Psi</find>
+      <find>respectivel</find>
+      <find>plus</find>
+      <find>tail</find>
+      <find>phfl_k</find>
+      <find>\Psi</find>
+      <find>lower_bounds_phfl_k</find>
+      <find>lower_bounds_phfl</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>Note,</replace>
+      <replace>.\,(</replace>
+      <replace>\,</replace>
+      <replace>^\eta_\mathcal{T}</replace>
+      <replace>x$1</replace>
+      <replace>$1</replace>
+      <replace>g(</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/declaration.tex" />
+        <option value="$PROJECT_DIR$/src/conclusion.tex" />
+        <option value="$PROJECT_DIR$/src/introduction.tex" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/src/phfl_k_minus_1_tail_equals_k_exspace/phfl_k_minus_1_tail_equals_k_exspace_introduction.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_minus_1_tail_equals_k_exspace/phfl_k_minus_1_tail_equals_k_exspace_upper_bounds.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_plus_1_tail_equals_k_exspace/phfl_k_plus_1_tail_equals_k_exspace_introduction.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_plus_1_tail_equals_k_expspace/phfl_k_plus_1_tail_equals_k_expspace_upper_bounds.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_plus_1_tail_equals_k_expspace/phfl_k_plus_1_tail_equals_k_expspace_lower_bounds.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_plus_1_tail_equals_k_expspace/phfl_k_plus_1_tail_equals_k_expspace_introduction.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_equals_k_exptime/phfl_k_equals_k_exptime_introduction.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_equals_k_exptime/phfl_k_equals_k_exptime_upper_bounds.tex" />
+        <option value="$PROJECT_DIR$/src/phfl_k_equals_k_exptime/phfl_k_equals_k_exptime_lower_bounds.tex" />
+        <option value="$PROJECT_DIR$/src/preliminaries/preliminaries_descriptive_complexity.tex" />
+        <option value="$PROJECT_DIR$/src/preliminaries/preliminaries_higher_order_logic.tex" />
+        <option value="$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29110994.bib" />
+        <option value="$PROJECT_DIR$/src/lower_bounds/lower_bounds_phfl_k_plus_1_tail.tex" />
+        <option value="$PROJECT_DIR$/src/preliminaries/preliminaries_polyadic_higher_order_fixpoint_logic.tex" />
+        <option value="$PROJECT_DIR$/src/upper_bounds/upper_bounds_introduction.tex" />
+        <option value="$PROJECT_DIR$/src/lower_bounds/lower_bounds_introduction.tex" />
+        <option value="$PROJECT_DIR$/src/lower_bounds/lower_bounds_phfl_k.tex" />
+        <option value="$PROJECT_DIR$/src/preliminaries/preliminaries_bisimulation_invariance.tex" />
+        <option value="$PROJECT_DIR$/src/lower_bounds/lower_bounds_existential_quantifiers_in_phfl.tex" />
+        <option value="$PROJECT_DIR$/src/preliminaries/preliminaries_introduction.tex" />
+        <option value="$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.tex" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1294" />
+    <option name="height" value="735" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="phfl_k_exptime" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phfl_k_exptime" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phfl_k_exptime" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phfl_k_exptime" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phfl_k_exptime" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phfl_k_exptime" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phfl_k_exptime" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phfl_k_exptime" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lower_bounds" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phfl_k_exptime" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phfl_k_exptime" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="upper_bounds" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540756210369" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\DKron\IdeaProjects\phfl_k_exptime\src\lower_bounds" />
+      <recent name="C:\Users\DKron\IdeaProjects\phfl_k_exptime\src" />
+      <recent name="C:\Users\DKron\IdeaProjects\phfl_k_exptime\src\phfl_k_equals_k_exptime" />
+      <recent name="C:\Users\DKron\IdeaProjects\phfl_k_exptime\src\phfl_k_plus_1_tail_equals_k_expspace" />
+      <recent name="C:\Users\DKron\IdeaProjects\phfl_k_exptime\src\phfl_k_minus_1_tail_equals_k_exspace" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="LaTeX.Master_Thesis_David_Kronenberger_29210994_tex">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Master_Thesis_David_Kronenberger_29210994_bib" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify-bibtex>
+        <compiler>BIBTEX</compiler>
+        <compiler-path />
+        <compiler-arguments />
+        <main-file>$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.tex</main-file>
+        <aux-dir>$PROJECT_DIR$/src</aux-dir>
+      </texify-bibtex>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Master_Thesis_David_Kronenberger_29210994_tex" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify>
+        <compiler>PDFLATEX</compiler>
+        <compiler-path />
+        <compiler-arguments>-synctex=1</compiler-arguments>
+        <main-file>$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.tex</main-file>
+        <aux-dir>false</aux-dir>
+        <out-dir>false</out-dir>
+        <output-format>PDF</output-format>
+        <bib-run-config>BibTeX.Master_Thesis_David_Kronenberger_29210994_bib</bib-run-config>
+      </texify>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="BibTeX.Master_Thesis_David_Kronenberger_29210994_bib" />
+      <item itemvalue="LaTeX.Master_Thesis_David_Kronenberger_29210994_tex" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b2b3c1f9-17d8-43ee-af31-438ed3d07bb4" name="Default" comment="" />
+      <created>1530214300128</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1530214300128</updated>
+      <workItem from="1530214303283" duration="640000" />
+      <workItem from="1530215047287" duration="582000" />
+      <workItem from="1530215650005" duration="1031000" />
+      <workItem from="1530217272786" duration="51000" />
+      <workItem from="1530244552494" duration="519000" />
+      <workItem from="1530245155640" duration="1771000" />
+      <workItem from="1530249316252" duration="3936000" />
+      <workItem from="1530256669542" duration="3924000" />
+      <workItem from="1530283219041" duration="3038000" />
+      <workItem from="1530290933701" duration="3296000" />
+      <workItem from="1530433673500" duration="3127000" />
+      <workItem from="1530437003080" duration="836000" />
+      <workItem from="1530437932955" duration="1257000" />
+      <workItem from="1531294798312" duration="876000" />
+      <workItem from="1531297477103" duration="2374000" />
+      <workItem from="1531313971811" duration="11288000" />
+      <workItem from="1531489766924" duration="3200000" />
+      <workItem from="1531547017314" duration="3730000" />
+      <workItem from="1531721122922" duration="28804000" />
+      <workItem from="1532005906250" duration="26106000" />
+      <workItem from="1532423730940" duration="1294000" />
+      <workItem from="1532500983456" duration="16779000" />
+      <workItem from="1532672688538" duration="12553000" />
+      <workItem from="1532695383852" duration="970000" />
+      <workItem from="1533027761574" duration="21012000" />
+      <workItem from="1533115059305" duration="12193000" />
+      <workItem from="1533293822510" duration="6681000" />
+      <workItem from="1533622389013" duration="2273000" />
+      <workItem from="1533985305589" duration="10612000" />
+      <workItem from="1534315616226" duration="7076000" />
+      <workItem from="1534351856258" duration="2188000" />
+      <workItem from="1534405904982" duration="57000" />
+      <workItem from="1534487225609" duration="15367000" />
+      <workItem from="1534838602119" duration="16532000" />
+      <workItem from="1534919582421" duration="23177000" />
+      <workItem from="1535003970231" duration="14896000" />
+      <workItem from="1535091719823" duration="19995000" />
+      <workItem from="1535122288190" duration="1348000" />
+      <workItem from="1535225011078" duration="18713000" />
+      <workItem from="1535442699126" duration="4955000" />
+      <workItem from="1536569048972" duration="1136000" />
+      <workItem from="1536733292779" duration="20491000" />
+      <workItem from="1536905445631" duration="541000" />
+      <workItem from="1536917883031" duration="6049000" />
+      <workItem from="1537182999094" duration="14030000" />
+      <workItem from="1537261934776" duration="18054000" />
+      <workItem from="1537344745993" duration="17187000" />
+      <workItem from="1537444883795" duration="11316000" />
+      <workItem from="1537518952853" duration="11547000" />
+      <workItem from="1537875358513" duration="1842000" />
+      <workItem from="1537942477441" duration="13170000" />
+      <workItem from="1538030428536" duration="3255000" />
+      <workItem from="1538324073375" duration="4787000" />
+      <workItem from="1538933356258" duration="4439000" />
+      <workItem from="1539018707409" duration="879000" />
+      <workItem from="1539533272152" duration="6413000" />
+      <workItem from="1539622151013" duration="8968000" />
+      <workItem from="1539710827202" duration="5889000" />
+      <workItem from="1539792796640" duration="1266000" />
+      <workItem from="1539796317167" duration="4422000" />
+      <workItem from="1539879925722" duration="595000" />
+      <workItem from="1539971767159" duration="3260000" />
+      <workItem from="1540458744873" duration="1498000" />
+      <workItem from="1540460976233" duration="413000" />
+      <workItem from="1540751022198" duration="1035000" />
+      <workItem from="1540752203082" duration="164000" />
+      <workItem from="1540752379510" duration="2035000" />
+      <workItem from="1540756808439" duration="59000" />
+    </task>
+    <task id="LOCAL-00001" summary="Correct the whole stuff that Florian has marked.">
+      <created>1531332221092</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1531332221093</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Change title">
+      <created>1531332837283</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1531332837283</updated>
+    </task>
+    <task id="LOCAL-00003" summary="change stuff of Florian comments. Add prove for upper bound of phfl^k.">
+      <created>1531833370822</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1531833370822</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Complete upper bound of phfl^k and add upper bound of phfl^k_tail.">
+      <created>1532258878902</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1532258878902</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Correct upper bound prove. and refactor preliminaries.">
+      <created>1534168924757</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1534168924757</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Create proof of lower bound of phfl^k">
+      <created>1535368848915</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1535368848915</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Correct proof of lower bound of phfl. Also capsule the higher-order quantification in an extra section.">
+      <created>1537197220375</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1537197220376</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Insert proof that k-expspace is in HO(PFP)^k+1">
+      <created>1537368624643</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1537368624644</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="451175000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1294" height="735" extended-state="0" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.37539935" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3290938" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.85942495" weight="0.2503888" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32939914" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.14057508" side_tool="true" visible="true" weight="0.2503888" />
+      <window_info anchor="bottom" auto_hide="true" id="PDF_FIND" order="11" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Correct the whole stuff that Florian has marked." />
+    <MESSAGE value="Change title" />
+    <MESSAGE value="change stuff of Florian comments. Add prove for upper bound of phfl^k." />
+    <MESSAGE value="Complete upper bound of phfl^k and add upper bound of phfl^k_tail." />
+    <MESSAGE value="Correct upper bound prove. and refactor preliminaries." />
+    <MESSAGE value="Create proof of lower bound of phfl^k" />
+    <MESSAGE value="Correct proof of lower bound of phfl. Also capsule the higher-order quantification in an extra section." />
+    <MESSAGE value="Insert proof that k-expspace is in HO(PFP)^k+1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Insert proof that k-expspace is in HO(PFP)^k+1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.idea/kotlinc.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Master_Thesis_David_Kronenberger.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29110994_1.bib" />
+    <entry file="file://$PROJECT_DIR$/src/conclusion.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/declaration.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/comparing_drec_and_diag_drec.tex">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/introduction.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/phfl_k_plus_1_tail_equals_k_expspace/phfl_k_plus_1_tail_equals_k_expspace_lower_bounds.tex" />
+    <entry file="file://$PROJECT_DIR$/src/phfl_k_equals_k_exptime/phfl_k_equals_k_exptime_introduction.tex" />
+    <entry file="file://$PROJECT_DIR$/src/phfl_k_equals_k_exptime/phfl_k_equals_k_exptime_upper_bounds.tex" />
+    <entry file="file://$PROJECT_DIR$/src/phfl_k_equals_k_exptime/phfl_k_equals_k_exptime_lower_bounds.tex" />
+    <entry file="file://$PROJECT_DIR$/src/phfl_k_plus_1_tail_equals_k_expspace/phfl_k_plus_1_tail_equals_k_expspace_introduction.tex" />
+    <entry file="file://$PROJECT_DIR$/src/phfl_k_plus_1_tail_equals_k_expspace/phfl_k_plus_1_tail_equals_k_expspace_upper_bounds.tex" />
+    <entry file="file://$PROJECT_DIR$/src/preliminaries/preliminaries_descriptive_complexity.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="56" column="66" selection-start-line="56" selection-start-column="66" selection-end-line="56" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/preliminaries/preliminaries_higher_order_logic.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3281">
+          <caret line="193" column="75" selection-start-line="193" selection-start-column="15" selection-end-line="193" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/preliminaries/preliminaries_polyadic_higher_order_fixpoint_logic.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="177" column="8" lean-forward="true" selection-start-line="177" selection-start-column="8" selection-end-line="177" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/upper_bounds/upper_bounds_introduction.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5899">
+          <caret line="347" column="93" selection-start-line="347" selection-start-column="93" selection-end-line="347" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lower_bounds/lower_bounds_phfl_k_plus_1_tail.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2584">
+          <caret line="152" column="51" selection-start-line="152" selection-start-column="51" selection-end-line="152" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lower_bounds/lower_bounds_phfl_k.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/preliminaries/preliminaries_introduction.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/preliminaries/preliminaries_bisimulation_invariance.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2415">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29110994.bib">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4620">
+          <caret line="308" column="31" selection-start-line="308" selection-start-column="31" selection-end-line="308" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="1540" column="16" selection-start-line="1540" selection-start-column="16" selection-end-line="1540" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.pdf" />
+    <entry file="file://$PROJECT_DIR$/src/lower_bounds/lower_bounds_existential_quantifiers_in_phfl.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2700">
+          <caret line="180" column="35" selection-start-line="180" selection-start-column="35" selection-end-line="180" selection-end-column="35" />
+          <folding>
+            <element signature="e#250#254#2" expanded="true" />
+            <element signature="e#1257#1261#2" expanded="true" />
+            <element signature="e#1263#1267#2" expanded="true" />
+            <element signature="e#1268#1273#2" expanded="true" />
+            <element signature="e#1386#1390#2" expanded="true" />
+            <element signature="e#1401#1405#2" expanded="true" />
+            <element signature="e#1430#1434#3" expanded="true" />
+            <element signature="e#1489#1493#3" expanded="true" />
+            <element signature="e#1517#1521#2" expanded="true" />
+            <element signature="e#1525#1529#2" expanded="true" />
+            <element signature="e#1532#1536#2" expanded="true" />
+            <element signature="e#1556#1560#2" expanded="true" />
+            <element signature="e#1567#1572#2" expanded="true" />
+            <element signature="e#1578#1583#2" expanded="true" />
+            <element signature="e#1684#1688#2" expanded="true" />
+            <element signature="e#1694#1698#2" expanded="true" />
+            <element signature="e#1701#1712#2" expanded="true" />
+            <element signature="e#1716#1720#2" expanded="true" />
+            <element signature="e#1723#1734#2" expanded="true" />
+            <element signature="e#1735#1742#2" expanded="true" />
+            <element signature="e#1764#1768#2" expanded="true" />
+            <element signature="e#1774#1781#2" expanded="true" />
+            <element signature="e#1782#1793#2" expanded="true" />
+            <element signature="e#1794#1801#2" expanded="true" />
+            <element signature="e#1803#1814#2" expanded="true" />
+            <element signature="e#1817#1824#2" expanded="true" />
+            <element signature="e#1825#1836#2" expanded="true" />
+            <element signature="e#1837#1844#2" expanded="true" />
+            <element signature="e#1846#1857#2" expanded="true" />
+            <element signature="e#1858#1865#2" expanded="true" />
+            <element signature="e#1949#1953#3" expanded="true" />
+            <element signature="e#2007#2011#2" expanded="true" />
+            <element signature="e#2065#2069#2" expanded="true" />
+            <element signature="e#2171#2175#2" expanded="true" />
+            <element signature="e#2623#2627#3" expanded="true" />
+            <element signature="e#2660#2664#3" expanded="true" />
+            <element signature="e#2730#2734#3" expanded="true" />
+            <element signature="e#2790#2794#3" expanded="true" />
+            <element signature="e#2848#2852#3" expanded="true" />
+            <element signature="e#2908#2912#3" expanded="true" />
+            <element signature="e#2921#2925#3" expanded="true" />
+            <element signature="e#3009#3013#3" expanded="true" />
+            <element signature="e#3039#3044#2" expanded="true" />
+            <element signature="e#3062#3067#2" expanded="true" />
+            <element signature="e#3087#3092#2" expanded="true" />
+            <element signature="e#3126#3131#2" expanded="true" />
+            <element signature="e#3171#3175#3" expanded="true" />
+            <element signature="e#3216#3220#3" expanded="true" />
+            <element signature="e#3278#3282#3" expanded="true" />
+            <element signature="e#3376#3380#3" expanded="true" />
+            <element signature="e#3415#3419#3" expanded="true" />
+            <element signature="e#3492#3496#3" expanded="true" />
+            <element signature="e#3570#3574#3" expanded="true" />
+            <element signature="e#3599#3603#3" expanded="true" />
+            <element signature="e#3766#3770#3" expanded="true" />
+            <element signature="e#5242#5246#2" expanded="true" />
+            <element signature="e#5250#5255#2" expanded="true" />
+            <element signature="e#5257#5262#2" expanded="true" />
+            <element signature="e#5264#5269#2" expanded="true" />
+            <element signature="e#5284#5290#3" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Master_Thesis_David_Kronenberger_29210994.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="78" column="17" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
+          <folding>
+            <element signature="e#493#513#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lower_bounds/lower_bounds_introduction.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Master_Thesis_David_Kronenberger</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
