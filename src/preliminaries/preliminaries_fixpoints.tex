@@ -1,0 +1,44 @@
+%%
+%% Author: Davidov
+%% 16.05.2018
+%%
+
+\section{Fixpoints}\label{sec:fixpoints}
+
+To define the polyadic higher-order fixpoint logic and the higher-order logic with least and partial fixpoints, we want to consider in this section fixpoints in general. The first fixpoint we consider is the least fixpoint.
+
+\begin{definition}
+   Let $F\colon A \rightarrow A$ be an operator on a finite set $A$, then $x \in A$
+   is called a \emph{fixpoint} of $F$ if $F(x) = x$. Let $x$ be a fixpoint of $F$ and $\sqsubseteq$ an partial order on $A$, then $x$ is called the \emph{least
+   fixpoint} of $F$, abbreviated as $\mathit{LFP}$($F$), if all other fixpoints $y$ of $F$ are bigger with respect to $sqsubset$ as $x$ i.e. $x
+   \sqsubseteq y$ for all fixpoints $y$ of $F$. A fixpoint $x$ is called the \emph{greatest fixpoint} if $y \sqsubseteq x$ for all fixpoints $y$ of $F$.
+\end{definition}
+
+From Knaster-Tarski~\cite{tarski1955lattice} we know that if an operator $F\colon A \rightarrow 
+A$ is monotone the least and greatest fixpoints of $F$ exists. $F$ is monotone iff for all $x, y
+ \in A$ if $x \sqsubseteq y$ then $F(x) \sqsubseteq F(y)$ holds.
+
+\begin{example}
+    \label{example:lfp}
+    Peano's induction axiom defined as HO$^2$ formula in Example~\ref{example:ho} can be also defined with a least
+    fixpoint operator. This example is mainly from~\cite{hetzl2017higher}. Let $A = \mathbb{Z}$ and $F(X) = X \cup \{0\} \cup
+    \{x + 1 \mid x \in X\}$ the operator on $A$. Obviously, $F$ is monotone and fixpoints of $F$ are of the form
+    $[-k, \infty[~\subseteq\mathbb{Z}$ for $k \in \mathbb{N}$. The least fixpoint of operator $F$ describes Peano's
+    induction axiom, i.e. $\mathit{LFP}(F) = \mathbb{N}$.
+\end{example}
+
+Next, we define the partial fixpoint. Since the
+$\mathit{LFP}$ restricts the operator to be monotone to exist, the partial fixpoint need not any
+restriction on the operator.
+
+\begin{definition}
+    Let $F\colon A \rightarrow A$ be an operator on a finite set $A$, then the \emph{partial
+    fixpoint} of $F$, abbreviated as $\mathit{PFP}$($F$), is defined as follows:
+    \[\mathit{PFP}(F)\coloneqq\begin{cases}
+               F^{i+1}(\emptyset)=F^i(\emptyset),  & \text{if such } i \in \{0,\dots,|A|\} \text{ exists}\\
+               \emptyset, & \text{otherwise,}
+    \end{cases}\]
+    where $F^0(\emptyset) = \emptyset$, $F^1(\emptyset) = F(\emptyset)$, $F^2(\emptyset) = F(F(\emptyset))$, and so on.
+\end{definition}
+
+Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$.	

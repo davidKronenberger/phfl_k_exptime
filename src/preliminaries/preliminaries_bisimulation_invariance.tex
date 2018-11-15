@@ -106,8 +106,7 @@ Furthermore, we can describe properties of LTS. \textit{Queries} are one way to 
     and $({\mathcal{T}}', \mathcal{Q}^{{\mathcal{T}}'})$.
 \end{definition}
 
-The queries defined in Definition~\ref{definition:query} can be categorized. Here we are interested in two of these
-categories. The first category is called \textit{bisimulation invariant}. This category describes those queries that
+The queries defined in Definition~\ref{definition:query} can be categorized. One category is called \textit{bisimulation invariant}. This category describes those queries that
 can not distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
 \textit{Kripke structures}. A Kripke structure is a transition system. Note, that transition systems have only one
 type of actions.
@@ -123,40 +122,13 @@ type of actions.
     \dots, {q_r}') \in \mathcal{Q}^{{\mathcal{T}}'}$.
 \end{definition}
 
-The second category of a query tells us which complexity class a query belongs to.
-
-\begin{definition}
-    \label{definition:queryBelongsToComplexityClass}
-    Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ and $(q_1, \dots, q_{r}) \in Q^r$.
-    A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is a DTM (see
-    Section~\ref{sec:descriptiveComplexity}) in $\mathcal{C}$ for deciding on input $(\mathcal{T}, (q_1, \dots,
-    q_{r}))$ whether $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$.
-\end{definition}
-
 \begin{example}{\cite{lange2014capturing}}
     \label{example:query_bisimulation}
     Let $\mathcal{Q}$ be a $2$-adic query that maps a LTS to the set of pairs of states that are bisimilar. As
-    example, let $\mathcal{T}$ the LTS from Example~\ref{example:lts}. The query $\mathcal{Q}$ maps $\mathcal{T}$ to
+    example let $\mathcal{T}$ the LTS from Example~\ref{example:lts}. The query $\mathcal{Q}$ maps $\mathcal{T}$ to
     the following set of pairs:
     \[\mathcal{Q}^\mathcal{T} = \{(q_1, q_1), \dots, (q_5, q_5), (q_1, q_5), (q_5, q_1), (q_2, q_4), (q_4,
     q_2)\}\]
-    Because bisimilarity can be decided in P, there is an algorithm in P for deciding on input $(\mathcal{T}, (q_1,
-    q_2))$ whether $(q_1, q_2) \in \mathcal{Q}^\mathcal{T}$, i.e. $\mathcal{Q}$ belongs to complexity class P.
-    Furthermore, as mentioned in Example~\ref{example:bisimilar}, $\sim$ is an
+   As mentioned in Example~\ref{example:bisimilar}, $\sim$ is an
     equivalence relation, it follows that $\mathcal{Q}$ is bisimulation invariant.
 \end{example}
-
-From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
-and the complexity classes $k$-EXP-TIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace} follow
-the queries that we want to investigate.
-
-\begin{definition}
-    \label{definition:kExptimekExpspace}
-    \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
-    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 0$.
-\end{definition}
-
-In the next chapter we introduce the polyadic higher order fixed point logic and a restriction called tail-recursive
-devised by Lange and Lozes in~\cite{lange2014capturing}. We want to compare the in
-Definition~\ref{definition:kExptimekExpspace} presented queries with these logics to make a further contribution in
-the theory of descriptive complexity.

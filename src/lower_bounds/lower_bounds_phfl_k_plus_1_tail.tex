@@ -23,9 +23,7 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
 
 \begin{lemma}
     \label{lemma:expspace_in_ho_pfp}
-    Given a DTM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ in $k$-EXPSPACE and some input word $w \in
-    \Sigma^*$ then there exists a formula $\Psi$ in HO(PFP)$^{k+1}$ such that a run of $M$ on $w$ is accepting iff
-    $\Psi$ is true.
+    Given a DTM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ in $k$-EXPSPACE there exists a formula $\Psi$ in HO(PFP)$^{k+1}$ over signature $\sigma$ such that for all variable mappings $\eta$ and all $\sigma$-structures $\mathcal{A}$ it holds $\mathcal{A}, \eta \models \Psi$ exactly then if the run of $M$ on the standard coding of $\mathcal{A}, \eta$ is accepting.
 \end{lemma}
 
 \begin{proof}
@@ -51,8 +49,8 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
     symbols.
 
     The next step is to define some abbreviations that we want to use in the definitions of the configurations. The
-    first and most important abbreviation is the definition of orders of any HO type. These orders are defined similar
-    to the defined formulas of Definition~\ref{definition:lower_bound_less}.
+    first and most important abbreviation is the definition of orders of any HO type. These orders are defined similarly
+    to the defined formulas of Definition~\ref{definition:lower_bound_less_higher}. A tuple $x$ is smaller then a tuple $y$ if there is a position $i$ where $x_i < y_i$ and there is no position $j<i$ where $x_j > y_j$. A set $X$ is smaller then a tuple $Y$ if there is a $x \in Y$ such that $x \not\in X$ and there is no $y<x$ such that $y\in X$ but $y\not\in Y$.
     \begin{align*}
         <^\odot(x, y) \coloneqq &\,<^\mathcal{A}(x, y) \\
         <^{\tau' \times \dots \times \tau'}(x_1, y_1, \dots, x_n, y_n) \coloneqq &\,\underset{i =

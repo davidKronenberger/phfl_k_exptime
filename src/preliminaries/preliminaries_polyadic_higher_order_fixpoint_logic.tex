@@ -11,9 +11,7 @@ Definition~\ref{definition:lts}) and extends the polyadic modal $\mu$-calculus~\
 higher order fixpoints like M. Viswanathan and R. Viswanathan it did with monadic case of modal
 $\mu$-calculus~\cite{kozen1983results} in~\cite{viswanathan2004higher}. The logic of M. Viswanathan and R
 .Viswanathan with name higher order fixed point logic is a combination of propositional logic, modal operators and
-a simply typed $\lambda$-calculus with fixed point operators. The higher order cases of PHFL and a restriction called
-tail-recursive for this higher order cases we are interested to compare with the in
-Chapter~\ref{sec:descriptiveComplexity} introduced complexity classes \exptime{$k$} and \expspace{$k$}.
+a simply typed $\lambda$-calculus with fixed point operators. 
 
 \subsection{PHFL Types}\label{subsec:phflTypes}
 
@@ -59,7 +57,7 @@ have meets and joins, denoted by $\sqcap_{\llbracket\tau\rrbracket_\mathcal{T}}$
 $\sqcup_{\llbracket\tau\rrbracket_\mathcal{T}}$, and least and greatest elements, denoted by
 $\bot_{\llbracket\tau\rrbracket_\mathcal{T}}$ and $\top_{\llbracket\tau\rrbracket_\mathcal{T}}$ for any subset of
 $\llbracket\tau\rrbracket_\mathcal{T}$. This ensures that the least and greatest fixpoint over all monotone PHFL types
-exist~\cite{tarski1955lattice}. See Chapter~\ref{subsec:hoPlusLfp} for further information about fixpoints.
+exist~\cite{tarski1955lattice}. See Section~\ref{sec:fixpoints} for further information about fixpoints.
 
 \begin{definition}
     The \emph{maximal arity} $ma(\tau)$ and the \emph{order} $ord(\tau)$ of a PHFL type $\tau$ are defined
@@ -78,9 +76,9 @@ exist~\cite{tarski1955lattice}. See Chapter~\ref{subsec:hoPlusLfp} for further i
 \end{cases}\]
 \end{definition}
 
-Next, we want to define the syntax of PHFL formulas.
-
 \subsection{PHFL Syntax}\label{subsec:phflSyntax}
+
+Next, we want to define the syntax of PHFL formulas.
 
 \begin{figure}
     \caption{Derivation Rules for PHFL formulas.}
@@ -211,17 +209,6 @@ if $k = max(\{ord(\tau)\mid \Psi \colon \tau$ \textit{is a subformula of} $\Phi\
 order at most $k$ is denoted by PHFL$^k$.
 
 \begin{example}{\cite{lange2014capturing}}
-    \label{example:phfl_order_2}
-    The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
-    those pairs $(q_1, q_2)$ for which $q_1$ has the same traces as $q_2$ and vice versa.
-    \begin{align*}
-        \Phi = &(\mu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
-        \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&X \Leftrightarrow Y \wedge
-        \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top
-    \end{align*}
-\end{example}
-
-\begin{example}{\cite{lange2014capturing}}
     \label{example:phfl_order_0}
     The following $2$-adic PHFL$^0$ formula $\Phi_\sim$ describes bisimilarity i.e. it denotes
     those pairs $(q_1, q_2)$ such that $q_1 \sim q_2$ and vice versa.
@@ -232,13 +219,29 @@ order at most $k$ is denoted by PHFL$^k$.
     \end{align*}
 \end{example}
 
+\begin{example}{\cite{lange2014capturing}}
+    \label{example:phfl_order_2}
+    The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
+    those pairs $(q_1, q_2)$ for which $q_1$ has the same traces as $q_2$ and vice versa.
+    \begin{align*}
+        \Phi = &(\mu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
+        \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&X \Leftrightarrow Y \wedge
+        \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top
+    \end{align*}
+\end{example}
+
+\begin{remark}
+To simplify PHFL formulas with fixpoint and $\lambda$ operators we will use \emph{fixpoint unfolding principle} and \emph{$\beta$-reduction}. Because we work on finite structures and the semantics of PHFL is invariant under $\beta$-reduction we can use those procedures without loss of generality.
+\end{remark}
+
 Before looking at the tail-recursive fragment see the following definition of $r$-adic queries that are associated to a
-closed $d$-adic formula $\Phi$.
+closed $d$-adic formula $\Phi$. A PHFL formula $\Phi$ is closed if the type judgement $\Gamma \vdash \Phi \colon \bullet$ is derivable for at least one type environment $\Gamma$.
 
 \begin{definition}
-    Given a dimension $d$ of PHFL, a type judgment $\Gamma$, a variable assignment $\eta$ and a closed $d$-adic PHFL
+\label{definition:query_associated_to_formula}
+    Given a dimension $d$ of PHFL, a type environment $\Gamma$, a variable assignment $\eta$ and a closed $d$-adic PHFL
     formula $\Phi$ we call a $r$-adic query $\mathcal{Q}^r_\Phi$ associated to $\Phi$ if there is for all LTS
-    $\mathcal{T}$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{T}$ a $(s_1, \dots, s_d) \in
+    $\mathcal{T}$, all variable mappings $\eta$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{T}$ a $(s_1, \dots, s_d) \in
     \llbracket \Gamma \vdash \Phi \colon \bullet \rrbracket^\eta_\mathcal{T}$ such that $q_i = s_i$ for all $i \in
     \{1, \dots, min(\{r, d\})\}$.
 \end{definition}

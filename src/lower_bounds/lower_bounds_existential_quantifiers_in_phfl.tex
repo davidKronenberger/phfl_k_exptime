@@ -73,24 +73,26 @@ To access the states $q_1, \dots, q_r$ in the PHFL formulas that we get by encod
 \begin{remark}
     The PHFL formula $\Phi$ that we get through the encoding of a given HO formula $\Psi$ has dimension
     $d$ that is always big enough to translate all second-order variables of $\Psi$ to an order $0$ variable in
-    $\Phi$. In more detail $s$ is the maximal arity of second-order variables in $\Psi$ and $d > s$. To distinguish all
-    different first-order variables in $\Psi$, the dimension $d$ of $\Phi$ is also bigger then $q$.  To compare
-    two  elements of $Q^{m}$, where $Q$ is the state set of an LTS and $m = max({s, q})$, the dimension $d$ of 
-    $\Phi$ is  at leas twice as big as the maximum of $s$ and $q$. That means $d >= 2 * m$. Finally, to access the 
-    states $q_1, \dots, q_r$ described in Section~\ref{sec:lower_bounds_preparation} that are not allowed to change, 
-    we extend $d$ with $r$ components. That means the dimension of $\Phi$ is $d = 2* m + r$.
+    $\Phi$. In more detail $s$ is the maximal arity of second-order variables in $\Psi$ and $d > s$. To compare
+    two  elements of $Q^{s}$, where $Q$ is the state set of an LTS, the dimension $d$ of 
+    $\Phi$ is  at leas twice as big as the maximum of $s$. To distinguish all
+    different first-order variables in $\Psi$, the dimension $d$ of $\Phi$ has to be extend by $q$, where $q$ is the number of different first-order variables. That means $d >= 2 * s + q$. Finally, to access the 
+    states $q_1, \dots, q_r$ described in Section~\ref{sec:lower_bounds_preparation}, 
+    we extend $d$ additionally with $r$ components. That means the dimension of $\Phi$ is $d = 2 * s + q + r$.
 \end{remark}
 
 If we consider $\exists (x_i \colon \odot).\,\Phi$ then it can be understand as, check if we reach a state tuple where $
-\Phi$ holds once the $i$-th component is replaced by one the components where $q_1, \dots, q_r$ are stored.
+\Phi$ holds once the $i$-th component is replaced by one of the last $r$ components. These where $q_1, \dots, q_r$ are stored.
 
 \begin{definition}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $\exists_i \Phi$ is a PHFL$^k$
-    formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the 
+    formula with dimension $d = 2 * s + q+ r$, where $r$ is the number of states that defines the 
     reduced LTS, defined as
-    \[\exists_i \Phi \coloneqq \bigvee_{j=2*m+1}^d \{(1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X
-    \colon \bullet).\,\Phi \vee \bigvee_{a \in \Sigma} \langle a \rangle_i X.\]
+    \[\exists_i \Phi \coloneqq \bigvee^{j=d}_{2*s+q+1} \{(1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X
+    \colon \bullet).\,\Phi \vee \bigvee_{a \in \Sigma} \langle a \rangle_{i} X.\]
+    The formula $\forall_i \Phi$ is also a PHL$^k$ formula with dimension $d$ and is defined as
+    \[\forall_i \Phi \coloneqq \neg \exists_i \neg \Phi.\]
 \end{definition}
 
 Now we consider the second-order quantification. Let $\tau = (\odot, \dots, \odot)$ a HO type, $\sigma$ a signature and
@@ -117,19 +119,18 @@ formalized in PHFL in the following definition.
     \label{definition:lower_bound_less_second}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $<^\odot$, $<^{\odot \times \dots
-    \times \odot}$ and $<^{(\odot, \dots, \odot)}(X, Y)$ are PHFL$^k$ formulas with dimension $d = 2 * m + r$, where $m =
-    max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
+    \times \odot}$ and $<^{(\odot, \dots, \odot)}(X, Y)$ are PHFL$^k$ formulas with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS, defined as:
 
     \begin{align*}
         <^\odot \coloneqq &\,\Phi_< \\
         <^{\odot \times \dots \times \odot} \coloneqq
-            &\,\underset{i = 1}{\overset{m}{\bigvee}}\{(i, i + m, 3, \dots, d)\} <^\odot \wedge \\
-            &\,\underset{j = 1}{\overset{i - 1}{\bigwedge}}\{(j + m, j, 3, \dots, d)\} \neg <^\odot \\
+            &\,\underset{i = 1}{\overset{s}{\bigvee}}\{(i, i + s, 3, \dots, d)\} <^\odot \wedge \\
+            &\,\underset{j = 1}{\overset{i - 1}{\bigwedge}}\{(j + s, j, 3, \dots, d)\} \neg <^\odot \\
         <^{(\odot, \dots, \odot)}(X, Y) \coloneqq
             &\,\exists_{i_1}.\, \dots \exists_{i_n}. \{(i_1, \dots, i_n, n + 1,\dots, d)\}Y \wedge \\
             &\,\neg \{(i_1, \dots, i_n, n + 1, \dots, d)\} X\,\wedge \\
-            &\, \forall_{j_1}. \,\dots \forall_{j_n}. \{(j_1, \dots, j_n, n+1, \dots, m, \\
-            &\,i_1, \dots, i_n, m + n + 1, \dots, d)\}<^{\odot \times \dots \times \odot} \Rightarrow \\
+            &\, \forall_{j_1}. \,\dots \forall_{j_n}. \{(j_1, \dots, j_n, n+1, \dots, s, \\
+            &\,i_1, \dots, i_n, s + n + 1, \dots,  d)\}<^{\odot \times \dots \times \odot} \Rightarrow \\
             &\,(\{(j_1,\dots, j_n, n + 1, \dots, d)\} X \Rightarrow \\
             &\,\neg \{(j_1, \dots, j_n, n + 1, \dots, d)\} Y)
     \end{align*}
@@ -160,13 +161,13 @@ then $i$ that is $0$ in $X$.
     \label{definition:lower_bounds_next_second}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$, quantified variables $x_{f+1}, \dots,
     x_q$ and $s$ be the maximal arity of all second order variables of $\Psi$, then $next^{(\odot, \dots, \odot)}$
-    is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
+    is a PHFL$^k$ formula with dimension $d = 2 * s + q + r$, where  $r$ is the number of states that defines the reduced LTS, defined as:
 
     \begin{align*}
-        next^{(\odot, \dots, \odot)} \coloneqq &\,\lambda (X \colon \bullet).\, (\neg X \wedge \forall_{m +
-        1}\dots\forall_{m + m}<^{\odot \times \dots \times \odot}\, \Rightarrow \\&\,\{(m +
-        1, \dots, m + m, m + 1, \dots, d)\} X) \,\vee \\&\,(X \wedge \exists_{m + 1}\dots\exists_{m + m} <^{\odot
-        \times \dots \times \odot} \,\wedge \\&\,\{(m + 1, \dots, m + m, m + 1, \dots, d)\}
+        next^{(\odot, \dots, \odot)} \coloneqq &\,\lambda (X \colon \bullet).\, (\neg X \wedge \forall_{s +
+        1}\dots\forall_{s + s}<^{\odot \times \dots \times \odot}\, \Rightarrow \\&\,\{(s +
+        1, \dots, s + s, s + 1, \dots, d)\} X) \,\vee \\&\,(X \wedge \exists_{s + 1}\dots\exists_{s + s} <^{\odot
+        \times \dots \times \odot} \,\wedge \\&\,\{(s + 1, \dots, s + s, s + 1, \dots, d)\}
         \neg X)
     \end{align*}
 \end{definition}
@@ -178,11 +179,12 @@ With the previous definition we are now able to define the second-order quantifi
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$, quantified variables $x_{f+1}, \dots,
     x_q$ and $\Phi$ be a PHFL$^k$ formula with free order $0$ variable $X$. Furthermore, let $s$ be the maximal arity
     of all second order variables of $\Psi$, then $\exists^{(\odot, \dots, \odot)}X .\,\Phi(X)$
-    is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
-
+    is a PHFL$^k$ formula with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS, defined as:
     \[\exists^{(\odot, \dots, \odot)}X.\, \Phi(X) \coloneqq (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
     \colon \bullet).\, \Phi(X) \vee F(next^{(\odot, \dots, \odot)} X)) \bot
     \]
+    The formula $\forall^{(\odot, \dots, \odot)}X.\,\Phi$ is also a PHL$^k$ formula with dimension $d$ and is defined as
+    \[\forall^{(\odot, \dots, \odot)}X.\,\Phi(X) \coloneqq \neg \exists^{(\odot, \dots, \odot)}X .\,\neg\Phi(X).\]
 \end{definition}
 
 The last step is to show that the given formula of Definition~\ref{definition:existential_quantification_second} defines
@@ -196,7 +198,13 @@ second-order existential quantification in PHFL.
 \end{lemma}
 
 \begin{proof}
-    TODO
+    By fixpoint unfolding and $\beta$-reduction the formula 
+    \[\exists^{(\odot, \dots, \odot)}X.\, \Phi(X) = (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
+    \colon \bullet).\, \Phi(X) \vee F(next^{(\odot, \dots, \odot)} X)) \bot\] is equivalent to 
+    \[\Phi(\bot) \vee \Phi(next^{(\odot, \dots, \odot)}\bot) \vee \Phi(next^{(\odot, \dots, \odot)} next^{(\odot, \dots, \odot)} \bot) \vee \dotsb. \]
+    This can be simplified with
+    \[\underset{i\geq0}{\bigvee} \Phi({next^{(\odot, \dots, \odot)}}^i \bot)\]
+Note that $\bot$ represents always the empty set. If we put $\bot$ into $next^{(\odot, \dots, \odot)}$ we check all elements that can be in $D_{(\odot, \dots, \odot)}$ if those fulfil one of the disjuncts. We will see that only the smallest element fulfills the first disjunct. Also the smallest element is not in the empty set and there are no smaller elements to the smallest. So the first disjunct is true and it is the only element that fulfil one of the disjuncts. So the formula ${next^{(\odot, \dots, \odot)}}^1 \bot$ returns the set that includes only the smallest element with respect to $\odot \times \dots \times \odot$. If we look at the formula ${next^{(\odot, \dots, \odot)}}^2 \bot$, we put the set that includes the smallest element into $next^{(\odot, \dots, \odot)}$. If we look into this formula we will see that now the formula returns a set that includes only the second smallest element. The smallest element does not fulfil any disjunct, but the second smallest fulfills the second disjunct. As described in the introduction of Definition~\ref{definition:lower_bounds_next_second} formula $next^{(\odot, \dots, \odot)}$ is some kind of binary incrementation. In this manner each possible set of type $(\odot, \dots, \odot)$ will be reached. Finally, because these sets are checked each for itself in the scope of $\Phi$, the lemma holds.
 \end{proof}
 
 \subsection{Higher-Order Quantification}\label{subsec:higher-orderQuantification}
@@ -219,17 +227,16 @@ tuples in those sets of type $\tau$.
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$. Furthermore, let $s$ be the maximal arity of all second order variables of $\Psi$ and $\tau \neq \odot$ a HO
     type, then $<^{(\tau, \dots, \tau)}(X, Y)$ and $<^{\tau \times \dots \times \tau}(X, Y)$ are PHFL$^k$ formulas
-    with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
+    with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS, defined as:
     \begin{align*}
-        <^{\tau \times \dots \times \tau}(x_1, y_1, \dots, x_1, y_n) \coloneqq &\,\underset{i =
-        1}{\overset{n}{\bigvee}}<^{\tau}(x_i, y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
-        \neg <^{\tau}(y_j, x_j)\\
-        <^{(\tau, \dots, \tau)}(X, Y) \coloneqq &\,\exists^{\tau}x_1. \,\dots \exists^{\tau}x_n.\,(\dotsb(Y
-        (x_1))\dotsb) (x_n)\\
-        &\,\wedge \neg (\dotsb(X(x_1)) \dotsb)(x_n)\,\wedge \\&\,\forall^{\tau}y_1. \,\dots
-        \forall^{\tau}y_n.\,<^{\tau \times \dots \times \tau}
-        (y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow ((\dotsb(X(y_1)) \dotsb)(y_n) \\&\,\Rightarrow (\dotsb(Y(y_1))
-         \dotsb)(y_n))
+        <^{\tau \times \dots \times \tau}(X_1, Y_1, \dots, X_n, Y_n) \coloneqq &\,\underset{i =
+        1}{\overset{n}{\bigvee}}<^{\tau}(X_i, Y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
+        \neg <^{\tau}(Y_j, X_j)\\
+        <^{(\tau, \dots, \tau)}(X, Y) \coloneqq &\,\exists^{\tau}X_1. \,\dots \exists^{\tau}X_n.\,(\dotsb(Y\,X_1)\dotsb)\,X_n\\
+        &\,\wedge \neg (\dotsb(X\,X_1) \dotsb)\,X_n\,\wedge \\&\,\forall^{\tau}Y_1. \,\dots
+        \forall^{\tau}Y_n.\,<^{\tau \times \dots \times \tau}
+        (Y_1, X_1, \dots, Y_n, X_n) \\&\,\Rightarrow \big((\dotsb(X\,Y_1) \dotsb)\,Y_n \Rightarrow (\dotsb(Y\,Y_1)
+         \dotsb)\,Y_n\big)
     \end{align*}
 \end{definition}
 
@@ -244,16 +251,14 @@ function represents $0$ or $1$ in that binary string.
     \label{definition:lower_bounds_next_higher}
     Let $\Psi$ be a HO$^k$ formula with free variables $x_1, \dots, x_f$ and quantified variables $x_{f+1}, \dots,
     x_q$. Furthermore, let $s$ be the maximal arity of all second order variables of $\Psi$ and $\tau \neq \odot$ a
-    HO type, then $next^{(\tau, \dots, \tau)}$ is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q,
-    s})$ and $r$ is the number of states that defines the reduced LTS, defined as:
+    HO type, then $next^{(\tau, \dots, \tau)}$ is a PHFL$^k$ formula with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS, defined as:
 
     \begin{align*}
-        next^{(\tau, \dots, \tau)} \coloneqq &\,\lambda (X \colon T ((\tau, \dots, \tau))).\,(\neg (\dotsb(X
-        (x_1))\dotsb) (x_n) \\&\, \wedge \forall^{\tau}y_1.\, \dots \forall^{\tau}y_n.\,<^{\tau \times
-        \dots \times \tau}(y_1, x_1, \dots, y_n, x_n) \\&\,\Rightarrow  (\dotsb(X(y_1))\dotsb)(y_n)) \,\vee
-        \\&\,((\dotsb (X(x_1)) \dotsb)(x_n) \wedge \exists^{\tau}y_1.\, \dots \exists^{\tau}y_n.\, \\&\,
+        next^{(\tau, \dots, \tau)} \coloneqq &\,\lambda (X \colon T ((\tau, \dots, \tau))).\,\big(\neg (\dotsb(X\,X_1)\dotsb)\,X_n \\&\, \wedge \forall^{\tau}Y_1.\, \dots \forall^{\tau}Y_n.\,<^{\tau \times
+        \dots \times \tau}(Y_1, X_1, \dots, Y_n, X_n) \\&\,\Rightarrow  (\dotsb(X\,Y_1)\dotsb)\,Y_n\big) \,\vee
+        \\&\,\big((\dotsb (X\,X_1) \dotsb)\,X_n \wedge \exists^{\tau}Y_1.\, \dots \exists^{\tau}Y_n.\, \\&\,
         <^{\tau \times \dots \times \tau}
-        (y_1, x_1, \dots, y_n, x_n)\,\wedge \neg (\dotsb(X(y_1))\dotsb)(y_n))
+        (Y_1, X_1, \dots, Y_n, X_n)\,\wedge \neg (\dotsb(X\,Y_1)\dotsb)\,Y_n\big)
     \end{align*}
 \end{definition}
 
@@ -266,13 +271,15 @@ With the previous definition we are now able to define the higher-order quantifi
     $\Phi$ be a PHFL$^k$
     formula with free variable $X$ of order $l - 2$ and let $s$ be the maximal arity
     of all second order variables of $\Psi$, then $\exists^{\tau}X .\,\Phi(X)$
-    is a PHFL$^k$ formula with dimension $d = 2 * m + r$, where $m = max({q, s})$ and $r$ is the number of states that defines the reduced LTS,  defined as:
+    is a PHFL$^k$ formula with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS,  defined as:
     \begin{align*}
         \exists^{\tau}X.\, \Phi(X) \coloneqq &\,(\mu (F \colon T(\tau) \rightarrow \bullet).\, \lambda (X \colon T(\tau)
         ).\,
         \Phi(X)
-        \vee F(next^\tau X))\\&\,(\lambda (x_1 \colon T(\tau')).\, \dots \lambda (x_n \colon T(\tau')).\,\bot)
+        \vee F(next^\tau X))\\&\,(\lambda (X_1 \colon T(\tau')).\, \dots \lambda (X_n \colon T(\tau')).\,\bot).
     \end{align*}
+    The formula $\forall^{\tau}X.\,\Phi$ is also a PHL$^k$ formula with dimension $d$ and is defined as
+    \[\forall^{\tau}X.\,\Phi(X) \coloneqq \neg \exists^{\tau}X .\,\neg\Phi(X).\]
 \end{definition}
 
 The last step is to show that the given formula of Definition~\ref{definition:existential_quantification_higher} defines
@@ -280,11 +287,51 @@ higher-order existential quantification.
 
 \begin{lemma}
     \label{lemma:existential_quantifier_higher}
-    For all HO types $\tau$ of order $3$ or greater, all variable mappings $\eta$ and all LTS $\mathcal{T}$ holds
+    For all HO types $\tau$ of order $3$ or greater, all variable mappings $\eta$ and all reduced LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ holds
     \[\llbracket \exists^\tau X.\,\Phi(X)\rrbracket^\eta_\mathcal{T} \equiv \underset{\mathcal{X} \in \llbracket \tau
     \rrbracket_\mathcal{T}}{\bigsqcup} \llbracket \Phi(X) \rrbracket^{\eta[X\rightarrow \mathcal{X}]}_\mathcal{T}.\]
 \end{lemma}
 
 \begin{proof}
-    TODO
+    This lemma is proven by induction over the order of type $\tau$. The induction basis $\tau = (\odot, \dots, \odot)$ is given by Lemma~\ref{lemma:existential_quantifier_second}. By induction hypothesis it holds for any HO type $\tau$ of order $k$, all variable mappings $\eta$ and all reduced LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$
+    \[\llbracket \exists^\tau X.\,\Phi(X)\rrbracket^\eta_\mathcal{T} \equiv \underset{\mathcal{X} \in \llbracket \tau
+    \rrbracket_\mathcal{T}}{\bigsqcup} \llbracket \Phi(X) \rrbracket^{\eta[X\rightarrow \mathcal{X}]}_\mathcal{T}.\]
+    We have to show that for any HO type $\tau'=(\tau, \dots, \tau)$ of order $k+1$, all variable mappings $\eta$ and all reduced LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ it holds
+    \[\llbracket \exists^{\tau'} X.\,\Phi(X)\rrbracket^\eta_\mathcal{T} \equiv \underset{\mathcal{X} \in \llbracket \tau'
+    \rrbracket_\mathcal{T}}{\bigsqcup} \llbracket \Phi(X) \rrbracket^{\eta[X\rightarrow \mathcal{X}]}_\mathcal{T}.\]    
+     By fixpoint unfolding and $\beta$-reduction the formula
+    \begin{align*}
+        \exists^{\tau'}X.\, \Phi(X) \coloneqq &\,(\mu (F \colon T(\tau') \rightarrow \bullet).\, \lambda (X \colon T(\tau')).\,
+        \Phi(X)
+        \vee F(next^{\tau'} X))\\&\,(\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot)
+    \end{align*}    
+    is equivalent to
+    \begin{align*}
+        &\Phi((\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot))\, \vee \\
+        &\Phi(next^{\tau'} (\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot))\, \vee \\
+        & \Phi(next^{\tau'} next^{\tau'} (\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot)) \vee \dotsb
+    \end{align*}    
+    This can be simplified with
+    \[\underset{i\geq0}{\bigvee} \Phi({next^{\tau}}^i (\lambda (X_1 \colon T(\tau)).\, \dots \lambda 
+    (X_n \colon T(\tau)).\,\bot))\]
+    Note that $(\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot))$ 
+    represents a function that maps any input for $X_1, \dots, X_n$ to $\bot$ and $\bot$ 
+    represents the empty set. This function is interpreted as the smallest function while $
+    (\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\top))$ represents the 
+    biggest function that maps any input to $Q^d$, where $d$ is a dimension of PHFL formula $
+    \llbracket \exists^\tau X.\,\Phi(X)\rrbracket^\eta_\mathcal{T}$.
+    
+    If we put $(\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot))$ into $next^{\tau}$ we check all elements that can be in $D_{\tau}$ if those fulfil one of 
+    the disjuncts. Note that the quantifiers formulas used in $next^\tau$ and $<^{\tau'\times\dots\times\tau'}$ respectively are all for types of order $k$. By induction hypothesis those formulas are defining quantification of types of order $k$. Using those quantifiers we will see that only the smallest element with respect to $\tau'\times\dots\times\tau'$ fulfils the first disjunct. Also the 
+    smallest element is mapped in the input function to the empty set and there are no smaller elements to the smallest. 
+    That means the first disjunct is true and it is the only element that fulfil one of the disjuncts. So the 
+    formula ${next^{\tau}}^1 (\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot)$ returns the function that maps the smallest element with respect to $\tau'\times\dots\times\tau'$ to $Q^d$ and all other elements to $\emptyset$. If we look at the formula $
+    {next^{\tau}}^2 (\lambda (X_1 \colon T(\tau)).\, \dots \lambda (X_n \colon T(\tau)).\,\bot)$, we put the function that maps only the smallest element to $Q^d$ into 
+    $next^{\tau}$. If we look into this formula we will see that now the formula 
+    returns a function that maps only the second smallest element to $Q^d$. The smallest element does not 
+    fulfil any disjunct, but the second smallest fulfills the second disjunct. As described in the 
+    introduction of Definition~\ref{definition:lower_bounds_next_second} formula $next^{(\odot, 
+    \dots, \odot)}$ is some kind of binary incrementation. The same holds for the formula $next^\tau$ of Definition~\ref{definition:lower_bounds_next_higher}. In this manner each possible function of 
+    type $\tau$ will be reached. Finally, because these functions are checked each for 
+    itself in the scope of $\Phi$, the induction is complete and the lemma holds.
 \end{proof}

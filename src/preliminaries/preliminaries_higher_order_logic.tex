@@ -84,36 +84,24 @@ formulas whose variables have order less or equal $k$.
     Note, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
 \end{example}
 
-Another possibility to extend FO is to add operators that are not expressible in FO. Here, we are interested in two
-of them, the least fixpoint and the partial fixpoint operator. Instead of defining the operators for FO we are
-here interested to define this operators for HO. First, we regard the least fixpoint operator.
+Similarly to Definition~\ref{definition:query_associated_to_formula} we define $r$-adic queries that are associated to HO formulas with $f$ free first-order variables. 
+
+\begin{definition}
+\label{definition:query_associated_to_formula_ho}
+    Given a signature $\sigma$ and a closed HO
+    formula $\Phi$ with free first-order variables $x_1, \dots, x_f$ we call a $r$-adic query $\mathcal{Q}^r_\Phi$ associated to $\Phi$ if there is for all $\sigma$-structures
+    $\mathcal{A}$, all variable mappings $\eta$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{A}$ a $\mathcal{A}, (x_1, \dots, x_f) \models
+     \Phi$ such that $q_i = \eta(x_i)$ for all $i \in
+    \{1, \dots, min(\{r, f\})\}$.
+\end{definition}
 
 \subsection{HO + LFP}
 \label{subsec:hoPlusLfp}
 
-\begin{definition}
-   Let $F\colon \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then $X \in \mathscr{P}
-   (A)$
-   is called a \emph{fixpoint} of $F$ if $F(X) = X$. Let $X$ be a fixpoint of $F$, then $X$ is called the \emph{least
-   fixpoint} of $F$, abbreviated as $\mathit{LFP}$($F$), if all other fixpoints $Y$ of $F$ including $X$ i.e. $X
-   \subseteq Y$ for all fixpoints $Y$ of $F$.
-\end{definition}
-
-From Knaster-Tarski~\cite{tarski1955lattice} we know that if an operator $F\colon \mathscr{P}(A) \rightarrow
-\mathscr{P}(A)$ is monotone $\mathit{LFP}$($F$) exists. $F$ is monotone iff for all $X, Y \subseteq A$ if $X
-\subseteq Y$ then $F(X) \subseteq F(Y)$ holds.
-
-\begin{example}
-    \label{example:lfp}
-    Peano's induction axiom defined as HO$^2$ formula in Example~\ref{example:ho} can be also defined with a least
-    fixpoint operator. This example is mainly from~\cite{hetzl2017higher}. Let $A = \mathbb{Z}$ and $F(X) = X \cup \{0\} \cup
-    \{x + 1 \mid x \in X\}$ the operator on $A$. Obviously, $F$ is monotone and fixpoints of $F$ are of the form
-    $[-k, \infty[~\subseteq\mathbb{Z}$ for $k \in \mathbb{N}$. The least fixpoint of operator $F$ describes Peano's
-    induction axiom, i.e. $\mathit{LFP}(F) = \mathbb{N}$.
-\end{example}
-
-Like in~\cite{freireMartins2011descriptive} we want to define special operators that are working on HO type
-universes.
+Another possibility to extend FO is to add operators that are not expressible in FO. Here, we are interested in two
+of them, the least fixpoint and the partial fixpoint operator. Instead of defining the operators for FO we are
+here interested to define this operators for HO. First, we regard the least fixpoint operator.
+Like in~\cite{freireMartins2011descriptive} we want to define special operators that are working on HO type universes.
 
 \begin{definition}
     Let $\sigma$ an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau', \dots, \tau')$,
@@ -152,7 +140,7 @@ order less or equal $k$.
     semantics of a HO($\mathit{LFP}$) formula extends that of HO formulas with the following definition:
     \begin{compactitem}
         \item $\mathcal{A}, \alpha \models [\mathit{LFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots,
-        v_n)$ iff $(\alpha(v_1), \dots, \alpha(v_n)) \in \mathit{LFP}(F_\varphi^\mathcal{A})$.
+        v_n)$ iff $(\alpha(v_1), \dots, \alpha(v_n)) \in \mathit{LFP}$ $(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
 
@@ -172,19 +160,7 @@ order less or equal $k$.
 
 Next, we define the partial fixpoint operator for HO formulas~\cite{schewe2006fixpoint}. Since the
 $\mathit{LFP}$ operator restricts formulas to be positive in a variable, the partial fixpoint operator has not any
-restriction. For this, we define first the partial fixpoint operator generally.
-
-\begin{definition}
-    Let $F\colon \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then the \emph{partial
-    fixpoint} of $F$, abbreviated as $\mathit{PFP}$($F$), is defined as follows:
-    \[\mathit{PFP}(F)\coloneqq\begin{cases}
-               F^{i+1}(\emptyset)=F^i(\emptyset),  & \text{if such } i \in \{0,\dots,|A|\} \text{ exists}\\
-               \emptyset, & \text{otherwise,}
-    \end{cases}\]
-    where $F^0(\emptyset) = \emptyset$, $F^1(\emptyset) = F(\emptyset)$, $F^2(\emptyset) = F(F(\emptyset))$, and so on.
-\end{definition}
-
-Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. With this knowledge we can define and
+restriction. With this knowledge we can define and
 add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
 
 \begin{definition}
@@ -205,7 +181,7 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
     semantics of a HO($\mathit{PFP}$) formula extends that of HO formulas with the following definition:
     \begin{compactitem}
         \item $\mathcal{A}, \alpha \models [\mathit{PFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots,
-        v_n)$ iff $(\alpha(v_1), \dots, \alpha(v_n)) \in \mathit{PFP}(F_\varphi^\mathcal{A})$.
+        v_n)$ iff $(\alpha(v_1), \dots, \alpha(v_n)) \in \mathit{PFP}$ $(F_\varphi^\mathcal{A})$.
     \end{compactitem}
 \end{definition}
 

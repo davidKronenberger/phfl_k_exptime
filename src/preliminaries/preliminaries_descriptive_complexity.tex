@@ -23,6 +23,7 @@ the symbol, the machine is able to override the symbol and move the reading head
 Formally, a Turing Machine is the following.
 
 \begin{definition}
+\label{definition:dtm}
     A seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ is called a \emph{Deterministic Turing Machine}
     ($\mathit{DTM}$), if
     \begin{compactitem}
@@ -81,15 +82,15 @@ state of $M$. A run is accepting if the state of $C_n^M$ is an accepting state o
     Let $M$ be the $\mathit{DTM}$ from Example~\ref{example:dtm} and $w_1 = aaba$, $w_2 = aaaa$ two input words. For
     better readability we illustrate tape content functions as infinite words. The run of $M$ on $w_1$ is
     \begin{align*}
-        C_0^M = &\,(q_0, 0, aaba\Box \dots) \rightarrow_M (q_0, 1, \Box aba\Box \dots) \rightarrow_M  (q_0, 2, \Box \Box
-        ba\Box \dots)\\&\, \rightarrow_M (q_r, 1, \Box \Box ba\Box \dots) = C_3^M
+        C_0^M = &\,(q_0, 0, aaba\Box \dotsb) \rightarrow_M (q_0, 1, \Box aba\Box \dotsb) \rightarrow_M  (q_0, 2, \Box \Box
+        ba\Box \dotsb)\\&\, \rightarrow_M (q_r, 1, \Box \Box ba\Box \dotsb) = C_3^M
     \end{align*}
     and the run of $M$ on $w_2$ is
     \begin{align*}
-        C_0^M =\,&(q_0, 0, aaaa\Box \dots) \rightarrow_M (q_0, 1, \Box aaa\Box \dots) \rightarrow_M (q_0, 2, \Box \Box
-        aa\Box \dots) \\&\,\rightarrow_M
-        (q_0, 3, \Box \Box \Box a\Box \dots) \rightarrow_M (q_0, 4, \Box \Box \Box \Box \Box \dots) \\&\,\rightarrow_M
-        (q_f, 4, \Box \Box \Box \Box \Box \dots) = C_5^M
+        C_0^M =\,&(q_0, 0, aaaa\Box \dotsb) \rightarrow_M (q_0, 1, \Box aaa\Box \dotsb) \rightarrow_M (q_0, 2, \Box \Box
+        aa\Box \dotsb) \\&\,\rightarrow_M
+        (q_0, 3, \Box \Box \Box a\Box \dotsb) \rightarrow_M (q_0, 4, \Box \Box \Box \Box \Box \dotsb) \\&\,\rightarrow_M
+        (q_f, 4, \Box \Box \Box \Box \Box \dotsb) = C_5^M
     \end{align*}
     Note, that both runs are terminating runs. The run on input word $w_2$ is an accepting run.
 \end{example}
@@ -107,12 +108,12 @@ word of a terminating $\mathit{DTM}$. In case of time classes the output of the 
 configuration steps. In case of space classes the output is based on the longest transition.
 
 \begin{definition}
-    Let $M$ be a terminating $\mathit{DTM}$. $\mathit{TIME}(n):= max($ $\mathit{STEPS}(w)\mid |w| = n)$, where
+    Let $M$ be a terminating $\mathit{DTM}$. $\mathit{TIME}(n):= max(\mathit{STEPS}$ $(w)\mid |w| = n)$, where
     $\mathit{STEPS}(w)$ is the number of transitions of $M$ running on input word $w$. $\mathit{SPACE}(n) := max
     (\mathit{STORAGE}(w)\mid |w| = n)$, where $\mathit{STORAGE}(w) := max(h_i\mid i\in\{1, \dots m\} \text{ and }
     C_i^M = (q_i, h_i, t_i))$ is the most right head position of $M$ while $M$ runs on input word $w$ and $C_0^M
     \rightarrow_M
-    C_1^M \rightarrow_M \dots \rightarrow_M C_m^M$ is this run of $M$ on $w$.
+    C_1^M \rightarrow_M \dotsb \rightarrow_M C_m^M$ is this run of $M$ on $w$.
 \end{definition}
 
 \begin{example}
@@ -156,3 +157,38 @@ holds in at most $k$ steps is a problem that lies in $1$-EXPTIME. In~\cite{bruse
 model checking problem for $\mathit{HFL}^{k + 1}_{tail}$ is in $k$-EXPSPACE. $\mathit{HFL}^{k + 1}_{tail}$ is the
 class of all tail-recursive $1$-adic PHFL formulas with order at most $k + 1$. See
 Section~\ref{sec:polyadichigherorderfixpointlogic} for further information about PHFL.
+
+From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
+and the complexity classes $k$-EXP-TIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace} follow
+the queries that we want to investigate.
+
+\begin{definition}
+    \label{definition:kExptimekExpspace}
+    \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
+    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 0$.
+\end{definition}
+
+As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in Definition~\ref{definition:query} can be categorized. The first category is defined in Definition~\ref{definition:bisimulationInvariant}. Here we define a second category that tells us which complexity class a query belongs to. Because the queries are defined over LTS and the DTMs in this definition has to work on those LTS, a standard coding of these LTS has to be used as input word. This standard coding interprets a given LTS with a tupel of states to a readable string.
+
+\begin{definition}
+    \label{definition:queryBelongsToComplexityClass}
+    Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ and $(q_1, \dots, q_{r}) \in Q^r$.
+    A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is a DTM (see
+    Definition~\ref{definition:dtm}) in $\mathcal{C}$ for deciding on the standard coding of $(\mathcal{T}, (q_1, \dots,
+    q_{r}))$ as input whether $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$.
+\end{definition}
+
+\begin{example}{\cite{lange2014capturing}}
+    Let $\mathcal{Q}$ be the query and $\mathcal{T}$ the LTS of Example~
+    \ref{example:query_bisimulation}. Because bisimilarity can be decided in P, there is an 
+    algorithm in P for deciding on input $(\mathcal{T}, (q_1, q_2))$ whether $(q_1, q_2) \in 
+    \mathcal{Q}^\mathcal{T}$, i.e. $\mathcal{Q}$ belongs to 
+    complexity class P.
+\end{example}
+
+In the introduction of this section, we mentioned that the main aim of descriptive complexity is to describe complexity classes with logics. The next definition defines how a complexity class is captured by a logic. 
+
+\begin{definition}
+A complexity class $\mathcal{C}$ is captured by a logic $L$ if for all queries $\mathcal{Q}$ that belongs to $\mathcal{C}$ there is a formula $\Phi$ of $L$ such that for all LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ there is a variable mapping $\eta$ and it holds $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$ exactly then if $(q_1, \dots, q_{r}) \in \llbracket \Phi \rrbracket^\eta_\mathcal{T}$, where $q_1, \dots, q_r \in Q$ and $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ is the semantics of $\Phi$ under $\mathcal{T}$ and $\eta$.
+\end{definition}
+
