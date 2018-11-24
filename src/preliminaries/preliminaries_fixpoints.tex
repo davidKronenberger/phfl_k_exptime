@@ -19,12 +19,12 @@ A$ is monotone the least and greatest fixpoints of $F$ exists. $F$ is monotone i
  \in A$ if $x \sqsubseteq y$ then $F(x) \sqsubseteq F(y)$ holds.
 
 \begin{example}
-    \label{example:lfp}
-    Peano's induction axiom defined as HO$^2$ formula in Example~\ref{example:ho} can be also defined with a least
-    fixpoint operator. This example is mainly from~\cite{hetzl2017higher}. Let $A = \mathbb{Z}$ and $F(X) = X \cup \{0\} \cup
-    \{x + 1 \mid x \in X\}$ the operator on $A$. Obviously, $F$ is monotone and fixpoints of $F$ are of the form
-    $[-k, \infty[~\subseteq\mathbb{Z}$ for $k \in \mathbb{N}$. The least fixpoint of operator $F$ describes Peano's
-    induction axiom, i.e. $\mathit{LFP}(F) = \mathbb{N}$.
+    \label{example:lfp} Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $F: Q^2 \rightarrow Q^2$ an operator on $Q^2$ defined as 
+\begin{align*}
+    F(X) =\, &\{(q, p) \in Q^2 \mid v(q) \neq v(p)\}\, \cup \\&
+    \{(q,p) \in Q^2 \mid \text{it exists } a\in\Sigma \text{ with } q\overset{a}{\rightarrow} q' \text{ such that for all } p' \in Q \\&\text{ it holds } (p, a, p')\not\in\Delta\}\,\cup \\&\{(q,p) \in Q^2 \mid  \text{ it exists } a\in\Sigma \text{ with } p\overset{a}{\rightarrow} p' \text{ such that for all } q' \in Q \\&\text{ it holds } (q, a, q')\not\in\Delta\}\,\cup \\& \{ (q, p) \in Q^2 \mid \text{ there exists } (q', p') \in X \text{ such that there exists } a\in\Sigma \\&\text{ with } q\overset{a}{\rightarrow} q' \text{ and } p\overset{a}{\rightarrow} p' \}
+\end{align*}   
+Then $LFP(F)$ represents all those pairs of states $(q, p)$ such that $q\not\sim p$.
 \end{example}
 
 Next, we define the partial fixpoint. Since the
@@ -41,4 +41,9 @@ restriction on the operator.
     where $F^0(\emptyset) = \emptyset$, $F^1(\emptyset) = F(\emptyset)$, $F^2(\emptyset) = F(F(\emptyset))$, and so on.
 \end{definition}
 
-Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$.	
+Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. 
+
+\begin{example}
+\label{example:pfp}
+Let $F$ be the operator of Example~\ref{example:lfp}. Because $F$ is obviously monotone it holds that $PFP(F)$ also represents all those pairs of states $(q, p)$ such that $q\not\sim p$.
+\end{example}

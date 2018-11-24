@@ -38,7 +38,7 @@ As mentioned above we first define a mapping that transforms a given LTS.
 
 \begin{definition}
     \label{definition:lts_transformation}
-    Let $d \in \mathbb{N}$ the dimension of PHFL and $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ a LTS, then
+    Let $d \in \mathbb{N}$ a dimension of PHFL and $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ a LTS, then
     $\mathcal{T}_d = (Q^d, \Sigma_d \cup S_d, P_d, \Delta_d, v_d)$, where
     \begin{compactitem}
         \item $\Sigma_d = \underset{a \in \Sigma}{\bigcup}(\underset{i = 1}{\overset{d}{\bigcup}} \{a_i\})$,
@@ -54,7 +54,7 @@ As mentioned above we first define a mapping that transforms a given LTS.
     \end{compactitem}
 \end{definition}
 
-The following example shows the transforming of a LTS by Definition~\ref{definition:lts_transformation}.
+The following example shows the transforming of an LTS by Definition~\ref{definition:lts_transformation}.
 
 \begin{example}
     Let $\mathcal{T}$ a LTS given by
@@ -149,7 +149,7 @@ X_1^{v_1} \colon T(\tau_1), \dots, X_n^{v_n} \colon T(\tau_n)$.
 
 \begin{definition}
     \label{definition:variable_mapping_function}
-    Let $\mathcal{T}$ a LTS, $d \in \mathbb{N}$ the dimension of PHFL and $\mathcal{T}_d$ the transformed LTS by
+    Let $\mathcal{T}$ a LTS, $d \in \mathbb{N}$ a dimension of PHFL and $\mathcal{T}_d$ the transformed LTS by
     Definition~\ref{definition:lts_transformation} and $T$ the type mapping of
     Definition~\ref{definition:type_function}, then if $\eta$ is a variable mapping over $\mathcal{T}$ for PHFL
     formulas, then $V(\eta)$ is a variable mapping over $\mathcal{T}_d$ for HFL formulas, where $V(\eta)$ is defined
@@ -205,12 +205,11 @@ Now, we are ready to define the function that maps a PHFL$^k$ formula to a HFL$^
     is easy proved by induction over the structure of formula $\Phi$.
 \end{remark}
 
-We are now interested to prove the following lemma that shows that the semantics of PHFL$^k$ is
-reducible to the semantics of HFL$^k$.
+The next step is to show that the semantics of a given PHFL$^k$ formula coincides with the transformed HFL$^k$ formula.
 
 \begin{lemma}
     \label{lemma:model_check_phfl_k}
-    Let $\mathcal{T}$ a LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
+    Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
     PHFL$^k$ formula of type $\tau$, $\mathcal{T}_d$ the LTS transformed by process of
     Defintion~\ref{definition:lts_transformation}, $T$ the type function of Defintion~\ref{definition:type_function},
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
@@ -441,11 +440,48 @@ reducible to the semantics of HFL$^k$.
         Because $F(\psi\psi') = F(\psi)F(\psi')$ the first set is the semantics of
         \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
     \end{compactitem}
-    This shows the correctness of the construction and so that the model checking problem of PHFL$^k$ is reducible to
-    the model checking problem of HFL$^k$.
+    This shows the correctness of the construction. 
 \end{proof}
 
-The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k} and Theorem~\ref{theorem:hfl_k_in_k_exptime}.
+To do not exceed the bounds of HFL$^k$ we have check that the defined construction grows as most polynomial.  After this we know that the semantics of PHFL$^k$ is
+reducible to the semantics of HFL$^k$.
+
+\begin{lemma}
+\label{lemma:phfl_to_hfl_polynomial}
+Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
+    PHFL$^k$ formula of type $\tau$, $\mathcal{T}_d$ the LTS transformed by process of
+    Defintion~\ref{definition:lts_transformation}, $T$ the type function of Defintion~\ref{definition:type_function},
+    $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
+    and $F$ the formula function of Definition~\ref{definition:formula_function} then 
+    \begin{compactitem}
+    \item $\mathcal{T}_d$ grows polynomial related to $\mathcal{T}$, 
+    \item $T(\tau)$ grows polynomial related to $\tau$,
+    \item $T(\Gamma)$ grows polynomial related to $\Gamma$,
+    \item $V(\eta)$ grows polynomial related to $\eta$ and
+    \item $F(\varphi)$ grows polynomial related to $\varphi$.
+    \end{compactitem}
+\end{lemma}
+
+\begin{proof}
+	$F(\varphi)$ and $T(\tau)$ grow obviously linear related to $\varphi$ and $\tau$ 
+	respectively. It follows that also $T(\Gamma)$ grows linear related to $\Gamma$. To show 
+	that $\mathcal{T}_d$ grows polynomial related to $\mathcal{T}$, we look at the particular 
+	components of the LTS. For the set of states it holds $|Q^d| = |Q|^d$ what means $Q^d$ 
+	grows polynomial related to $Q$. The cardinality of the set of actions of $\mathcal{T}_d$ is 
+	$|\Sigma_d| + |S_d|$. While $|S_d|$ is a constant it holds also $|\Sigma_d| = |\Sigma|^d$. 
+	Combing this the action set grows also polynomial. Also the set of propositions $P^d$ grows 
+	polynomial, because it is constructed like the subset of actions $\Sigma_d$. The labeled 
+	transition relation $\Delta_d$ grows also polynomial because it is constructed like the set of 
+	actions of $\mathcal{T}_d$. The first set has cardinality $|\Delta|^d$ and the second set is a 
+	constant. Combing this $\Delta_d$ grows also polynomial related to $\Delta$. At least the 
+	mapping $v_d$ grows polynomial related to $v$ because the set of states and the set of 
+	propositions of $\mathcal{T}$ grows polynomial. Summarizing these results it follows, that $
+	\mathcal{T}_d$ grows polynomial related to $\mathcal{T}$. Because $\mathcal{T}_d$ grows 
+	polynomial related to $\mathcal{T}$ and $T(\tau)$ grows polynomial related to $\tau$ also 
+	$V(\eta)$ grows polynomial related to $\eta$. 
+\end{proof}
+
+The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k}, Lemma~\ref{lemma:phfl_to_hfl_polynomial} and Theorem~\ref{theorem:hfl_k_in_k_exptime}.
 
 \begin{theorem}
     \label{theorem:phfl_k_in_k_exptime}

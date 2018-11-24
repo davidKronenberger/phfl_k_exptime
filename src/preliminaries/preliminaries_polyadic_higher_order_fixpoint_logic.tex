@@ -219,16 +219,16 @@ order at most $k$ is denoted by PHFL$^k$.
     \end{align*}
 \end{example}
 
-\begin{example}{\cite{lange2014capturing}}
-    \label{example:phfl_order_2}
-    The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
-    those pairs $(q_1, q_2)$ for which $q_1$ has the same traces as $q_2$ and vice versa.
-    \begin{align*}
-        \Phi = &(\mu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
-        \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&X \Leftrightarrow Y \wedge
-        \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top
-    \end{align*}
-\end{example}
+%\begin{example}{\cite{lange2014capturing}}
+%    \label{example:phfl_order_2}
+%    The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
+%    those pairs $(q_1, q_2)$ for which $q_1$ has the same traces as $q_2$ and vice versa.
+ %   \begin{align*}
+ %       \Phi = &(\mu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
+ %       \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&X \Leftrightarrow Y \wedge
+ %       \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top
+ %   \end{align*}
+%\end{example}
 
 \begin{remark}
 To simplify PHFL formulas with fixpoint and $\lambda$ operators we will use \emph{fixpoint unfolding principle} and \emph{$\beta$-reduction}. Because we work on finite structures and the semantics of PHFL is invariant under $\beta$-reduction we can use those procedures without loss of generality.
@@ -295,7 +295,9 @@ The set of all tail-recursive PHFL formulas that have order at most $k$ is denot
     Looking at Figure~\ref{figure:phfl-tail-recursive}, we can see, that $\Phi_1 = \mu X.[a]_1 X$ is not tail
     recursive, because $X$ occurs under $[a]_1$. Also $\Phi_2 = \mu F .\lambda X. (F X) \wedge (F(F X))$
     is not tail-recursive because $F$ occurs on the left side of the logical operator $\wedge$. The second reason why
-    $\Phi_2$ is not tail-recursive is because $F$ also occurs in $F X$ of subformula $F (F X)$. An example of a
-    formula that is tail-recursive is given by:
-    \[\nu F. \lambda X. (F \langle a \rangle_1 X) \vee (X \wedge \langle a \rangle_2 (F X))\bot\]
+    $\Phi_2$ is not tail-recursive is because $F$ also occurs in $F X$ of subformula $F (F X)$. 
+    Note that all those formulas that do not use fixpoints are obviously tail-recursive. An 
+    example of a formula that uses a fixpoint and is also tail-recursive is given by 
+    $\Phi_3 = (\mu F. \lambda X. p_1 \underset{a \in \Sigma}{\bigvee} F \langle a \rangle_1  X) \bot$ and denotes those states that can reach a state where property $p$ holds.
+    
 \end{example}

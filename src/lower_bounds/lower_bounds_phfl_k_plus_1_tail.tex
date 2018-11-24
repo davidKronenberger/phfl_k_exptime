@@ -23,19 +23,18 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
 
 \begin{lemma}
     \label{lemma:expspace_in_ho_pfp}
-    Given a DTM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ in $k$-EXPSPACE there exists a formula $\Psi$ in HO(PFP)$^{k+1}$ over signature $\sigma$ such that for all variable mappings $\eta$ and all $\sigma$-structures $\mathcal{A}$ it holds $\mathcal{A}, \eta \models \Psi$ exactly then if the run of $M$ on the standard coding of $\mathcal{A}, \eta$ is accepting.
+    Given a DTM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ in $k$-EXPSPACE there exists a formula $\Psi$ in HO(PFP)$^{k+1}$ over signature $\sigma$ such that for all variable mappings $\eta$ and all $\sigma$-structures $\mathcal{A}$ it holds $\mathcal{A}, \eta \models \Psi$ exactly then if the run of $M$ on the standard coding of $(\mathcal{A}, \eta)$ is accepting.
 \end{lemma}
 
 \begin{proof}
-    Let $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ be a $exp(k, f(n))$ space bounded DTM and $w
-    \in \Sigma$ some input word. Furthermore, let $\sigma$ a relational signature, $\sigma_< = \sigma \cup
+    Let $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ be a $exp(k, f(n))$ space bounded DTM. Furthermore, let $\sigma$ be a relational signature, $\sigma_< = \sigma\;\cup
     <$ an extension of $\sigma$ and $\mathcal{A}$ a finite $\sigma_<$-structure including $<^\mathcal{A}$ that
     represents a linear ordering on the universe $\mathcal{U}$ of $\mathcal{A}$. Finally, let $\tau$ be an HO type of
-    order $k + 1$.
-    To prove this lemma we want to define a relational representation of the final configuration of $M$ on $w$
+    order $k + 1$ and $\alpha$ a variable mapping.
+    To prove this lemma we want to define a relational representation, of the final configuration of $M$ that has the standard coding of $(\mathcal{A}, \alpha)$\footnote{The standard coding of structures is a non-trivial problem. Because the description of the encoding goes beyond the scope of this thesis, we only refer to~\cite{abiteboul1995computing} for further informations about.}, abbreviated with $w$, as input word,
     as a partial fixpoint of some HO$^{k+1}$ formula. For this we set up the underlying HO$^{k+1}$ formula
     $\varphi$ such that the iterates $(F_\varphi^\mathcal{A})^{i+1}(\emptyset)$ over $D_\tau
-    (\mathcal{U})$ represent the $i$-th configuration of $M$ on input $w$, for every $i$ until termination.
+    (\mathcal{U})$ represent the $i$-th configuration of $M$ on input standard coding of $(\mathcal{A}, \alpha)$, for every $i$ until termination.
 
     Before we can define the configurations of $M$ in HO we have to make some preparations. Remember that a
     configuration of $M$ is a relation between the current state, the current reading head position and
@@ -125,28 +124,101 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
 
 \subsection{Bisimulation Invariant HO(PFP)$^{k+1}$ to PHFL$^{k+1}_{tail}$}\label{subsec:bisimulationInvariantHopfptoPhfl}
 
-As mentioned in the introduction of this section the main idea is not to show directly, that the lower bound of
-PHFL$^{k+1}_{tail}$ is \expspace{$k$} but rather by detour over the bisimulation-invariant fragment of HO(PFP)
-$^{k+1}$. In the previous subsection we have seen that a DTM in \expspace{$k$} can performed by a HO(PFP)$^{k+1}$
-formula. This statement we want to use and want to encode a given bisimulation-invariant HO(PFP)$^{k+1}$ into
-PHFL$^{k+1}_{tail}$. Because the encoding of the HO$^{k+1}$ part is already proven in
-Section~\ref{sec:existential_quantifiers_in_phfl} and Section~\ref{sec:lowerBoundOfPhfl} to be in PHFL$^k$ and these
-encodings are all tail-recursive the PFP operator is the only kind of HO(PFP)$^{k+1}$ formula that we have to encode
-in this subsection.
+As mentioned in the introduction of this section the main idea is not to show directly, that the 
+lower bound of PHFL$^{k+1}_{tail}$ is \expspace{$k$} but rather by detour over the 
+bisimulation-invariant fragment of HO(PFP)$^{k+1}$. In the previous subsection we have seen 
+ that a DTM in $k$-EXPSPACE can be performed by an HO(PFP)$^{k+1}$
+formula. By encoding the bisimulation-invariant fragment of HO(PFP)$^{k+1}$ into
+PHFL$^{k+1}_{tail}$ combined with the knowledge that $k$-EXPSPACE is captured by 
+HO(PFP)$^{k+1}$ leads to the lower bound of PHFL$^{k+1}_{tail}$. In
+Section~\ref{sec:existential_quantifiers_in_phfl} and Section~\ref{sec:lowerBoundOfPhfl} we 
+have shown that the HO$^{k+1}$ part can be encoded in PHFL$^k$. It is easy to prove that the 
+encoded formulas are all tail-recursive. It follows that the HO$^{k+1}$ part can also be 
+encoded in  PHFL$^{k+1}_{tail}$. The PFP operator is the only kind of HO(PFP)$^{k+1}$ formula 
+that we have to encode in this subsection to get the lower bound of PHFL$^{k+1}_{tail}$.
+
+Before we give the definition of the transforming function, we define a PHFL formula for HO formulas that uses the PFP operator.
+
+\begin{definition}
+Let $\Psi$ be a HO$^k$ formula with free first-order variables $x_1, \dots, x_f$, quantified first-order variables $x_{f+1}, \dots,
+    x_q$ and let be $X$ a HO variable of HO type $\tau = (\tau', \dots, \tau')$ where $\tau' \neq \odot$ and any HO variables
+    $X_1, V_1, \dots, $ $X_n, V_n$ HO type $\tau'$. Furthermore, let
+    $\Phi$ be a PHFL$^k$
+    formula and let $s$ be the maximal arity
+    of all second order variables of $\Psi$, then $PFP^\tau X.\,\Phi$
+    is a PHFL$^k$ formula with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS,  defined as:
+    \begin{align*}
+     PFP^\tau X. \, \Phi \coloneqq \big(\mu (F \colon T(\tau) \rightarrow \bullet).\,&\lambda (X \colon T(\tau)).\, \big(X\,\wedge \forall^{\tau'}X_1.\, \dotsb \forall^{\tau'}X_n.\, \\&\big( (\dotsb (X X_1) \dotsb) X_n \Leftrightarrow \Phi(X, X_1, \dots, X_n) \big)\big)\\& \vee F(\Phi(X))\big)\lambda (V_1 \colon T(\tau')).\, \dotsb \lambda (V_n \colon T(\tau')).\,\bot
+\end{align*}    
+    In case of $\tau = (\odot, \dots, \odot)$ and $v_1, \dots, v_n$ are first-order variables with index $i_1, \dots, i_n$ respectively let $PFP^{(\odot, \dots, \odot)} X.\,\Phi$ defined as:
+    \begin{align*}
+    PFP^{(\odot, \dots, \odot)} X.\,\Phi \coloneqq \big(\mu (F \colon \bullet \rightarrow \bullet).\,&\lambda (X \colon \bullet).\, \big(X \wedge \forall_1 \dotsb \forall_n \\&\big(X \Leftrightarrow \Phi(X)\big)\big) \vee F(\Phi(X))\big)\,\bot
+    \end{align*}
+\end{definition}
+
+Now we are able to define the function to translate a bisimulation invariant HO(PFP)$^{k+1}$
+formula to a PHFL$^{k+1}_{tail}$. 
+
+\begin{definition}
+    \label{definition:lower_bounds_phfl_formula_function_pfp}
+    Let $F$ be the function of Definition~\ref{definition:lower_bounds_phfl_formula_function} we extend this function in this way that it maps a bisimulation invariant HO(PFP)$^{k+1}$ formula $\Phi$ with free first-order variables $x_1, \dots, x_f$, quantified first-order variables $x_{f+1}, \dots,
+    x_q$ to a PHFL$^{k+1}_{tail}$ formula with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS and $s$ is the maximal arity
+    of all second order variables of $\Phi$, defined
+    inductive on $\Phi$ as follows:
+    \begin{align*}
+        F([PFP\;\Phi(X, x_{i_1}, \dots, x_{i_n})](v_{j_1}, \dots, v_{j_n})) \coloneqq &\,PFP^{(\odot, \dots, \odot)} X.\, F(\Phi) \\
+        F([PFP\;\Phi(X, X_1, \dots, X_n)](V_1, \dots, V_n)) \coloneqq &\,PFP^\tau X.\, F(\Phi) 
+    \end{align*}
+\end{definition}
+
+The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula coincides with the semantics of the by function $F$ encoded PHFL$^{k+1}_{tail}$ formula. As mentioned in Section~\ref{sec:lower_bounds_preparation} without loss of generality the statement can be proven by consider only  reduced LTS. 
 
 \begin{lemma}
     \label{lemma:ho_pfp_equals_phfl_tail}
-    Let $r \geq 1$ and $k \geq 0$. For every bisimulation invariant formula $\Phi$ of HO(PFP)$^{k + 1}$ there is a
-    PHFL$^{k+1}_{tail}$ formula $\Psi$ such that $\mathcal{Q}_\Phi^r = \mathcal{Q}_\Psi^r$.
+    Let $f \geq 1$ and $k \geq 0$. For every bisimulation-invariant formula $\Phi$ of HO(PFP)$^{k + 1}$ there is a
+    PHFL$^{k+1}_{tail}$ formula $\Psi$ such that the $f$-adic query $\mathcal{Q}_\Phi^f$ that belongs to $\Phi$ is equal to the $f$-adic query  $\mathcal{Q}_\Psi^f$ that belongs to $\Psi$.
 \end{lemma}
 
 \begin{proof}
-    We have to encode the PFP operator...
+    This lemma can be proven by showing for all HO(PFP)$^{k+1}$ formulas $\Phi$ with free first-order variables $x_1,
+    \dots, x_f$ and quantified first-order variables $x_{f+1}, \dots, x_q$, all reduced LTS $\mathcal{T} = (Q, \Sigma, P,
+    \Delta, v)$ with respect to $\emph{q}_r = q_1, \dots, q_r$ and all variable mappings $\eta$ that it holds that $\mathcal{T}, \eta \models \Phi$ iff $\emph{q} =
+    (\emph{q}_s, \emph{q}_s, \emph{q}_f, \emph{q}_q, \emph{q}_r)$ and $\emph{q} \in \llbracket
+   F(\Phi)\rrbracket^{\eta_V}_{\mathcal{T}}$, where $\emph{q}_s = q_1',\dots,q_s'$ is a sequence of $s$ placeholders used for the interaction of second-order variables, $\emph{q}_f = \eta(x_1), \dots, \eta(x_f)$ is a sequence of the by $\eta$ mapped free first-order variables, $\emph{q}_q = q_1'', \dots, q_q''$ is a sequence of $q$ placeholders used for the quantified first-order variables, $q_1', \dots, q_s', q_1'', \dots, q_q'' \in Q$ are arbitrary states, $F$ is the formula function of
+    Definition~\ref{definition:lower_bounds_phfl_formula_function_pfp} and $\eta_V$ the variable mapping of
+    Definition~\ref{definition:lower_bound_variable_function}. This statement can be proven by induction over formula
+    $\Phi$.
+    As mentioned in the introduction we have to show only correctness of the PFP operators.
+    \begin{compactitem}
+    \item In case of $\Phi = [PFP\,\Psi(X, x_{i_1}, \dots, x_{i_n})](v_{j_1}, \dots, v_{j_n})$, where $X$ is a
+        free variable in $\Psi$ of HO type $(\odot, \dots, \odot)$ and $x_{i_1}, \dots, x_{i_n}$ are free first-order
+        variables of $\Psi$ and $v_{j_1}, \dots, v_{j_n}$ are first-order variables of $\Phi$, then it follows that
+        $\mathcal{T}, \eta \models \Phi$ exactly then if $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in PFP
+        (F_\Psi^\mathcal{T})$. 
+        
+        ...
+        TODO
+        ...
+        
+        exactly then if $\mathcal{T}, \eta \models \Phi$.
+
+        \item In case of $\Phi = [PFP\,\Psi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$, where $X$ is a
+        free variable in $\Psi$ of HO type $(\tau, \dots, \tau)$ and $X_1, \dots, X_n$ are free first-order
+        variables of $\Psi$ of type $\tau$ and $V_1, \dots, V_n$ are free variables of $\Phi$ also of type $\tau$, then
+        it follows that $\mathcal{T}, \eta \vdash \Phi$ exactly then if $(\eta(X_1), \dots, \eta(X_n) \in PFP
+        (F_\Psi^\mathcal{T})$. 
+        
+...
+TODO
+...        
+        
+        exactly then if $\mathcal{T}, \eta \models \Phi$.
+    \end{compactitem}
 \end{proof}
 
 The combination of Lemma~\ref{lemma:ho_pfp_equals_phfl_tail}, Lemma~\ref{lemma:expspace_in_ho_pfp} and
 Theorem~\ref{theorem:phfl_k_plus_1_tail_in_k_expspace} proves the following theorem.
 
 \begin{theorem}
-    Let $k \geq 0$. PHFL$^{k+1}$ captures \expspace{$k$} over labeled transition systems.
+    Let $k \geq 0$. PHFL$^{k+1}_{tail}$ captures \expspace{$k$} over labeled transition systems.
 \end{theorem}

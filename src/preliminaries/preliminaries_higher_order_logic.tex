@@ -72,18 +72,16 @@ where $\alpha'(X) = \mathcal{X}$ and $\alpha'(Y) = \alpha(Y)$ for all $Y \neq X$
         \end{compactitem}
 \end{definition}
 
-We can categorize the formulas by the order of all occurring variables. With HO$^k$ we mean the set of all those
-formulas whose variables have order less or equal $k$.
-
-\begin{example}{\cite{vanBenthem2001higher}}
-    \label{example:ho}
-    The following formula $\varphi$ describes Peano's induction axiom. Peano's induction axiom reveals that every set
-    of natural numbers, which contains $0$ and is also closed under immediate successors, contains all natural numbers.
-    \[\varphi = \forall (P\colon(\odot)).\,(P(0) \wedge \forall (I\colon\odot).\,(P(I) \Rightarrow P(I + 1)) \Rightarrow
-    \forall (N \colon\odot).\,(P(N)))\]
-    Note, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
-\end{example}
-
+We can categorize the formulas by the order of all occurring variables. With HO$^k$ we mean 
+the set of all those formulas whose variables have order less or equal $k$.
+%\begin{example}{\cite{vanBenthem2001higher}}
+%    \label{example:ho}
+ %   The following formula $\varphi$ describes Peano's induction axiom. Peano's induction axiom reveals that every set
+%    of natural numbers, which contains $0$ and is also closed under immediate successors, contains all natural numbers.
+   % \[\varphi = \forall (P\colon(\odot)).\,(P(0) \wedge \forall (I\colon\odot).\,(P(I) \Rightarrow P(I + 1)) \Rightarrow
+    %\forall (N \colon\odot).\,(P(N)))\]
+   % Note, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
+%\end{example}
 Similarly to Definition~\ref{definition:query_associated_to_formula} we define $r$-adic queries that are associated to HO formulas with $f$ free first-order variables. 
 
 \begin{definition}
@@ -144,16 +142,19 @@ order less or equal $k$.
     \end{compactitem}
 \end{definition}
 
-\begin{example}{\cite{freireMartins2011descriptive}}
-    \label{example:ho_lfp} This example describes the reachability of two
-    vertices in a graph. For this, let $\sigma = \{E\colon(\odot, \odot)\}$ a signature where $E$ represents the
-    edges in a graph. Then
-    \[[LFP\;(E(x_1, x_2) \vee \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))](s, t)\]
-    describes the reachability of vertex $t$ from vertex $s$. Note, that $[LFP\;($ $E(x_1, x_2) \vee
-    \exists z\colon\odot.\,(E(x_1, z) \wedge X(z, x_2)))]$ describes the transitive closure of $E$. This formula is
-    in $HO(LFP)^1$.
-    %\[[LFP_{X,x}(\forall X:(\odot).\,(\forall Y:\odot.\,(X(Y) \vee Y = 0 \vee \exists Z:\odot.\,(X(Z) \wedge Y = (Z + 1)))
-%))]\]
+\begin{example}
+    \label{example:ho_lfp} 
+    Let $\Sigma$ be a set of actions and $P$ a set of propositions. Let $\sigma = \{a: (\odot, \odot), p \mid a \in \Sigma, p \in P\}$ be a signature and $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ as $\sigma$-structure representing an LTS. Furthermore, let 
+\begin{align*}
+\Phi(X, x_1, x_2) =\, &\underset{p\in P}{\bigvee} \big(p(x_1) \neq p(x_2)\big)\\&
+ \underset{a\in\Sigma}{\bigvee} \big(\exists (y_1 \colon \odot).\, a(x_1, y_1) \wedge \forall (y_2 
+ \colon \odot).\,\neg a(x_2,y_2)\big) \\&
+\underset{a\in\Sigma}{\bigvee} \big(\exists (y_2 \colon \odot).\, a(x_2, y_2) \wedge \forall (y_1 
+\colon \odot).\, \neg a(x_1,y_1)\big) \\&
+\underset{a\in\Sigma}{\bigvee} \big(\exists (y_1 \colon \odot).\, \exists (y_2 \colon \odot).\, a(x_1, y_1) \wedge a(x_2, y_2) \wedge X(y_1, y_2)\big)
+\end{align*}
+be a HO$^2$ formula with free first-order variables $x_1$ and $x_2$ and free second-order variable $X$.
+Then $LFP(F_\Phi^\mathcal{T})$ describes the same set as in Example~\ref{example:lfp}, the set of all those pairs of states $(q, p)$ in $\mathcal{T}$ that $q\not\sim p$ holds. With $[LFP\; \Phi(X, x_1, x_2)](q, p)$ we can check if $q \not\sim p$, where $q, p \in Q$. 
 \end{example}
 
 \subsection{HO + PFP}\label{subsec:ho+Pfp}
@@ -185,12 +186,6 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
     \end{compactitem}
 \end{definition}
 
-\begin{example}{\cite{abiteboul1995computing}}
-    \begin{align*}
-    [PFP\;(&G(x, y) \wedge \neg \exists z\colon\odot.\,(G(x, z) \wedge G(z, y)) \vee \\
-    &\exists z\colon\odot.\,(\neg G(x, z)\wedge\neg G(z, x) \wedge \neg G(y, z) \wedge G(z, y)))](s, t)
-    \end{align*}
-    This formula describes a graph $G$, where all edges between $(s, t)$ will be removed, if there is a path of
-    length $2$ between $s$ and $t$. If there is a vertex that is not directly connected to $s$ or $t$, an edge $(s,
-    t)$ will be inserted. This process will be iterated while some changes occurs.
+\begin{example}
+Let $\Phi(X, x_1, x_2)$ be the HO$^2$ formula and $\mathcal{T}$ the LTS of Example~\ref{example:ho_lfp} then $PFP(F_\Phi^T)$ describes also the set of all those pairs of states $(q, p)$ in $\mathcal{T}$ such that $q \not\sim p$ holds. The reason is that $F_\Phi^T$ is monotone. With $[PFP\; \Phi(X, x_1, x_2)](q, p)$ we can check if $q \not\sim p$, where $q, p \in Q$. 
 \end{example}

@@ -4,15 +4,13 @@ Before we can start with the encodings there are some important steps that we ha
 \Sigma, P, \Delta, v)$ an LTS, $q_1, \dots, q_n, p_1, \dots, p_m \in Q$ some states of $\mathcal{T}$ and $\mathcal{T}'$ the 
 reduced LTS of $\mathcal{T}$ with respect to $p_1, \dots, p_m$.  
 As mentioned in the introdution of this chapter it is known from~\cite{lange2014capturing} that PHFL cannot distinguish 
-between bisimilar structures. What means PHFL formulas can only define bisimulation-invariant graph problems. We use this 
-knowledge to make the model checking of HO and PHFL formulas easier. That means without loss of generality instead of checking if a tuple of states 
-$(q_1, \dots, q_n)$ satisfies a formula $\Phi$ in respect to $\mathcal{T}$ we can also check if $(q_1, \dots, q_n)$ satisfies 
-$\Phi$ in respect to $\mathcal{T}'$. 
+between bisimilar structures. That means PHFL formulas can only define bisimulation-invariant graph problems. Therefore model checking of HO and PHFL formulas becomes easier. That means that without loss of generality we can check if $(q_1, \dots, q_n)$ satisfies a formula $\Phi$ in respect of $\mathcal{T}'$ instead of checking if $(q_1, \dots, q_n)$ satisfies 
+$\Phi$ in respect of $\mathcal{T}$. 
 
-From now all LTS are reduced LTS with respect to some states of their state sets. In more detail, let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ in this chapter a reduced LTS with respect to $q_1, \dots, q_r$, where $q_1, \dots, q_r \in \Sigma$. Because each state of those LTS can be reached by at least one $q_i$ it is possible to define a total order on their states. 
+From this point all LTS are reduced LTS with respect to some states of their state sets. In more detail, let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS with respect to $q_1, \dots, q_r$, where $q_1, \dots, q_r \in \Sigma$. Because each state of those LTS can be reached by at least one $q_i$, it is possible to define a total order on their states. 
 
 \begin{remark} \label{remark:transitive_relation}
-    In~\cite{otto1999bisimulation} was shown that it is possible to define a $2$-adic formula $\Phi_<$ that defines a
+    In~\cite{otto1999bisimulation} it was shown that it is possible to define a $2$-adic formula $\Phi_<$ that defines a
     transitive relation $<$ such that $< \cap > = \emptyset$ and $< \cup > = \not\sim$. In this thesis $<$ defines a total
     order on states of a reduced LTS.
 \end{remark}
