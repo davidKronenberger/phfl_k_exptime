@@ -5,33 +5,40 @@
 
 \section{Fixpoints}\label{sec:fixpoints}
 
-To define the polyadic higher-order fixpoint logic and the higher-order logic with least and partial fixpoints, we want to consider in this section fixpoints in general. The first fixpoint we consider is the least fixpoint.
+To define the polyadic higher-order fixpoint logic and the higher-order logic with least and partial fixpoints, we examine fixpoints in general in this section. The first fixpoint we consider is the least fixpoint.
 
 \begin{definition}
    Let $F\colon A \rightarrow A$ be an operator on a finite set $A$, then $x \in A$
    is called a \emph{fixpoint} of $F$ if $F(x) = x$. Let $x$ be a fixpoint of $F$ and $\sqsubseteq$ an partial order on $A$, then $x$ is called the \emph{least
-   fixpoint} of $F$, abbreviated as $\mathit{LFP}$($F$), if all other fixpoints $y$ of $F$ are bigger with respect to $sqsubset$ as $x$ i.e. $x
-   \sqsubseteq y$ for all fixpoints $y$ of $F$. A fixpoint $x$ is called the \emph{greatest fixpoint} if $y \sqsubseteq x$ for all fixpoints $y$ of $F$.
+   fixpoint} of $F$, abbreviated as $\mathit{LFP}$($F$), if for all other fixpoints $y$ of $F$ the condition $x
+   \sqsubseteq y$ holds. A fixpoint $x$ is called the \emph{greatest fixpoint} if $y \sqsubseteq x$ for all fixpoints $y$ of $F$.
 \end{definition}
 
 From Knaster-Tarski~\cite{tarski1955lattice} we know that if an operator $F\colon A \rightarrow 
-A$ is monotone the least and greatest fixpoints of $F$ exists. $F$ is monotone iff for all $x, y
+A$ is monotone and $A$ is a complete lattice regarding to $\sqsubseteq$ then the least and greatest fixpoints of $F$ exists. $F$ is monotone if for all $x, y
  \in A$ if $x \sqsubseteq y$ then $F(x) \sqsubseteq F(y)$ holds.
 
 \begin{example}
     \label{example:lfp} Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $F: Q^2 \rightarrow Q^2$ an operator on $Q^2$ defined as 
 \begin{align*}
     F(X) =\, &\{(q, p) \in Q^2 \mid v(q) \neq v(p)\}\, \cup \\&
-    \{(q,p) \in Q^2 \mid \text{it exists } a\in\Sigma \text{ with } q\overset{a}{\rightarrow} q' \text{ such that for all } p' \in Q \\&\text{ it holds } (p, a, p')\not\in\Delta\}\,\cup \\&\{(q,p) \in Q^2 \mid  \text{ it exists } a\in\Sigma \text{ with } p\overset{a}{\rightarrow} p' \text{ such that for all } q' \in Q \\&\text{ it holds } (q, a, q')\not\in\Delta\}\,\cup \\& \{ (q, p) \in Q^2 \mid \text{ there exists } (q', p') \in X \text{ such that there exists } a\in\Sigma \\&\text{ with } q\overset{a}{\rightarrow} q' \text{ and } p\overset{a}{\rightarrow} p' \}
+    \{(q,p) \in Q^2 \mid \text{it exists } a\in\Sigma \text{ with } q\overset{a}{\rightarrow} q' \text{ such that for all } p' \in Q \\&\text{ it holds } p\overset{a}{\rightarrow} p' \text{ implies } (q', p') \in X\}\,\cup \\&\{(q,p) \in Q^2 \mid  \text{it exists } a\in\Sigma \text{ with } p\overset{a}{\rightarrow} p' \text{ such that for all } q' \in Q \\&\text{ it holds } q\overset{a}{\rightarrow} q' \text{ implies } (q', p') \in X\}
 \end{align*}   
 Then $LFP(F)$ represents all those pairs of states $(q, p)$ such that $q\not\sim p$.
 \end{example}
 
+The following theorem shows a possibility to calculate the least fixpoint of a monotone operator if the operating set is a complete lattice with respect to its order.
+
+\begin{theorem}[Kleene fixed-point theorem~\cite{stoltenberghHansen1994mathematical}]
+\label{theorem:kleene}
+Let $F: A \rightarrow A$ be a monotone operator on $A$ and $A$ regarding to $\sqsubseteq$ a complete lattice, then it exists a finite sequence $X_0, \dots, X_m$ such that the first part $X_0$ is the smallest element in $A$ with respect to $\sqsubseteq$, the $(i+1)$-th part $X_{i+1}$ is $F(X_i)$ and $X_m = X_{m+1}$.
+\end{theorem}
+
 Next, we define the partial fixpoint. Since the
-$\mathit{LFP}$ restricts the operator to be monotone to exist, the partial fixpoint need not any
-restriction on the operator.
+$\mathit{LFP}$ restricts the operator to be monotone, the partial fixpoint need no restriction on the operator.
 
 \begin{definition}
+\label{definition:pfp}
     Let $F\colon A \rightarrow A$ be an operator on a finite set $A$, then the \emph{partial
     fixpoint} of $F$, abbreviated as $\mathit{PFP}$($F$), is defined as follows:
     \[\mathit{PFP}(F)\coloneqq\begin{cases}
@@ -43,7 +50,12 @@ restriction on the operator.
 
 Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. 
 
+
 \begin{example}
 \label{example:pfp}
-Let $F$ be the operator of Example~\ref{example:lfp}. Because $F$ is obviously monotone it holds that $PFP(F)$ also represents all those pairs of states $(q, p)$ such that $q\not\sim p$.
+Let $F: \mathcal{P}(\{1, \dots, n\}) \rightarrow  \mathcal{P}(\{1, \dots, n\})$ be an operator on $ \mathcal{P}(\{1, \dots, n\})$ defined as
+\begin{align*}
+	F(X) = \{x \in \{1, \dots, n\}\mid &\; x\in X \text{ and it exists } y \in \{1, \dots, n\} \text{ such that }\\ &\;y < x \text{ and } y\not\in X \text{ or } \\&\;x\not\in X \text{ and for all } y\in \{1,\dots, n\} \text{ holds if } \\&\;y<x \text{ then } y\in X\}. 
+\end{align*}
+If we see $X \in \mathcal{P}(\{1,\dots, n\})$ as a binary string $b$, where a $1$ at the $i$-th position means that $i$ is in $X$, then $F(X)$ returns the set $Y$ such that the binary string $b'$ of $Y$ is $b' = b+1\mod n$. Then $PFP(F)$ returns $\emptyset$ because for every $i$ it holds $F^i(\emptyset) \neq F^{i+1}(\emptyset)$.
 \end{example}

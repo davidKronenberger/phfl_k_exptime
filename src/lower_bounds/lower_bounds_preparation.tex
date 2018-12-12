@@ -7,10 +7,10 @@ As mentioned in the introdution of this chapter it is known from~\cite{lange2014
 between bisimilar structures. That means PHFL formulas can only define bisimulation-invariant graph problems. Therefore model checking of HO and PHFL formulas becomes easier. That means that without loss of generality we can check if $(q_1, \dots, q_n)$ satisfies a formula $\Phi$ in respect of $\mathcal{T}'$ instead of checking if $(q_1, \dots, q_n)$ satisfies 
 $\Phi$ in respect of $\mathcal{T}$. 
 
-From this point all LTS are reduced LTS with respect to some states of their state sets. In more detail, let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS with respect to $q_1, \dots, q_r$, where $q_1, \dots, q_r \in \Sigma$. Because each state of those LTS can be reached by at least one $q_i$, it is possible to define a total order on their states. 
+From this point all LTS are reduced LTS with respect to some states of their state sets. In more detail, let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS with respect to $(q_1, \dots, q_r)$, where $q_1, \dots, q_r \in Q$. On those LTS it is possible to define a total order on their states. 
 
 \begin{remark} \label{remark:transitive_relation}
-    In~\cite{otto1999bisimulation} it was shown that it is possible to define a $2$-adic formula $\Phi_<$ that defines a
-    transitive relation $<$ such that $< \cap > = \emptyset$ and $< \cup > = \not\sim$. In this thesis $<$ defines a total
+    In~\cite{otto1999bisimulation} it was shown that it is possible to define a $2$-adic PHFL$^0$ formula $\Phi_<$ over reduced LTS that defines a
+    transitive relation $<$ such that $< \cap > = \emptyset$ and $< \cup > = \not\sim$. That means $<$ defines a total
     order on states of a reduced LTS.
 \end{remark}

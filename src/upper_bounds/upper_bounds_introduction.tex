@@ -5,19 +5,19 @@
 
 \chapter{Upper Bounds}\label{ch:upperBounds}
 
-In this chapter we want to regard the upper bounds of PHFL$^k$ and PHFL$^k_{tail}$. First, we show that the upper
-bound of PHFL$^k$ is \exptime{$k$}.
+In this chapter we regard the upper bounds of the expressive power of PHFL$^k$ and PHFL$^k_{tail}$. First, we have to show that the upper
+bound of the expressive power of PHFL$^k$ is \exptime{$k$}.
 
 \begin{definition}
-    Let $\mathcal{T}$ a LTS, $\emph{s}$ a state tuple, $\eta$ a variable mapping, $\Gamma$ a type environment and
+    Let $\mathcal{T}$ be an LTS, $\emph{s}$ a state tuple, $\eta$ a variable mapping, $\Gamma$ a type environment and
     $\varphi$ a PHFL$^k$ formula of type $\bullet$ then we call $\mathcal{T}$ with $\emph{s}$ a model of $\varphi$,
     written as $\mathcal{T}, \emph{s} \models \varphi$ iff $\emph{s} \in \llbracket \Gamma
     \vdash \varphi \colon \bullet \rrbracket^\eta_\mathcal{T}$.
 \end{definition}
 
-To show that the upper bound of PHFL$^k$ is \exptime{$k$} we want to make a reduction from the model checking
-problem of PHFL$^k$ to the model checking problem of HFL$^k$. Remember, that HFL$^k$ is the set of $1$-adic PHFL$^k$
-formulas. In combination to the following theorem we get the upper bound of PHFL$^k$.
+To show the upper bound of the expressive power of PHFL$^k$ is \exptime{$k$} we make a reduction from the model checking
+problem of PHFL$^k$ to those of HFL$^k$. Remember, that HFL$^k$ is the set of $1$-adic PHFL$^k$
+formulas. In combination with Theorem~\ref{theorem:hfl_k_in_k_exptime} we get the upper bound of the expressive power of PHFL$^k$.
 
 \begin{theorem}{\cite{axelsson2007complexity}}
     \label{theorem:hfl_k_in_k_exptime}
@@ -25,12 +25,12 @@ formulas. In combination to the following theorem we get the upper bound of PHFL
     \models \varphi$ is in $k$-EXPTIME, where $k > 0$.
 \end{theorem}
 
-In the following, we want to reduce the semantics of PHFL$^k$ to the semantics of HFL$^k$.
-For this we have to transform the input LTS $\mathcal{T}$ and the input PHFL$^k$ formula $\varphi$ of the problem
+In the following, we have to reduce the semantics of PHFL$^k$ to those of HFL$^k$.
+For the reduction we have to transform the input LTS $\mathcal{T}$ and the input PHFL$^k$ formula $\varphi$ of the problem
 $\mathcal{T}, \emph{s} \overset{?}{\models} \varphi$. We first define a mapping that transforms an LTS to another
 LTS and give an example for this transforming process. In the next step we define a function that transforms a
-PHFL$^k$ type to a HFL$^k$ type. After this, we define a further function that transforms a PHFL$^k$ formula to a
-HFL$^k$ formula and give an example for this transformation. At last, we show that the semantics of the original
+PHFL$^k$ type to a HFL$^k$ type. Afterwards, we define a further function that transforms a PHFL$^k$ formula to a
+HFL$^k$ formula and give an example for such a transformation. At last, we show that the semantics of the original
 formula with the original types and the original LTS in PHFL$^k$ context coincides with the semantics of the
 transformed formula with the transformed types and the transformed LTS in HFL$^k$ context.
 
@@ -38,7 +38,7 @@ As mentioned above we first define a mapping that transforms a given LTS.
 
 \begin{definition}
     \label{definition:lts_transformation}
-    Let $d \in \mathbb{N}$ a dimension of PHFL and $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ a LTS, then
+    Let $d \in \mathbb{N}$ be a dimension of PHFL and $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ a LTS, then
     $\mathcal{T}_d = (Q^d, \Sigma_d \cup S_d, P_d, \Delta_d, v_d)$, where
     \begin{compactitem}
         \item $\Sigma_d = \underset{a \in \Sigma}{\bigcup}(\underset{i = 1}{\overset{d}{\bigcup}} \{a_i\})$,
@@ -57,7 +57,7 @@ As mentioned above we first define a mapping that transforms a given LTS.
 The following example shows the transforming of an LTS by Definition~\ref{definition:lts_transformation}.
 
 \begin{example}
-    Let $\mathcal{T}$ a LTS given by
+    Let $\mathcal{T}$ be an LTS given by
     \begin{center}
         \begin{tikzpicture}[]
             \node [place] (q1) {$1$};
@@ -71,7 +71,7 @@ The following example shows the transforming of an LTS by Definition~\ref{defini
             edge [pre] node[right] {c} (q2);
         \end{tikzpicture}
     \end{center}
-    Let $d = 2$ then $\mathcal{T}_d$ is by construction of Definition~\ref{definition:lts_transformation} the
+    Let be $d = 2$ then $\mathcal{T}_d$ is by construction of Definition~\ref{definition:lts_transformation} the
     following LTS. Note, that for readability not all edges are drawn in this representation of $\mathcal{T}_d$.
     The edges that are missing are those that uses action $s_{(1, 2)}$ (except $(1, 1)$ to $(1,
     1)$) and the following edges are also not drawn
@@ -134,7 +134,7 @@ The next step is to define a function that maps a PHFL type to a HFL type.
 
 \begin{definition}
     \label{definition:type_function}
-    Let $\tau_{PHFL}$, $\sigma_{PHFL}$ arbitrary PHFL types, $\bullet_{PHFL}$ the base type of PHFL, $\bullet_{HFL}$
+    Let $\tau_{PHFL}$, $\sigma_{PHFL}$ be arbitrary PHFL types, $\bullet_{PHFL}$ the base type of PHFL, $\bullet_{HFL}$
     the base type of HFL and $v$ an arbitrary variance, then $T$ is a function that maps a PHFL type to a HFL type
     defined inductive over the type of PHFL as follows:
     \begin{align*}
@@ -149,7 +149,7 @@ X_1^{v_1} \colon T(\tau_1), \dots, X_n^{v_n} \colon T(\tau_n)$.
 
 \begin{definition}
     \label{definition:variable_mapping_function}
-    Let $\mathcal{T}$ a LTS, $d \in \mathbb{N}$ a dimension of PHFL and $\mathcal{T}_d$ the transformed LTS by
+    Let $\mathcal{T}$ be an LTS, $d \in \mathbb{N}$ a dimension of PHFL and $\mathcal{T}_d$ the transformed LTS by
     Definition~\ref{definition:lts_transformation} and $T$ the type mapping of
     Definition~\ref{definition:type_function}, then if $\eta$ is a variable mapping over $\mathcal{T}$ for PHFL
     formulas, then $V(\eta)$ is a variable mapping over $\mathcal{T}_d$ for HFL formulas, where $V(\eta)$ is defined
@@ -159,7 +159,7 @@ X_1^{v_1} \colon T(\tau_1), \dots, X_n^{v_n} \colon T(\tau_n)$.
     of $\mathcal{T}_d$ and $T(\tau)$.
 \end{definition}
 
-Now, we are ready to define the function that maps a PHFL$^k$ formula to a HFL$^k$ formula.
+Now, we have to define the function that maps a PHFL$^k$ formula to a HFL$^k$ formula.
 
 \begin{definition}
     \label{definition:formula_function}
@@ -185,7 +185,7 @@ Now, we are ready to define the function that maps a PHFL$^k$ formula to a HFL$^
 \end{definition}
 
 \begin{example}
-    As an example we want to transform the $2$-adic PHFL$^2$ formula of Example~\ref{example:phfl_order_2} to a HFL$^2$ formula.
+    We transform the $2$-adic PHFL$^2$ formula of Example~\ref{example:phfl_order_2} with the formula function of Definition~\ref{definition:formula_function} to a HFL$^2$ formula.
     \begin{align*}
         \varphi = &(\mu (F \colon \bullet_{PHFL}^0 \rightarrow (\bullet_{PHFL}^0 \rightarrow \bullet_{PHFL})).\,
         \lambda (X \colon \bullet_{PHFL}).\, \lambda (Y \colon \bullet_{PHFL}).\, \\&X \Leftrightarrow Y \wedge
@@ -443,7 +443,7 @@ The next step is to show that the semantics of a given PHFL$^k$ formula coincide
     This shows the correctness of the construction. 
 \end{proof}
 
-To do not exceed the bounds of HFL$^k$ we have check that the defined construction grows as most polynomial.  After this we know that the semantics of PHFL$^k$ is
+To do not exceed the bounds of HFL$^k$ we have check that the defined construction grows as most polynomial.  Afterwards, we know that the semantics of PHFL$^k$ is
 reducible to the semantics of HFL$^k$.
 
 \begin{lemma}
@@ -489,10 +489,10 @@ The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k}, Lemma~\r
     \models \varphi$ is in $k$-EXPTIME, where $k > 0$.
 \end{theorem}
 
-To show that the upper bound of PHFL$^{k + 1}_{tail}$ is \expspace{$k$} we can make a reduction from the semantics of
+To show that the upper bound of the expressive power of PHFL$^{k + 1}_{tail}$ is \expspace{$k$} we can make a reduction from the semantics of
 PHFL$^{k}_{tail}$ to the semantics of HFL$^k_{tail}$. Remember, that HFL$^k_{tail}$ is the set of tail-recursive
 $1$-adic PHFL$^k$ formulas. In combination to the following theorem we get the upper bound
-of PHFL$^k_{tail}$.
+of the expressive power of PHFL$^k_{tail}$.
 
 \begin{theorem}{\cite{bruse2017space}}
     \label{theorem:hfl_k_plus_1_in_k_expspace}
@@ -502,7 +502,7 @@ of PHFL$^k_{tail}$.
 
 \begin{lemma}
     \label{lemma:model_check_phfl_k_tail}
-    Let $\mathcal{T}$ a LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
+    Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
     PHFL$^k_{tail}$ formula of type $\tau$, $\mathcal{T}_d$ the LTS transformed by process of
     Defintion~\ref{definition:lts_transformation}, $T$ the type function of Defintion~\ref{definition:type_function},
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}

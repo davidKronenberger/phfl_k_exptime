@@ -54,7 +54,7 @@ word, where $q_i \in Q$ is the current state, $h_i \in \mathbb{N}$ is the readin
 \rightarrow \Gamma$ represents the full tape content. In addition, $t(i)$ represents the content of tape cell $i$.
 
 \begin{definition}
-    Let $C_i^M = (q_i, h_i, t_i)$, $C_j^M = (q_j, h_j, t_j)$ two configurations of a
+    Let $C_i^M = (q_i, h_i, t_i)$, $C_j^M = (q_j, h_j, t_j)$ be two configurations of a
     $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ with $i \neq j$. $C_j^M$ is the next configuration
     of $C_i^M$ written as $C_i^M \rightarrow_M C_j^M$ iff
     \begin{compactitem}
@@ -92,18 +92,18 @@ state of $M$. A run is accepting if the state of $C_n^M$ is an accepting state o
         (q_0, 3, \Box \Box \Box a\Box \dotsb) \rightarrow_M (q_0, 4, \Box \Box \Box \Box \Box \dotsb) \\&\,\rightarrow_M
         (q_f, 4, \Box \Box \Box \Box \Box \dotsb) = C_5^M
     \end{align*}
-    Note, that both runs are terminating runs. The run on input word $w_2$ is an accepting run.
+    Note, that both runs are terminating. The run on input word $w_2$ is an accepting run whereas the run on input word $w_1$ is a rejecting one.
 \end{example}
 
-Note, that it is possible to define $\mathit{DTM}$s that do not accept or reject some input words. For example, let
+Note, that it is possible to define $\mathit{DTM}$s that do not accept or reject any input words. For example, let
 $M = (\{q_0\}, \{a\}, \{a, \Box\}, \delta, \emptyset, \emptyset)$, where $\delta(q_0, x) = (q_0, x, N)$ with $x \in
 \{a, \Box\}$. $M$ is a DTM where any calculation of an input word $w$ looks as follows $q_0w \rightarrow_M q_0w
 \rightarrow_M \dots$. It never reaches an accepting or rejecting state. In this thesis, we are only interested in
-$\mathit{DTM}$s that reaches an accepting or rejecting state in finite time on any input word. Those $\mathit{DTM}$s
+$\mathit{DTM}$s that reach an accepting or rejecting state in finite time on any input word. Those $\mathit{DTM}$s
 we are calling terminating $\mathit{DTM}$s.
 
 Known from computational complexity theory~\cite{papadimitriou1994complexity}, the time and space classes
-can be defined by functions. These functions have as input a natural number that represents the length of an input
+can be defined by functions. These functions take as input a natural number that represents the length of an input
 word of a terminating $\mathit{DTM}$. In case of time classes the output of the functions depends on the number of
 configuration steps. In case of space classes the output is based on the longest transition.
 
@@ -118,14 +118,13 @@ configuration steps. In case of space classes the output is based on the longest
 
 \begin{example}
     \label{example:time_and_space}
-    Let $w_1$ and $w_2$ the two words from Example~\ref{example:run_of_dtm}. It is easy to see, that $\mathit{STEPS}
-    (w_1) = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 2$ and $\mathit{STORAGE}(w_1) = 4$. Moreover,
-    because the maximal number of steps for an input word of length $4$ occurs if the input word contains only symbol
-    $a$, it holds that $\mathit{TIME}(4) = 5$ or more general $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n$
-    holds, because the input word will only be made smaller and we do not move right of the word.
+    Let $w_1$ and $w_2$ be the two words from Example~\ref{example:run_of_dtm} and $M$ the terminating DTM of Example~\ref{example:dtm}. It is easy to see, that $\mathit{STEPS}
+    (w_1) = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 2$ and $\mathit{STORAGE}(w_1) = 4$ for $M$ running on $w_1$ and $w_2$. Because the maximal number of steps for an input word of length $4$ occurs if the input word consists only of symbol
+    $a$, it holds that $\mathit{TIME}(4) = 5$ or more general that $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n$
+    holds, because the length of the input word will only shrink and we do not move to the right side of the word.
 \end{example}
 
-Now, it is possible to group the $\mathit{DTM}$s by functions. Those groups are our computational complexity classes.
+It is possible to group the $\mathit{DTM}$s by functions. These groups are the computational complexity classes.
 In this thesis we are interested in exponential time classes and exponential space classes.
 
 \begin{definition}
@@ -137,19 +136,19 @@ In this thesis we are interested in exponential time classes and exponential spa
     \end{compactitem}
 \end{definition}
 
-With the help of function $exp$, we are now able to define the complexity classes $k$-EXPTIME and $k$-EXPSPACE for
+With the help of the function $exp$, we are able to define the complexity classes $k$-EXPTIME and $k$-EXPSPACE for
 all $k \geq 1$.
 
 \begin{definition}
     \label{definition:k_exptime_and_k_expspace}
-    $k$-EXPTIME is the set of all those problems where a $\mathit{DTM}$ $M$ and a polynomial function $f: \mathbb{N}
-    \rightarrow \mathbb{N}$ exist such that $M$ can decide a problem in $\mathit{TIME}$($exp(k, f(n))$).
-    $k$-EXPSPACE is the set of all those problems where a $\mathit{DTM}$ $M$ and a polynomial function $f: \mathbb{N}
-    \rightarrow \mathbb{N}$ exist such that $M$ can decide a problem in $\mathit{SPACE}$($exp(k, f(n))$).
+    $k$-EXPTIME is the set of all those problems $P$ where a $\mathit{DTM}$ $M$ and a polynomial function $f: \mathbb{N}
+    \rightarrow \mathbb{N}$ exist such that $M$ can decide $P$ in $\mathit{TIME}$($exp(k, f(n))$).
+    $k$-EXPSPACE is the set of all those problems $Q$ where a $\mathit{DTM}$ $M$ and a polynomial function $f: \mathbb{N}
+    \rightarrow \mathbb{N}$ exist such that $M$ can decide $Q$ in $\mathit{SPACE}$($exp(k, f(n))$).
 \end{definition}
 
-Remember, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the biggest configuration of a
-$\mathit{DTM}$ while run on an input word.
+Keep in mind, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the tallest configuration of a
+$\mathit{DTM}$ when running on an input word.
 
 An example for a problem that is in $1$-EXPSPACE is the problem to recognize
 if two regular expressions represent different languages~\cite{meyer1972equivalence}. To check if a $\mathit{DTM}$
@@ -158,23 +157,13 @@ model checking problem for $\mathit{HFL}^{k + 1}_{tail}$ is in $k$-EXPSPACE. $\m
 class of all tail-recursive $1$-adic PHFL formulas with order at most $k + 1$. See
 Section~\ref{sec:polyadichigherorderfixpointlogic} for further information about PHFL.
 
-From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
-and the complexity classes $k$-EXP-TIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace} follow
-the queries that we want to investigate.
-
-\begin{definition}
-    \label{definition:kExptimekExpspace}
-    \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
-    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 0$.
-\end{definition}
-
-As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in Definition~\ref{definition:query} can be categorized. The first category is defined in Definition~\ref{definition:bisimulationInvariant}. Here we define a second category that tells us which complexity class a query belongs to. Because the queries are defined over LTS and the DTMs in this definition has to work on those LTS, a standard coding of these LTS has to be used as input word. This standard coding interprets a given LTS with a tupel of states to a readable string.
+As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in Definition~\ref{definition:query} can be categorized. The first category is defined in Definition~\ref{definition:bisimulationInvariant}. Here we define a second category that describes which complexity class a query belongs to. Because the queries are defined over LTS and the DTMs in this definition have to work on LTS, a standardized encoding of these LTS has to be used as input word. This standardized encoding transforms a given LTS with a tupel of states to a readable string.
 
 \begin{definition}
     \label{definition:queryBelongsToComplexityClass}
     Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ and $(q_1, \dots, q_{r}) \in Q^r$.
     A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is a DTM (see
-    Definition~\ref{definition:dtm}) in $\mathcal{C}$ for deciding on the standard coding of $(\mathcal{T}, (q_1, \dots,
+    Definition~\ref{definition:dtm}) in $\mathcal{C}$ for deciding on the standardized encoding of $(\mathcal{T}, (q_1, \dots,
     q_{r}))$ as input whether $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$.
 \end{definition}
 
@@ -190,13 +179,23 @@ As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in 
     iteration proceeds while a pair is added to the bisimulation and all conditions are fulfilled. Note that the state set of an LTS is finite. This means this process terminates after finite many steps.}, 
     there is an 
     algorithm in P for deciding on input $(\mathcal{T}, (q_1, q_2))$ whether $(q_1, q_2) \in 
-    \mathcal{Q}^\mathcal{T}$, i.e. $\mathcal{Q}$ belongs to 
+    \mathcal{Q}^\mathcal{T}$, that means $\mathcal{Q}$ belongs to 
     complexity class P.
 \end{example}
+
+From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
+and the complexity classes $k$-EXP-TIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace}
+the queries we want to investigate can be desired.
+
+\begin{definition}
+    \label{definition:kExptimekExpspace}
+    \exptime{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXPTIME and
+    \expspace{$k$} are the bisimulation invariant queries that belong to complexity class $k$-EXSPACE, where $k \geq 0$.
+\end{definition}
 
 In the introduction of this section, we mentioned that the main aim of descriptive complexity is to describe complexity classes with logics. The next definition defines how a complexity class is captured by a logic. 
 
 \begin{definition}
-A complexity class $\mathcal{C}$ is captured by a logic $L$ if for all queries $\mathcal{Q}$ that belongs to $\mathcal{C}$ there is a formula $\Phi$ of $L$ such that for all LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ there is a variable mapping $\eta$ and it holds $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$ exactly then if $(q_1, \dots, q_{r}) \in \llbracket \Phi \rrbracket^\eta_\mathcal{T}$, where $q_1, \dots, q_r \in Q$ and $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ is the semantics of $\Phi$ under $\mathcal{T}$ and $\eta$.
+A complexity class $\mathcal{C}$ is captured by a logic $L$ if for all queries $\mathcal{Q}$ that belongs to $\mathcal{C}$ there is a formula $\Phi$ of $L$ such that for all LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ there is a variable mapping $\eta$ and it holds $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$ iff $(q_1, \dots, q_{r}) \in \llbracket \Phi \rrbracket^\eta_\mathcal{T}$, where $q_1, \dots, q_r \in Q$ and $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ is the semantics of $\Phi$ under $\mathcal{T}$ and $\eta$.
 \end{definition}
 

@@ -102,6 +102,7 @@ here interested to define this operators for HO. First, we regard the least fixp
 Like in~\cite{freireMartins2011descriptive} we want to define special operators that are working on HO type universes.
 
 \begin{definition}
+\label{definition:induced_operator}
     Let $\sigma$ an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau', \dots, \tau')$,
     $\tau'$ an arbitrary HO type, $x_1, \dots x_n$ variables of HO type $\tau'$ and $\varphi(X, x_1, \dots, x_k)$ a
     formula over $\sigma$ with free variables $X, x_1, \dots, x_k$. For each $\sigma$-structure $\mathcal{A}$ with
@@ -148,10 +149,9 @@ order less or equal $k$.
 \begin{align*}
 \Phi(X, x_1, x_2) =\, &\underset{p\in P}{\bigvee} \big(p(x_1) \neq p(x_2)\big)\\&
  \underset{a\in\Sigma}{\bigvee} \big(\exists (y_1 \colon \odot).\, a(x_1, y_1) \wedge \forall (y_2 
- \colon \odot).\,\neg a(x_2,y_2)\big) \\&
+ \colon \odot).\, a(x_2,y_2) \Rightarrow X(y_1, y_2)\big) \\&
 \underset{a\in\Sigma}{\bigvee} \big(\exists (y_2 \colon \odot).\, a(x_2, y_2) \wedge \forall (y_1 
-\colon \odot).\, \neg a(x_1,y_1)\big) \\&
-\underset{a\in\Sigma}{\bigvee} \big(\exists (y_1 \colon \odot).\, \exists (y_2 \colon \odot).\, a(x_1, y_1) \wedge a(x_2, y_2) \wedge X(y_1, y_2)\big)
+\colon \odot).\, a(x_1,y_1) \Rightarrow X(y_1, y_2)\big)
 \end{align*}
 be a HO$^2$ formula with free first-order variables $x_1$ and $x_2$ and free second-order variable $X$.
 Then $LFP(F_\Phi^\mathcal{T})$ describes the same set as in Example~\ref{example:lfp}, the set of all those pairs of states $(q, p)$ in $\mathcal{T}$ that $q\not\sim p$ holds. With $[LFP\; \Phi(X, x_1, x_2)](q, p)$ we can check if $q \not\sim p$, where $q, p \in Q$. 
@@ -187,5 +187,11 @@ HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose
 \end{definition}
 
 \begin{example}
-Let $\Phi(X, x_1, x_2)$ be the HO$^2$ formula and $\mathcal{T}$ the LTS of Example~\ref{example:ho_lfp} then $PFP(F_\Phi^T)$ describes also the set of all those pairs of states $(q, p)$ in $\mathcal{T}$ such that $q \not\sim p$ holds. The reason is that $F_\Phi^T$ is monotone. With $[PFP\; \Phi(X, x_1, x_2)](q, p)$ we can check if $q \not\sim p$, where $q, p \in Q$. 
+\label{example:ho_pfp}
+Let $\sigma = \{ < : (\odot, \odot) \}$ be a signature and $\mathcal{A} = (\mathcal{U}, <^\mathcal{A})$ a $\sigma$-structure with $\mathcal{U} = \{1, \dots, n\}$ and $<^\mathcal{A} = \{(x, y) \mid x, y \in \mathcal{U} \text{ and } x < y\}$. Furthermore, let
+\begin{align*}
+	\Phi(X,x) = X(x) \wedge \exists (y \colon \odot).\, <(y, x) \wedge X(y)\,\vee \\ 
+	\neg X(x) \wedge \forall (y \colon \odot).\, <(y, x) \Rightarrow X(y)
+\end{align*}
+a HO$^1$ formula. Then $F_\Phi^\mathcal{A}$ describes the same operator like in Example~\ref{example:pfp} and so $PFP(F_\Phi^\mathcal{A}) = \emptyset$. Note that $\mathcal{A}, \eta \not\models [PFP\; \Phi(X, x)](y)$ for any variable mapping $\eta$.
 \end{example}

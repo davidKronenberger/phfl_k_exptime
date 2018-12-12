@@ -49,6 +49,7 @@
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{observation}[theorem]{Observation}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
@@ -116,16 +117,19 @@ Hesse, Germany\\
 \end{center}
 }
 
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 \begin{document}
 
 \maketitle
 \thispagestyle{empty}
 
 \pagebreak
+\thispagestyle{empty}
 
 \input{declaration.tex}
 
 \pagebreak
+\thispagestyle{empty}
 
 \tableofcontents
 \thispagestyle{empty}

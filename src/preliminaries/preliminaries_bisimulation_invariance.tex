@@ -5,18 +5,18 @@
 
 \section{Bisimulation Invariance}\label{sec:bisimulationInvariance}
 
-First of all, we need the definition of \textit{labeled transition systems}. A labeled transition system is a graph
-with labeled vertices and edges. Formally, it is the following.
+First of all, we need the definition of \textit{labelled transition systems}. A labelled transition system is a graph
+with labelled vertices and edges. Formally, it is the following.
 
 \begin{definition}
     \label{definition:lts}
-    A quintuple $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ is called a \emph{labeled transition system} (\emph{LTS}),
+    A quintuple $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ is called a \emph{labelled transition system} (\emph{LTS}),
     where
     \begin{compactitem}
         \item $Q$ is a set of states,
         \item $\Sigma$ is a finite set of actions,
         \item $P$ is a finite set of propositions,
-        \item $\Delta \subseteq Q \times \Sigma \times Q$ is the labeled transition relation and
+        \item $\Delta \subseteq Q \times \Sigma \times Q$ is the labelled transition relation and
         \item $v: Q \rightarrow 2^P$ is a function that maps each state to a set of propositions.
     \end{compactitem}
 \end{definition}
@@ -26,7 +26,7 @@ For all $q_1, q_2 \in Q$ and all $a \in \Sigma$ we write $q_1 \overset{a}{\right
 
 \begin{example}
     \label{example:lts}
-    As mentioned above, LTS can be seen as a graph with labeled vertices and edges. For example, a LTS is
+    As mentioned above, an LTS can be seen as a graph with labelled vertices and edges. For example, an LTS is
     $\mathcal{T} = (\{q_1, q_2, q_3, q_4, q_5\}, \{a, b\}, \{p_1,$ $ p_2\}, \Delta, v)$, where $\Delta = \{(q_1, a,
 q_2)
     , (q_2, a, q_3), (q_2, b, q_3), (q_2, b, q_5), (q_5, a, q_4), (q_4, $ $a, q_3), (q_4, b, q_3), (q_4, b, q_1)\}$,
@@ -54,7 +54,7 @@ q_2)
 \end{example}
 
 On this systems or rather on the states of the systems it is possible to define relations. The
-following relation describes those states that have the same behaviour.
+following relation describes these states that have the same behaviour.
 
 \begin{definition}
     Let be $\mathcal{T}_1 = (Q_1, \Sigma, P, \Delta_1, v_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma, P, \Delta_2, v_2)
@@ -80,23 +80,23 @@ following relation describes those states that have the same behaviour.
     easy to prove, that $\sim$ is an equivalence relation. So it holds, that $(\mathcal{T}, q_5) \sim (\mathcal{T},
     q_1)$ and $(\mathcal{T}, q_4) \sim (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Note, that
     $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_3)$ because $v(q_1) \neq v(q_3)$ and $(\mathcal{T}, q_1)
-    \not\sim (\mathcal{T}, q_2)$ because $q_2$ can make $b$-transitions but $q_1$ has no $b$-transitions.
+    \not\sim (\mathcal{T}, q_2)$ because $q_2$ can make transitions $b$ but $q_1$ has no $b$-transitions.
 \end{example}
 
 Because $\sim$ is an equivalence relation it can be used to build a factor structure over an LTS.
 
 \begin{definition}
     \label{definition:reduced_lts}
-    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $(q_1, \dots, q_n) \in Q^n$ a tuple then we call $
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $(q_1, \dots, q_n) \in Q^n$ an $n$-tuple then we call $
     (\mathcal{T}, q_1, \dots, q_n)$ \emph{reduced} iff all states of $\mathcal{T}$ are reachable by at
-    least one $q_i$, where $i \in \{1, \dots, n\}$, and if $\sim$ coincides with equality. For all LTS $\mathcal{T} =
+    least one $q_i$ and $\sim$ coincides with equality, where $i \in \{1, \dots, n\}$. For all LTS $\mathcal{T} =
     (Q, \Sigma, P, \Delta, v)$ and all tuples of states $(q_1, \dots, q_n) \in Q^n$ we associate to $(\mathcal{T}, q_1,
     \dots, q_n)$ the reduced tuple $RED(\mathcal{T}, q_1, \dots, q_n)$ by factoring $\mathcal{T}$ with respect to
-    $\sim$ and pruning all states of $\mathcal{T}_\sim$ that cannot be reached by at least one $q_i$. We call the resulting
-    graph the \emph{reduced LTS} of $\mathcal{T}$ with respect to $q_1, \dots, q_n$.
+    $\sim$, named as $\mathcal{T}_\sim$, and pruning all states of $\mathcal{T}_\sim$ that cannot be reached by at least one $q_i$. We call the resulting
+    graph the \emph{reduced LTS} of $\mathcal{T}$ with respect to $(q_1, \dots, q_n)$.
 \end{definition}
 
-Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these properties.
+Furthermore, we can describe properties of LTS. \textit{Queries} are one way to describe these.
 
 \begin{definition}{\cite{otto1999bisimulation}}
     \label{definition:query}
@@ -130,5 +130,5 @@ type of actions.
     \[\mathcal{Q}^\mathcal{T} = \{(q_1, q_1), \dots, (q_5, q_5), (q_1, q_5), (q_5, q_1), (q_2, q_4), (q_4,
     q_2)\}\]
    As mentioned in Example~\ref{example:bisimilar}, $\sim$ is an
-    equivalence relation, it follows that $\mathcal{Q}$ is bisimulation invariant.
+    equivalence relation. It follows that $\mathcal{Q}$ is bisimulation invariant.
 \end{example}

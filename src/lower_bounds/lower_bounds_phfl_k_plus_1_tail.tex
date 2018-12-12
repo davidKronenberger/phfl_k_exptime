@@ -32,8 +32,8 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
     represents a linear ordering on the universe $\mathcal{U}$ of $\mathcal{A}$. Finally, let $\tau$ be an HO type of
     order $k + 1$ and $\alpha$ a variable mapping.
     To prove this lemma we want to define a relational representation, of the final configuration of $M$ that has the standard coding of $(\mathcal{A}, \alpha)$\footnote{The standard coding of structures is a non-trivial problem. Because the description of the encoding goes beyond the scope of this thesis, we only refer to~\cite{abiteboul1995computing} for further informations about.}, abbreviated with $w$, as input word,
-    as a partial fixpoint of some HO$^{k+1}$ formula. For this we set up the underlying HO$^{k+1}$ formula
-    $\varphi$ such that the iterates $(F_\varphi^\mathcal{A})^{i+1}(\emptyset)$ over $D_\tau
+    as a partial fixpoint of some HO(PFP)$^{k+1}$ formula. For this we set up the underlying HO$^{k+1}$ formula
+    $\varphi$ such that the iterates over $(F_\varphi^\mathcal{A})^{i+1}(\emptyset)$ over $D_\tau
     (\mathcal{U})$ represent the $i$-th configuration of $M$ on input standard coding of $(\mathcal{A}, \alpha)$, for every $i$ until termination.
 
     Before we can define the configurations of $M$ in HO we have to make some preparations. Remember that a
@@ -140,34 +140,40 @@ that we have to encode in this subsection to get the lower bound of PHFL$^{k+1}_
 Before we give the definition of the transforming function, we define a PHFL formula for HO formulas that uses the PFP operator.
 
 \begin{definition}
-Let $\Psi$ be a HO$^k$ formula with free first-order variables $x_1, \dots, x_f$, quantified first-order variables $x_{f+1}, \dots,
-    x_q$ and let be $X$ a HO variable of HO type $\tau = (\tau', \dots, \tau')$ where $\tau' \neq \odot$ and any HO variables
-    $X_1, V_1, \dots, $ $X_n, V_n$ HO type $\tau'$. Furthermore, let
+Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $X$ a HO variable of HO type $\tau = (\tau', \dots, \tau')$ where $\tau' \neq \odot$. Furthermore, let
     $\Phi$ be a PHFL$^k$
-    formula and let $s$ be the maximal arity
-    of all second order variables of $\Psi$, then $PFP^\tau X.\,\Phi$
-    is a PHFL$^k$ formula with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS,  defined as:
+    formula, then $PFP^\tau X.\,\Phi$
+    is a PHFL$^k$ formula with dimension $d$ defined as:
     \begin{align*}
-     PFP^\tau X. \, \Phi \coloneqq \big(\mu (F \colon T(\tau) \rightarrow \bullet).\,&\lambda (X \colon T(\tau)).\, \big(X\,\wedge \forall^{\tau'}X_1.\, \dotsb \forall^{\tau'}X_n.\, \\&\big( (\dotsb (X X_1) \dotsb) X_n \Leftrightarrow \Phi(X, X_1, \dots, X_n) \big)\big)\\& \vee F(\Phi(X))\big)\lambda (V_1 \colon T(\tau')).\, \dotsb \lambda (V_n \colon T(\tau')).\,\bot
+     PFP^\tau X. \, \Phi \coloneqq &\Big(\mu (F \colon T(\tau) \rightarrow \bullet).\,\lambda (X \colon T(\tau)).\, \big(X\,\wedge \forall^{\tau'}X_1.\, \dotsb \forall^{\tau'}X_n.\, \\&( (\dotsb (X X_1) \dotsb) X_n \Leftrightarrow \Phi(X, X_1, \dots, X_n) ) \vee F(\Phi(X)\big)\Big)\bot_{T(\tau)}
 \end{align*}    
-    In case of $\tau = (\odot, \dots, \odot)$ and $v_1, \dots, v_n$ are first-order variables with index $i_1, \dots, i_n$ respectively let $PFP^{(\odot, \dots, \odot)} X.\,\Phi$ defined as:
+    In case of $\tau = (\odot, \dots, \odot)$ let $PFP^{(\odot, \dots, \odot)} X.\,\Phi$ defined as:
     \begin{align*}
-    PFP^{(\odot, \dots, \odot)} X.\,\Phi \coloneqq \big(\mu (F \colon \bullet \rightarrow \bullet).\,&\lambda (X \colon \bullet).\, \big(X \wedge \forall_1 \dotsb \forall_n \\&\big(X \Leftrightarrow \Phi(X)\big)\big) \vee F(\Phi(X))\big)\,\bot
+    PFP^{(\odot, \dots, \odot)} X.\,\Phi \coloneqq & \Big(\mu (F \colon \bullet \rightarrow \bullet).\,\lambda (X \colon \bullet).\, \big(X \wedge \forall_1 \dotsb \forall_n \\&(X \Leftrightarrow \Phi(X)) \vee F(\Phi(X)\big)\Big)\,\bot 
     \end{align*}
 \end{definition}
 
-Now we are able to define the function to translate a bisimulation invariant HO(PFP)$^{k+1}$
+Now we are able to define the function that translates a bisimulation invariant HO(PFP)$^{k+1}$
 formula to a PHFL$^{k+1}_{tail}$. 
 
 \begin{definition}
     \label{definition:lower_bounds_phfl_formula_function_pfp}
-    Let $F$ be the function of Definition~\ref{definition:lower_bounds_phfl_formula_function} we extend this function in this way that it maps a bisimulation invariant HO(PFP)$^{k+1}$ formula $\Phi$ with free first-order variables $x_1, \dots, x_f$, quantified first-order variables $x_{f+1}, \dots,
-    x_q$ to a PHFL$^{k+1}_{tail}$ formula with dimension $d = 2 * s + q + r$, where $r$ is the number of states that defines the reduced LTS and $s$ is the maximal arity
-    of all second order variables of $\Phi$, defined
-    inductive on $\Phi$ as follows:
+   Define $F$ as the function that maps a bisimulation invariant HO(PFP)$^{k+1}$ formula $\varphi$ to a PHFL$^{k+1}_{tail}$ formula with dimension $d$, where $d$ and $s$ are the constants as described in Remark~\ref{remark:dimension} and $\Phi_\sim$ is the formula of Example~\ref{example:phfl_order_0}, then $F$ is defined
+    inductive on $\varphi$ as follows:
     \begin{align*}
-        F([PFP\;\Phi(X, x_{i_1}, \dots, x_{i_n})](v_{j_1}, \dots, v_{j_n})) \coloneqq &\,PFP^{(\odot, \dots, \odot)} X.\, F(\Phi) \\
-        F([PFP\;\Phi(X, X_1, \dots, X_n)](V_1, \dots, V_n)) \coloneqq &\,PFP^\tau X.\, F(\Phi) 
+        F(p(x_i)) \coloneqq &\, p_{2s+i} \\
+        F(a(x_i, x_j)) \coloneqq &\, \langle a \rangle_{2s+i} \{(2s+i, 2s+j, \\
+        &\,3, \dots, d)\} \Phi_\sim \\
+        F(\Phi \vee \Psi) \coloneqq &\, F(\Phi) \vee F(\Psi) \\
+        F(\neg \Phi) \coloneqq &\, \neg F(\Phi) \\
+        F(\exists (x_i \colon \odot).\,\Phi) \coloneqq &\, \exists_{2s+i} F(\Phi) \\
+        F(\exists (X \colon \tau).\,\Phi) \coloneqq &\, \exists^\tau X.\,F(\Phi(X)) \\
+        F([PFP\;\Phi(X, x_{i_1}, \dots, x_{i_n})](v_{j_1}, \dots, v_{j_n})) \coloneqq &\,\{(j_1, \dots, j_n, n + 1, \dots, d)\} \\
+        &\,PFP^{(\odot, \dots, \odot)} X.\, F(\Phi) \\
+        F([PFP\;\Phi(X, X_1, \dots, X_n)](V_1, \dots, V_n)) \coloneqq &\,(\dotsb \big(PFP^\tau X.\, F(\Phi)\big)\,V_1)\dotsb)\,V_n \\
+        F(X(x_{i_1}, \dots, x_{i_n})) \coloneqq &\, \{(2s+i_1, \dots, 2s+i_n, \\
+        &\,n + 1, \dots, d)\}X\\
+        F(X(X_1, \dots, X_n)) \coloneqq &\, (\dotsb (X\,X_1)\dotsb)\,X_n
     \end{align*}
 \end{definition}
 
@@ -180,39 +186,127 @@ The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula c
 \end{lemma}
 
 \begin{proof}
-    This lemma can be proven by showing for all HO(PFP)$^{k+1}$ formulas $\Phi$ with free first-order variables $x_1,
-    \dots, x_f$ and quantified first-order variables $x_{f+1}, \dots, x_q$, all reduced LTS $\mathcal{T} = (Q, \Sigma, P,
+    This lemma can be proven by showing for all HO(PFP)$^{k+1}$ formulas $\Phi$ with first-order variables $x_1,
+    \dots, x_q$, all reduced LTS $\mathcal{T} = (Q, \Sigma, P,
     \Delta, v)$ with respect to $\emph{q}_r = q_1, \dots, q_r$ and all variable mappings $\eta$ that it holds that $\mathcal{T}, \eta \models \Phi$ iff $\emph{q} =
-    (\emph{q}_s, \emph{q}_s, \emph{q}_f, \emph{q}_q, \emph{q}_r)$ and $\emph{q} \in \llbracket
-   F(\Phi)\rrbracket^{\eta_V}_{\mathcal{T}}$, where $\emph{q}_s = q_1',\dots,q_s'$ is a sequence of $s$ placeholders used for the interaction of second-order variables, $\emph{q}_f = \eta(x_1), \dots, \eta(x_f)$ is a sequence of the by $\eta$ mapped free first-order variables, $\emph{q}_q = q_1'', \dots, q_q''$ is a sequence of $q$ placeholders used for the quantified first-order variables, $q_1', \dots, q_s', q_1'', \dots, q_q'' \in Q$ are arbitrary states, $F$ is the formula function of
-    Definition~\ref{definition:lower_bounds_phfl_formula_function_pfp} and $\eta_V$ the variable mapping of
+    (\emph{q}_s, \emph{q}_s, \emph{q}_q, \emph{q}_r)$ and $\emph{q} \in \llbracket
+   F(\Phi)\rrbracket^{\eta_V}_{\mathcal{T}}$, where $\emph{q}_s = q_1',\dots,q_s'$ is a sequence of $s$ placeholders used for the interaction of second-order variables, $\emph{q}_q = \eta(x_1), \dots, \eta(x_q)$ is a sequence of first-order variables that are mapped by $\eta$ where $\eta(x_i) = q_0$ if $x_i$ is bound to a quantifier, $q_0, q_1', \dots, q_s' \in Q$ are arbitrary states, $F$ is the formula function of
+    Definition~\ref{definition:lower_bounds_phfl_formula_function} and $\eta_V$ the variable mapping of
     Definition~\ref{definition:lower_bound_variable_function}. This statement can be proven by induction over formula
     $\Phi$.
-    As mentioned in the introduction we have to show only correctness of the PFP operators.
+    Because the correctness proof of the non-fixpoint formulas is very similar to the correctness proof of Theorem~\ref{theorem:ho_lfp_equals_phfl} we concentrate us on showing correctness of the PFP operators.
     \begin{compactitem}
     \item In case of $\Phi = [PFP\,\Psi(X, x_{i_1}, \dots, x_{i_n})](v_{j_1}, \dots, v_{j_n})$, where $X$ is a
         free variable in $\Psi$ of HO type $(\odot, \dots, \odot)$ and $x_{i_1}, \dots, x_{i_n}$ are free first-order
         variables of $\Psi$ and $v_{j_1}, \dots, v_{j_n}$ are first-order variables of $\Phi$, then it follows that
         $\mathcal{T}, \eta \models \Phi$ exactly then if $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in PFP
         (F_\Psi^\mathcal{T})$. 
-        
-        ...
-        TODO
-        ...
-        
-        exactly then if $\mathcal{T}, \eta \models \Phi$.
+        By Definition~\ref{definition:pfp} this is the 
+        case when there is an $i$ such that ${F_\Psi^\mathcal{T}}^i(\emptyset) = {F_\Psi^		
+        \mathcal{T}}^{i+1}(\emptyset)$ and $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in {F_\Psi^\mathcal{T}}^i(\emptyset)$. By Definition~\ref{definition:induced_operator} $(\eta(v_{j_1}), \dots, 		
+        \eta(v_{j_n})) \in {F_\Psi^\mathcal{T}}^i(\emptyset)$ if $\mathcal{T}, \eta \models \Psi({F_\Psi^
+        \mathcal{T}}^{i}(\emptyset), \eta(v_{j_1}), \dots, $ $\eta(v_{j_n}))$. By induction hypothesis 
+        this is exactly the case when 
+\begin{align*}
+        (\emph{q}_s, &\emph{q}_s, \eta(x_1), \dots, \eta(v_{g(1)-1}), \eta(v_{g(1)}), \eta(v_{g(1)+1}), \dots \eta(v_{g(2)-1}),\\& \eta
+            (v_{g(2)}), \eta(v_{g(2)+1}), \dots, \eta(v_{g(n)-1}), \eta(v_{g(n)}), \eta(v_{g(n)+1}), \dots, \eta
+            (x_f), \\&\emph{q}_q, \emph{q}_r) \in \llbracket
+        F(\Psi) \rrbracket^{\eta_V}_\mathcal{T},
+        \end{align*}
+         where $g: \{1, \dots, n\} $ $\rightarrow \{j_1, \dots, j_n\}$ is a function.        
+        Note that $X$ is set to ${F_\Psi^\mathcal{T}}^{i}(\emptyset)$.
+		         
+         If we use $\lambda$-approximation and $\beta$-reduction on PFP$^{(\odot, \dots, \odot)} X.\,\Psi$ we can 
+         see that it can be summarized to
+         \begin{align*}
+         \varphi \coloneqq \underset{i}{\bigvee} \Big(&\Psi^i(\bot) \wedge \forall_1 \dotsb \forall_n
+         \big(\Psi^i(\bot) \Leftrightarrow \Psi^{i+1}(\bot)\big)\Big)
+         \end{align*}
+		Note that 
+		\[{F_\Psi^\mathcal{T}}^i(\emptyset) = \Psi^i(\bot).\] 
+		This holds because by induction over $i$ obviously it holds
+		$\emptyset = \bot$
+		and 
+		$F_\Psi^\mathcal{T}(\emptyset) = \Psi(\bot).$
+		That means 
+		${F_\Psi^\mathcal{T}}^{i+1}(\emptyset) = \Psi^{i+1}(\bot)$
+		holds because by induction hypothesis it holds 
+		${F_\Psi^\mathcal{T}}^{i}
+		(\emptyset) = \Psi^{i}(\bot)$
+		and 
+		$F_\Psi^\mathcal{T}({F_\Psi^\mathcal{T}}^{i}(\emptyset))= \Psi\big(\Psi^{i}(\bot)\big).$
+		
+		Because it exists an $i$ such that ${F_\Psi^\mathcal{T}}^i(\emptyset) = {F_\Psi^		
+        \mathcal{T}}^{i+1}(\emptyset)$ it follows that the right conjunct of $\varphi$
+		\begin{align*}
+		\forall_1 \dotsb \forall_n \big(\Psi^i(\bot) \Leftrightarrow \Psi^{i+1}(\bot)\big)
+         \end{align*}
+		holds also. The left conjunct of $\varphi$ returns then the function that we get through  
+		the $i$-th application of $\Psi$ on the empty set.
+		
+		Because of the construction of variable mapping $\eta_V$ and $(\eta(v_{j_1}), \dots, 
+        \eta(v_{j_n})) \in \eta(X)$ the
+        tuple $(\eta(v_{j_1}), \dots, \eta(v_{j_n}), q_{n+1}', \dots, q_s', \emph{q}_s, \emph{q}_f,  
+        \emph{q}_q,  \emph{q}_r)$ is also in $\eta_V(X)$.
+         Because $(\eta(v_{j_1}), \dots, \eta(v_{j_n})) \in {F_\Psi^\mathcal{T}}^i(\emptyset)$ and $(\eta(v_{j_1}), \dots, \eta(v_{j_n}), $ $q_{n+1}', \dots, q_s', \emph{q}_s, \emph{q}_f,  
+        \emph{q}_q,  \emph{q}_r) \in \eta_V(X)$ it follows with 
+        \[F(\Phi) = \{(i_1, \dots, i_n)\} (PFP^{(\odot, \dots, \odot)} X.\, F(\Psi)) \]
+        that 
+        \begin{align*}
+        (\emph{q}_s, &\emph{q}_s, \eta(x_1), \dots, \eta(v_{g(1)-1}), \eta(v_{g(1)}), \eta(v_{g(1)+1}), \dots \eta(v_{g(2)-1}),\\& \eta
+            (v_{g(2)}), \eta(v_{g(2)+1}), \dots, \eta(v_{g(n)-1}), \eta(v_{g(n)}), \eta(v_{g(n)+1}), \dots, \eta
+            (x_f), \\&\emph{q}_q, \emph{q}_r) \in \llbracket F(\Phi) \rrbracket_\mathcal{T}^{\eta_V}.
+        \end{align*}
 
         \item In case of $\Phi = [PFP\,\Psi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$, where $X$ is a
-        free variable in $\Psi$ of HO type $(\tau, \dots, \tau)$ and $X_1, \dots, X_n$ are free first-order
-        variables of $\Psi$ of type $\tau$ and $V_1, \dots, V_n$ are free variables of $\Phi$ also of type $\tau$, then
-        it follows that $\mathcal{T}, \eta \vdash \Phi$ exactly then if $(\eta(X_1), \dots, \eta(X_n) \in PFP
-        (F_\Psi^\mathcal{T})$. 
-        
-...
-TODO
-...        
-        
-        exactly then if $\mathcal{T}, \eta \models \Phi$.
+        free variable in $\Psi$ of HO type $(\tau, \dots, \tau)$ and $X_1, \dots, X_n$ are free 
+        variables of $\Psi$ of type $\tau$ and $V_1, \dots, V_n$ are free variables of $\Phi$ also of 
+        type $\tau$, then it follows that $\mathcal{T}, \eta \models \Phi$ exactly then if $(\eta(V_1), 
+        \dots, \eta(V_n)) \in PFP(F_\Psi^\mathcal{T})$. By Definition~\ref{definition:pfp} this is the 
+        case when there is an $i$ such that ${F_\Psi^\mathcal{T}}^i(\emptyset) = {F_\Psi^		
+        \mathcal{T}}^{i+1}(\emptyset)$ and $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^\mathcal{T}}
+        ^i(\emptyset)$. By Definition~\ref{definition:induced_operator} $(\eta(V_1), \dots, 		
+        \eta(V_n)) \in {F_\Psi^\mathcal{T}}^i(\emptyset)$ if $\mathcal{T}, \eta \models \Psi({F_\Psi^
+        \mathcal{T}}^{i}(\emptyset), \eta(V_1), \dots, $ $\eta(V_n))$. By induction hypothesis 
+        this is exactly the case when $\emph{q} \in \llbracket F(\Psi) \rrbracket_\mathcal{T}
+        ^{\eta_V}$. Note that $X$ is set to ${F_\Psi^\mathcal{T}}^{i}(\emptyset)$.
+		         
+         If we use $\lambda$-approximation and $\beta$-reduction on PFP$^\tau X.\,\Psi$ we can 
+         see that it can be summarized to
+         \begin{align*}
+         \varphi \coloneqq \underset{i}{\bigvee} \Big(&\Psi^i(\bot_{T((\tau, \dots, \tau))}) \wedge \forall^{\tau'} X_1.\, \dotsb \forall^{\tau'} X_n.\,\\& 
+         \big((\dotsb(\Psi^i(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n \Leftrightarrow \\&\;(\dotsb(\Psi^{i+1}(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n\big)\Big)
+         \end{align*}
+		Note that 
+		\[{F_\Psi^\mathcal{T}}^i(\emptyset) = \Psi^i(\bot_{T((\tau, \dots, \tau))}).\] 
+		This holds because by induction over $i$ obviously it holds
+		\[\emptyset = \bot_{T((\tau, \dots, \tau))}\] 
+		and 
+		\[F_\Psi^\mathcal{T}(\emptyset) = \Psi(\bot_{T((\tau, \dots, \tau))}).\] 
+		That means 
+		\[{F_\Psi^\mathcal{T}}^{i+1}(\emptyset) = \Psi^{i+1}(\bot_{T((\tau, \dots, \tau))})\] 
+		holds because by induction hypothesis it holds 
+		\[{F_\Psi^\mathcal{T}}^{i}
+		(\emptyset) = \Psi^{i}(\bot_{T((\tau, \dots, \tau))})\] 
+		and 
+		\[F_\Psi^\mathcal{T}({F_\Psi^\mathcal{T}}^{i}(\emptyset))= \Psi\big(\Psi^{i}(\bot_{T((\tau, \dots, \tau))})\big).\]
+		Because it exists an $i$ such that ${F_\Psi^\mathcal{T}}^i(\emptyset) = {F_\Psi^		
+        \mathcal{T}}^{i+1}(\emptyset)$ it follows that the right conjunct of $\varphi$
+		\begin{align*}
+		&\forall^{\tau'} X_1.\, \dotsb \forall^{\tau'} X_n.\,\\& 
+         \big((\dotsb(\Psi^i(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n \Leftrightarrow \\&\;(\dotsb(\Psi^{i+1}(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n\big)
+         \end{align*}
+		holds also. The left conjunct of $\varphi$ returns then the function that we get through  
+		the $i$-th application of $\Psi$ on the empty set.
+		
+		Because of the construction of variable mapping $\eta_V$ and $(\eta(V_1), \dots, \eta(V_n)) 
+		\in \eta(X)$ it holds $(\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,\eta_V(V_n) = Q^d$
+        and so 
+         \[\emph{q} \in (\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,\eta_V(V_n).\]
+         Because $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^\mathcal{T}}^i(\emptyset)$ and $
+         \emph{q} \in (\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,$ $\eta_V(V_n)$ it follows with 
+        \[F(\Phi) = (\dotsb((PFP^\tau X.\, F(\Phi))\, V1)\dotsb )\, V_n \]
+        that $\emph{q} \in \llbracket F(\Phi) \rrbracket_\mathcal{T}^{\eta_V}$.
     \end{compactitem}
 \end{proof}
 
