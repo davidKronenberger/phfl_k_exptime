@@ -10,7 +10,7 @@ with labelled vertices and edges. Formally, it is the following.
 
 \begin{definition}
     \label{definition:lts}
-    A quintuple $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ is called a \emph{labelled transition system} (\emph{LTS}),
+    A \emph{labelled transition system} (\emph{LTS}) is a quintuple $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$,
     where
     \begin{compactitem}
         \item $Q$ is a set of states,
@@ -54,12 +54,12 @@ q_2)
 \end{example}
 
 On this systems or rather on the states of the systems it is possible to define relations. The
-following relation describes these states that have the same behaviour.
+following relation describes these states that have a sufficient similar behaviour.
 
 \begin{definition}
     Let be $\mathcal{T}_1 = (Q_1, \Sigma, P, \Delta_1, v_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma, P, \Delta_2, v_2)
-    $ two LTS. A \emph{bisimulation} is a binary relation $R \subseteq Q_1 \times Q_2$ that fulfills for all $(q_1,
-    q_2) \in R$
+    $ two LTS. A \emph{bisimulation} is a binary relation $R \subseteq Q_1 \times Q_2$ that satisfies for all $(q_1,
+    q_2) \in R$:
     \begin{compactitem}
         \item $v_1 (q_1) = v_2 (q_2)$,
         \item for all $a \in \Sigma$ and all $q_1' \in Q_1$, if $q_1 \overset{a}{\rightarrow} q_1'$, then there
@@ -71,16 +71,14 @@ following relation describes these states that have the same behaviour.
     (\mathcal{T}_2, q_2)$, if there
     is a bisimulation $R$ such that $(q_1, q_2) \in R$.
 \end{definition}
-
+It is easy to prove, that $\sim$ is an equivalence relation. 
 \begin{example}
     \label{example:bisimilar}
-    Let $\mathcal{T}$ be like in Example~\ref{example:lts}. In this example, we compare states of the same LTS. It is
-    true, that $(\mathcal{T}, q_1) \sim (\mathcal{T}, q_5)$ and $(\mathcal{T}, q_2) \sim (\mathcal{T}, q_4)$ because
-    $R = \{(q_1, q_5), (q_2, q_4), (q_3, q_3)\}$ is a bisimulation and includes $(q_1, q_5)$ and $(q_2, q_4)$. It is
-    easy to prove, that $\sim$ is an equivalence relation. So it holds, that $(\mathcal{T}, q_5) \sim (\mathcal{T},
+    Let $\mathcal{T}$ be like in Example~\ref{example:lts}. In this example, we compare states of the same LTS. It holds that $(\mathcal{T}, q_1) \sim (\mathcal{T}, q_5)$ and $(\mathcal{T}, q_2) \sim (\mathcal{T}, q_4)$ because
+    $R = \{(q_1, q_5), (q_2, q_4), (q_3, q_3)\}$ is a bisimulation relationand includes $(q_1, q_5)$ and $(q_2, q_4)$.  Furthermore, it holds that $(\mathcal{T}, q_5) \sim (\mathcal{T},
     q_1)$ and $(\mathcal{T}, q_4) \sim (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Note, that
     $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_3)$ because $v(q_1) \neq v(q_3)$ and $(\mathcal{T}, q_1)
-    \not\sim (\mathcal{T}, q_2)$ because $q_2$ can make transitions $b$ but $q_1$ has no $b$-transitions.
+    \not\sim (\mathcal{T}, q_2)$ because $q_2$ has an outgoing $b$-transition but $q_1$ has no $b$-transitions.
 \end{example}
 
 Because $\sim$ is an equivalence relation it can be used to build a factor structure over an LTS.
@@ -88,11 +86,11 @@ Because $\sim$ is an equivalence relation it can be used to build a factor struc
 \begin{definition}
     \label{definition:reduced_lts}
     Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $(q_1, \dots, q_n) \in Q^n$ an $n$-tuple then we call $
-    (\mathcal{T}, q_1, \dots, q_n)$ \emph{reduced} iff all states of $\mathcal{T}$ are reachable by at
+    (\mathcal{T}, q_1, \dots, q_n)$ \emph{reduced} with respect to $q_1, \dots, q_n$ iff all states of $\mathcal{T}$ are reachable by at
     least one $q_i$ and $\sim$ coincides with equality, where $i \in \{1, \dots, n\}$. For all LTS $\mathcal{T} =
     (Q, \Sigma, P, \Delta, v)$ and all tuples of states $(q_1, \dots, q_n) \in Q^n$ we associate to $(\mathcal{T}, q_1,
     \dots, q_n)$ the reduced tuple $RED(\mathcal{T}, q_1, \dots, q_n)$ by factoring $\mathcal{T}$ with respect to
-    $\sim$, named as $\mathcal{T}_\sim$, and pruning all states of $\mathcal{T}_\sim$ that cannot be reached by at least one $q_i$. We call the resulting
+    $\sim$, named as $\mathcal{T}_\sim$, and pruning all states of $\mathcal{T}_\sim$ that cannot be reached from at least one $q_i$. We call the resulting
     graph the \emph{reduced LTS} of $\mathcal{T}$ with respect to $(q_1, \dots, q_n)$.
 \end{definition}
 
@@ -100,16 +98,14 @@ Furthermore, we can describe properties of LTS. \textit{Queries} are one way to 
 
 \begin{definition}{\cite{otto1999bisimulation}}
     \label{definition:query}
-    A \emph{$r$-adic query} $\mathcal{Q}$ is a mapping that associates with each LTS $\mathcal{T} = (Q, \Sigma, P,
+    An \emph{$r$-adic query} $\mathcal{Q}$ is a mapping that associates to each LTS $\mathcal{T} = (Q, \Sigma, P,
     \Delta, v)$ a subset $\mathcal{Q}^{\mathcal{T}}$ of $Q^r$ such that any isomorphism $f:
-    \mathcal{T} \simeq \mathcal{T}'$ is also an isomorphism of the expansions $(\mathcal{T}, \mathcal{Q}^{\mathcal{T}})$
-    and $({\mathcal{T}}', \mathcal{Q}^{{\mathcal{T}}'})$.
+    \mathcal{T} \to \mathcal{T}'$ between $\mathcal{T}$ and another LTS $\mathcal{T'}$ maps tuples not in $\mathcal{Q}^{\mathcal{T}}$ to tuples not in $\mathcal{Q}^{\mathcal{T'}}$.
 \end{definition}
 
-The queries defined in Definition~\ref{definition:query} can be categorized. One category is called \textit{bisimulation invariant}. This category describes those queries that
+One characterization of queries is called \textit{bisimulation invariant}. This characterization describes those queries that
 can not distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
-\textit{Kripke structures}. A Kripke structure is a transition system. Note, that transition systems have only one
-type of actions.
+\textit{Kripke structures}. A Kripke structure is an LTS with only one type of actions.
 
 \begin{definition}
     \label{definition:bisimulationInvariant}

@@ -6,9 +6,9 @@
 
 \section{Higher Order Logic}\label{sec:higherOrderLogic}
 
-For comparing the complexity classes with PHFL, we have to detour over combinations of extensions of FO. The first well
+For comparing the complexity classes with PHFL, we use combinations of extensions of FO as intermediate logics. The first well
 known extension is called Higher Order Logic~\cite{vanBenthem2001higher}, abbreviated with HO. In HO we
-increase the expressive power of FO by allowing relation variables of any order. For this, we have to define the
+increase the expressive power of FO by allowing relations of any order as variables. Therefore, we have to define the
 types of higher order variables.
 
 \subsection{HO Syntax}\label{subsec:hoSyntax}
@@ -18,14 +18,14 @@ types of higher order variables.
     \[ \tau \Coloneqq \odot \mid (\tau, \dots, \tau) \]
 \end{definition}
 
-The HO type of individuals is $\tau = \odot$. These objects have the \textit{order} $1$. The HO type $\tau = (\tau',
-\dots, \tau')$ is that of relations between objects of HO type $\tau'$ and has the order $1 + order(\tau')$. For
-each HO type we have a countably infinite set of variables. Furthermore, let $\sigma$ be a signature over a
-relational vocabulary i.e. $\sigma$ just contains relation symbols.
+The HO type of individuals is $\tau = \odot$. These objects have \textit{order} $1$. The HO type $\tau = (\tau',
+\dots, \tau')$ is that of relations between objects of HO type $\tau'$ and has order $1 + order(\tau')$. For
+each HO type we have a countable infinite set of variables. Furthermore, let $\sigma$ be a signature over a
+relational vocabulary i.e. $\sigma$ only contains relation symbols.
 
 \begin{definition}
-    Let $\mathcal{V} = \{X_1, X_2, \dots \}$ a countable infinite set of variables $\sigma$ a signature, then \emph{HO
-    formulas} $\Phi, \Psi, \dots$ over $\sigma$ are defined by the grammar
+    Let $\mathcal{V} = \{X_1, X_2, \dots \}$ a countable infinite set of variables and $\sigma$ a signature, then \emph{HO
+    formulas} over $\sigma$ are defined by the grammar
     \[\Phi, \Psi \Coloneqq R(x_1, \dots, x_n) \mid Y(y_1, \dots, y_n) \mid \neg \Phi \mid \Phi \vee \Psi \mid \exists
     (X \colon \tau).\,\Phi\]
     where
@@ -40,7 +40,7 @@ relational vocabulary i.e. $\sigma$ just contains relation symbols.
 
 \subsection{HO Semantics}\label{subsec:hoSemantics}
 
-The first step in direction of the semantics of HO formulas is to interpret the universes of the different HO types.
+At first, the universes of the different HO types used to be interpreted.
 
 \begin{definition}
     Let $\mathcal{A}$ be a $\sigma$-structure over universe $\mathcal{U}$ then the universes of the
@@ -51,7 +51,7 @@ The first step in direction of the semantics of HO formulas is to interpret the 
     \end{compactitem}
 \end{definition}
 
-Moreover, $\alpha$ is a function that assigns all variables to an element of the appropriate universe, i.e. if
+Moreover, $\alpha$ is a function that assigns every variable to an element of the appropriate universe, i.e. if
 variable $X$ is of HO type $\tau$, then $\alpha(X) \in D_{\tau}(\mathcal{U})$. With $\alpha[X \rightarrow \mathcal{X}]$,
 where $\mathcal{X} \in D_\tau(\mathcal{U})$ and $X$ of HO type $\tau$, we mean the variable assignment $\alpha'$,
 where $\alpha'(X) = \mathcal{X}$ and $\alpha'(Y) = \alpha(Y)$ for all $Y \neq X$.
@@ -82,13 +82,13 @@ the set of all those formulas whose variables have order less or equal $k$.
     %\forall (N \colon\odot).\,(P(N)))\]
    % Note, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
 %\end{example}
-Similarly to Definition~\ref{definition:query_associated_to_formula} we define $r$-adic queries that are associated to HO formulas with $f$ free first-order variables. 
+Similar to Definition~\ref{definition:query_associated_to_formula} we define $r$-adic queries that are associated to HO formulas with $f$ free first-order variables. 
 
 \begin{definition}
 \label{definition:query_associated_to_formula_ho}
     Given a signature $\sigma$ and a closed HO
-    formula $\Phi$ with free first-order variables $x_1, \dots, x_f$ we call a $r$-adic query $\mathcal{Q}^r_\Phi$ associated to $\Phi$ if there is for all $\sigma$-structures
-    $\mathcal{A}$, all variable mappings $\eta$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{A}$ a $\mathcal{A}, (x_1, \dots, x_f) \models
+    formula $\Phi$ with free first-order variables $x_1, \dots, x_f$ we call a $r$-adic query $\mathcal{Q}^r_\Phi$ associated to $\Phi$ if for all $\sigma$-structures
+    $\mathcal{A}$, all variable mappings $\eta$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{A}$ there is a $\mathcal{A}, (x_1, \dots, x_f) \models
      \Phi$ such that $q_i = \eta(x_i)$ for all $i \in
     \{1, \dots, min(\{r, f\})\}$.
 \end{definition}
@@ -97,13 +97,13 @@ Similarly to Definition~\ref{definition:query_associated_to_formula} we define $
 \label{subsec:hoPlusLfp}
 
 Another possibility to extend FO is to add operators that are not expressible in FO. Here, we are interested in two
-of them, the least fixpoint and the partial fixpoint operator. Instead of defining the operators for FO we are
-here interested to define this operators for HO. First, we regard the least fixpoint operator.
+of them, the least fixpoint and the partial fixpoint operator. Instead of defining the operators for FO we want
+to define this operators for HO. At first, we regard the least fixpoint operator.
 Like in~\cite{freireMartins2011descriptive} we want to define special operators that are working on HO type universes.
 
 \begin{definition}
 \label{definition:induced_operator}
-    Let $\sigma$ an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau', \dots, \tau')$,
+    Let $\sigma$ be an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau', \dots, \tau')$,
     $\tau'$ an arbitrary HO type, $x_1, \dots x_n$ variables of HO type $\tau'$ and $\varphi(X, x_1, \dots, x_k)$ a
     formula over $\sigma$ with free variables $X, x_1, \dots, x_k$. For each $\sigma$-structure $\mathcal{A}$ with
     universe $\mathcal{U}$, $\varphi(A, a_1, \dots, a_k)$ induces the operator
@@ -115,9 +115,9 @@ Like in~\cite{freireMartins2011descriptive} we want to define special operators 
     where $a_1 \dots, a_n \in D_{\tau'}(\mathcal{U})$.
 \end{definition}
 
-To make $F_\varphi^\mathcal{A}$ monotone we have to restrict $\varphi(X, x_1, \dots, x_k)$ in this way that variable
+To make $F_\varphi^\mathcal{A}$ monotone we have to restrict $\varphi(X, x_1, \dots, x_k)$ in a way that variable
 $X$ occurs in an even number of negations within of $\varphi$~\cite{freireMartins2011descriptive}. Those formulas
-are called \textit{positive in} $X$. With this information we are able to define the least fixpoint operator for HO
+are called \textit{positive in} $X$. Therefore, we are able to define the least fixpoint operator for HO
 formulas, denoted by HO($\mathit{LFP}$).
 
 \begin{definition}
@@ -127,16 +127,16 @@ formulas, denoted by HO($\mathit{LFP}$).
         \item $[\mathit{LFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots, v_n)$ is a HO
         ($\mathit{LFP}$) formula over $\sigma$ with free variables $v_1, \dots, v_n$ iff $\varphi(X, x_1, \dots, x_n)
         $ is a HO($\mathit{LFP}$) formula with free variables $X, x_1, \dots, x_n$, if $\varphi$ is positive in
-        $X$, $X$ has HO type $\tau = (\tau', \dots, \tau')$, $x_1, v_1, \dots, x_n, v_n$ have HO type $\tau'$.
+        $X$, variable $X$ has HO type $\tau = (\tau', \dots, \tau')$ and $x_1, v_1, \dots, x_n, v_n$ have HO type $\tau'$.
     \end{compactitem}
 \end{definition}
 
-As in HO, with HO($\mathit{LFP}$)$^k$ we mean the set of all those HO($\mathit{LFP}$) formulas whose variables have
+Similar to HO$^k$, HO($\mathit{LFP}$)$^k$ denotes the set of all those HO($\mathit{LFP}$) formulas whose variables have
 order less or equal $k$.
 
 \begin{definition}
     Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
-    semantics of a HO($\mathit{LFP}$) formula extends that of HO formulas with the following definition:
+    semantics of an HO($\mathit{LFP}$) formula extends that of HO formulas with the following definition:
     \begin{compactitem}
         \item $\mathcal{A}, \alpha \models [\mathit{LFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots,
         v_n)$ iff $(\alpha(v_1), \dots, \alpha(v_n)) \in \mathit{LFP}$ $(F_\varphi^\mathcal{A})$.
@@ -145,7 +145,7 @@ order less or equal $k$.
 
 \begin{example}
     \label{example:ho_lfp} 
-    Let $\Sigma$ be a set of actions and $P$ a set of propositions. Let $\sigma = \{a: (\odot, \odot), p \mid a \in \Sigma, p \in P\}$ be a signature and $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ as $\sigma$-structure representing an LTS. Furthermore, let 
+    Let $\Sigma$ be a set of actions and $P$ a set of propositions. Let $\sigma = \{a: (\odot, \odot), p \mid a \in \Sigma, p \in P\}$ be a signature and $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ a $\sigma$-structure representing an LTS. Furthermore, let 
 \begin{align*}
 \Phi(X, x_1, x_2) =\, &\underset{p\in P}{\bigvee} \big(p(x_1) \neq p(x_2)\big)\\&
  \underset{a\in\Sigma}{\bigvee} \big(\exists (y_1 \colon \odot).\, a(x_1, y_1) \wedge \forall (y_2 
@@ -160,8 +160,8 @@ Then $LFP(F_\Phi^\mathcal{T})$ describes the same set as in Example~\ref{example
 \subsection{HO + PFP}\label{subsec:ho+Pfp}
 
 Next, we define the partial fixpoint operator for HO formulas~\cite{schewe2006fixpoint}. Since the
-$\mathit{LFP}$ operator restricts formulas to be positive in a variable, the partial fixpoint operator has not any
-restriction. With this knowledge we can define and
+$\mathit{LFP}$ operator restricts formulas to be positive in a variable, the partial fixpoint operator does not have any
+restriction. Therefore, we can define and
 add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
 
 \begin{definition}
@@ -171,7 +171,7 @@ add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
         \item $[\mathit{PFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots, v_n)$ is a HO
         ($\mathit{PFP}$) formula over $\sigma$ with free variables $v_1, \dots, v_n$ iff $\varphi(X, x_1, \dots, x_n)
         $ is a HO($\mathit{PFP}$) formula with free variables $X, x_1, \dots, x_n$, where $X$ has HO type $\tau =
-        (\tau', \dots, \tau')$, $x_1, v_1, \dots, x_n, v_n$ have HO type $\tau'$.
+        (\tau', \dots, \tau')$ and $x_1, v_1, \dots, x_n, v_n$ have HO type $\tau'$.
     \end{compactitem}
 \end{definition}
 
@@ -193,5 +193,5 @@ Let $\sigma = \{ < : (\odot, \odot) \}$ be a signature and $\mathcal{A} = (\math
 	\Phi(X,x) = X(x) \wedge \exists (y \colon \odot).\, <(y, x) \wedge X(y)\,\vee \\ 
 	\neg X(x) \wedge \forall (y \colon \odot).\, <(y, x) \Rightarrow X(y)
 \end{align*}
-a HO$^1$ formula. Then $F_\Phi^\mathcal{A}$ describes the same operator like in Example~\ref{example:pfp} and so $PFP(F_\Phi^\mathcal{A}) = \emptyset$. Note that $\mathcal{A}, \eta \not\models [PFP\; \Phi(X, x)](y)$ for any variable mapping $\eta$.
+be a HO$^1$ formula. Then $F_\Phi^\mathcal{A}$ describes the same operator like in Example~\ref{example:pfp} and therefore $PFP(F_\Phi^\mathcal{A}) = \emptyset$ holds. Note that $\mathcal{A}, \eta \not\models [PFP\; \Phi(X, x)](y)$ for any variable mapping $\eta$.
 \end{example}

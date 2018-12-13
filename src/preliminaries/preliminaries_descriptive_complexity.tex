@@ -169,14 +169,13 @@ As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in 
 
 \begin{example}{\cite{lange2014capturing}}
     Let $\mathcal{Q}$ be the query and $\mathcal{T}$ the LTS of Example~
-    \ref{example:query_bisimulation}. Because bisimilarity can be decided in P\footnote{To 
-    decide if two states in an LTS are bisimilar can easy checked by a special kind of breadth-
+    \ref{example:query_bisimulation}. Because bisimilarity can be decided in P\footnote{Whether two states in an LTS are bisimilar can easily be checked by a special kind of breadth-
     first search. On each iteration step we check if the states of a pair in the bisimulation have 
-    same properties and if looking at the left state all possible actions leading to any state $q
+    the same properties and if looking at the left state all possible actions leading to any state $q
     $ can also be made from the right state with same action leading to a state $p$. The pair $
-    (q, p)$ will be add to the bisimulation ignoring duplicates. The same will be checked looking 
+    (q, p)$ will be added to the bisimulation without duplicates. The same will be checked looking 
     at the right state first. Starting with the two states that have to be checked on bisimilarity this 
-    iteration proceeds while a pair is added to the bisimulation and all conditions are fulfilled. Note that the state set of an LTS is finite. This means this process terminates after finite many steps.}, 
+    iteration proceeds as long as at least one pair is added to the bisimulation and all conditions are fulfilled. Note that the state set of an LTS is finite. This means this process terminates after a finite amount of steps.}, 
     there is an 
     algorithm in P for deciding on input $(\mathcal{T}, (q_1, q_2))$ whether $(q_1, q_2) \in 
     \mathcal{Q}^\mathcal{T}$, that means $\mathcal{Q}$ belongs to 

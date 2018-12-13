@@ -5,7 +5,7 @@
 
 \chapter{Lower Bounds}\label{ch:lowerBounds}
 
-In this chapter we want to establish that the lower bounds of the expressive power of PHFL$^k$ and PHFL$^k_{tail}$ is \exptime{$k$} and \expspace{$k$} respectively. The
+In this chapter we want to establish that the lower bounds of the expressive power of PHFL$^k$ and PHFL$^k_{tail}$ are \exptime{$k$} and \expspace{$k$} respectively. The
 lower bounds of PHFL$^k$ and PHFL$^k_{tail}$ can be proven by encoding the run of a Turing Machine as queries.
 As another possibility one can use intermediate logics HO(LFP)$^{k+1}$ and HO(PFP)$^{k+1}$ and encode the bisimulation-invariant logic of those as PHFL$^k$ and
 PHFL$^k_{tail}$, respectively. Note that PHFL cannot distinguish between bisimilar structures~\cite{viswanathan2004higher}. That means PHFL formulas can only define bisimulation-invariant
@@ -14,7 +14,7 @@ PHFL$^{k}_{tail}$ respectively we want to translate HO(LFP)$^{k+1}$ formulas int
 HO(PFP)$^{k+1}$ into a PHFL$^k_{tail}$ formula. 
 
 Encoding existential quantifiers is the most complex part from a computational point of view. In the 
-first section we consider some preparations that are necessary to encode the formulas. Thereafter,  we show that existential 
+first section we consider some preparations that are necessary to model them in PHFL. Thereafter,  we show that existential 
 quantifiers with bound variable of order $k \geq 1$ can be expressed by a PHFL$^{k-1}$ formula. In the subsequent section we 
 use this formula to show that the bisimulation invariant fragment of HO(LFP)$^{k+1}$ can be encoded into PHFL$^k$ and so 
 that the lower bound of the expressive power of PHFL$^k$ is \exptime{$k$}. And finally we show that the lower bound 
