@@ -12,7 +12,7 @@ shown that PHFL$^1$ captures \exptime{$1$}. At first we will see that it was pro
 bisimulation invariant fragment of HO$^{k+1}$ into PHFL$^k$. Therefore, we define an abbreviation for the HO(LFP)
 formulas that uses the LFP operator first and then a function that uses this abbreviation and those of
 Section~\ref{sec:existential_quantifiers_in_phfl} to map an HO(LFP)$^{k+1}$ formula to a PHFL$^k$ formula. Finally, we
-show that for any bisimulation-invariant HO(LFP)$^{k+1}$ formula $\Phi$ there is a transformed PHFL$^k$ formula $\Psi$ such that the projected by $\Psi$ defined $d$-adic query $\mathcal{Q}^d_\Psi$ coincides with the by $\Phi$ defined $f$-adic query $\mathcal{Q}^f_\Phi$. That means $\mathcal{Q}^d_\Psi = \mathcal{Q}^f_\Phi$ for a projection on some components of $\mathcal{Q}^d_\Psi$.
+show that for any bisimulation-invariant HO(LFP)$^{k+1}$ formula $\Phi$ there is a transformed PHFL$^k$ formula $\Psi$ such that the query $\mathcal{Q}^d_\Psi$ defined by $\Psi$ can be obtained from the query $\mathcal{Q}^f_\Phi$ defined by $\Phi$ via projection to the relevant components. Hence, PHFL$^k$ can define all queries defined by the bisimulation-invariant fragment of HO(LFP)$^{k+1}$.
 
 \begin{theorem}{\cite{freireMartins2011descriptive}}\label{theorem:hoLfpEqualsExptime}
     For all $k \geq 1$, HO(LFP)$^{k + 1}$ captures $k$-EXPTIME over finite and ordered structures.
@@ -76,13 +76,13 @@ higher-order variables to the corresponding characteristic function. Note, that 
 $0$ in PHFL. The first-order variables of an HO formula that are marked as undefined in the following function, can be 
 mapped to any arbitrary value because we do not use them in PHFL directly.
 
+    Note that HO variables of order $2$ or higher are syntactically equivalent to the variables used in the translated PHFL formulas. To distinguish them in this definition an HO variable $X$ is denoted by $\hat{X}$ for the usage in PHFL context. 
+
 \begin{definition}
     \label{definition:lower_bound_variable_function}
     Let $d$ be the constant as described in Remark~\ref{remark:dimension}, let $\eta$ be a
     variable mapping for a HO$^k$ formula and let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS, then $\eta_V$ is a 
     variable mapping for a PHFL$^k$ formula with dimension $d$. 
-    
-    Note that HO variables of order $2$ or higher are syntactically equivalent to the variables used in the translated PHFL formulas. To distinguish them in this definition an HO variable $X$ is denoted by $\hat{X}$ for the usage in PHFL context. 
     
     Variable mapping $\eta_V$ is defined as:
     \[\eta_V(\hat{X})\coloneqq
@@ -116,13 +116,13 @@ variable mapping $\eta_V$ of Definition~\ref{definition:lower_bound_variable_fun
 
 \subsection{Correctness Proof}\label{subsec:lower_bounds_correctness_lfp}
 
-The last step is to show that for any query that can be associated to a HO(LFP)$^{k+1}$ formula $\Phi$ coincides with the query that can be associated to the PHFL$^k$ formula that is obtained by transforming $\Phi$. As mentioned in Section~\ref{sec:lower_bounds_preparation} without loss of generality the statement can be proven by consider only  reduced LTS. 
+The last step is to show such that the query that can be defined by the PHFL$^k$ formula $\Psi$ that is obtained by transforming a HO(LFP)$^{k+1}$ formula $\Phi$ can be achieved from the query defined by $\Phi$ via projection to the relevant components. that for any query that can be associated to a HO(LFP)$^{k+1}$ formula $\Phi$ coincides with the query that can be associated to the PHFL$^k$ formula that is obtained by transforming $\Phi$. As mentioned in Section~\ref{sec:lower_bounds_preparation} without loss of generality the statement can be proven by consider only  reduced LTS. 
 
 To make the correctness proof clearer there is one last remark.
 
 \begin{remark}
     It holds for any HO(LFP)$^{k+1}$ formula $\Phi$ that for PHFL$^k$ formula $F(\Phi)$ and some type environment $\Gamma$ the type judgment $\Gamma \vdash
-    \Phi \colon \tau$ is derivable, where $\tau$ is a PHFL type. This statement
+    \Phi \colon \bullet$ is derivable. This statement
     is easy proved by induction over the structure of formula $\Phi$. 
 \end{remark}
 
@@ -296,8 +296,8 @@ Because the type judgement is always derivable we ignore the type environment in
          $ where here $X_0 = \emptyset = \eta^0(X)$ and $X_{i+1} = F_\Psi^\mathcal{T}(X_i) = \eta^{i+1}(X)$ and $\eta'(X) = X_m = \eta^m(X)$. On the other hand the least fixpoint $\eta'_V(X)$ can be calculated by a sequence 
          $Y_0, \dots, Y_{m'}$ where here $Y_0 = \emptyset = \eta^0_V(X)$ and $Y_{i+1} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'_V[X \mapsto Y_i]} = \eta^{i+1}_V(X)$ and $\eta'_V(X) = Y_{m'} = \eta^m_V(X)$. We now show by induction that $X_i$ corresponds with $Y_i$ in PHFL context for all $i$. Obviously $X_0 = \emptyset = Y_0$. By induction hypothesis it holds $X_i$ corresponds with $Y_i$ in PHFL context for 
          one $i$. Then $X_{i+1} = F_\Psi^\mathcal{T}(X_i)$ what is
-         \[\{(a_1, \dots, a_n) \mid \mathcal{T}, \eta'' \models \Psi\}.\] 
-         , where $\eta''$ is a variable mapping with $\eta''(x) = \eta(x)$ for all variables $x \neq X$ and $\eta''(x_{i_1}) = a_1, \dots,  \eta''(x_{i_n}) = a_n$ and $\eta''(X) = X_i$. 
+         \[\{(a_1, \dots, a_n) \mid \mathcal{T}, \eta'' \models \Psi\},\] 
+         where $\eta''$ is a variable mapping with $\eta''(x) = \eta(x)$ for all variables $x \neq X$ and $\eta''(x_{i_1}) = a_1, \dots,  \eta''(x_{i_n}) = a_n$ and $\eta''(X) = X_i$. 
          By using the induction hypothesis, $X_i$ corresponds with $Y_i$ in PHFL context, and the main induction hypothesis for the proof of this theorem, this is exactly the same to
                  \begin{align*}
                  \{(a_1, \dots, a_n) \mid 

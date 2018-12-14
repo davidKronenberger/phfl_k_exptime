@@ -29,7 +29,7 @@ has to be encoded differently, and will be established after this definition.
     where $\tau' \neq \odot$.
 \end{definition}
 
-Note that the orders of HO types and PHFL types are defined differently. It holds that$ord(T(\tau)) = order(\tau) - 2$
+Note that the orders of HO types and PHFL types are defined differently. It holds that $ord(T(\tau)) = order(\tau) - 2$
 for all HO types $\tau$ with order $2$ or greater.
 
 \begin{example}
@@ -47,15 +47,15 @@ in PHFL$^k$ as the characteristic function of $X$ over $D_\tau(\mathcal{U})$. No
 of order $2$ is similar to the domain of base type of PHFL.
 
 As mentioned above the base type of HO has to be encoded differently. The reason for that is that the base type in PHFL is a
-set of tuples of states and a single state can not be depict directly by a variable. This thesis presents the
-idea of~\cite{lange2014capturing} to use the polyadic logic of PHFL to represent the different first-order variables of an HO$^{k+1}$ formula
+set of tuples of states and a single state can not be depict directly by a variable. This thesis uses the
+idea of~\cite{lange2014capturing} to use the polyadic logic of PHFL to represent the different first-order variables of an HO formula
 $\Psi$. Each first-order variable of $\Psi$ represents one component in the dimension of the 
 corresponding PHFL$^k$ formula $\Phi$, that
 means each variable increases the dimension of $\Phi$. The assignment of a first-order 
 variable $x_i$ in $\Psi$ is then the current state of the $i$-th component in $\Phi$.
 
-Let $\Phi$ be an HO$^{k+1}$ formula. Without loss of generality the first-order variables of $\Phi$ are enumerated as
-$x_1, \dots, x_q$.
+Let $\Phi$ be an HO formula. From now on, we assume that for every HO formula $\Phi$, the first-order variables occurring in $\Phi$ are 
+$x_1, \dots, x_q$ for some $q$ depending on $\Phi$.
 
 \subsection{First-Order and Second-Order Quantification}\label{subsec:existentialQuantifiers}
 
@@ -93,11 +93,14 @@ If we consider $\exists (x_i \colon \odot).\,\Phi$ then it can be understood as 
     The formula $\forall_i \Phi$ is also a PHFL$^k$ formula with dimension $d$ and is defined as
     \[\forall_i \Phi \coloneqq \neg \exists_i \neg \Phi.\]
 \end{definition}
+
+Note, that we the constant $i$ of Definition~\ref{definition:existential_quantification_first} can be between $1$ and $d$. Because we use $\exists_i$ later in this thesis only for such $i$ that are in the range of $1$ and $d - r$ the formula works as expected.
+
 \begin{observation}
 \label{observation:existential_quantification_first}
 		Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS with respect to $(q_1, \dots, q_r)$, where $q_1, \dots, q_r \in Q$. The formula given in Definition~
 		\ref{definition:existential_quantification_first} defines first-order quantification in PHFL, because it replaces the $i$-th component by one of the last $r$ components and moves 
-		through all reachable states. This is enough because any element of $Q$ is reachable in reduced LTS $\mathcal{T}$ by at least one state of 
+		through all reachable states. This is enough because any element of $Q$ is reachable in reduced LTS $\mathcal{T}$ from at least one state of 
         $q_1, \dots, q_r$ and those are stored in the last $r$ components of any $d$ tuple. The movement at the $i$-th component and checking if $\Phi$ 
         holds is given by $\mu (X \colon \bullet).\,\Phi \vee \bigvee_{a \in \Sigma} \langle a 
         \rangle_{i} X$. To replace the $i$-th component by one of $q_1, \dots, q_r$ 
@@ -140,7 +143,7 @@ are only in $X$ if $s_2$ is also in $Y$. This is formalized in PHFL in the follo
             &\,\neg \{(j_1, \dots, j_n, n + 1, \dots, d)\} Y)
     \end{align*}
 \end{definition}
-We can see that  $<^{\odot \times \dots \times \odot}$ defines the lexicographic order of HO type $\odot$ and $<^{(\odot, \dots, \odot)}(X, Y)$ the orders of HO types $(\odot, \dots, \odot)$.
+We can see that  $<^{\odot \times \dots \times \odot}$ defines the lexicographic order of HO type $\odot \times \dots \times \odot$ and $<^{(\odot, \dots, \odot)}(X, Y)$ the orders of HO types $(\odot, \dots, \odot)$.
 
 After we have now orders of the HO types $(\odot, \dots, \odot)$ we can define formulas that return the successor of
 an input element in respect to the order of $(\odot, \dots, \odot)$. The idea of the following formula is based on
@@ -181,9 +184,9 @@ $.
 \begin{remark}
 \label{remark:lower_bounds_next_second}
 	The PHFL formula $\bot$ represents the empty set. If we put $\bot$ into $next^{(\odot, \dots, \odot)}$ we can check whether all elements of $D_{(\odot, \dots, \odot)}$ fulfil one 
-	of the disjunct terms. We will see that only the smallest element fulfils the first term. The reason is that the smallest element is not in the empty set and there are no smaller elements than the smallest.
+	of the disjunct terms. We will see that only the smallest element with respect to $<^{\odot\times\dots\times\odot}$ fulfils the first term. The reason is that the smallest element is not in the empty set and there are no smaller elements than the smallest.
 	So the first term is true and it is the only element that fulfils one of the terms. So the formula ${next^{(\odot, \dots, \odot)}}^1 \bot$ returns the set that includes only the smallest 
-	element with respect to $\odot \times \dots \times \odot$. If we take a look at the formula ${next^{(\odot, \dots, \odot)}}^2 \bot$, we put the set that includes the smallest element into 
+	element with respect to $\odot \times \dots \times \odot$. If we take a look at the formula ${next^{(\odot, \dots, \odot)}}^2 \bot$, we put the set that only contains the smallest element into 
 	$next^{(\odot, \dots, \odot)}$. If we dive deeper into this formula we will see that the formula returns a set that includes only the second smallest element. The smallest element does not 
 	fulfil any of the two terms, but the second smallest fulfils the second term. As described in the introduction of Definition~\ref{definition:lower_bounds_next_second}, formula $next^{(\odot, 
 	\dots, \odot)}$ is some kind of binary incrementation. In this manner each possible set of type $(\odot, \dots, \odot)$ will be reached. Note that if we put the full set into $next^{(\odot, 
@@ -194,7 +197,7 @@ With this definition we are now able to define the second-order quantification i
 
 \begin{definition}
     \label{definition:existential_quantification_second}
-    Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $\Phi$ be a PHFL$^k$ formula with free order $0$ variable $X$, then $\exists^{(\odot, \dots, \odot)}X .\,\Phi(X)$
+    Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $\Phi$ be a PHFL$^k$ formula with order $0$ variable $X$, then $\exists^{(\odot, \dots, \odot)}X .\,\Phi(X)$
     is a PHFL$^k$ formula with dimension $d$ defined as:
     \[\exists^{(\odot, \dots, \odot)}X.\, \Phi(X) \coloneqq (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
     \colon \bullet).\, \Phi(X) \vee F(next^{(\odot, \dots, \odot)} X)) \bot
@@ -234,8 +237,8 @@ of a given element of $D_{(\tau, \dots, \tau)}(\mathcal{U})$ in respect to this 
 formula to define the existential quantifier of type $(\tau, \dots, \tau)$. This procedure will be applied to all
 possible types of HO. In this way we get higher-order quantification of any type in PHFL.
 
-The first thing we need is the order of any domain. Note that a order for a type $\tau = (\tau', \dots, \tau')$ always
-depends on the existential quantifiers of type $\tau'$. Like we did in the second-order case we define two formulas. The first
+The first thing we need is the order for every domain. Note that an order for a type $\tau = (\tau', \dots, \tau')$ always
+depends on the quantifiers of type $\tau'$ and the orders of type $\tau' \times \dots \times \tau'$. The orders of type $\tau' \times \dots \times \tau'$, however, depends on the order of type $\tau'$. In case of $\tau' = (\odot, \dots, \odot)$ we use the quantifier formulas of Definition~\ref{definition:existential_quantification_second}. On the other hand if $\tau'$ is a type of an order bigger then $2$, the quantifier formulas of Definition~\ref{definition:existential_quantification_higher} are used. Like we did in the second-order case we define two formulas. The first
 one tells us which set of two given sets of type $\tau$ is the smaller one. The other formula tells us the same for two
 tuples in the same sets of type $\tau$.
 
@@ -252,10 +255,13 @@ tuples in the same sets of type $\tau$.
         &\,\wedge \neg (\dotsb(X\,X_1) \dotsb)\,X_n\,\wedge \\&\,\forall^{\tau}Y_1. \,\dots
         \forall^{\tau}Y_n.\,<^{\tau \times \dots \times \tau}
         (Y_1, X_1, \dots, Y_n, X_n) \\&\,\Rightarrow \big((\dotsb(X\,Y_1) \dotsb)\,Y_n \Rightarrow (\dotsb(Y\,Y_1)
-         \dotsb)\,Y_n\big)
+         \dotsb)\,Y_n\big).
     \end{align*}
+    The formulas $\exists^\tau$ and $\forall^\tau$ are defined in Definition~\ref{definition:existential_quantification_second} or Definition~\ref{definition:existential_quantification_higher} if $ord(\tau) = 2$ or $ord(\tau) > 2$, respectively. In case of $\tau = (\odot, \dots, \odot)$ the formula $<^{(\odot, \dots, \odot)}(X, Y)$ is defined in Definition~\ref{definition:lower_bound_less_second}.
 \end{definition}
-We can see that $<^{\tau \times \dots \times \tau}$ defines the lexicographic order of HO type $\tau$ and $<^{(\tau, \dots, \tau)}(X, Y)$ the orders of HO types $(\tau, \dots, \tau)$, where $\tau \neq \odot$. The following definition defines an abbreviation for the smallest function of an arbitrary PHFL type that have an PHFL order of at least $1$.
+We can see that $<^{\tau \times \dots \times \tau}$ defines the lexicographic order of HO type $\tau$ and $<^{(\tau, \dots, \tau)}(X, Y)$ the orders of HO types $(\tau, \dots, \tau)$, where $\tau \neq \odot$. Note, that $<^{(\tau, \dots, \tau)}(X, Y)$ is well defined because the formula uses the quantifier formulas of a lower type and the lowest possible type is already defined in Definition~\ref{definition:existential_quantification_second}. The same holds for $<^{\tau \times \dots \times \tau}$, where the lowest used order formula is defined in Definition~\ref{definition:lower_bound_less_second}. 
+
+The following definition defines an abbreviation for the smallest function of an arbitrary PHFL type that have an PHFL order of at least $1$.
 
 \begin{definition} 
 \label{definition:smallest}

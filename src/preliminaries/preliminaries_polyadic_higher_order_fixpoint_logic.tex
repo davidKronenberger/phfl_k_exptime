@@ -229,6 +229,13 @@ order $k$ is denoted by PHFL$^k$.
     \end{align*}
 \end{example}
 
+\begin{definition}
+    Let $\mathcal{T}$ be an LTS, $\emph{s}$ a state tuple, $\eta$ a variable mapping, $\Gamma$ a type environment and
+    $\varphi$ a PHFL$^k$ formula of type $\bullet$ then we call $\mathcal{T}$ with $\emph{s}$ a model of $\varphi$,
+    written as $\mathcal{T}, \emph{s} \models \varphi$ iff $\emph{s} \in \llbracket \Gamma
+    \vdash \varphi \colon \bullet \rrbracket^\eta_\mathcal{T}$.
+\end{definition}
+
 \begin{remark}
 To simplify PHFL formulas with fixpoint and $\lambda$ operators we will use the \emph{fixpoint unfolding principle} and \emph{$\beta$-reduction}. Because we work on finite structures and the semantics of PHFL are invariant under $\beta$-reduction we can use those procedures without loss of generality.
 \end{remark}
