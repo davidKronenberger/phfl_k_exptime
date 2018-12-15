@@ -31,7 +31,7 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
     <$ an extension of $\sigma$ and $\mathcal{A}$ a finite $\sigma_<$-structure including $<^\mathcal{A}$ that
     represents a linear ordering on the universe $\mathcal{U}$ of $\mathcal{A}$. Finally, let $\tau$ be an HO type of
     order $k + 1$ and $\alpha$ a variable mapping.
-    To prove this lemma we want to define a relational representation, of the final configuration of $M$ that has the standard coding of $(\mathcal{A}, \alpha)$\footnote{The standard coding of structures is a non-trivial problem. Because the description of the encoding goes beyond the scope of this thesis, we only refer to~\cite{abiteboul1995computing} for further informations about.}, abbreviated with $w$, as input word,
+    To prove this lemma we want to define a relational representation, of the final configuration of $M$ that has the standardized encoding of $(\mathcal{A}, \alpha)$\footnote{The standardized encoding of structures is a non-trivial problem. Because the description of the encoding goes beyond the scope of this thesis, we only refer to~\cite{abiteboul1995computing} for further informations about.}, abbreviated with $w$, as input word,
     as a partial fixpoint of some HO(PFP)$^{k+1}$ formula. For this we set up the underlying HO$^{k+1}$ formula
     $\varphi$ such that the iterates over $(F_\varphi^\mathcal{A})^{i+1}(\emptyset)$ over $D_\tau
     (\mathcal{U})$ represent the $i$-th configuration of $M$ on input standard coding of $(\mathcal{A}, \alpha)$, for every $i$ until termination.
@@ -133,7 +133,7 @@ PHFL$^{k+1}_{tail}$ combined with the knowledge that $k$-EXPSPACE is captured by
 HO(PFP)$^{k+1}$ leads to the lower bound of PHFL$^{k+1}_{tail}$. In
 Section~\ref{sec:existential_quantifiers_in_phfl} and Section~\ref{sec:lowerBoundOfPhfl} we 
 have shown that the HO$^{k+1}$ part can be encoded in PHFL$^k$. It is easy to prove that the 
-encoded formulas are all tail-recursive. It follows that the HO$^{k+1}$ part can also be 
+encoded formulas are all tail-recursive\footnote{The used PHFL$^0$ formula $\Phi_\sim$ (Example~\ref{example:phfl_order_0}) is, indeed, not tail-recursive, but over finite LTS it can be  encoded to a tail-recursive PHFL$^1$ formula $\Psi$ such that the query defined by $\Phi_\sim$ is equivalent to the query defined by $\Psi$~\cite{lange2014capturing_long}.}. It follows that the HO$^{k+1}$ part can also be 
 encoded in  PHFL$^{k+1}_{tail}$. The PFP operator is the only kind of HO(PFP)$^{k+1}$ formula 
 that we have to encode in this subsection to get the lower bound of PHFL$^{k+1}_{tail}$.
 

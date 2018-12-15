@@ -82,15 +82,22 @@ the set of all those formulas whose variables have order less or equal $k$.
     %\forall (N \colon\odot).\,(P(N)))\]
    % Note, that $\varphi$ lies in $\mathit{HO}^2$, i.e. it is a second order logic formula.
 %\end{example}
-Similar to Definition~\ref{definition:query_associated_to_formula} we define $r$-adic queries that are associated to HO formulas with $f$ free first-order variables. 
+Similar to Definition~\ref{definition:query_associated_to_formula} we define $r$-adic queries that are defined by HO formulas with $f$ free first-order variables. 
 
 \begin{definition}
 \label{definition:query_associated_to_formula_ho}
     Given a signature $\sigma$ and a closed HO
-    formula $\Phi$ with free first-order variables $x_1, \dots, x_f$ we call a $r$-adic query $\mathcal{Q}^r_\Phi$ associated to $\Phi$ if for all $\sigma$-structures
+    formula $\Phi$ with free first-order variables $x_1, \dots, x_f$ we call a $r$-adic query $\mathcal{Q}^r_\Phi$ defined by $\Phi$ if for all $\sigma$-structures
     $\mathcal{A}$, all variable mappings $\eta$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{A}$ there is a $\mathcal{A}, (x_1, \dots, x_f) \models
      \Phi$ such that $q_i = \eta(x_i)$ for all $i \in
     \{1, \dots, min(\{r, f\})\}$.
+\end{definition}
+
+Finally, we define bisimulation-invariant HO formulas.
+
+\begin{definition} 
+\label{definition:bisimulation_invariant_ho_formula}
+	Given a HO formula $\Phi$ and a $r$-adic query $\mathcal{Q}^r_\Phi$ defined by $\Phi$ we call $\Phi$ bisimulation-invariant if $\mathcal{Q}^r_\Phi$ is bisimulation-invariant.
 \end{definition}
 
 \subsection{HO + LFP}
@@ -131,8 +138,8 @@ formulas, denoted by HO($\mathit{LFP}$).
     \end{compactitem}
 \end{definition}
 
-Similar to HO$^k$, HO($\mathit{LFP}$)$^k$ denotes the set of all those HO($\mathit{LFP}$) formulas whose variables have
-order less or equal $k$.
+Similar to HO$^k$, the set HO($\mathit{LFP}$)$^k$ denotes all those HO($\mathit{LFP}$) formulas whose variables have types with
+order less or equal $k$ with one exception: The variable $X$ occurring in formulas of kind $[\mathit{LFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots, v_n)$ is the only one that can have a type with an order $k+1$.
 
 \begin{definition}
     Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
@@ -175,7 +182,8 @@ add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
     \end{compactitem}
 \end{definition}
 
-HO($\mathit{PFP}$)$^k$ is the set of all those HO($\mathit{PFP}$) formulas whose variables have order less or equal $k$.
+HO($\mathit{PFP}$)$^k$ denotes the set of all those HO($\mathit{PFP}$) formulas whose variables have types with
+order less or equal $k$ with one exception: The variable $X$ occurring in formulas of kind $[\mathit{PFP}\;\varphi(X, x_1, \dots, x_n)](v_1, \dots, v_n)$ is the only one that can have a type with an order $k+1$.
 
 \begin{definition}
     Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The

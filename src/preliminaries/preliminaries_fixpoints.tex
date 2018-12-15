@@ -14,7 +14,7 @@ To define the polyadic higher-order fixpoint logic and the higher-order logic wi
    \sqsubseteq y$ holds. A fixpoint $x$ is called the \emph{greatest fixpoint} if $y \sqsubseteq x$ for all fixpoints $y$ of $F$.
 \end{definition}
 
-From Knaster-Tarski~\cite{tarski1955lattice} we know that if an operator $F\colon A \rightarrow 
+From the Knaster-Tarski Theorem~\cite{tarski1955lattice} we know that if an operator $F\colon A \rightarrow 
 A$ is monotone and $A$ is a complete lattice regarding to $\sqsubseteq$ then the least and greatest fixpoints of $F$ exists. $F$ is monotone if for all $x, y
  \in A$ if $x \sqsubseteq y$ then $F(x) \sqsubseteq F(y)$ holds.
 
@@ -29,7 +29,7 @@ Then $LFP(F)$ represents all those pairs of states $(q, p)$ such that $q\not\sim
 
 The following theorem shows a possibility to calculate the least fixpoint of a monotone operator if the operating set is a complete lattice with respect to its order.
 
-\begin{theorem}[Kleene fixed-point theorem~\cite{stoltenberghHansen1994mathematical}]
+\begin{theorem}[Kleene Fixed-Point Theorem~\cite{stoltenberghHansen1994mathematical}]
 \label{theorem:kleene}
 Let $F: A \rightarrow A$ be a monotone operator on $A$ and $A$ regarding to $\sqsubseteq$ a complete lattice, then it exists a finite sequence $X_0, \dots, X_m$ such that the first part $X_0$ is the smallest element in $A$ with respect to $\sqsubseteq$, the $(i+1)$-th part $X_{i+1}$ is $F(X_i)$ and $X_m = X_{m+1}$.
 \end{theorem}

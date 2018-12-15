@@ -9,7 +9,7 @@ In this section, we present a logic with name Polyadic Higher Order Fixpoint Log
 introduced by M. Lange and E. Lozes in~\cite{lange2014capturing}. It is defined over LTS (see
 Definition~\ref{definition:lts}) and extends the polyadic modal $\mu$-calculus~\cite{otto1999bisimulation} by
 higher-order fixpoints analogue to M. Viswanathan and R. Viswanathan who extended the modal
-$\mu$-calculus~\cite{kozen1983results} with higher-order fixpoints~\cite{viswanathan2004higher}. The logic of M. Viswanathan and R
+$\mu$-calculus~\cite{kozen1983results} with higher-order fixpoints~\cite{viswanathan2004higher} and $\lambda$-calculus. The logic of M. Viswanathan and R
 .Viswanathan with name higher order fixed point logic is a combination of propositional logic, modal operators and
 a simply typed $\lambda$-calculus with fixed point operators. 
 
@@ -37,7 +37,7 @@ and the ordering relation is given by
 (x).\]
 
 \begin{definition}
-    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $d \in \mathbb{N}$ a dimension of PHFL,
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $d \in \mathbb{N}$ with $d >0$,
     then $\llbracket\tau\rrbracket_\mathcal{T}$ denotes the
     semantics
     of type $\tau$ which is defined as follows:
@@ -106,9 +106,9 @@ Next, we want to define the syntax of PHFL formulas.
 \end{figure}
 
 \begin{definition}
-    Let $P$ be a set of propositions, $\Sigma$ a set of actions and $\mathcal{V} = \{X_1, X_2, \dots\}$ be a countable
+    Let $P$ be a set of propositions, $\Sigma$ a set of actions, $\mathcal{V} = \{X_1, X_2, \dots\}$ be a countable
     infinite
-    set of variables, then
+    set of variables and $d \in \mathbb{N}$ with $d >0$, then
     \emph{$d$-adic PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
     \begin{align*}
         \Phi,\Psi\Coloneqq&\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid
@@ -304,5 +304,5 @@ The set of all tail-recursive PHFL formulas that have at most order $k$ is denot
     $\Phi_2$ is not tail-recursive is because $F$ also occurs in $F X$ of subformula $F (F X)$. 
     Note that all formulas that do not use fixpoints are obviously tail-recursive. An 
     example of a formula that uses a fixpoint and is also tail-recursive is given by 
-    $\Phi_3 = (\mu F.\,\lambda G.\,G(p_1) \underset{a \in \Sigma}{\bigvee} F (\lambda Z.\,\langle a \rangle_1  G(Z)) \lambda X.\, X$ and denotes those states that can reach a state where property $p$ holds.
+    \[\Phi_3 = (\mu F.\,\lambda G.\,G(p_1) \underset{a \in \Sigma}{\bigvee} F (\lambda Z.\,\langle a \rangle_1  G(Z)) \lambda X.\, X\] and denotes those states that can reach a state where property $p$ holds.
 \end{example}
