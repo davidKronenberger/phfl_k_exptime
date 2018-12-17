@@ -17,15 +17,15 @@ class NP coincides with $\exists SO$~\cite{fagin1974generalized}, the existentia
 To describe complexity classes with logics we have to explain what complexity classes are from the viewpoint of
 computational complexity theory. One way to describe complexity classes is with the help of \textit{Turing
 Machines}~\cite{hopcroft1994einfuehrung}.
-A Turing Machine is a theoretical model moving over a tape with symbols. The reading head of
+A Turing Machine is a theoretical model of a machine with a reading head moving over a tape with symbols. The reading head of
 those machines is positioned always over one cell of this tape and scans the symbol of the current cell. After scanning
 the symbol, the machine is able to override the symbol and move the reading head one cell left, right or stand still.
 Formally, a Turing Machine is the following.
 
 \begin{definition}
 \label{definition:dtm}
-    A seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ is called a \emph{Deterministic Turing Machine}
-    ($\mathit{DTM}$), if
+    A \emph{Deterministic Turing Machine}($\mathit{DTM}$) is a seven-tuple $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$
+    , where
     \begin{compactitem}
         \item $Q$ is the finite set of states,
         \item $\Sigma$ is the input alphabet,
@@ -35,7 +35,7 @@ Formally, a Turing Machine is the following.
         \item $q_0 \in Q$ is the initial state,
         \item $\Box \in \Gamma \setminus \Sigma$ is the blank symbol,
         \item $F \subseteq Q$ is the set of accepting states and
-        \item $R \subseteq Q, F \cap R = \emptyset$ is the set of rejecting states.
+        \item $R \subseteq Q, F \cap R = \varnothing$ is the set of rejecting states.
     \end{compactitem}
 \end{definition}
 
@@ -48,9 +48,9 @@ Formally, a Turing Machine is the following.
 \end{example}
 
 Configurations are snapshots of $\mathit{DTM}$s working on an input word. This includes the working tape, the current
-state and the current position of the reading head. Formally, $C_i^M = (q_i, h_i, t_i)$ is called the $i$-th
+state and the current position of the reading head. Formally, $C^M = (q, h, t)$ is called a
 configuration of a $\mathit{DTM}$ $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F)$ of the computation on some input
-word, where $q_i \in Q$ is the current state, $h_i \in \mathbb{N}$ is the reading head position and $t: \mathbb{N}
+word, where $q \in Q$ is the current state, $h \in \mathbb{N}$ is the reading head position and $t: \mathbb{N}
 \rightarrow \Gamma$ represents the full tape content. In addition, $t(i)$ represents the content of tape cell $i$.
 
 \begin{definition}
@@ -66,16 +66,16 @@ word, where $q_i \in Q$ is the current state, $h_i \in \mathbb{N}$ is the readin
 
         \item $\delta(q_i, t_i(h_i)) = (q_j, a, D)$
     \end{compactitem}
-    where $D \in \{L, R, N\}$, $d = f(D)$ and $f(L) = -1$, $f(R) = 1$ and $f(N) = 0$. $C_i^M \rightarrow_M C_j^M$ is
+    where $D \in \{L, R, N\}$ and $d$ is $-1$, $1$ or $0$ if $D$ is $L$, $R$ or $N$, respectively. $C_i^M \rightarrow_M C_j^M$ is
     called a \emph{transition} of $M$.
 \end{definition}
 
-The start configuration for an input word $w = a_1\dots a_n$ of a $\mathit{DTM}$ $M$ is $C_0^M = (q_0, 0, h_{0})$,
+The start configuration for an input word $w = a_1\dots a_n$ of a $\mathit{DTM}$ $M$ is $(q_0, 0, h_{0})$,
 where $q_0$ is the initial state of $M$ and $h_0(k) = a_k$ for $1 \leq k \leq n$ and $h_0(l) = \Box$ for $l \neq k$. A
 run of $\mathit{DTM}$ $M$ on input word $w$ is a sequence of transitions, $C_0^M \rightarrow_M C_1^M \rightarrow_M
 C_2^M \rightarrow_M \dots$. A run of $\mathit{DTM}$ $M$ on input word $w$ is terminating, if there is a
-configuration $C_n^M$ for some $n \in \mathbb{N}$ such that the state of $C_n^M$ is either an accepting or rejecting
-state of $M$. A run is accepting if the state of $C_n^M$ is an accepting state of $M$.
+configuration $C^M$ such that the state of $C^M$ is either an accepting or rejecting
+state of $M$. A run is accepting if the state of $C^M$ is an accepting state of $M$.
 
 \begin{example}
     \label{example:run_of_dtm}
@@ -96,11 +96,11 @@ state of $M$. A run is accepting if the state of $C_n^M$ is an accepting state o
 \end{example}
 
 Note, that it is possible to define $\mathit{DTM}$s that do not accept or reject any input words. For example, let
-$M = (\{q_0\}, \{a\}, \{a, \Box\}, \delta, \emptyset, \emptyset)$, where $\delta(q_0, x) = (q_0, x, N)$ with $x \in
+$M = (\{q_0\}, \{a\}, \{a, \Box\}, \delta, q_0, \varnothing, \varnothing)$, where $\delta(q_0, x) = (q_0, x, N)$ with $x \in
 \{a, \Box\}$. $M$ is a DTM where any calculation of an input word $w$ looks as follows $q_0w \rightarrow_M q_0w
 \rightarrow_M \dots$. It never reaches an accepting or rejecting state. In this thesis, we are only interested in
 $\mathit{DTM}$s that reach an accepting or rejecting state in finite time on any input word. Those $\mathit{DTM}$s
-we are calling terminating $\mathit{DTM}$s.
+we are calling terminating $\mathit{DTM}$s. Any terminating $\mathit{DTM} = \{Q, \Sigma, \Gamma, \delta, q_0, F, R\}$ decides a problem, where a problem is a subset of $\Sigma^*$.
 
 Known from computational complexity theory~\cite{papadimitriou1994complexity}, the time and space classes
 can be defined by functions. These functions take as input a natural number that represents the length of an input
@@ -111,7 +111,7 @@ configuration steps. In case of space classes the output is based on the longest
     Let $M$ be a terminating $\mathit{DTM}$. $\mathit{TIME}(n):= max(\mathit{STEPS}$ $(w)\mid |w| = n)$, where
     $\mathit{STEPS}(w)$ is the number of transitions of $M$ running on input word $w$. $\mathit{SPACE}(n) := max
     (\mathit{STORAGE}(w)\mid |w| = n)$, where $\mathit{STORAGE}(w) := max(h_i\mid i\in\{1, \dots m\} \text{ and }
-    C_i^M = (q_i, h_i, t_i))$ is the most right head position of $M$ while $M$ runs on input word $w$ and $C_0^M
+    C_i^M = (q_i, h_i, t_i))$ is the rightmost head position of $M$ while $M$ runs on input word $w$ and $C_0^M
     \rightarrow_M
     C_1^M \rightarrow_M \dotsb \rightarrow_M C_m^M$ is this run of $M$ on $w$.
 \end{definition}
@@ -147,7 +147,7 @@ all $k \geq 1$.
     \rightarrow \mathbb{N}$ exist such that $M$ can decide $Q$ in $\mathit{SPACE}$($exp(k, f(n))$).
 \end{definition}
 
-Keep in mind, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the tallest configuration of a
+Keep in mind, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the longest configuration of a
 $\mathit{DTM}$ when running on an input word.
 
 An example for a problem that is in $1$-EXPSPACE is the problem to recognize
@@ -161,7 +161,7 @@ As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in 
 
 \begin{definition}
     \label{definition:queryBelongsToComplexityClass}
-    Let $\mathcal{T}$ be a LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ and $(q_1, \dots, q_{r}) \in Q^r$.
+    Let $\mathcal{T}$ be an LTS with $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ and $(q_1, \dots, q_{r}) \in Q^r$.
     A query $\mathcal{Q}$ belongs to complexity class $\mathcal{C}$ if there is a DTM (see
     Definition~\ref{definition:dtm}) in $\mathcal{C}$ for deciding on the standardized encoding of $(\mathcal{T}, (q_1, \dots,
     q_{r}))$ as input whether $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$.
@@ -169,13 +169,10 @@ As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in 
 
 \begin{example}{\cite{lange2014capturing}}
     Let $\mathcal{Q}$ be the query and $\mathcal{T}$ the LTS of Example~
-    \ref{example:query_bisimulation}. Because bisimilarity can be decided in P\footnote{Whether two states in an LTS are bisimilar can easily be checked by a special kind of breadth-
-    first search. On each iteration step we check if the states of a pair in the bisimulation have 
-    the same properties and if looking at the left state all possible actions leading to any state $q
-    $ can also be made from the right state with same action leading to a state $p$. The pair $
-    (q, p)$ will be added to the bisimulation without duplicates. The same will be checked looking 
-    at the right state first. Starting with the two states that have to be checked on bisimilarity this 
-    iteration proceeds as long as at least one pair is added to the bisimulation and all conditions are fulfilled. Note that the state set of an LTS is finite. This means this process terminates after a finite amount of steps.}, 
+    \ref{example:query_bisimulation}. Because bisimilarity can be decided in P\footnote{Whether two states in an LTS are bisimilar can easily be checked by a special kind of breadth-first search. We assume that all states are bisimilar and removing all those pairs where the states have not 
+    the same properties. The resulting set is called $R$. On each step we check any pair of $R$. Any pair $(q, p)$ has to satisfy the following. If looking at $q$ all possible actions leading to any state $q'$ can also be duplicated from $p$ with same action leading to a state $p'$ and $(q', p')$ is in $R$. The same will be checked looking 
+    at the right state first. If the pair $(q, p)$ does not satisfy these conditions it will be removed from $R$. This 
+    iteration proceeds as long as at least one pair is removed from $R$. Note that the state set of an LTS is finite. Those cardinality let be denoted with $n$. Since on each iteration process at least one tuple will be removed this process terminates after a finite amount of steps. In more detail the algorithm checks in the first step $n^2$ tuples, in the second $n^2 - 1$ and so on. In worst case that is a total of $(n^4 + n^2)/2$ checks.}, 
     there is an 
     algorithm in P for deciding on input $(\mathcal{T}, (q_1, q_2))$ whether $(q_1, q_2) \in 
     \mathcal{Q}^\mathcal{T}$, that means $\mathcal{Q}$ belongs to 

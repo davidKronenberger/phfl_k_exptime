@@ -9,25 +9,24 @@ In this chapter we regard the upper bounds of the expressive power of PHFL$^k$ a
 bound of the expressive power of PHFL$^k$ is \exptime{$k$}.
 
 To show that the upper bound of the expressive power of PHFL$^k$ is \exptime{$k$} we reduce the model checking
-problem of PHFL$^k$ to HFL$^k$. Remind that HFL$^k$ is the set of $1$-adic PHFL$^k$
+problem of PHFL$^k$ that to HFL$^k$. Remember that HFL$^k$ is the set of $1$-adic PHFL$^k$
 formulas. In combination with Theorem~\ref{theorem:hfl_k_in_k_exptime} we get the upper bound of the expressive power of PHFL$^k$.
 
 \begin{theorem}{\cite{axelsson2007complexity}}
     \label{theorem:hfl_k_in_k_exptime}
-    Given an LTS $\mathcal{T}$, a state $s$ and an HFL$^k$ formula $\varphi$, the model checking problem i.e., deciding whether $\mathcal{T}, s
-    \models \varphi$ is in $k$-EXPTIME, where $k > 0$.
+	The model checking problem of HFL$^k$ is solvable in $k$-EXPTIME, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPTIME whether $\mathcal{T}, s$ models $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in HFL$^k$.
 \end{theorem}
 
 In the following, we have to reduce the semantics of PHFL$^k$ to that of HFL$^k$.
-Thus, we have to convert the input LTS $\mathcal{T}$ and the input PHFL$^k$ formula $\varphi$ of the problem if
-$\mathcal{T}$ with a state tuple $\emph{s}$ is a model of $\varphi$. We first define a mapping that transforms an LTS to another
-LTS and give an example for this transformation process. In the next step we define a function that transforms a
-PHFL$^k$ type to a HFL$^k$ type. We then continue to define one additional function that maps a PHFL$^k$ formula to a
-HFL$^k$ formula and give an example for such a mapping. Finally, we show that the semantics of the original
+Thus, we have to convert the input LTS $\mathcal{T}$ and the input PHFL$^k$ formula $\Phi$ of the problem of deciding whether
+$\mathcal{T}$ with a state tuple $\emph{s}$ is a model of $\Phi$. We first define a mapping that transforms an LTS into the $d$-fold product of itself, where $d \in \mathbb{N}$
+ and give an example for this transformation process. In the next step we define a function that maps a
+PHFL$^k$ type to a HFL$^k$ type. We then continue to define one additional function that maps a PHFL$^k$ formulas to
+HFL$^k$ formulas and give an example for such a mapping. Finally, we show that the semantics of the original
 formula with the original types and the original LTS in the PHFL$^k$ context coincide with the semantics of the
 converted formula with the converted types and the converted LTS in the HFL$^k$ context.
 
-As mentioned above we de start by defining a mapping that transforms a given LTS.
+As mentioned above we do start by defining a mapping that transforms a given LTS.
 
 \begin{definition}
     \label{definition:lts_transformation}
@@ -64,7 +63,7 @@ The following example shows the construction of an LTS as described in Definitio
             edge [pre] node[right] {c} (q2);
         \end{tikzpicture}
     \end{center}
-    Let $d = 2$ be a dimension then $\mathcal{T}_d$ is the
+    Let $d = 2$ be a natural number then $\mathcal{T}_d$ is the
     following LTS. Note, that for readability reasons not all edges are drawn in this representation of $\mathcal{T}_d$.
     The edges that are missing are those that uses action $s_{(1, 2)}$ (except $(1, 1)$ to $(1,
     1)$) and the following edges are also not drawn
@@ -142,7 +141,7 @@ X_1^{v_1} \colon T(\tau_1), \dots, X_n^{v_n} \colon T(\tau_n)$.
 
 \begin{definition}
     \label{definition:variable_mapping_function}
-    Let $\mathcal{T}$ be an LTS, $d \in \mathbb{N}$ a dimension of PHFL and $\mathcal{T}_d$ the transformed LTS by
+    Let $\mathcal{T}$ be an LTS, $d \in \mathbb{N}$ with $d >0$ and $\mathcal{T}_d$ the transformed LTS by
     Definition~\ref{definition:lts_transformation} and $T$ the type mapping of
     Definition~\ref{definition:type_function}. Furthermore, let $\eta$ be a variable mapping over $\mathcal{T}$ for PHFL
     formulas, then $V(\eta)$ is a variable mapping over $\mathcal{T}_d$ for HFL formulas, where $V(\eta)(X) = \eta(X) = \mathcal{X}$ with $\mathcal{X} \in \llbracket \tau \rrbracket_\mathcal{T}$. Note, that for $\mathcal{X}$ it holds that $\mathcal{X} \in \llbracket \tau
@@ -156,7 +155,7 @@ We continue with the definition of the function that maps a PHFL$^k$ formula to 
     \label{definition:formula_function}
     Let $T$ be the type function from Definition~\ref{definition:type_function} and let $P$ be a set of propositions,
     $\Sigma$ a set of actions and $\mathcal{V} = \{X_1, \dots, X_n\}$ a finite set of variables for a $d$-adic
-    PHFL$^k$ formula $\varphi$, then $F$ is a function that maps a $d$-adic PHFL$^k$ formula over $P$, $\Sigma$ and
+    PHFL$^k$ formula $\Phi$, then $F$ is a function that maps a $d$-adic PHFL$^k$ formula over $P$, $\Sigma$ and
     $\mathcal{V}$ to a HFL$^k$ formula over proposition set $P_d = \underset{p \in P}{\bigcup}(\underset{i =
     1}{\overset{d}{\bigcup}} \{p_i\})$, action set $\Sigma_d \cup S_d = \underset{a \in \Sigma}{\bigcup}(\underset{i =
     1}{\overset{d}{\bigcup}} \{a_i\}) \cup \{s_{(e(1), \dots, e(d))} \mid e: \{1, \dots d\} \rightarrow \{1, \dots,
@@ -171,20 +170,20 @@ We continue with the definition of the function that maps a PHFL$^k$ formula to 
         F(\{\emph{j}\,\} \psi) &= \langle s_{\emph{j}} \rangle F(\psi)  \\
         F(\mu (X \colon \tau).\,\psi) &= \mu (X \colon T(\tau)).\,F(\psi) \\
         F(\lambda (X^v \colon \tau).\, \psi) &= \lambda (X^v \colon T(\tau)).\, F(\psi) \\
-        F(\psi{\psi'}) &= F(\psi)F({\psi'})
+        F(\psi\,{\psi'}) &= F(\psi)\,F({\psi'})
     \end{align*}
 \end{definition}
 
 \begin{example}
     We transform the $2$-adic PHFL$^2$ formula of Example~\ref{example:phfl_order_2} with the function of Definition~\ref{definition:formula_function} to a HFL$^2$ formula.
     \begin{align*}
-        \varphi = &(\mu (F \colon \bullet_{PHFL}^0 \rightarrow (\bullet_{PHFL}^0 \rightarrow \bullet_{PHFL})).\,
+        \Phi = &(\mu (F \colon \bullet_{PHFL}^0 \rightarrow (\bullet_{PHFL}^0 \rightarrow \bullet_{PHFL})).\,
         \lambda (X \colon \bullet_{PHFL}).\, \lambda (Y \colon \bullet_{PHFL}).\, \\&X \Leftrightarrow Y \wedge
         \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top
     \end{align*}
     will be transformed to
 \begin{align*}
-    F(\varphi) = &(\mu (F \colon \bullet_{HFL}^0 \rightarrow (\bullet_{HFL}^0 \rightarrow \bullet_{HFL})).\,
+    F(\Phi) = &(\mu (F \colon \bullet_{HFL}^0 \rightarrow (\bullet_{HFL}^0 \rightarrow \bullet_{HFL})).\,
     \lambda (X \colon \bullet_{HFL}).\, \lambda (Y \colon \bullet_{HFL}).\, \\&X \Leftrightarrow Y \wedge \underset{a
     \in \Sigma}{\bigwedge} F \langle a_1 \rangle X \langle a_2 \rangle Y)\top \top.
 \end{align*}
@@ -196,240 +195,202 @@ We continue with the definition of the function that maps a PHFL$^k$ formula to 
     can easily be proven by induction over the structure of formula $\Phi$.
 \end{remark}
 
+Because the type judgement is always derivable we ignore the type environment in the following proof and write just $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ instead of $\llbracket \Gamma \vdash \Phi \colon \tau \rrbracket^\eta_\mathcal{T}$, where $\Phi$ is a PHFL formula, $\eta$ is a variable mapping, $\mathcal{T}$ is an LTS, $\Gamma$ is a type environment and $\tau$ is a PHFL type. 
+
 In the final step we show that the semantics of a given PHFL$^k$ formula coincide with the transformed HFL$^k$ formula.
 
 \begin{lemma}
     \label{lemma:model_check_phfl_k}
-    Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
-    PHFL$^k$ formula of type $\tau$, $\mathcal{T}_d$ the LTS transformed by the process of
+    Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Phi$ a well-typed $d$-adic
+    PHFL$^k$ formula, $\mathcal{T}_d$ the LTS transformed by the process of
     Defintion~\ref{definition:lts_transformation}, $T$ the type function of Defintion~\ref{definition:type_function},
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
-    and $F$ the formula function of Definition~\ref{definition:formula_function} then $\llbracket \Gamma \vdash
-    \varphi \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket T(\Gamma) \vdash F(\varphi) \colon T(\tau)
+    and $F$ the formula function of Definition~\ref{definition:formula_function} then $\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \llbracket F(\Phi)
     \rrbracket^{V(\eta)}_{\mathcal{T}_d}$
 \end{lemma}
-
+Although it looks unexpected this is exactly the statement that we have to prove. The semantics of a PHFL formula is a set of tuples but in the HFL formula this is just a set. Because this set is the set of states of $\mathcal{T}_d$ and this is a set of tuples, the both semantics operates on the same kind of sets.
 \begin{proof}
-    We show that $\llbracket \Gamma \vdash \varphi \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket T(\Gamma)
-    \vdash F(\varphi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ by induction on formula $\varphi$.
+    We show that $\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ by induction on formula $\Phi$.
     \begin{compactitem}
-        \item In case of $\varphi = \top$, $\llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL}
+        \item In case of $\Phi = \top$, $\llbracket \Phi
         \rrbracket^\eta_\mathcal{T}$ is the set of $d$-tuples of state set $Q$ of $\mathcal{T}$ what means that
-        \[\llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = Q^d.\]
+        \[\llbracket \Phi \rrbracket^\eta_\mathcal{T} = Q^d.\]
         By construction of $\mathcal{T}_d$ the set of states is also the set of $d$-tuples of state set $Q$.
-        Moreover, due to formula function $F$ it is true that $F(\top) = \top$. Because of type environment $\Gamma$, the
-        type $\bullet_{PHFL}$ and variable mapping $\eta$ do not matter in the semantics of $\llbracket \Gamma \vdash
-        \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}$, $T(\Gamma)$, $T(\bullet_{PHFL})$ and $V(\eta)$
-        are irrelevant and can be arbitrary. It holds that
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = Q^d\]
+        Moreover, due to formula function $F$ it is true that $F(\top) = \top$. It holds that
+        \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = Q^d\]
         because the set of states of $\mathcal{T}_d$ is $Q^d$.
 
-        \item In case of $\varphi = p_i$,
-        \[\llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL}
+        \item In case of $\Phi = p_i$,
+        \[\llbracket \Phi
         \rrbracket^\eta_\mathcal{T} = \{(q_1, \dots, q_d)\in Q^d \mid p \in v(q_i)\}.\]
-        By construction of $\mathcal{T}_d$ $v_d((q_1, \dots, q_d)) = \overset{d}{\underset{i = 1}{\bigcup}}\{p_i
-        \mid p \in v(q_i)\}$ and by formula function $F$ it is true that $F(p_i) = p_i$. As in case of $\varphi =
-        \top$ the type environment $\Gamma$, the type $\bullet_{PHFL}$ and variable mapping $\eta$ do not matter in
-        the semantics of $\llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}$ and so $T
-        (\Gamma)$, $T(\bullet_{PHFL})$ and $V(\eta)$ are irrelevant and can be arbitrary. Because $p_i \in v_d((q_1,
+        By construction of $\mathcal{T}_d$ it holds that $v_d((q_1, \dots, q_d)) = \overset{d}{\underset{i = 1}{\bigcup}}\{p_i
+        \mid p \in v(q_i)\}$ and by formula function $F$ it is true that $F(p_i) = p_i$. Because $p_i \in v_d((q_1,
         \dots, q_d))$ iff $p \in v(q_i)$ it holds that
-        \[\llbracket T (\Gamma) \vdash F(\varphi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \{
+        \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \{
         (q_1, \dots, q_d) \in Q^d \mid p_i \in v_d((q_1, \dots, q_d))\}\]
         and furthermore that
         \[\{(q_1, \dots, q_d)\in Q^d \mid p \in v(q_i)\} =\{(q_1, \dots, q_d) \in Q^d \mid p_i \in
         v_d((q_1, \dots, q_d))\}.\]
 
-        \item The last base case is $\varphi = X$. It holds that
-        \[\llbracket \Gamma \vdash \varphi \colon \tau \rrbracket^\eta_\mathcal{T} = \eta(X).\]
+        \item The last base case is $\Phi = X$. It holds that
+        \[\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \eta(X).\]
         Moreover, it is true that
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = V(\eta)(X).\]
-        By formula function $F$ it is also true that $F(X) = X$. The combination of construction $\mathcal{T}_d$, type
+        \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = V(\eta)(X).\]
+        By definition of the function $F$ it is also true that $F(X) = X$. The combination of construction $\mathcal{T}_d$, type
         function $T$ and by construction of variable mapping $V(\eta)$ in
-        Definition~\ref{definition:variable_mapping_function} it follows that $V(\eta)(X) = \eta(X)$. As in the both previous
-        cases the type environment $\Gamma$ does not matter in the semantics of $\llbracket \Gamma \vdash \varphi
-        \colon \tau \rrbracket^\eta_\mathcal{T}$ and so $T(\Gamma)$ is irrelevant and can be arbitrary.
+        Definition~\ref{definition:variable_mapping_function} it follows that $V(\eta)(X) = \eta(X)$. 
     \end{compactitem}
-    By induction hypothesis it holds for subformulas $\psi$ and $\psi'$ of $\varphi$ that $\llbracket \Gamma \vdash
-    \psi \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket T(\Gamma) \vdash F(\psi) \colon T(\tau)
-    \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ and $\llbracket \Gamma \vdash
-    \psi' \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket T(\Gamma) \vdash F(\psi') \colon T(\tau)
+    The induction hypothesis is that it holds for all subformulas $\psi$ and $\psi'$ of $\Phi$ that $\llbracket
+    \psi \rrbracket^\eta_\mathcal{T} = \llbracket F(\psi)
+    \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ and $\llbracket
+    \psi' \rrbracket^\eta_\mathcal{T} = \llbracket F(\psi') 
     \rrbracket^{V(\eta)}_{\mathcal{T}_d}$
     \begin{compactitem}
-        \item In case of $\varphi = \langle a \rangle_i \psi$,
+        \item In case of $\Phi = \langle a \rangle_i \psi$,
         \begin{align*}
-            \llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = &\,
+            \llbracket \Phi \rrbracket^\eta_\mathcal{T} = &\,
             \{(q_1, \dots, q_d) \in Q^d \mid \\&\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket \Gamma
-                \vdash \psi \colon \bullet_{PHFL}
+                \vdash \psi 
                 \rrbracket^\eta_\mathcal{T} \text{ such that }\\&\,q_i \overset{a}{\rightarrow} {q_i}' \text{ and for
             all
             } i \neq j
             \text{ it holds } q_j =
                 {q_j}'\}.
         \end{align*}
-        By induction hypothesis $({q_1}', \dots, {q_d}') \in \llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ because $({q_1}', \dots, {q_d}') \in \llbracket \Gamma
-        \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}$. Based on construction of $\mathcal{T}_d$
+        By the induction hypothesis $({q_1}', \dots, {q_d}') \in \llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ because $({q_1}', \dots,$ $ {q_d}') \in \llbracket \psi \rrbracket^\eta_\mathcal{T}$. Based on construction of $\mathcal{T}_d$
         and $q_i \overset{a}{\rightarrow} {q_i}' \in \Delta$ it follows that $({q_1}', \dots, {q_{i - 1}'}, q_i,
         {q_{i + 1}'}, \dots, {q_d}') \overset{a_i}{\rightarrow} ({q_1}', \dots, {q_{i - 1}'}, {q_i}',
         {q_{i + 1}'}, \dots, {q_d}') \in \Delta_d$. That means that
         \begin{align*}
-            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket \Gamma
-            \vdash \psi \colon \bullet_{PHFL}
+            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket \psi 
             \rrbracket^\eta_\mathcal{T} \text{ such that }\\&\,q_i \overset{a}{\rightarrow} {q_i}' \text{ and for
             all } i \neq j \text{ it holds } q_j = {q_j}'\}
         \end{align*}
         is equal to
         \begin{align*}
-            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket T(\Gamma)
-            \vdash F(\psi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}\\& \text{ such that }\,q_i
+            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} \text{ such that }\\&\,q_i
             \overset{a_i}{\rightarrow} {q_i}' \text{ and for all } i \neq j \text{ it holds } q_j = {q_j}'\}.
         \end{align*}
         As a result of of $T$, $V$ and that $F(\langle a \rangle_i \psi) = \langle a_i \rangle \psi$ holds the second set is
         exactly the definition of the semantics of
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
+        \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
 
-        \item In case of $\varphi = \psi \vee {\psi'}$, 
-        \[\llbracket \Gamma \vdash \varphi \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket \Gamma \vdash \psi
-        \colon \tau \rrbracket^\eta_\mathcal{T} \sqcup_\tau \llbracket \Gamma \vdash \psi' \colon \tau
+        \item In case of $\Phi = \psi \vee {\psi'}$, 
+        \[\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \llbracket \psi
+        \rrbracket^\eta_\mathcal{T} \sqcup_\bullet \llbracket \psi'
         \rrbracket^\eta_\mathcal{T}.\]
-        By induction hypothesis it holds that \[\llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma
-        \vdash \psi \colon \tau \rrbracket^\eta_\mathcal{T}\]
+        By the induction hypothesis it holds that \[\llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \psi \rrbracket^\eta_\mathcal{T}\]
         and
-        \[\llbracket T(\Gamma) \vdash F(\psi') \colon T
-        (\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma
-        \vdash \psi' \colon \tau \rrbracket^\eta_\mathcal{T}.\]
+        \[\llbracket F(\psi') \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \psi' \rrbracket^\eta_\mathcal{T}.\]
         By construction of $T$ it is true that
-        \[\llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} \sqcup_{T(\tau)} \llbracket T(\Gamma) \vdash F(\psi') \colon T
-        (\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}\]
+        \[\llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} \sqcup_{T(\bullet)} \llbracket F(\psi') \rrbracket^{V(\eta)}_{\mathcal{T}_d}\]
         is equal to
-        \[\llbracket \Gamma \vdash \psi
-        \colon \tau \rrbracket^\eta_\mathcal{T} \sqcup_\tau \llbracket \Gamma \vdash \psi' \colon \tau
+        \[\llbracket \psi
+        \colon \tau \rrbracket^\eta_\mathcal{T} \sqcup_\bullet \llbracket \psi' 
         \rrbracket^\eta_\mathcal{T}.\]
         Because $F(\psi \vee \psi') = F(\psi) \vee F(\psi')$ one can see that
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}\]
+        \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}\]
         is equal to
-        \[\llbracket T(\Gamma) \vdash F(\psi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} \sqcup_{T(\tau)}
-        \llbracket T(\Gamma) \vdash F(\psi') \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
+        \[\llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} \sqcup_{T(\bullet)}
+        \llbracket F(\psi') \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
 
-        \item In case of $\varphi = \neg \psi$,
-        \[\llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = Q^d \setminus
-        \llbracket
-        \Gamma^-
-        \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}.\]
-        By induction hypothesis it holds that \[\llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma
-        \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}.\]
-        Because of construction of $T(\Gamma)$ it is also true that
-        \[\llbracket T(\Gamma^-) \vdash F(\psi) \colon T
-        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma^-
-        \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}.\]
+        \item In case of $\Phi = \neg \psi$,
+        \[\llbracket \Phi \rrbracket^\eta_\mathcal{T} = Q^d \setminus
+        \llbracket \psi \rrbracket^\eta_\mathcal{T}.\]
+        By the induction hypothesis it holds that \[\llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \psi \rrbracket^\eta_\mathcal{T}.\]
         Due to the equality of the two sets it follows that
-        \[Q^d \setminus \llbracket T(\Gamma^-) \vdash F(\psi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)
+        \[Q^d \setminus \llbracket F(\psi) \rrbracket^{V(\eta)
         }_{\mathcal{T}_d} =
-        Q^d \setminus \llbracket \Gamma^- \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}.\]
+        Q^d \setminus \llbracket \psi \rrbracket^\eta_\mathcal{T}.\]
         Since $F(\neg \psi) = \neg F(\psi)$ the first set is exactly the semantics of
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
+        \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
 
-        \item In case of $\varphi = \{(e(1), \dots, e(d))\}\,\psi$, 
+        \item In case of $\Phi = \{(e(1), \dots, e(d))\}\,\psi$, 
         \begin{align*}
-            \llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = \{&(q_1, \dots,
-            q_d) \in Q^d \mid \\&(q_{e(1)}, \dots, q_{e(d)}) \in \llbracket \Gamma \vdash \psi
-            \colon \bullet_{PHFL}
+            \llbracket \Phi \rrbracket^\eta_\mathcal{T} = \{&(q_1, \dots,
+            q_d) \in Q^d \mid \\&(q_{e(1)}, \dots, q_{e(d)}) \in \llbracket \psi
             \rrbracket ^\eta_\mathcal{T}\}.
         \end{align*}
-        By induction hypothesis $({q_{e(1)}}, \dots, {q_{e(d)}}) \in \llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ because $({q_{e(1)}}, \dots, {q_{e(d)}}) \in
-        \llbracket \Gamma \vdash \psi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T}$.
+        By the induction hypothesis $({q_{e(1)}}, \dots, {q_{e(d)}}) \in \llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ because $({q_{e(1)}},$ $ \dots, {q_{e(d)}}) \in
+        \llbracket \psi \rrbracket^\eta_\mathcal{T}$.
         Moreover, the state tuple $({q_{e(1)}}, \dots, {q_{e(d)}})$ that fulfills $\psi$ is reached by 'moving' from
         state tuple $({q_{1}}, \dots, {q_{d}})$ to $({q_{e(1)}}, \dots, {q_{e(d)}})$. This movement is
         integrated in the construction of $\mathcal{T}_d$. There exists for each endomorphism $e$ a
         substitution action $s_{(e(1), \dots, e(d))}$ for each tuple state. With $F(\{(e(1), \dots, e(d))\}
         \psi) = \langle s_{(e(1), \dots, e(d))} \rangle F(\psi)$ we receive the state tuples that have the action $(q_1,
         \dots, q_d)$ $ \overset{s_{(e(1), \dots, e(d))}}{\rightarrow} (q_{e
-        (1)}, \dots, q_{e(d)})$ where $(q_1, \dots, q_d) \in \llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$.
+        (1)}, \dots, q_{e(d)})$ where $(q_1, \dots, q_d) \in \llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$.
         It follows that
-        \[\llbracket \Gamma \vdash \varphi \colon \bullet_{PHFL} \rrbracket^\eta_\mathcal{T} = \llbracket T(\Gamma)
-        \vdash F(\varphi) \colon T(\bullet_{PHFL}) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
+        \[\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
 
-        \item In case of $\varphi = \mu(X \colon \tau).\,\psi$,
+        \item In case of $\Phi = \mu(X \colon \tau).\,\psi$,
         \begin{align*}
-            \llbracket \Gamma \vdash \varphi \colon \tau \rrbracket^\eta_\mathcal{T} =&\,\bigsqcap\,
+            \llbracket \Phi \rrbracket^\eta_\mathcal{T} =\bigsqcap\,
             _{\llbracket\tau\rrbracket_\mathcal{T}} \{\mathcal{X} \in \llbracket \tau \rrbracket_\mathcal{T}
-            \mid \\
-            &\llbracket \Gamma, X^+ \colon \tau \vdash \psi \colon \tau \rrbracket^{\eta[X \mapsto
+            \mid 
+            \llbracket \psi \rrbracket^{\eta[X \mapsto
             \mathcal{X}]}_\mathcal{T}
             \leq_{\llbracket \tau \rrbracket_\mathcal{T}} \mathcal{X}\}.
         \end{align*}
-        By induction hypothesis it applies that \[\llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma
-        \vdash \psi \colon \tau \rrbracket^\eta_\mathcal{T}.\]
-        Because of construction of $T(\Gamma)$, $\mathcal{T}_d$ and $V(\eta)$ it also holds that
-        \[\llbracket T(\Gamma), X^+ \colon T(\tau) \vdash F(\psi) \colon T
-        (\tau) \rrbracket^{V(\eta)[X \mapsto \mathcal{X}]}_{\mathcal{T}_d} = \llbracket \Gamma, X^+ \colon \tau
-        \vdash \psi \colon \tau \rrbracket^{\eta[X \mapsto \mathcal{X}]}_\mathcal{T}.\]
+        By the induction hypothesis it applies that 
+        \[\llbracket F(\psi) \rrbracket^{V(\eta)[X \mapsto \mathcal{X}]}_{\mathcal{T}_d} = \llbracket 
+        \psi \rrbracket^{\eta[X \mapsto \mathcal{X}]}_\mathcal{T}.\]
         Moreover, $F(\mu(X \colon \tau).\psi) = \mu(X \colon T(\tau)).F(\psi)$. In particular, it holds that
         \begin{align*}
-            \llbracket \Gamma \vdash \varphi \colon \tau \rrbracket^\eta_\mathcal{T} =&\,\bigsqcap\,
+            \llbracket \Phi \rrbracket^\eta_\mathcal{T} =&\,\bigsqcap\,
             _{\llbracket\tau\rrbracket_{\mathcal{T}_d}} \{\mathcal{X} \in \llbracket \tau \rrbracket_{\mathcal{T}_d}
             \mid \\
-            &\llbracket T(\Gamma), X^+ \colon T(\tau) \vdash F(\psi) \colon T(\tau) \rrbracket^{V(\eta)[X \mapsto
+            &\llbracket F(\psi) \rrbracket^{V(\eta)[X \mapsto
             \mathcal{X}]}_{\mathcal{T}_d}
             \leq_{\llbracket \tau \rrbracket_{\mathcal{T}_d}} \mathcal{X}\}.
         \end{align*}
         This is exactly the semantics of
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
+        \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
 
-        \item In case of $\varphi = \lambda(X^v \colon \sigma).\,\psi$,
+        \item In case of $\Phi = \lambda(X^v \colon \sigma).\,\psi$,
         \begin{align*}
-            \llbracket \Gamma \vdash \varphi \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T} =&\,F \in
+            \llbracket \Phi \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T} =&\,F \in
             \llbracket \sigma^v \rightarrow \tau \rrbracket_\mathcal{T}
         \end{align*}
         such that for all $\mathcal{X} \in \llbracket \sigma \rrbracket_\mathcal{T}$ it holds that $F(\mathcal{X}) =
-        \llbracket \Gamma, X^v \colon \sigma \vdash \psi \colon \tau \rrbracket^{\eta[X \mapsto
+        \llbracket \psi \colon \tau \rrbracket^{\eta[X \mapsto
         \mathcal{X}]}_\mathcal{T}$.
-        By induction hypothesis it is true that \[\llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma
-        \vdash \psi \colon \tau \rrbracket^\eta_\mathcal{T}.\]
-        Due to construction of $T(\Gamma)$, $\mathcal{T}_d$ and $V(\eta)$ it also holds that
-        \[\llbracket T(\Gamma), X^v \colon T(\sigma) \vdash F(\psi) \colon T
-        (\tau) \rrbracket^{V(\eta)[X \mapsto \mathcal{X}]}_{\mathcal{T}_d} = \llbracket \Gamma, X^v \colon \sigma
-        \vdash \psi \colon \tau \rrbracket^{\eta[X \mapsto \mathcal{X}]}_\mathcal{T}.\]
+        By the induction hypothesis it is true that 
+        \[\llbracket F(\psi) \colon T
+        (\tau) \rrbracket^{V(\eta)[X \mapsto \mathcal{X}]}_{\mathcal{T}_d} = \llbracket \psi \colon \tau \rrbracket^{\eta[X \mapsto \mathcal{X}]}_\mathcal{T}.\]
         Moreover, $F(\lambda(X^v \colon \sigma).\psi) = \lambda(X^v \colon T(\sigma)).F(\psi)$. Consequently it holds that
         \begin{align*}
-            \llbracket \Gamma \vdash \varphi \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T} =&\,F \in
+            \llbracket \Phi \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T} =&\,F \in
             \llbracket T(\sigma^v \rightarrow \tau) \rrbracket_{\mathcal{T}_d}
         \end{align*}
-        such that for all $\mathcal{X} \in \llbracket T(\sigma) \rrbracket_{\mathcal{T}_d}$ the following is true $F(\mathcal{X}) =
-        \llbracket T(\Gamma), X^v \colon T(\sigma) \vdash F(\psi) \colon T(\tau) \rrbracket^{V(\eta)[X \mapsto
-        \mathcal{X}]}_{\mathcal{T}_d}$.
+        such that for all $\mathcal{X} \in \llbracket T(\sigma) \rrbracket_{\mathcal{T}_d}$ the following is true \[F(\mathcal{X}) =
+        \llbracket F(\psi) \colon T(\tau) \rrbracket^{V(\eta)[X \mapsto
+        \mathcal{X}]}_{\mathcal{T}_d}.\]
         This is exactly the semantics of
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\sigma^v \rightarrow \tau) \rrbracket^{V(\eta)
+        \[\llbracket F(\Phi) \colon T(\sigma^v \rightarrow \tau) \rrbracket^{V(\eta)
         }_{\mathcal{T}_d}.\]
 
-        \item In case of $\varphi = \psi\psi'$,
-        \[\llbracket \Gamma \vdash \varphi \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket \Gamma \vdash \psi
-        \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T}(\llbracket \Gamma \vdash \psi' \colon
+        \item In case of $\Phi = \psi\,\psi'$,
+        \[\llbracket \Phi \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket \psi
+        \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T}(\llbracket \psi' \colon
         \sigma \rrbracket^\eta_\mathcal{T}).\]
-        By induction hypothesis it applies that \[\llbracket T(\Gamma) \vdash F(\psi) \colon T
+        By the induction hypothesis it applies that \[\llbracket F(\psi) \colon T
         (\sigma^v \rightarrow \tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma
         \vdash \psi \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T}\]
         and
-        \[\llbracket T(\Gamma) \vdash F(\psi') \colon T
+        \[\llbracket F(\psi') \colon T
         (\sigma) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \llbracket \Gamma
         \vdash \psi' \colon \sigma \rrbracket^\eta_\mathcal{T}.\]
         It follows that
-        \[\llbracket T(\Gamma) \vdash F(\psi) \colon T
-        (\sigma^v \rightarrow \tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}(\llbracket T(\Gamma) \vdash F(\psi') \colon T
+        \[\llbracket F(\psi) \colon T
+        (\sigma^v \rightarrow \tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}(\llbracket F(\psi') \colon T
         (\sigma) \rrbracket^{V(\eta)}_{\mathcal{T}_d}\]
         is equal to
-        \[\llbracket \Gamma \vdash \psi
-        \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T}(\llbracket \Gamma \vdash \psi' \colon \sigma
-        \rrbracket^\eta_\mathcal{T}.\]
-        Because $F(\psi\psi') = F(\psi)F(\psi')$ the first set is equal to the semantics of
-        \[\llbracket T(\Gamma) \vdash F(\varphi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
+        \[\llbracket \psi
+        \colon \sigma^v \rightarrow \tau \rrbracket^\eta_\mathcal{T}(\llbracket \psi' \colon \sigma
+        \rrbracket^\eta_\mathcal{T}).\]
+        Because $F(\psi\,\psi') = F(\psi)F(\psi')$ the first set is equal to the semantics of
+        \[\llbracket F(\Phi) \colon T(\tau) \rrbracket^{V(\eta)}_{\mathcal{T}_d}.\]
     \end{compactitem}
     This shows the correctness of the construction. 
 \end{proof}
@@ -439,9 +400,9 @@ reducible to the semantics of HFL$^k$.
 
 \begin{lemma}
 \label{lemma:phfl_to_hfl_polynomial}
-Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
+Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\Phi$ a well-typed $d$-adic
     PHFL$^k$ formula of type $\tau$, $\mathcal{T}_d$ the LTS transformed by the process of
-    Defintion~\ref{definition:lts_transformation}, $T$ the type function of Defintion~\ref{definition:type_function},
+    Definition~\ref{definition:lts_transformation}, $T$ the type function of Definition~\ref{definition:type_function},
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
     and $F$ the formula function of Definition~\ref{definition:formula_function} then 
     \begin{compactitem}
@@ -449,12 +410,12 @@ Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS, $\eta$ a variable mappi
     \item $T(\tau)$ grows polynomial related to $\tau$,
     \item $T(\Gamma)$ grows polynomial related to $\Gamma$,
     \item $V(\eta)$ grows polynomial related to $\eta$ and
-    \item $F(\varphi)$ grows polynomial related to $\varphi$.
+    \item $F(\Phi)$ grows polynomial related to $\Phi$.
     \end{compactitem}
 \end{lemma}
 
 \begin{proof}
-	$F(\varphi)$ and $T(\tau)$ grow obviously linear related to $\varphi$ and $\tau$ 
+	$F(\Phi)$ and $T(\tau)$ grow obviously linear related to $\Phi$ and $\tau$ 
 	respectively. It follows that also $T(\Gamma)$ grows linear related to $\Gamma$. To show 
 	that $\mathcal{T}_d$ grows polynomial related to $\mathcal{T}$, we take a look at the particular 
 	components of the LTS. For the set of states it holds that $|Q^d| = |Q|^d$. That means $Q^d$ 
@@ -476,8 +437,7 @@ The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k}, Lemma~\r
 
 \begin{theorem}
     \label{theorem:phfl_k_in_k_exptime}
-    Given an LTS $\mathcal{T}$, a state $s$ and a PHFL$^k$ formula $\varphi$, the model checking problem i.e., deciding whether $\mathcal{T}, s
-    \models \varphi$ is in $k$-EXPTIME, where $k > 0$.
+	The model checking problem of PHFL$^k$ for $k > 0$ is solvable in $k$-EXPTIME, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPTIME whether $\mathcal{T}, s$ models $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in PHFL$^k$.    
 \end{theorem}
 
 To show that the upper bound of the expressive power of PHFL$^{k + 1}_{tail}$ is \expspace{$k$} we can reduce the semantics of
@@ -487,25 +447,22 @@ of the expressive power of PHFL$^k_{tail}$.
 
 \begin{theorem}{\cite{bruse2017space}}
     \label{theorem:hfl_k_plus_1_in_k_expspace}
-    Given an LTS $\mathcal{T}$, a state $s$ and an HFL$^{k + 1}_{tail}$ formula $\varphi$, the model checking problem i.e., deciding whether
-    $\mathcal{T}, s \models \varphi$ is in $k$-EXPSPACE, where $k > 0$.
+    Given an LTS $\mathcal{T}$, a state $s$ and an HFL$^{k + 1}_{tail}$ formula $\Phi$, the model checking problem i.e., deciding whether
+    $\mathcal{T}, s \models \Phi$ is in $k$-EXPSPACE, where $k > 0$.
 \end{theorem}
 
 \begin{lemma}
     \label{lemma:model_check_phfl_k_tail}
-    Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Gamma$ a type environment, $\varphi$ a well-typed $d$-adic
-    PHFL$^k_{tail}$ formula of type $\tau$, $\mathcal{T}_d$ the LTS transformed by process of
-    Defintion~\ref{definition:lts_transformation}, $T$ the type function of Defintion~\ref{definition:type_function},
+    Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Phi$ a well-typed $d$-adic
+    PHFL$^k_{tail}$ formula, $\mathcal{T}_d$ the LTS transformed by process of
+    Defintion~\ref{definition:lts_transformation},
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
-    and $F$ the formula function of Definition~\ref{definition:formula_function} then $\llbracket \Gamma \vdash
-    \varphi \colon \tau \rrbracket^\eta_\mathcal{T} = \llbracket T(\Gamma) \vdash F(\varphi) \colon T(\tau)
+    and $F$ the formula function of Definition~\ref{definition:formula_function} then $\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \llbracket F(\Phi)
     \rrbracket^{V(\eta)}_{\mathcal{T}_d}$.
 \end{lemma}
 
 \begin{proof}
-    This proof is similar to the proof of Lemma~\ref{lemma:model_check_phfl_k}. The tail-recursive fragments of the
-    PHFL$^k$ and HFL$^k$ formulas do not influence the construction of the proof of
-    Lemma~\ref{lemma:model_check_phfl_k}.
+    This proof is similar to the proof of Lemma~\ref{lemma:model_check_phfl_k}. Because the definition of $F$ obviously retains tail-recursiveness this lemma holds.
 \end{proof}
 
 The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k_tail} and
@@ -513,6 +470,5 @@ Theorem~\ref{theorem:hfl_k_plus_1_in_k_expspace}.
 
 \begin{theorem}
     \label{theorem:phfl_k_plus_1_tail_in_k_expspace}
-    Given an LTS $\mathcal{T}$, a state $s$ and a PHFL$^{k + 1}_{tail}$ formula $\varphi$, the model checking problem i.e., whether
-    $\mathcal{T}, s \models \varphi$ is in $k$-EXPSPACE, where $k > 0$.
+The model checking problem of PHFL$^{k + 1}_{tail}$ for $k > 0$ is solvable in $k$-EXPSPACE, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPSPACE whether $\mathcal{T}, s$ models $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in PHFL$^{k + 1}_{tail}$.        
 \end{theorem}

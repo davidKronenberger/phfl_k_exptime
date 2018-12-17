@@ -42,10 +42,10 @@ $\mathit{LFP}$ restricts the operator to be monotone, the partial fixpoint need 
     Let $F\colon A \rightarrow A$ be an operator on a finite set $A$, then the \emph{partial
     fixpoint} of $F$, abbreviated as $\mathit{PFP}$($F$), is defined as follows:
     \[\mathit{PFP}(F)\coloneqq\begin{cases}
-               F^{i+1}(\emptyset)=F^i(\emptyset),  & \text{if such } i \in \{0,\dots,|A|\} \text{ exists}\\
-               \emptyset, & \text{otherwise,}
+               F^{i+1}(\varnothing)=F^i(\varnothing),  & \text{if such } i \in \{0,\dots,|A|\} \text{ exists}\\
+               \varnothing, & \text{otherwise,}
     \end{cases}\]
-    where $F^0(\emptyset) = \emptyset$, $F^1(\emptyset) = F(\emptyset)$, $F^2(\emptyset) = F(F(\emptyset))$, and so on.
+    where $F^0(\varnothing) = \varnothing$, $F^1(\varnothing) = F(\varnothing)$, $F^2(\varnothing) = F(F(\varnothing))$, and so on.
 \end{definition}
 
 Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. 
@@ -57,5 +57,5 @@ Let $F: \mathcal{P}(\{1, \dots, n\}) \rightarrow  \mathcal{P}(\{1, \dots, n\})$ 
 \begin{align*}
 	F(X) = \{x \in \{1, \dots, n\}\mid &\; x\in X \text{ and it exists } y \in \{1, \dots, n\} \text{ such that }\\ &\;y < x \text{ and } y\not\in X \text{ or } \\&\;x\not\in X \text{ and for all } y\in \{1,\dots, n\} \text{ holds if } \\&\;y<x \text{ then } y\in X\}. 
 \end{align*}
-If we see $X \in \mathcal{P}(\{1,\dots, n\})$ as a binary string $b$, where a $1$ at the $i$-th position means that $i$ is in $X$, then $F(X)$ returns the set $Y$ such that the binary string $b'$ of $Y$ is $b' = b+1\mod n$. Then $PFP(F)$ returns $\emptyset$ because for every $i$ it holds $F^i(\emptyset) \neq F^{i+1}(\emptyset)$.
+If we see $X \in \mathcal{P}(\{1,\dots, n\})$ as a binary string $b$, where a $1$ at the $i$-th position means that $i$ is in $X$, then $F(X)$ returns the set $Y$ such that the binary string $b'$ of $Y$ is $b' = b+1\mod n$. Then $PFP(F)$ returns $\varnothing$ because for every $i$ it holds $F^i(\varnothing) \neq F^{i+1}(\varnothing)$.
 \end{example}

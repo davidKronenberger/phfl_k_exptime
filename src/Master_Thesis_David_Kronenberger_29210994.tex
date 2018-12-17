@@ -49,17 +49,21 @@
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{observation}[theorem]{Observation}
 \newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
 
 \newcolumntype{C}[1]{>{\parbox[c][#1][c]{0cm}{}}c<{}}
 
 %some own commands
 \newcommand{\expspace}[1]{#1-EXPSPACE/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$}
 \newcommand{\exptime}[1]{#1-EXPTIME/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$}
+\newcommand{\nexptime}[1]{#1-NEXPTIME/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$}
+\newcommand{\nexpspace}[1]{#1-NEXPSPACE/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$}
 
 %set of own commands
 %\newcommand{\hcat}{\rotatebox{90}{$\ominus$}}

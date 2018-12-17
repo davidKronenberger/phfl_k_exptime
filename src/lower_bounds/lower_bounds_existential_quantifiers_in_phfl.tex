@@ -6,11 +6,11 @@
 
 \section{Existential Quantifiers in PHFL}\label{sec:existential_quantifiers_in_phfl}
 
-In this section we define PHFL$^{k}$ formulas that describes existential quantification over HO domains of types of
+In this section we define PHFL$^{k}$ formulas that describe existential quantification over HO domains of types of
 order $k \geq 1$. But before we can define these formulas we have to translate the types.
 
 
-Note that the most types in HO$^{k + 1}$ do not exist in PHFL$^k$. Whereas HO$^{k +
+Note that most types in HO$^{k + 1}$ do not exist in PHFL$^k$. For example, while HO$^{k +
 1}$ includes sets of sets, PHFL$^k$ does not support this kind of type.
 But each set $X$ in HO$^{k+1}$ can be described by the characteristic function of $X$ in PHFL$^k$.
 
@@ -34,28 +34,28 @@ for all HO types $\tau$ with order $2$ or greater.
 
 \begin{example}
     Let $\tau = (\tau', \tau')$ be a type of HO with
-    \[\tau' = (((\odot)), ((\odot)))\]
+    \[\tau' = ((\odot), (\odot))\]
     then by Definition~\ref{definition:lower_bound_type_function} of type function $T$
     \[T(\tau) = T(\tau') \rightarrow (T(\tau') \rightarrow \bullet)\]
     where
-    \[T(\tau') = (\bullet \rightarrow \bullet) \rightarrow ((\bullet \rightarrow \bullet) \rightarrow \bullet).\]
+    \[T(\tau') = \bullet \rightarrow (\bullet \rightarrow \bullet).\]
 \end{example}
 
 With this type function $T$ a HO$^{k + 1}$ variable $X$ of type $\tau$ can be translated to a PHFL$^k$ variable
-of type $T(\tau)$. Intuitively, the variable $X$ which is a set of $D_\tau(\mathcal{U})$ in HO$^{k+1}$ is represented
-in PHFL$^k$ as the characteristic function of $X$ over $D_\tau(\mathcal{U})$. Note that the domain of HO types
+of type $T(\tau)$. Intuitively, the variable $X$ which is a set of $D_\tau(Q)$ in HO$^{k+1}$ is represented
+in PHFL$^k$ as the characteristic function of $X$ over $D_\tau(Q)$. This function maps $x$ to $Q^d$ if $x \in X$ and $x$ to $\varnothing$ if $x\not\in X$, where $d > 0$ is a natural number. Note that the domain of HO types
 of order $2$ is similar to the domain of base type of PHFL.
 
 As mentioned above the base type of HO has to be encoded differently. The reason for that is that the base type in PHFL is a
-set of tuples of states and a single state can not be depict directly by a variable. This thesis uses the
-idea of~\cite{lange2014capturing} to use the polyadic logic of PHFL to represent the different first-order variables of an HO formula
+set of tuples of states and a single state can not be depicted directly by a variable. This thesis uses the
+idea of~\cite{lange2014capturing} to use the polyadicity of PHFL to represent the different first-order variables of an HO formula
 $\Psi$. Each first-order variable of $\Psi$ represents one component in the dimension of the 
 corresponding PHFL$^k$ formula $\Phi$, that
 means each variable increases the dimension of $\Phi$. The assignment of a first-order 
-variable $x_i$ in $\Psi$ is then the current state of the $i$-th component in $\Phi$.
+variable $X_i$ in $\Psi$ is then the current state of the $i$-th component in $\Phi$.
 
 Let $\Phi$ be an HO formula. From now on, we assume that for every HO formula $\Phi$, the first-order variables occurring in $\Phi$ are 
-$x_1, \dots, x_q$ for some $q$ depending on $\Phi$.
+$X_1, \dots, X_q$ for some $q$ depending on $\Phi$.
 
 \subsection{First-Order and Second-Order Quantification}\label{subsec:existentialQuantifiers}
 
@@ -68,7 +68,7 @@ reached a state tuple where the bound formula holds.
 To access the states $q_1, \dots, q_r$ in the PHFL formulas that we get by encoding HO 
 formulas we use the polyadicity and store $q_1, \dots, q_r$ in components of a dimension that 
 will be never influenced by the PHFL formulas. The following remark explains that the PHFL 
-formulas has a dimension that is large enough to fulfil all the requirements. 
+formulas has a dimension that is large enough to satisfy all the requirements. 
 
 \begin{remark}
 \label{remark:dimension}
@@ -82,19 +82,19 @@ formulas has a dimension that is large enough to fulfil all the requirements.
     we extend $d$ additionally with $r$ components. That means the dimension of $\Phi$ is $d = 2s + q + r$.
 \end{remark}
 
-If we consider $\exists (x_i \colon \odot).\,\Phi$ then it can be understood as the check whether we reach a state tuple where $
+If we consider $\exists (X_i \colon \odot).\,\Phi$ then it can be understood as the check whether we reach a state tuple where $
 \Phi$ holds once the $i$-th component is replaced by one of the last $r$ components. This is where $q_1, \dots, q_r$ are stored.
 
 \begin{definition}
 \label{definition:existential_quantification_first}
-    Let $d$ and $r$ be the constants as described in Remark~\ref{remark:dimension} where $r < d$, and $1 \leq i \leq d$ then $\exists_i \Phi$ is a PHFL$^k$ formula with dimension $d$ defined as
+    Let $d$ and $r$ be the constants as described in Remark~\ref{remark:dimension} where $r < d$, and $1 \leq i \leq d$ then $\exists_i \Phi$ is a PHFL$^k$ formula of dimension $d$ defined as
     \[\exists_i \Phi \coloneqq \bigvee^{d}_{j=d-r+1} \{(1, \dots, i-1, j, i + 1, \dots, d)\} \mu (X
     \colon \bullet).\,\Phi \vee \bigvee_{a \in \Sigma} \langle a \rangle_{i} X.\]
-    The formula $\forall_i \Phi$ is also a PHFL$^k$ formula with dimension $d$ and is defined as
+    The formula $\forall_i \Phi$ is also a PHFL$^k$ formula of dimension $d$ and is defined as
     \[\forall_i \Phi \coloneqq \neg \exists_i \neg \Phi.\]
 \end{definition}
 
-Note, that we the constant $i$ of Definition~\ref{definition:existential_quantification_first} can be between $1$ and $d$. Because we use $\exists_i$ later in this thesis only for such $i$ that are in the range of $1$ and $d - r$ the formula works as expected.
+Note, that the constant $i$ of Definition~\ref{definition:existential_quantification_first} can be between $1$ and $d$. Because we use $\exists_i$ later in this thesis only for such $i$ that are in the range of $1$ and $d - r$ the formula works as expected.
 
 \begin{observation}
 \label{observation:existential_quantification_first}
@@ -107,33 +107,34 @@ Note, that we the constant $i$ of Definition~\ref{definition:existential_quantif
         we use this part of the formula $\bigvee_{d}^{j=d-r+1} \{(1, \dots, i-1, j, i + 1, \dots, d)\}$.
 \end{observation}
 
-Now we consider the second-order quantification. Let $\tau = (\odot, \dots, \odot)$ be a HO type, $\sigma$ a signature and
-$\mathcal{U}$ the universe of a $\sigma$ structure. Because the transformation for first-order quantification cannot be adapted to the second-order quantification, we use a different encoding. To obtain second-order
-quantification in PHFL we have to iterate over all possible elements in a domain $D_\tau(\mathcal{U})$ and
-check if the given formula is fulfilled. The first thing that we need to iterate over any element of a domain
-$D_\tau(\mathcal{U})$ is an order on $D_\tau(\mathcal{U})$. If we have the order of $D_\tau(\mathcal{U})$ we can use
-this order to define a formula that returns the successor of a given element of $D_\tau(\mathcal{U})$ in the scope
+Now we consider second-order quantification. Let $\tau = (\odot, \dots, \odot)$ be a HO type and
+$Q$ the set of states of an LTS $\mathcal{T}$. Because the transformation for first-order quantification cannot be adapted to the second-order quantification, we use a different encoding. To obtain second-order
+quantification in PHFL we have to iterate over all possible elements of a given domain $D_\tau(Q)$ and
+check if the given formula is satisfied. The first thing that we need to iterate over any element of a domain
+$D_\tau(Q)$ is an order on $D_\tau(Q)$. If we have the order of $D_\tau(Q)$ we can use
+this order to define a formula that returns the successor of a given element of $D_\tau(Q)$ in the scope
 of this order. Finally, this formula can be used to iterate over all elements and check if a given formula is
-fulfilled.
+satisfied.
 At first, we need the order of domains of type $(\odot, \dots, \odot)$.
 
-To get the order of type $\tau = (\odot, \dots, \odot)$ we define two formulas. The first one describes which is the smaller one of two given sets of type $\tau$. The other one describes the smaller of two tuples of sets of type $\tau$. We say that a tuple $x$ is smaller in respect to $
-\tau$ than a tuple $y$ if there is an index $i$ such that the element in $x$ on $i$ is smaller in 
-respect to $\odot$ than the element in $y$ on $i$. And that there is no position $j$ on the left-hand side of $i$ such 
-that the element in $x$ on $j$ is larger in respect to $\odot$ than the element in $y$ on $j$. 
-We say that a set $X$ is smaller in respect to $\tau$ than a set $Y$ if there is an element 
-$s_1$ in $X$ that is not in $Y$. And all elements $s_2$ that are smaller than $s_1$ in respect to $\odot$ 
+To get the order of type $\tau = (\odot, \dots, \odot)$ we define two formulas. The first one describes which is the smaller one of two given sets of type $\tau$. The other one describes the smaller of two tuples of sets of type $\tau$. We say that a tuple $x$ is smaller than $y$ with respect to $
+\tau$ if there is an index $i$ such that the element in $x$ on $i$ is smaller than the element in $y$ on $i$ in 
+respect to $\odot$, and such that there is no position $j$ on the left-hand side of $i$ such 
+that the element in $x$ on $j$ is larger than the element in $y$ on $j$ with respect to $\odot$. 
+We say that a set $X$ is smaller than a set $Y$ with respect to $\tau$ if there is an element 
+$s_1$ in $X$ that is not in $Y$, and such that all elements $s_2$ that are smaller than $s_1$ with respect to $\odot$ 
 are only in $X$ if $s_2$ is also in $Y$. This is formalized in PHFL in the following definition.
-
 \begin{definition}
     \label{definition:lower_bound_less_second}
     Let $d$ and $s$ be the constants as described in Remark~\ref{remark:dimension} where $2*s < d$, then $<^\odot$, $<^{\odot \times \dots
-    \times \odot}$ and $<^{(\odot, \dots, \odot)}(X, Y)$ are PHFL$^k$ formulas with dimension $d$ defined as:
+    \times \odot}$ and $<^{(\odot, \dots, \odot)}(X, Y)$ are PHFL$^k$ formulas of dimension $d$ defined as:
     \begin{align*}
         <^\odot \coloneqq &\,\Phi_< \\
         <^{\odot \times \dots \times \odot} \coloneqq
             &\,\underset{i = 1}{\overset{s}{\bigvee}}\{(i, i + s, 3, \dots, d)\} <^\odot \wedge \\
-            &\,\underset{j = 1}{\overset{i - 1}{\bigwedge}}\{(j + s, j, 3, \dots, d)\} \neg <^\odot \\
+            &\,\underset{j = 1}{\overset{i - 1}{\bigwedge}}\{(j + s, j, 3, \dots, d)\} \neg <^\odot 
+    \end{align*}
+    \begin{align*}
         <^{(\odot, \dots, \odot)}(X, Y) \coloneqq
             &\,\exists_{i_1}.\, \dots \exists_{i_n}. \{(i_1, \dots, i_n, n + 1,\dots, d)\}Y \wedge \\
             &\,\neg \{(i_1, \dots, i_n, n + 1, \dots, d)\} X\,\wedge \\
@@ -146,32 +147,32 @@ are only in $X$ if $s_2$ is also in $Y$. This is formalized in PHFL in the follo
 We can see that  $<^{\odot \times \dots \times \odot}$ defines the lexicographic order of HO type $\odot \times \dots \times \odot$ and $<^{(\odot, \dots, \odot)}(X, Y)$ the orders of HO types $(\odot, \dots, \odot)$.
 
 After we have now orders of the HO types $(\odot, \dots, \odot)$ we can define formulas that return the successor of
-an input element in respect to the order of $(\odot, \dots, \odot)$. The idea of the following formula is based on
-binary incrementation. Let $\tau = (\odot, \dots, \odot)$ an HO type and $\mathcal{U}$ the universe of a
-$\sigma$-structure. Remember that a set $X \in D_\tau(\mathcal{U})$ can be represented by its characteristic
+an input element with respect to the order of $(\odot, \dots, \odot)$. The idea of the following formula is based on
+binary incrementation. Let $\tau = (\odot, \dots, \odot)$ be an HO type and $Q$ the set of states of an LTS
+$\mathcal{T}$. Remember that a set $X \in D_\tau(Q)$ can be represented by its characteristic
 function. This can be transformed to a binary string where each position of this string represents an element of
-$D_{\odot}(\mathcal{U})^n$. Because each position in the binary string represents an element of $D_{\odot}
-(\mathcal{U})^n$ and a position always has to represent the same element in $D_{\odot}(\mathcal{U})^n$, the elements
-in $D_{\odot}(\mathcal{U})^n$ have to be ordered. The order of the elements of $D_{\odot}(\mathcal{U})^n$ is given by
+$D_{\odot}(Q)^n$. Because each position in the binary string represents an element of $D_{\odot}
+(Q)^n$ and a position always has to represent the same element in $D_{\odot}(Q)^n$, the elements
+in $D_{\odot}(Q)^n$ have to be ordered. The order of the elements of $D_{\odot}(Q)^n$ is given by
 the formula $<^{\odot \times \dots \times \odot}$ of Definition~\ref{definition:lower_bound_less_second}. If the position
-$i$ in the binary string is $1$, the element with index $i$ in $D_{\odot}(\mathcal{U})^n$ is
+$i$ in the binary string is $1$, the element with index $i$ in $D_{\odot}(Q)^n$ is
 also in $X$. And if the position $i$ in the binary string is $0$, the element with index $i$ in $D_{\odot}
-(\mathcal{U})^n$ is not in $X$. This binary representation of $X$ in regard to $D_{\odot}
-(\mathcal{U})^n$ can also be described by a function $f \colon D_\tau(\mathcal{U}) \rightarrow 
-{0, \dots, |D_\tau(\mathcal{U})| - 1}$ such that
-each element $X$ of $D_\tau(\mathcal{U})$ will be mapped to its binary string in regard to 
-$D_{\odot}(\mathcal{U})^n$. Similar to operator $F$ of Example~\ref{example:pfp} or operator 
+(Q)^n$ is not in $X$. This binary representation of $X$ in regard to $D_{\odot}
+(Q)^n$ can also be described by a function $f \colon D_\tau(Q) \rightarrow 
+{0, \dots, |D_\tau(Q)| - 1}$ such that
+each element $X$ of $D_\tau(Q)$ will be mapped to its binary string in regard to 
+$D_{\odot}(Q)^n$. Similar to operator $F$ of Example~\ref{example:pfp} or operator 
 $F_\Phi^\mathcal{A}$ of Example~\ref{example:ho_pfp} the following formula identifies $Y \in 
-D_\tau(\mathcal{U})$ as the successor of $X \in D_\tau(\mathcal{U})$ if $f(Y) = f(X) + 1 
-\mod |D_\tau(\mathcal{U})|$. In detail that means that the $i$-th bit is $1$ in $f(Y)$ if 
-the $i$-th bit is either $1$ in $X$ and there is a bit on the left-hand side of $i$ that is $0$ in 
-$X$. Or the $i$-th bit is $1$ in $f(Y)$ if it is $0$ in $X$ and all left-hand side bits are $1$ in $X
+D_\tau(Q)$ as the successor of $X \in D_\tau(Q)$ if $f(Y) = f(X) + 1 
+\mod |D_\tau(Q)|$. In detail that means that the $i$-th bit is $1$ in $f(Y)$ if 
+the $i$-th bit is either $1$ in $X$ and there is a bit on the left of $i$ that is $0$ in 
+$X$ or the $i$-th bit is $1$ in $f(Y)$ if it is $0$ in $X$ and all bits to the left of $i$ are $1$ in $X
 $. 
 
 \begin{definition}
     \label{definition:lower_bounds_next_second}
     Let $d$ and $s$ be the constants as described in Remark~\ref{remark:dimension} where $2*s < d$, then $next^{(\odot, \dots, \odot)}$
-    is a PHFL$^k$ formula with dimension $d$ defined as:
+    is a PHFL$^k$ formula of dimension $d$ defined as:
     \begin{align*}
         next^{(\odot, \dots, \odot)} \coloneqq &\,\lambda (X \colon \bullet).\, (\neg X \wedge \forall_{s +
         1}\dots\forall_{s + s}<^{\odot \times \dots \times \odot}\, \Rightarrow \\&\,\{(s +
@@ -183,12 +184,12 @@ $.
 
 \begin{remark}
 \label{remark:lower_bounds_next_second}
-	The PHFL formula $\bot$ represents the empty set. If we put $\bot$ into $next^{(\odot, \dots, \odot)}$ we can check whether all elements of $D_{(\odot, \dots, \odot)}$ fulfil one 
-	of the disjunct terms. We will see that only the smallest element with respect to $<^{\odot\times\dots\times\odot}$ fulfils the first term. The reason is that the smallest element is not in the empty set and there are no smaller elements than the smallest.
-	So the first term is true and it is the only element that fulfils one of the terms. So the formula ${next^{(\odot, \dots, \odot)}}^1 \bot$ returns the set that includes only the smallest 
+	Interated application of $next^{(\odot, \dots, \odot)}$ to $\bot$ cycles through all elements in the domain of $(\odot, \dots, \odot)$. The PHFL formula $\bot$ represents the empty set. If we put $\bot$ into $next^{(\odot, \dots, \odot)}$ we can check whether all elements of $D_{(\odot, \dots, \odot)}$ satisfy one 
+	of the subformulas of the disjunction. We will see that only the smallest element with respect to $<^{\odot\times\dots\times\odot}$ satisfies the first subformula. The reason is that the smallest element is not in the empty set and there are no smaller elements than the smallest.
+	So the first subformula is true and it is the only element that satisfies the disjunction. So the formula ${next^{(\odot, \dots, \odot)}}^1 \bot$ returns the set that includes only the smallest 
 	element with respect to $\odot \times \dots \times \odot$. If we take a look at the formula ${next^{(\odot, \dots, \odot)}}^2 \bot$, we put the set that only contains the smallest element into 
 	$next^{(\odot, \dots, \odot)}$. If we dive deeper into this formula we will see that the formula returns a set that includes only the second smallest element. The smallest element does not 
-	fulfil any of the two terms, but the second smallest fulfils the second term. As described in the introduction of Definition~\ref{definition:lower_bounds_next_second}, formula $next^{(\odot, 
+	satisfy the disjunction, but the second smallest satisfies the second subformula. As described in the introduction of Definition~\ref{definition:lower_bounds_next_second}, formula $next^{(\odot, 
 	\dots, \odot)}$ is some kind of binary incrementation. In this manner each possible set of type $(\odot, \dots, \odot)$ will be reached. Note that if we put the full set into $next^{(\odot, 
 	\dots, \odot)}$ it returns the empty set.
 \end{remark}
@@ -198,11 +199,11 @@ With this definition we are now able to define the second-order quantification i
 \begin{definition}
     \label{definition:existential_quantification_second}
     Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $\Phi$ be a PHFL$^k$ formula with order $0$ variable $X$, then $\exists^{(\odot, \dots, \odot)}X .\,\Phi(X)$
-    is a PHFL$^k$ formula with dimension $d$ defined as:
+    is a PHFL$^k$ formula of dimension $d$ defined as:
     \[\exists^{(\odot, \dots, \odot)}X.\, \Phi(X) \coloneqq (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
     \colon \bullet).\, \Phi(X) \vee F(next^{(\odot, \dots, \odot)} X)) \bot
     \]
-    The formula $\forall^{(\odot, \dots, \odot)}X.\,\Phi$ is also a PHL$^k$ formula with dimension $d$ and is defined as
+    The formula $\forall^{(\odot, \dots, \odot)}X.\,\Phi$ is also a PHL$^k$ formula of dimension $d$ and is defined as
     \[\forall^{(\odot, \dots, \odot)}X.\,\Phi(X) \coloneqq \neg \exists^{(\odot, \dots, \odot)}X .\,\neg\Phi(X).\]
 \end{definition}
 
@@ -220,7 +221,7 @@ second-order existential quantification in PHFL.
     By fixpoint unfolding and $\beta$-reduction the formula 
     \[\exists^{(\odot, \dots, \odot)}X.\, \Phi(X) = (\mu (F \colon \bullet \rightarrow \bullet).\, \lambda (X
     \colon \bullet).\, \Phi(X) \vee F(next^{(\odot, \dots, \odot)} X)) \bot\] is equivalent to 
-    \[\Phi(\bot) \vee \Phi(next^{(\odot, \dots, \odot)}\bot) \vee \Phi(next^{(\odot, \dots, \odot)} next^{(\odot, \dots, \odot)} \bot) \vee \dotsb. \]
+    \[\Phi(\bot) \vee \Phi(next^{(\odot, \dots, \odot)}\bot) \vee \Phi(next^{(\odot, \dots, \odot)} (next^{(\odot, \dots, \odot)} \bot)) \vee \dotsb. \]
     This can be simplified by
     \[\underset{i\geq0}{\bigvee} \Phi({next^{(\odot, \dots, \odot)}}^i \bot)\]
 	Because these sets, reached as explained in Remark~\ref{remark:lower_bounds_next_second}, are checked one after another in the scope of $\Phi$ and this iteration is finite 
@@ -229,11 +230,11 @@ second-order existential quantification in PHFL.
 
 \subsection{Higher-Order Quantification}\label{subsec:higher-orderQuantification}
 
-In this subsection we use the second-order existential quantification to define the higher-order
+In this subsection we use the encoding of second-order quantification  we just defined to lift this encoding to higher-order
 quantification. The idea to obtain higher-order quantification in PHFL is similar to the second-order quantification.
 We use the existential quantifier of type $\tau = (\odot, \dots, \odot)$ to define the order of domains of kind
-$D_{(\tau, \dots, \tau)}(\mathcal{U})$. This order can then be used to define a formula that returns the successor
-of a given element of $D_{(\tau, \dots, \tau)}(\mathcal{U})$ in respect to this order. Finally, we use this
+$D_{(\tau, \dots, \tau)}(Q)$. This order can then be used to define a formula that returns the successor
+of a given element of $D_{(\tau, \dots, \tau)}(Q)$ with respect to this order. Finally, we use this
 formula to define the existential quantifier of type $(\tau, \dots, \tau)$. This procedure will be applied to all
 possible types of HO. In this way we get higher-order quantification of any type in PHFL.
 
@@ -246,7 +247,7 @@ tuples in the same sets of type $\tau$.
     \label{definition:lower_bound_less_higher}
     Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $\tau \neq \odot$ a HO
     type, then $<^{(\tau, \dots, \tau)}(X, Y)$ and $<^{\tau \times \dots \times \tau}(X, Y)$ are PHFL$^k$ formulas
-    with dimension $d$ defined as:
+    of dimension $d$ defined as:
     \begin{align*}
         <^{\tau \times \dots \times \tau}(X_1, Y_1, \dots, X_n, Y_n) \coloneqq &\,\underset{i =
         1}{\overset{n}{\bigvee}}<^{\tau}(X_i, Y_i) \wedge \underset{j = 1}{\overset{i - 1}{\bigwedge}}
@@ -272,14 +273,14 @@ The following definition defines an abbreviation for the smallest function of an
 \end{definition}
 
 With this definition of order of any HO type, always depending on the lower type existential quantifier, we can define
-formulas that return the successor of an input element in respect to the order of the HO type. The idea of the
+formulas that return the successor of an input element with respect to the order of the HO type. The idea of the
 following formula is similar to the successor formula of Definition~\ref{definition:lower_bounds_next_second} and is
-based on binary incrementation. Note that here the binary string represents functions. That means that one configuration of a function, represents one bit in the binary string. The smallest function, see Definition~\ref{definition:smallest}, is this where any element is mapped to $\emptyset$ and the tallest function where any element is mapped to $Q^d$, where $Q$ is a state set of an LTS and $d$ a dimension of PHFL. 
+based on binary incrementation. Note that here the binary string represents functions. That means that one configuration of a function, represents one bit in the binary string. The smallest function, see Definition~\ref{definition:smallest}, is this where any element is mapped to $\emptyset$ and the greatest function where any element is mapped to $Q^d$, where $Q$ is a state set of an LTS and $d$ a dimension of PHFL. 
 
 \begin{definition}
     \label{definition:lower_bounds_next_higher}
     Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $\tau \neq \odot$ a
-    HO type, then $next^{(\tau, \dots, \tau)}$ is a PHFL$^k$ formula with dimension $d$ defined as:
+    HO type, then $next^{(\tau, \dots, \tau)}$ is a PHFL$^k$ formula of dimension $d$ defined as:
 
     \begin{align*}
         next^{(\tau, \dots, \tau)} \coloneqq &\,\lambda (X \colon T ((\tau, \dots, \tau))).\,\lambda (X_1 \colon T(\tau)).\, \dotsb \lambda (X_n \colon T(\tau)).\, \\&\,
@@ -293,17 +294,17 @@ based on binary incrementation. Note that here the binary string represents func
 
 \begin{remark}
 \label{remark:lower_bounds_next_higher}
-    If we put $\bot_{T(\tau)}$ into $next^{\tau}$, where $\tau = (\tau', \dots, \tau')$ is a HO type of order $k+1$ and $\tau'\neq \odot$, we can check whether all elements of $D_{\tau}$  fulfil one of 
-    the disjunct terms. Note that the formulas for the quantifiers used in $next^\tau$ and $<^{\tau'\times\dots\times\tau'}$ respectively are all for types of order $k$. By induction hypothesis those formulas define quantification of types of order $k$. Using these quantifiers we will see that only the smallest element with respect to $\tau'\times\dots\times\tau'$ fulfils the first term. 
+Interated application of $next^{(\tau, \dots, \tau)}$ to $\bot_{T(\tau)}$ cycles through all elements in the domain of $(\tau, \dots, \tau)$. Note that this works similar to the interated application of $next^{(\odot, \dots, \odot)}$ to $\bot$ in Remark~\ref{remark:lower_bounds_next_second}.
+    If we put $\bot_{T(\tau)}$ into $next^{\tau}$, where $\tau = (\tau', \dots, \tau')$ is a HO type of order $k+1$ and $\tau'\neq \odot$, we can check whether all elements of $D_{\tau}$  satisfy one of the subformulas of the disjunction. Note that the formulas for the quantifiers used in $next^\tau$ and $<^{\tau'\times\dots\times\tau'}$ respectively are all for types of order $k$. By induction hypothesis those formulas define quantification of types of order $k$. Using these quantifiers we will see that only the smallest element with respect to $\tau'\times\dots\times\tau'$ satisfies the first subformula. 
 The reason is that the 
     smallest element is mapped in the input function to the empty set and there are no smaller elements to the smallest. 
-    That means the first term is true and it is the only element that fulfils one of the terms. So the 
+    That means the first subformula is true and it is the only element that satisfies the disjunction. So the 
     formula ${next^{\tau}}^1 \bot_{T((\tau, \dots, \tau))}$ returns the function that maps the smallest element with respect to $\tau'\times\dots\times\tau'$ to $Q^d$ and all other elements to $\emptyset$ where $d$ is a dimension of PHFL formula $
     \llbracket \exists^\tau X.\,\Phi(X)\rrbracket^\eta_\mathcal{T}$. If we take a look at the formula $
     {next^{\tau}}^2 \bot_{T((\tau, \dots, \tau))}$, the function that maps only the smallest element to $Q^d$ is set as input of
     $next^{\tau}$. If we dive deeper into this formula we will see that now the formula 
     returns a function that maps only the second smallest element to $Q^d$. The smallest element does not 
-    fulfil any of the two terms, but the second smallest fulfils the second term. As described in the 
+    satisfy the disjunction, but the second smallest satisfies the second subformula. As described in the 
     introduction of Definition~\ref{definition:lower_bounds_next_second} formula $next^{(\odot, 
     \dots, \odot)}$ is some kind of binary incrementation. The same holds for the formula $next^\tau$ of Definition~\ref{definition:lower_bounds_next_higher}. In this manner each possible function of 
     type $\tau$ will be reached. Note that if we put the function that maps any input to the full set into $next^{(\odot, 
@@ -316,14 +317,14 @@ With the previous definition we are now able to define the higher-order quantifi
     \label{definition:existential_quantification_higher}
     Let $d$ be the constant as described in Remark~\ref{remark:dimension} and let $\tau = (\tau', \dots, \tau')$ be a HO type of order $l$ where $\tau' \neq \odot$. Furthermore, let
     $\Phi$ be a PHFL$^k$ formula with free variable $X$ of order $l - 2$, then $\exists^{\tau}X .\,\Phi(X)$
-    is a PHFL$^k$ formula with dimension $d$ defined as
+    is a PHFL$^k$ formula of dimension $d$ defined as
     \begin{align*}
         \exists^{\tau}X.\, \Phi(X) \coloneqq &\,\big(\mu (F \colon T(\tau) \rightarrow \bullet).\, \lambda (X \colon T(\tau)
         ).\,
         \Phi(X)
         \vee F(next^\tau X)\big)\bot_{T(\tau)}.
     \end{align*}
-    The formula $\forall^{\tau}X.\,\Phi$ is also a PHFL$^k$ formula with dimension $d$ and is defined as
+    The formula $\forall^{\tau}X.\,\Phi$ is also a PHFL$^k$ formula of dimension $d$ and is defined as
     \[\forall^{\tau}X.\,\Phi(X) \coloneqq \neg \exists^{\tau}X .\,\neg\Phi(X).\]
 \end{definition}
 

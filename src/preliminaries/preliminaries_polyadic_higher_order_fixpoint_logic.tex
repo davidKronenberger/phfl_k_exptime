@@ -13,7 +13,7 @@ $\mu$-calculus~\cite{kozen1983results} with higher-order fixpoints~\cite{viswana
 .Viswanathan with name higher order fixed point logic is a combination of propositional logic, modal operators and
 a simply typed $\lambda$-calculus with fixed point operators. 
 
-\subsection{PHFL Types}\label{subsec:phflTypes}
+\subsection{Types of PHFL}\label{subsec:phflTypes}
 
 Before defining formulas of PHFL we need to introduce the PHFL types. These definitions are guided
 by~\cite{viswanathan2004higher} and~\cite{lange2014capturing}.
@@ -76,37 +76,12 @@ exist~\cite{tarski1955lattice}. See Section~\ref{sec:fixpoints} for further info
 \end{cases}\]
 \end{definition}
 
-\subsection{PHFL Syntax}\label{subsec:phflSyntax}
+\subsection{Syntax of PHFL}\label{subsec:phflSyntax}
 
 Next, we want to define the syntax of PHFL formulas.
 
-\begin{figure}
-    \caption{Derivation Rules for PHFL formulas.}
-    \label{figure:phfl-typing-rules}
-    \begin{mathpar}
-        \Gamma \vdash \top \colon \bullet \and
-        \Gamma \vdash p_i \colon \bullet \and
-        \inferrule{\Gamma \vdash \Phi \colon \bullet}{\Gamma \vdash \langle a \rangle_i \Phi \colon \bullet} \and
-        \inferrule{\Gamma \vdash \Phi \colon \bullet}{\Gamma \vdash \{\emph{i} \leftarrow \emph{j}\}\Phi \colon
-        \bullet} \and
-        \inferrule{\Gamma^-\vdash\Phi\colon \bullet}{\Gamma \vdash \neg \Phi \colon \bullet} \and
-        \inferrule{\Gamma\vdash\Phi \colon \tau \\ \Gamma\vdash\Psi\colon \tau}{\Gamma \vdash \Phi \vee
-        \Psi \colon  \tau} \and
-        \inferrule{v \in \{+, 0\} }{\Gamma, X^v \colon\tau \vdash X\colon\tau} \and
-        \inferrule{\Gamma,X^v\colon\sigma\vdash \Phi\colon\tau}{\Gamma\vdash \lambda (X^v \colon \tau)
-        .\Phi\colon\sigma^v\rightarrow\tau} \and
-        \inferrule{\Gamma,X^+ \colon \tau \vdash \Phi\colon\tau}{\Gamma \vdash \mu (X \colon\tau). \Phi\colon\tau} \and
-        \inferrule{\Gamma\vdash \Phi\colon\sigma^+ \rightarrow \tau \\ \Gamma\vdash\Psi\colon\sigma}{\Gamma \vdash
-        \Phi\,\Psi \colon \tau} \and
-        \inferrule{\Gamma\vdash \Phi\colon\sigma^- \rightarrow \tau \\ \Gamma^-\vdash\Psi\colon\sigma}{\Gamma \vdash
-        \Phi\,\Psi \colon \tau} \and
-        \inferrule{\Gamma\vdash \Phi\colon\sigma^0 \rightarrow \tau \\ \Gamma \vdash \Psi\colon\sigma \\ \Gamma^-
-        \vdash\Psi\colon\sigma}{\Gamma \vdash \Phi\,\Psi \colon \tau} \and
-    \end{mathpar}
-\end{figure}
-
 \begin{definition}
-    Let $P$ be a set of propositions, $\Sigma$ a set of actions, $\mathcal{V} = \{X_1, X_2, \dots\}$ be a countable
+    Let $P$ be a set of propositions, $\Sigma$ a set of actions, $\mathcal{V} = \{X_1, X_2, \dots\}$ be a countably
     infinite
     set of variables and $d \in \mathbb{N}$ with $d >0$, then
     \emph{$d$-adic PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
@@ -126,14 +101,14 @@ Next, we want to define the syntax of PHFL formulas.
     \end{compactitem}
 \end{definition}
 
-For convenience, we use some other further standard notations like $\Phi \wedge \Psi$, $[a]_i\Phi$, $\nu
-X \colon \tau.\Phi$ or $\Phi \Leftrightarrow \Psi$. Note, that this logic is defined over LTS. The formulas can be interpreted as a game played by two players moving pebbles along the transitions of an LTS. The two players
-are called Prover and Refuter. That means $p_i$ reflects, whether the position of the $i$-th pebble fulfills
-property $p$. $\langle a \rangle_i \Phi$ means, the Prover has to move the $i$-th pebble along an $a$-transition and
+For convenience, we use some other further standard connectives and operators like $\Phi \wedge \Psi$, $[a]_i\Phi$, $\nu
+X \colon \tau.\Phi$ or $\Phi \Leftrightarrow \Psi$. The formulas can be thought as a game played by two players moving $d$ many pebbles along the transitions of an LTS. The two players
+are called Prover and Refuter. That means $p_i$ reflects, whether the position of the $i$-th pebble satisfies
+property $p$. $\langle a \rangle_i \Phi$ means the Prover has to move the $i$-th pebble along an $a$-transition and
 check whether $\Phi$ holds there. The formula $\{\emph{j}\,\} \Phi$ describes, that all pebbles
-are moved from the Prover to the positions described by tuple $\emph{j}$ and after that $\Phi$ has to
-be fulfilled. The player who needs to move the pebbles changes on negations. $\lambda (X^v\colon\tau).\Phi$ is
-interpreted as a function that expects arguments of $(\llbracket\tau\rrbracket_\mathcal{T})^v$. We see, that the
+are moved from their current position to the position indicated by tuple $\emph{j}$ and after that $\Phi$ has to
+be satisfied. The player who needs to move the pebbles changes on negations. $\lambda (X^v\colon\tau).\Phi$ is
+interpreted as a function that expects arguments from $(\llbracket\tau\rrbracket_\mathcal{T})^v$. We see, that the
 formulas also have types. Therefore, we have ensure that a formula is well-typed.
 
 \begin{definition}
@@ -145,66 +120,48 @@ formulas also have types. Therefore, we have ensure that a formula is well-typed
     X_n^{v_n^-} \colon \tau_n$, where $-^- = +$, $+^- = -$ and $0^- = 0$.
 \end{definition}
 
-A type judgment is called \textit{derivable} if it generates a derivation tree according to the rules of
-Figure~\ref{figure:phfl-typing-rules}. This type system makes sure that we do not create senseless formulas like
-$\langle a \rangle_i p_j p_k$. Furthermore, it can order formulas with semantics and therefore guarantees monotonicity. A
-formula $\Phi$ is called \textit{well-typed} if the type judgement $\emptyset \vdash \Phi:\tau$ is derivable for some
-type $\tau$. Note, that we are only interested in well-typed formulas in this thesis. For those formulas where the variable
-types are obvious, we omit the type of the variables.
-
-\subsection{PHFL Semantics}\label{subsec:phflSemantics}
-
-\begin{figure}
-    \caption{Semantics of PHFL formulas.}
-    \label{figure:phfl-semantics}
-    \begin{align*}
-        \llbracket \Gamma \vdash \top \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& Q^d\\
-        \llbracket \Gamma \vdash p_i \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1, \dots, q_d) \in Q^d \mid p \in v
-        (q_i)\}\\
-        \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1,
-        \dots, q_d) \in Q^d \mid \text{ it exists } \\& ({q'}_1, \dots, {q'}_d) \in \llbracket \Gamma \vdash \Phi \colon
-\bullet \rrbracket^\eta_\mathcal{T} \text{ such that } \\&q_i \overset{a}{\rightarrow} {q'}_i \text{ and for all } j
-        \neq
-        i \text{ holds } q_j = {q'}_j\}\\
-        \llbracket \Gamma \vdash \Phi \vee \Psi \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \llbracket \Gamma \vdash \Phi
-        \colon \tau \rrbracket ^\eta_\mathcal{T} \sqcup_\tau \llbracket \Gamma \vdash \Psi \colon \tau \rrbracket ^\eta_\mathcal{T}\\
-        \llbracket \Gamma \vdash \neg \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& Q^d \setminus \llbracket
-        \Gamma^- \vdash \Phi
-        \colon \bullet \rrbracket ^\eta_\mathcal{T}\\
-        \llbracket \Gamma \vdash \{\emph{j}\} \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,&
-        \{(q_1, \dots, q_d) \in Q^d \mid \\ &(q_{j_1}, \dots, q_{j_d}) \in \llbracket \Gamma \vdash \Phi
-        \colon \bullet
-        \rrbracket ^\eta_\mathcal{T}\}\\
-        \llbracket \Gamma, X \colon \tau \vdash X \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \eta(X)\\
-        \llbracket \Gamma \vdash \mu (X \colon \tau).\,\Phi \colon \tau \rrbracket^\eta_\mathcal{T} =\,&
-        \bigsqcap\,_{\llbracket\tau\rrbracket_\mathcal{T}} \{\mathcal{X} \in \llbracket \tau \rrbracket_\mathcal{T}
-        \mid \\
-        &\llbracket \Gamma, X^+ \colon \tau \vdash \Phi \colon \tau \rrbracket^{\eta[X \mapsto \mathcal{X}]}_\mathcal{T}
-        \leq_{\llbracket \tau \rrbracket_\mathcal{T}} \mathcal{X}\}\\
-        %\llbracket         \Gamma
- %       \vdash
-  %      \lambda X^+ \colon \tau.\Phi \colon \tau \rrbracket ^\eta_\mathcal{T}\\
-        \llbracket \Gamma \vdash \lambda (X^v \colon \sigma).\,\Phi \colon \sigma^v \rightarrow \tau \rrbracket
-        ^\eta_\mathcal{T} =\,& F \in \llbracket \sigma^v \rightarrow \tau \rrbracket_\mathcal{T} \text{ such that for
-        all }
-        \mathcal{X} \in \llbracket \sigma \rrbracket_\mathcal{T}.\, \\
-        &F(\mathcal{X}) = \llbracket \Gamma, X^v \colon \sigma \vdash \Phi \colon \tau \rrbracket^{\eta[X \mapsto
-        \mathcal{X}]}_\mathcal{T}\\
-        \llbracket \Gamma \vdash \Phi\,\Psi \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \llbracket \Gamma \vdash \Phi
-        \colon \sigma
-        ^v \rightarrow \tau \rrbracket ^\eta_\mathcal{T}(\llbracket \Gamma \vdash \Psi \colon \sigma \rrbracket ^\eta_\mathcal{T})
-    \end{align*}
+\begin{figure}[!t]
+    \caption{Derivation Rules for PHFL formulas.}
+    \label{figure:phfl-typing-rules}
+    \begin{mathpar}
+        \inferrule{ }{\Gamma \vdash \top \colon \bullet} \and
+        \inferrule{ }{\Gamma \vdash p_i \colon \bullet} \and
+        \inferrule{\Gamma \vdash \Phi \colon \bullet}{\Gamma \vdash \langle a \rangle_i \Phi \colon \bullet} \and
+        \inferrule{\Gamma \vdash \Phi \colon \bullet}{\Gamma \vdash \{\emph{j}\}\Phi \colon
+        \bullet} \and
+        \inferrule{\Gamma^-\vdash\Phi\colon \bullet}{\Gamma \vdash \neg \Phi \colon \bullet\\} \and
+        \inferrule{\Gamma\vdash\Phi \colon \bullet \\ \Gamma\vdash\Psi\colon \bullet}{\Gamma \vdash \Phi \vee
+        \Psi \colon \bullet} \and
+        \inferrule{v \in \{+, 0\} }{\Gamma, X^v \colon\tau \vdash X\colon\tau} \and
+        \inferrule{\Gamma,X^v\colon\sigma\vdash \Phi\colon\tau}{\Gamma\vdash \lambda (X^v \colon \tau)
+        .\Phi\colon\sigma^v\rightarrow\tau\\} \and
+        \inferrule{\Gamma\vdash \Phi\colon\sigma^+ \rightarrow \tau \\ \Gamma\vdash\Psi\colon\sigma}{\Gamma \vdash
+        \Phi\,\Psi \colon \tau} \and
+        \inferrule{\Gamma\vdash \Phi\colon\sigma^- \rightarrow \tau \\ \Gamma^-\vdash\Psi\colon\sigma}{\Gamma \vdash
+        \Phi\,\Psi \colon \tau\\} \and
+        \inferrule{\Gamma\vdash \Phi\colon\sigma^0 \rightarrow \tau \\ \Gamma \vdash \Psi\colon\sigma \\ \Gamma^-
+        \vdash\Psi\colon\sigma}{\Gamma \vdash \Phi\,\Psi \colon \tau} \and
+        \inferrule{\Gamma,X^+ \colon \tau \vdash \Phi\colon\tau}{\Gamma \vdash \mu (X \colon\tau). \Phi\colon\tau} 
+    \end{mathpar}
 \end{figure}
 
-To define the semantics of PHFL formulas we need a mapping $\eta$ that associates to each variable an element of its
+A type judgment is called \textit{derivable} if it generates a derivation tree according to the rules of
+Figure~\ref{figure:phfl-typing-rules}. This type system makes sure that we do not create senseless formulas like
+$\langle a \rangle_i p_j p_k$. Furthermore, it controls the occurrences of negations and therefore guarantees monotonicity. A
+formula $\Phi$ is called \textit{well-typed} if the type judgement $\varnothing \vdash \Phi:\tau$ is derivable for some
+type $\tau$. Note, that we are only interested in well-typed formulas in this thesis. For those formulas where the variable
+types are clear from context, we omit the type of the variables.
+
+\subsection{Semantics of PHFL}\label{subsec:phflSemantics}
+
+To define the semantics of PHFL formulas we need a mapping $\eta$ that associates to each variable occurring in a formula an element of its
 type semantics, i.e. $\eta(X) \in \llbracket\tau\rrbracket_\mathcal{T}$ for $X$ of type $\tau$. Let $\Phi$ be a
-well-typed formula of type $\tau$, $\mathcal{T}$ a LTS and $\eta$ a variable mapping, then the semantics
-$\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ are defined inductively on $\Phi$ which maps to
-an element of $\llbracket\tau\rrbracket_\mathcal{T}$ as explained in Figure~\ref{figure:phfl-semantics}.
+well-typed formula of type $\tau$, $\mathcal{T}$ an LTS and $\eta$ a variable mapping, then the semantics
+$\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ are defined inductively on $\Phi$ as explained in Figure~\ref{figure:phfl-semantics}. The semantics of $\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ returns an element of $\llbracket\tau\rrbracket_\mathcal{T}$. 
 Note, that $\eta[X \mapsto \mathcal{X}]$ is a mapping $\eta'$ that is equal to $\eta$ but $\eta'(X) = \mathcal{X}$.
 
 In this thesis we are interested in PHFL formulas that have a specific order. Thus, a formula $\Phi$ has order $k$
-if $k = max(\{ord(\tau)\mid \Psi \colon \tau$ \textit{is a subformula of} $\Phi\})$. The set of formulas that have at most
+if $k = max(\{ord(\tau)\mid \Psi \colon \tau$ \textit{is a subformula of} $\Phi\})$. The type of a well-typed formula follows from the derivation tree. The set of formulas that have at most
 order $k$ is denoted by PHFL$^k$.
 
 \begin{example}{\cite{lange2014capturing}}
@@ -237,16 +194,63 @@ order $k$ is denoted by PHFL$^k$.
 \end{definition}
 
 \begin{remark}
-To simplify PHFL formulas with fixpoint and $\lambda$ operators we will use the \emph{fixpoint unfolding principle} and \emph{$\beta$-reduction}. Because we work on finite structures and the semantics of PHFL are invariant under $\beta$-reduction we can use those procedures without loss of generality.
+To simplify PHFL formulas with fixpoint and $\lambda$ operators we will use the \emph{fixpoint unfolding principle} and \emph{$\beta$-reduction}. As an example for $\beta$-reduction, 
+suppose we apply the function $\lambda (X \colon \bullet). \,X \vee p_1$ to the value $\top$. To calculate the result, we substitute $\top$ for every occurrence of $\top$, and so the 
+application of the function $(\lambda (X \colon \bullet). \,X \vee p_1) \, \top$ is reduced to the result $\top \vee p_1$. As an example for fixpoint unfolding principle, suppose we have the formula 
+$\Phi \coloneqq \mu (F \colon \bullet \rightarrow \bullet).\,\lambda (X \colon \bullet).\, X \vee F \langle a \rangle_1 X$ . By using the fixpoint unfolding principle on $\Phi$ this results into 
+$X \vee \langle a \rangle_1 X \vee \langle a \rangle_1 \langle a \rangle_1 X \vee \dots$ which can be simplified by ${\bigvee}_{i \geq 0} \langle a {\rangle_1}^i X$.  Because we work on finite structures and the semantics of PHFL are invariant under $\beta$-
+reduction we can use those procedures without loss of generality.
 \end{remark}
 
+\begin{figure}
+    \caption{Semantics of PHFL formulas.}
+    \label{figure:phfl-semantics}
+    \begin{align*}
+        \llbracket \Gamma \vdash \top \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& Q^d\\
+        \llbracket \Gamma \vdash p_i \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1, \dots, q_d) \in Q^d \mid p \in v
+        (q_i)\}\\
+        \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1,
+        \dots, q_d) \in Q^d \mid \text{ it exists } \\& ({q'}_1, \dots, {q'}_d) \in \llbracket \Gamma \vdash \Phi \colon
+\bullet \rrbracket^\eta_\mathcal{T} \text{ such that } \\&q_i \overset{a}{\rightarrow} {q'}_i \text{ and for all } j
+        \neq
+        i \text{ holds } q_j = {q'}_j\}\\
+        \llbracket \Gamma \vdash \Phi \vee \Psi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \llbracket \Gamma \vdash \Phi
+        \colon \bullet \rrbracket ^\eta_\mathcal{T} \sqcup_\bullet \llbracket \Gamma \vdash \Psi \colon \bullet \rrbracket ^\eta_\mathcal{T}\\
+        \llbracket \Gamma \vdash \neg \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& Q^d \setminus \llbracket
+        \Gamma^- \vdash \Phi
+        \colon \bullet \rrbracket ^\eta_\mathcal{T}\\
+        \llbracket \Gamma \vdash \{\emph{j}\} \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,&
+        \{(q_1, \dots, q_d) \in Q^d \mid \\ &(q_{j_1}, \dots, q_{j_d}) \in \llbracket \Gamma \vdash \Phi
+        \colon \bullet
+        \rrbracket ^\eta_\mathcal{T}\}\\
+        \llbracket \Gamma, X \colon \tau \vdash X \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \eta(X)\\
+        \llbracket \Gamma \vdash \mu (X \colon \tau).\,\Phi \colon \tau \rrbracket^\eta_\mathcal{T} =\,&
+        \bigsqcap\,_{\llbracket\tau\rrbracket_\mathcal{T}} \{\mathcal{X} \in \llbracket \tau \rrbracket_\mathcal{T}
+        \mid \\
+        &\llbracket \Gamma, X^+ \colon \tau \vdash \Phi \colon \tau \rrbracket^{\eta[X \mapsto \mathcal{X}]}_\mathcal{T}
+        \leq_{\llbracket \tau \rrbracket_\mathcal{T}} \mathcal{X}\}\\
+        %\llbracket         \Gamma
+ %       \vdash
+  %      \lambda X^+ \colon \tau.\Phi \colon \tau \rrbracket ^\eta_\mathcal{T}\\
+        \llbracket \Gamma \vdash \lambda (X^v \colon \sigma).\,\Phi \colon \sigma^v \rightarrow \tau \rrbracket
+        ^\eta_\mathcal{T} =\,& F \in \llbracket \sigma^v \rightarrow \tau \rrbracket_\mathcal{T} \text{ such that for
+        all }
+        \mathcal{X} \in \llbracket \sigma \rrbracket_\mathcal{T}.\, \\
+        &F(\mathcal{X}) = \llbracket \Gamma, X^v \colon \sigma \vdash \Phi \colon \tau \rrbracket^{\eta[X \mapsto
+        \mathcal{X}]}_\mathcal{T}\\
+        \llbracket \Gamma \vdash \Phi\,\Psi \colon \tau \rrbracket^\eta_\mathcal{T} =\,& \llbracket \Gamma \vdash \Phi
+        \colon \sigma
+        ^v \rightarrow \tau \rrbracket ^\eta_\mathcal{T}(\llbracket \Gamma \vdash \Psi \colon \sigma \rrbracket ^\eta_\mathcal{T})
+    \end{align*}
+\end{figure}
+
 Finally, we take a look at $r$-adic queries that are associated to a
-closed $d$-adic formula $\Phi$. A PHFL formula $\Phi$ is closed if the type judgement $\Gamma \vdash \Phi \colon \bullet$ is derivable for at least one type environment $\Gamma$.
+closed $d$-adic formula $\Phi$. A PHFL formula $\Phi$ is closed if the type judgement $\varnothing \vdash \Phi \colon \bullet$ is derivable.
 
 \begin{definition}
 \label{definition:query_associated_to_formula}
-    Given a dimension $d$ of PHFL, a type environment $\Gamma$, a variable assignment $\eta$ and a closed $d$-adic PHFL
-    formula $\Phi$ we call $\mathcal{Q}^r_\Phi$ an $r$-adic query defined by $\Phi$ if for all LTS
+    Given $d \in \mathbb{N}$ with $d > 0$, a type environment $\Gamma$, a variable assignment $\eta$ and a closed $d$-adic PHFL
+    formula $\Phi$ we call $\mathcal{Q}^r_\Phi$ the $r$-adic query defined by $\Phi$ if for all LTS
     $\mathcal{T}$, all variable mappings $\eta$ and all $(q_1, \dots, q_r) \in {\mathcal{Q}^r_\Phi}^\mathcal{T}$ there is a $(s_1, \dots, s_d) \in
     \llbracket \Gamma \vdash \Phi \colon \bullet \rrbracket^\eta_\mathcal{T}$ such that $q_i = s_i$ for all $i \in
     \{1, \dots, min(\{r, d\})\}$.
@@ -262,21 +266,21 @@ $\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0}.
     \caption{Derivation Rules for PHFL formulas that are tail-recursive.}
     \label{figure:phfl-tail-recursive}
     \begin{mathpar}
-        \bar{Y} \vdash tail(p_i, \bar{X}) \and
+        \inferrule{ } {\bar{Y} \vdash tail(p_i, \bar{X})} \and
         \inferrule{X \in \bar{X} \cup \bar{Y}}{\bar{Y} \vdash tail(X, \bar{X})} \and
-        \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset)}{\bar{Y} \vdash tail(\neg \Phi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \varnothing)}{\bar{Y} \vdash tail(\neg \Phi, \bar{X})\\} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\{\emph{j}\} \Phi,
         \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \bar{X})}{\bar{Y} \vdash tail
-        (\Phi \vee \Psi, \bar{X})} \and
+        (\Phi \vee \Psi, \bar{X})\\} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\langle a \rangle_i \Phi, \bar{X})} \and
-        \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset)}{\bar{Y} \vdash tail([a]_i \Phi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \varnothing)}{\bar{Y} \vdash tail([a]_i \Phi, \bar{X})} \and
         \inferrule{\bar{Y} \cup \{Z\} \vdash tail(\Phi, \bar{X})}{\bar{Y} \vdash tail(\lambda Z^v \colon \tau . \Phi,
-        \bar{X})} \and
-        \inferrule{\bar{Y} \vdash tail(\Phi, \emptyset) \\ \bar{Y} \vdash tail(\Psi, \bar{X})}{\bar{Y} \vdash tail
+        \bar{X})\\} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \varnothing) \\ \bar{Y} \vdash tail(\Psi, \bar{X})}{\bar{Y} \vdash tail
         (\Phi \wedge \Psi, \bar{X})} \and
-        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \emptyset)}{\bar{Y} \vdash tail
-        (\Phi\,\Psi, \bar{X})} \and
+        \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X}) \\ \bar{Y} \vdash tail(\Psi, \varnothing)}{\bar{Y} \vdash tail
+        (\Phi\,\Psi, \bar{X})\\} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X} \cup \{Z\})}{\bar{Y} \vdash tail(\mu Z \colon \tau . \Phi,
         \bar{X})} \and
         \inferrule{\bar{Y} \vdash tail(\Phi, \bar{X} \cup \{Z\})}{\bar{Y} \vdash tail(\nu Z \colon \tau . \Phi,
@@ -291,8 +295,8 @@ syntax. Intuitively, tail-recursive PHFL formulas are PHFL formulas where all fi
 under the operators $\neg$ and $[a]_i$ nor in $\Psi$ of formulas of the type $\Phi\,\Psi$ or $\Psi \wedge \Phi$.
 
 \begin{definition}
-    A closed PHFL formula $\Phi$ is called \emph{tail-recursive} if $\emptyset \vdash tail(\Phi, \emptyset)$ is
-    derivable by the rules of Figure~\ref{figure:phfl-tail-recursive}.
+    A closed PHFL formula $\Phi$ is called \emph{tail-recursive} if $\varnothing \vdash tail(\Phi, \varnothing)$ is
+    derivable from the rules of Figure~\ref{figure:phfl-tail-recursive}.
 \end{definition}
 
 The set of all tail-recursive PHFL formulas that have at most order $k$ is denoted by PHFL$^k_{tail}$.
@@ -304,5 +308,5 @@ The set of all tail-recursive PHFL formulas that have at most order $k$ is denot
     $\Phi_2$ is not tail-recursive is because $F$ also occurs in $F X$ of subformula $F (F X)$. 
     Note that all formulas that do not use fixpoints are obviously tail-recursive. An 
     example of a formula that uses a fixpoint and is also tail-recursive is given by 
-    \[\Phi_3 = (\mu F.\,\lambda G.\,G(p_1) \underset{a \in \Sigma}{\bigvee} F (\lambda Z.\,\langle a \rangle_1  G(Z)) \lambda X.\, X\] and denotes those states that can reach a state where property $p$ holds.
+    \[\Phi_3 = \big(\mu F.\,\lambda G.\,G\,p_1 \underset{a \in \Sigma}{\bigvee} F (\lambda Z.\,\langle a \rangle_1  G\,Z)\big) \lambda X.\, X\] and denotes those states that can reach a state where property $p$ holds.
 \end{example}
