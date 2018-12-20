@@ -118,9 +118,9 @@ The last step is to show such that the query that can be defined by the PHFL$^k$
 To make the correctness proof clearer there is one last remark.
 
 \begin{remark}
-    It holds for any HO(LFP)$^{k+1}$ formula $\Phi$ that for PHFL$^k$ formula $F(\Phi)$ and some type environment $\Gamma$ the type judgment $\Gamma \vdash
-    \Phi \colon \bullet$ is derivable. This statement
-    is easy proved by induction over the structure of formula $\Phi$. 
+    It holds for any HO(LFP)$^{k+1}$ formula $\Phi$ that for PHFL$^k$ formula $F(\Phi)$ the type judgment $\varnothing \vdash
+    F(\Phi) \colon \bullet$ is derivable. This statement
+    is easily proved by induction over the structure of formula $\Phi$. 
 \end{remark}
 
 Because the type judgement is always derivable we ignore the type environment in the following proof and write just $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ instead of $\llbracket \Gamma \vdash F(\Phi) \colon \tau \rrbracket^\eta_\mathcal{T}$, where $\Phi$ is a PHFL formula, $\eta$ is a variable mapping, $\mathcal{T}$ is an LTS, $\Gamma$ is a type environment and $\tau$ is a PHFL type.
@@ -183,7 +183,7 @@ Because the type judgement is always derivable we ignore the type environment in
         \odot)$ and $X_{i_1}, \dots, X_{i_n}$ are free first-order variables such that, without loss of generality, $i_1 < i_2, \dots, i_{n-1} < i_n$. All other cases working similar. Then $\mathcal{T}, \eta \models \Phi$
         holds exactly then if $(\eta(X_{i_1}), \dots \eta(X_{i_n})) \in \eta(X)$. Because of definition of $\eta_V$ the
         tuple $(\eta(X_{i_1}), \dots \eta(X_{i_n}), q_{n + 1}', \dots,$ $ q_{s}', \emph{q}_s, \emph{q}_q, \emph{q}_r)$ is in $
-        \eta_V(X)$ iff $(\eta(X_{i_1}),\dots \eta(X_{i_n})) \in \eta(X)$ and is not in $\eta_V(X)$ otherwise. Because
+        \eta_V(X)$ if $(\eta(X_{i_1}),\dots \eta(X_{i_n})) \in \eta(X)$ and is not in $\eta_V(X)$ otherwise. Because
          components $1, \dots, n$ are not set to the mappings of first-order variables $X_{i_1}, \dots, X_{i_n}$, we first move the components $2s+i_1, \dots, 2s+i_n$ to components $1, \dots, n$ respectively and check then if
         \[(\eta(X_{i_1}), \dots \eta(X_{i_n}), q_{n + 1}', \dots, q_{s}', \emph{q}_s, \emph{q}_q, \emph{q}_r) \in \eta_V(X).\]
         So it holds with $F(\Phi) = {(2s+i_1, \dots, 2s+i_n, n+1, \dots, d)}X$ that
@@ -262,8 +262,9 @@ Because the type judgement is always derivable we ignore the type environment in
         \llbracket F(\Psi) \rrbracket^{{\eta'_V}}_\mathcal{T}$ iff $\mathcal{T}, \eta' \models \Psi$. By Lemma~\ref{lemma:existential_quantifier_higher} the formula $\exists^\tau X.\, \Psi(X)$ is semantically equivalent to
         $\underset{\mathcal{X} \in \llbracket \tau \rrbracket_\mathcal{T}}{\bigsqcup} \llbracket \Psi(X) \rrbracket^{\eta'}_\mathcal{T}$.
         It follows with $F(\Phi) = \exists^\tau X.\, F(\Psi)(X)$ that it holds \[\emph{q} \in
-        \llbracket F(\Phi) \rrbracket^{\eta_V}_\mathcal{T}.\]
-
+        \llbracket F(\Phi) \rrbracket^{\eta_V}_\mathcal{T}\]
+        iff $\mathcal{T},\eta \models \Phi$.
+        
         \item In case of $\Phi = [LFP\,\Psi(X, X_{i_1}, \dots, X_{i_n})](V_{j_1}, \dots, V_{j_n})$, where $X$ is a
         free variable in $\Psi$ of HO type $(\odot, \dots, \odot)$ and $X_{i_1}, \dots, X_{i_n}$ are free first-order
         variables of $\Psi$ and $V_{j_1}, \dots, V_{j_n}$ are first-order variables of $\Phi$ such that, without loss of generality, $i_1 < i_2, j_1 < j_2, \dots, i_{n-1} < i_ n, j_{n-1} < j_n$. All other cases working similar. Then it follows that
@@ -279,7 +280,7 @@ Because the type judgement is always derivable we ignore the type environment in
         F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T}.
         \end{align*}
         
-        The next step is to show that if $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ then $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon \bullet).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
+        The next step is to show that it holds $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ exactly then if $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon \bullet).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
         By Theorem~\ref{theorem:kleene} the least fixpoint of $F^\mathcal{T}_\Psi$ can be calculated by a sequence $X_0, \dots, X_m$ where here $X_0 = \emptyset$ and $X_{i+1} 
         = F_\Psi^\mathcal{T}(X_i)$ and $\eta'(X) = X_m$. On the other hand $\llbracket \mu (X \colon \bullet).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$ can be calculated by a sequence 
          $Y_0, \dots, Y_{m'}$ where here $Y_0 = \varnothing$ and $Y_{i+1} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta_V[X \mapsto Y_i]}$ and $Y_{m'} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'_V}$. Furthermore, let $\eta'^0, \dots, \eta'^m$ be a sequence of variable mappings where $\eta'^i(x) = \eta(x)$ for all $x \neq X$ and $\eta'^i(X) = X_i$. It is easy to verify that $\eta'^m = \eta'$. For any $\eta'^i$ we get by Definition~\ref{definition:lower_bound_variable_function} the variable mapping $\eta'^i_V$ and so a sequence of variable mappings $\eta'^0_V, \dots, \eta'^m_V$. Moreover, $\eta^{j+1}_V$ is $\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^j_V}$. Because $\eta'^0_V(X) = \varnothing$, $\eta'^1_V(X) =\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^0_V}$ and so on, it follows that $\eta'^m_V(X) = \llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T}$ if and only if $\eta'(X)$ is the least fixpoint of $F^\mathcal{T}_\Psi$.
@@ -307,11 +308,11 @@ Because of the construction of variable mapping $\eta'_V$ and $(\eta'(V_{j_1}), 
         $LFP(F_\Psi^\mathcal{T})$ iff $X$ is the smallest $X$ such that $X = F_\Psi^\mathcal{T}(X)$ and $(\eta(V_1), \dots, \eta(V_n)) \in
         F_\Psi^\mathcal{T}(X)$. By definition of $F_\Psi^\mathcal{T}(X)$ it holds $(\eta
         (V_1), \dots, \eta(V_n)) \in F_\Psi^\mathcal{T}(X)$ exactly then if $\mathcal{T}, \eta' 
-        \models \Psi$, where $\eta'$ is a variable mapping with $\eta'(x) = \eta(x)$ for all variables $x \neq X$ and $\eta'(X) = F_\Psi^\mathcal{T}(X)$. By induction hypothesis it holds
+        \models \Psi$, where $\eta'$ is a variable mapping with $\eta'(x) = \eta(x)$ for all variables $x \neq X$ and $\eta'(X) = F_\Psi^\mathcal{T}(X)$. By induction hypothesis this is exactly the case if
         \[\emph{q} \in \llbracket  F(\Psi)
         \rrbracket^{\eta_V}_\mathcal{T}.\]
 
-The next step is to show that if $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ then $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon T((\tau, \dots, \tau))).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
+The next step is to show that it holds $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ exactly then if $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon T((\tau, \dots, \tau))).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
         By Theorem~\ref{theorem:kleene} the least fixpoint of $F^\mathcal{T}_\Psi$ can be calculated by a sequence $X_0, \dots, X_m$ where here $X_0 = \emptyset$ and $X_{i+1} 
         = F_\Psi^\mathcal{T}(X_i)$ and $\eta'(X) = X_m$. On the other hand $\llbracket \mu (X \colon T((\tau, \dots, \tau)).$ $\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$ can be calculated by a sequence 
          $Y_0, \dots, Y_{m'}$ where here $Y_0 = \bot_{T((\tau, \dots, \tau))}$ and $Y_{i+1} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta_V[X \mapsto Y_i]}$ and $Y_{m'} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'_V}$. Furthermore, let $\eta'^0, \dots, \eta'^m$ be a sequence of variable mappings where $\eta'^i(x) = \eta(x)$ for all $x \neq X$ and $\eta'^i(X) = X_i$. It is easy to verify that $\eta'^m = \eta'$. For any $\eta'^i$ we get by Definition~\ref{definition:lower_bound_variable_function} the variable mapping $\eta'^i_V$ and so a sequence of variable mappings $\eta'^0_V, \dots, \eta'^m_V$. Moreover, $\eta^{j+1}_V$ is $\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^j_V}$. Because $\eta'^0_V(X) = \bot_{T((\tau, \dots, \tau))}$, $\eta'^1_V(X) =\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^0_V}$ and so on, it follows that $\eta'^m_V(X) = \llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T}$ if and only if $\eta'(X)$ is the least fixpoint of $F^\mathcal{T}_\Psi$.

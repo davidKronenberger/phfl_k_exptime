@@ -158,11 +158,11 @@ the formula $<^{\odot \times \dots \times \odot}$ of Definition~\ref{definition:
 $i$ in the binary string is $1$, the element with index $i$ in $D_{\odot}(Q)^n$ is
 also in $X$. And if the position $i$ in the binary string is $0$, the element with index $i$ in $D_{\odot}
 (Q)^n$ is not in $X$. This binary representation of $X$ in regard to $D_{\odot}
-(Q)^n$ can also be described by a function $f \colon D_\tau(Q) \rightarrow 
+(Q)^n$ can be thought of as a function $f \colon D_\tau(Q) \rightarrow 
 {0, \dots, |D_\tau(Q)| - 1}$ such that
 each element $X$ of $D_\tau(Q)$ will be mapped to its binary string in regard to 
 $D_{\odot}(Q)^n$. Similar to operator $F$ of Example~\ref{example:pfp} or operator 
-$F_\Phi^\mathcal{A}$ of Example~\ref{example:ho_pfp} the following formula identifies $Y \in 
+$F_\Phi^\mathcal{T}$ of Example~\ref{example:ho_pfp} the following formula identifies $Y \in 
 D_\tau(Q)$ as the successor of $X \in D_\tau(Q)$ if $f(Y) = f(X) + 1 
 \mod |D_\tau(Q)|$. In detail that means that the $i$-th bit is $1$ in $f(Y)$ if 
 the $i$-th bit is either $1$ in $X$ and there is a bit on the left of $i$ that is $0$ in 
@@ -190,7 +190,7 @@ $.
 	element with respect to $\odot \times \dots \times \odot$. If we take a look at the formula ${next^{(\odot, \dots, \odot)}}^2 \bot$, we put the set that only contains the smallest element into 
 	$next^{(\odot, \dots, \odot)}$. If we dive deeper into this formula we will see that the formula returns a set that includes only the second smallest element. The smallest element does not 
 	satisfy the disjunction, but the second smallest satisfies the second subformula. As described in the introduction of Definition~\ref{definition:lower_bounds_next_second}, formula $next^{(\odot, 
-	\dots, \odot)}$ is some kind of binary incrementation. In this manner each possible set of type $(\odot, \dots, \odot)$ will be reached. Note that if we put the full set into $next^{(\odot, 
+	\dots, \odot)}$ can be thought of as binary incrementation. In this manner each possible set of type $(\odot, \dots, \odot)$ will be reached. Note that if we put the full set into $next^{(\odot, 
 	\dots, \odot)}$ it returns the empty set.
 \end{remark}
 
@@ -274,8 +274,7 @@ The following definition defines an abbreviation for the smallest function of an
 
 With this definition of order of any HO type, always depending on the lower type existential quantifier, we can define
 formulas that return the successor of an input element with respect to the order of the HO type. The idea of the
-following formula is similar to the successor formula of Definition~\ref{definition:lower_bounds_next_second} and is
-based on binary incrementation. Note that here the binary string represents functions. That means that one configuration of a function, represents one bit in the binary string. The smallest function, see Definition~\ref{definition:smallest}, is this where any element is mapped to $\emptyset$ and the greatest function where any element is mapped to $Q^d$, where $Q$ is a state set of an LTS and $d$ a dimension of PHFL. 
+following formula is similar to the successor formula of Definition~\ref{definition:lower_bounds_next_second} and can be thought of as binary incrementation. Note that here the binary string represents functions. That means that one configuration of a function, represents one bit in the binary string. The smallest function, see Definition~\ref{definition:smallest}, is this where any element is mapped to $\varnothing$ and the greatest function where any element is mapped to $Q^d$, where $Q$ is a state set of an LTS and $d$ a dimension of PHFL. 
 
 \begin{definition}
     \label{definition:lower_bounds_next_higher}

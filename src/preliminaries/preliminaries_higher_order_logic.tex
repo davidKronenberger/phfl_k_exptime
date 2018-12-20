@@ -14,8 +14,9 @@ types of higher order variables.
 \subsection{Syntax of HO}\label{subsec:hoSyntax}
 
 \begin{definition}
-    \emph{HO types} are given by the grammar
-    \[ \tau \Coloneqq \odot \mid (\tau, \dots, \tau) \]
+    A \emph{HO type} $\tau$ is defined inductively as follows
+    \[ \tau \Coloneqq \odot \text{ or } \tau \coloneqq (\tau', \dots, \tau'), \]
+    where $\tau'$ is also an HO type.
 \end{definition}
 
 The HO type of individuals is $\tau = \odot$. These objects have \textit{order} $1$. The HO type $\tau = (\tau',
@@ -45,8 +46,9 @@ At first, we define the universes of the different HO types.
     Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS then the universes of the HO types are defined inductively as follows:
     \begin{compactitem}
         \item $D_\odot(Q) = Q$,
-        \item $D_{(\tau, \dots, \tau)}(Q) = \mathcal{P}(D_{\tau}(Q)^n)$
+        \item $D_{(\tau, \dots, \tau)}(Q) = \mathcal{P}(D_{\tau}(Q)^n)$,
     \end{compactitem}
+    where $(\tau, \dots, \tau)$ is a $n$-tuple of type $\tau$.
 \end{definition}
 
 Moreover, $\eta$ is a variable mapping that assigns every variable to an element of the appropriate universe, i.e. if

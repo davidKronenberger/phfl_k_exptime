@@ -30,9 +30,11 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
     Let $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ be a $exp(k, f(n))$ space bounded DTM, $\mathcal{T}$ an LTS and $Q'$ the set of states of $\mathcal{T}$. Furthermore, we can advise an linear ordering $\exists (< \colon (\odot, \odot)).\, \varphi$ on $Q'$ of $\mathcal{T}$, where $\varphi$ describes that $<$ is an order~\cite{fagin1974generalized}. Finally, let $\tau$ be an HO type of
     order $k + 1$ and $\eta$ a variable mapping.
     To prove this lemma we want to define a relational representation, of the final configuration of $M$ that has the standardized encoding of $(\mathcal{T}, \eta)$\footnote{The standardized encoding of structures is a non-trivial problem. Because the description of the encoding goes beyond the scope of this thesis, we only refer to~\cite{abiteboul1995computing} for further information about.}, abbreviated with $w$, as input word,
-    as a partial fixpoint of some HO(PFP)$^{k+1}$ formula. For this we set up the underlying HO$^{k+1}$ formula
-    $\varphi$ such that the iterates over $(F_\varphi^\mathcal{T})^{i+1}(\varnothing)$ over $D_\tau
-    (Q')$ represent the $i$-th configuration of $M$ on input standard coding of $(\mathcal{T}, \eta)$, for every $i$ until termination.
+    as a partial fixpoint of some HO(PFP)$^{k+1}$ formula. 
+    In order to do this, we construct a partial 
+fixpoint of order $k+2$ such that for all $i$, the $i$-th approximation of 
+this fixpoint encodes the $i$-th configuration in the run of $M$ with 
+input word $w$.    
 
     Before we can define the configurations of $M$ in HO we have to make some preparations. Remember that a
     configuration of $M$ comprises the current state, the current reading head position and
@@ -78,16 +80,13 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
 
     To iterate through all configurations of $M$ on input $w$, we need a variable $X$ of type $\tau =
     (\tau', \tau', \tau', \tau')$ where $\tau'$ has order $k + 1$, so $X$ has order $k + 2$. On an iteration
-    $(F_\varphi^\mathcal{T})^{i+1}(\varnothing)$ for the following formula $\varphi$ the variable $X$ includes
+    $(F_\varphi^{\mathcal{T},\eta})^{i+1}(\varnothing)$ for the following formula $\varphi$ the variable $X$ includes
     all configurations that will be reached within $i$ transitions.
     \begin{align*}
-        \varphi(X, q, h, j, b) \coloneqq &\,(\neg \exists (q_{old} \colon \tau').\, \neg\exists
+        \varphi(X, q, h, j, b) \coloneqq &\,(\forall (q_{old} \colon \tau').\, \forall
         (h_{old}
-        \colon \tau').\, \neg\exists (j_{old} \colon \tau').\, \neg\exists (b_{old} \colon \tau').\,\\
-        &\, X(q_{old}, h_{old}, i_{old}, b_{old}) \wedge \varphi_0(q, h, i, b)) \,\vee \\
-        &\,(\exists (q_{old} \colon \tau').\, \exists (h_{old} \colon \tau').\, \exists (i_{old} \colon
-        \tau').\, \exists (b_{old} \colon \tau').\,\\
-        &\, X(q_{old}, h_{old}, i_{old}, b_{old}) \wedge \xi(X, q, h, i, b))
+        \colon \tau').\, \forall (j_{old} \colon \tau').\, \forall (b_{old} \colon \tau').\,\\
+        &\, \neg X(q_{old}, h_{old}, i_{old}, b_{old}) \vee \neg \varphi_0(q, h, i, b)) \vee \xi(X, q, h, i, b)
     \end{align*}
     Note that $\varphi_0$ is invoked only in the first iteration and thus provides the correct initialisation. The
     formula $\xi$ collects the transitions of those tuples in $X$ according to the transition function $\delta$ of
@@ -197,110 +196,114 @@ The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula c
         free variable in $\Psi$ of HO type $(\odot, \dots, \odot)$ and $X_{i_1}, \dots, X_{i_n}$ are free first-order
         variables of $\Psi$ and $V_{j_1}, \dots, V_{j_n}$ are first-order variables of $\Phi$ such that, without loss of generality, $i_1 < i_2, j_1 < j_2, \dots, i_{n-1} < i_n, j_{n-1} < j_n$. All other cases working similar. Then it follows that
         $\mathcal{T}, \eta \models \Phi$ exactly then if $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in PFP
-        (F_\Psi^\mathcal{T})$. 
+        (F_\Psi^{\mathcal{T},\eta})$. 
         By Definition~\ref{definition:pfp} this is the 
-        case when there is an $i$ such that ${F_\Psi^\mathcal{T}}^i(\varnothing) = {F_\Psi^		
-        \mathcal{T}}^{i+1}(\varnothing)$ and $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in {F_\Psi^\mathcal{T}}^i(\varnothing)$. By Definition~\ref{definition:induced_operator} $(\eta(V_{j_1}), \dots, 		
-        \eta(V_{j_n})) \in {F_\Psi^\mathcal{T}}^i(\varnothing)$ if $\mathcal{T}, \eta \models \Psi({F_\Psi^
-        \mathcal{T}}^{i}(\varnothing), \eta(V_{j_1}), \dots, $ $\eta(V_{j_n}))$. By induction hypothesis 
+        case when there is an $m$ such that ${F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = {F_\Psi^		
+       {\mathcal{T},\eta}}^{m+1}(\varnothing)$ and $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in {F_\Psi^{\mathcal{T},\eta}}^m(\varnothing)$. By Definition~\ref{definition:induced_operator} $(\eta(V_{j_1}), \dots, 		
+        \eta(V_{j_n})) \in {F_\Psi^{\mathcal{T},\eta}}^m(\varnothing)$ iff $\mathcal{T}, \eta \models \Psi({F_\Psi^
+       {\mathcal{T},\eta}}^{m}(\varnothing), \eta(V_{j_1}), \dots, $ $\eta(V_{j_n}))$. By induction hypothesis 
         this is exactly the case when 
 \begin{align*}
         (\emph{q}_s, &\emph{q}_s, \eta(X_1), \dots, \eta(X_{i_1-1}), \eta(X_{i_1}), \eta(X_{i_1+1}), \dots, \eta(X_{i_n-1}), \\&\eta(X_{i_n}), \eta(X_{i_n+1}), \dots, \eta
             (X_q), \emph{q}_r) \in \llbracket
         F(\Psi) \rrbracket^{\eta_V}_\mathcal{T}.
         \end{align*}       
-        Note that $X$ is set to ${F_\Psi^\mathcal{T}}^{i}(\varnothing)$.
+        Note that $X$ is set to ${F_\Psi^{\mathcal{T},\eta}}^{m}(\varnothing)$.
 		         
-         If we use $\lambda$-approximation and $\beta$-reduction on PFP$^{(\odot, \dots, \odot)} X.\,\Psi$ we can 
+         If we use $\lambda$-approximation and $\beta$-reduction on PFP$^{(\odot, \dots, \odot)} X.\,F(\Psi)$ we can 
          see that it can be summarized to
          \begin{align*}
-         \varphi \coloneqq \underset{i}{\bigvee} \Big(&\Psi^i(\bot) \wedge \forall_1 \dotsb \forall_n
-         \big(\Psi^i(\bot) \Leftrightarrow \Psi^{i+1}(\bot)\big)\Big)
+         \varphi \coloneqq \overset{m'}{\underset{i=0}{\bigvee}} \Big(&F(\Psi)^i \bot \wedge \forall_1 \dotsb \forall_n
+         \big(F(\Psi)^i \bot \Leftrightarrow F(\Psi)^{i+1} \bot \big)\Big)
          \end{align*}
 		Note that 
-		\[{F_\Psi^\mathcal{T}}^i(\varnothing) = \Psi^i(\bot).\] 
+		\[{F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = F(\Psi)^{m'} \bot.\] 
 		This holds because by induction over $i$ obviously it holds
 		$\varnothing = \bot$
 		and 
-		$F_\Psi^\mathcal{T}(\varnothing) = \Psi(\bot).$
+		$F_\Psi^{\mathcal{T},\eta}(\varnothing) = F(\Psi) \bot.$
 		That means 
-		${F_\Psi^\mathcal{T}}^{i+1}(\varnothing) = \Psi^{i+1}(\bot)$
+		${F_\Psi^{\mathcal{T},\eta}}^{i+1}(\varnothing) = F(\Psi^{i+1}) \bot $
 		holds because by induction hypothesis it holds that
-		${F_\Psi^\mathcal{T}}^{i}
-		(\varnothing) = \Psi^{i}(\bot)$
+		${F_\Psi^{\mathcal{T},\eta}}^{i}
+		(\varnothing) = F(\Psi^{i}) \bot$
 		and 
-		$F_\Psi^\mathcal{T}({F_\Psi^\mathcal{T}}^{i}(\varnothing))= \Psi\big(\Psi^{i}(\bot)\big).$
+		$F_\Psi^{\mathcal{T},\eta}({F_\Psi^{\mathcal{T},\eta}}^{i}(\varnothing))= F(\Psi)\big(F(\Psi)^{i} \bot \big).$
 		
-		Because it exists an $i$ such that ${F_\Psi^\mathcal{T}}^i(\varnothing) = {F_\Psi^		
-        \mathcal{T}}^{i+1}(\varnothing)$ it follows that the right conjunct of $\varphi$
+		If it exists an $i$ such that ${F_\Psi^{\mathcal{T},\eta}}^i(\varnothing) = {F_\Psi^		
+        {\mathcal{T},\eta}}^{i+1}(\varnothing)$ this is exactly the case when the right conjunct of $\varphi$
 		\begin{align*}
 		\forall_1 \dotsb \forall_n \big(\Psi^i(\bot) \Leftrightarrow \Psi^{i+1}(\bot)\big)
          \end{align*}
-		holds also. The left conjunct of $\varphi$ returns then the function that we get through  
-		the $i$-th application of $\Psi$ on the empty set.
+		holds. The left conjunct of $\varphi$ returns then the set that we get through  
+		the $i$-th application of $F(\Psi)$ on the empty set.
 		
 		Because of the construction of variable mapping $\eta_V$ and $(\eta(V_{j_1}), \dots, 
         \eta(V_{j_n}))$ $ \in \eta(X)$ the
         tuple $(\eta(V_{j_1}), \dots, \eta(V_{j_n}), q_{n+1}', \dots, q_s', \emph{q}_s, 
         \emph{q}_q,  \emph{q}_r)$ is also in $\eta_V(X)$.
-         Because $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in {F_\Psi^\mathcal{T}}^i(\varnothing)$ and $(\eta(V_{j_1}), \dots, \eta(V_{j_n}), $ $q_{n+1}', \dots, q_s', \emph{q}_s, \emph{q}_q,  
-        \emph{q}_r) \in \eta_V(X)$ it follows with 
+         That means it holds $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in {F_\Psi^{\mathcal{T},\eta}}^i(\varnothing)$ with
         \[F(\Phi) = \{(i_1, \dots, i_n)\} (PFP^{(\odot, \dots, \odot)} X.\, F(\Psi)) \]
-        that 
+        exactly then if
         \begin{align*}
         (\emph{q}_s, &\emph{q}_s, \eta(X_1), \dots, \eta(V_{j_1-1}), \eta(V_{j_1}), \eta(V_{j_1+1}), \dots \eta(V_{j_n-1}),\\& \eta(V_{j_n}), \eta(V_{j_n+1}), \dots, \eta
             (X_q), \emph{q}_r) \in \llbracket F(\Phi) \rrbracket_\mathcal{T}^{\eta_V}.
         \end{align*}
+        
+        In the case that $PFP(F_\Psi^{\mathcal{T},\eta})$ returns the empty set because there is no $m$ such that ${F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = {F_\Psi^		
+       {\mathcal{T},\eta}}^{m+1}(\varnothing)$, the right conjunct of $\varphi$ is always false. Because of the least fixpoint operator in $PFP^{(\odot, \dots, \odot)} X.\, F(\Psi)$ the iteration is finite and it also will return the empty set.
 
         \item In case of $\Phi = [PFP\,\Psi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$, where $X$ is a
         free variable in $\Psi$ of HO type $(\tau, \dots, \tau)$ and $X_1, \dots, X_n$ are free 
         variables of $\Psi$ of type $\tau$ and $V_1, \dots, V_n$ are free variables of $\Phi$ also of 
         type $\tau$, then it follows that $\mathcal{T}, \eta \models \Phi$ exactly then if $(\eta(V_1), 
-        \dots, \eta(V_n)) \in PFP(F_\Psi^\mathcal{T})$. By Definition~\ref{definition:pfp} this is the 
-        case when there is an $i$ such that ${F_\Psi^\mathcal{T}}^i(\varnothing) = {F_\Psi^		
-        \mathcal{T}}^{i+1}(\varnothing)$ and $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^\mathcal{T}}
-        ^i(\varnothing)$. By Definition~\ref{definition:induced_operator} $(\eta(V_1), \dots, 		
-        \eta(V_n)) \in {F_\Psi^\mathcal{T}}^i(\varnothing)$ if $\mathcal{T}, \eta \models \Psi({F_\Psi^
-        \mathcal{T}}^{i}(\varnothing), \eta(V_1), \dots, $ $\eta(V_n))$. By induction hypothesis 
+        \dots, \eta(V_n)) \in PFP(F_\Psi^{\mathcal{T},\eta})$. By Definition~\ref{definition:pfp} this is exactly the 
+        case when there is an $m$ such that ${F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = {F_\Psi^		
+        \mathcal{T}}^{m+1}(\varnothing)$ and $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^{\mathcal{T},\eta}}
+        ^m(\varnothing)$. By Definition~\ref{definition:induced_operator} $(\eta(V_1), \dots, 		
+        \eta(V_n)) \in {F_\Psi^{\mathcal{T},\eta}}^m(\varnothing)$ iff $\mathcal{T}, \eta \models \Psi({F_\Psi^
+        \mathcal{T}}^{m}(\varnothing), \eta(V_1), \dots, $ $\eta(V_n))$. By induction hypothesis 
         this is exactly the case when $\emph{q} \in \llbracket F(\Psi) \rrbracket_\mathcal{T}
-        ^{\eta_V}$. Note that $X$ is set to ${F_\Psi^\mathcal{T}}^{i}(\varnothing)$.
+        ^{\eta_V}$. Note that $X$ is set to ${F_\Psi^{\mathcal{T},\eta}}^{m}(\varnothing)$.
 		         
-         If we use $\lambda$-approximation and $\beta$-reduction on PFP$^\tau X.\,\Psi$ we can 
+         If we use $\lambda$-approximation and $\beta$-reduction on PFP$^\tau X.\,F(\Psi)$ we can 
          see that it can be summarized to
          \begin{align*}
-         \varphi \coloneqq \underset{i}{\bigvee} \Big(&\Psi^i(\bot_{T((\tau, \dots, \tau))}) \wedge \forall^{\tau'} X_1.\, \dotsb \forall^{\tau'} X_n.\,\\& 
-         \big((\dotsb(\Psi^i(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n \Leftrightarrow \\&\;(\dotsb(\Psi^{i+1}(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n\big)\Big)
+         \varphi \coloneqq \overset{m'}{\underset{i= 0}{\bigvee}} \Big(&F(\Psi)^i \bot_{T((\tau, \dots, \tau))} \wedge \forall^{\tau'} X_1.\, \dotsb \forall^{\tau'} X_n.\,\\& 
+         \big((\dotsb(F(\Psi)^i \bot_{T((\tau, \dots, \tau))} X_1)\dotsb)X_n \Leftrightarrow \\&\;(\dotsb(F(\Psi)^{i+1}(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n\big)\Big)
          \end{align*}
 		Note that 
-		\[{F_\Psi^\mathcal{T}}^i(\varnothing) = \Psi^i(\bot_{T((\tau, \dots, \tau))}).\] 
+		\[{F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = F(\Psi)^{m'} \bot_{T((\tau, \dots, \tau))}.\] 
 		This holds because by induction over $i$ obviously it holds
 		\[\varnothing = \bot_{T((\tau, \dots, \tau))}\] 
 		and 
-		\[F_\Psi^\mathcal{T}(\varnothing) = \Psi(\bot_{T((\tau, \dots, \tau))}).\] 
+		\[F_\Psi^{\mathcal{T},\eta}(\varnothing) = F(\Psi)\bot_{T((\tau, \dots, \tau))}.\] 
 		That means 
-		\[{F_\Psi^\mathcal{T}}^{i+1}(\varnothing) = \Psi^{i+1}(\bot_{T((\tau, \dots, \tau))})\] 
+		\[{F_\Psi^{\mathcal{T},\eta}}^{i+1}(\varnothing) = F(\Psi)^{i+1}\bot_{T((\tau, \dots, \tau))}\] 
 		holds because by induction hypothesis it holds 
-		\[{F_\Psi^\mathcal{T}}^{i}
-		(\varnothing) = \Psi^{i}(\bot_{T((\tau, \dots, \tau))})\] 
+		\[{F_\Psi^{\mathcal{T},\eta}}^{i}
+		(\varnothing) = F(\Psi)^{i}\bot_{T((\tau, \dots, \tau))}\] 
 		and 
-		\[F_\Psi^\mathcal{T}({F_\Psi^\mathcal{T}}^{i}(\varnothing))= \Psi\big(\Psi^{i}(\bot_{T((\tau, \dots, \tau))})\big).\]
-		Because it exists an $i$ such that ${F_\Psi^\mathcal{T}}^i(\varnothing) = {F_\Psi^		
-        \mathcal{T}}^{i+1}(\varnothing)$ it follows that the right conjunct of $\varphi$
+		\[F_\Psi^{\mathcal{T},\eta}({F_\Psi^{\mathcal{T},\eta}}^{i}(\varnothing))= F(\Psi)\big(F(\Psi)^{i}\bot_{T((\tau, \dots, \tau))})\big.\]
+		If it exists an $i$ such that ${F_\Psi^{\mathcal{T},\eta}}^i(\varnothing) = {F_\Psi^		
+        \mathcal{T}}^{i+1}(\varnothing)$ this is exactly the case when the right conjunct of $\varphi$
 		\begin{align*}
 		&\forall^{\tau'} X_1.\, \dotsb \forall^{\tau'} X_n.\,\\& 
          \big((\dotsb(\Psi^i(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n \Leftrightarrow \\&\;(\dotsb(\Psi^{i+1}(\bot_{T((\tau, \dots, \tau))}) X_1)\dotsb)X_n\big)
          \end{align*}
-		holds also. The left conjunct of $\varphi$ returns then the function that we get through  
-		the $i$-th application of $\Psi$ on the empty set.
+		holds. The left conjunct of $\varphi$ returns then the function that we get through  
+		the $i$-th application of $\Psi$ on $\bot_{T((\tau, \dots, \tau))}$.
 		
 		Because of the construction of variable mapping $\eta_V$ and $(\eta(V_1), \dots, \eta(V_n)) 
 		\in \eta(X)$ it holds $(\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,\eta_V(V_n) = Q^d$
         and so 
          \[\emph{q} \in (\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,\eta_V(V_n).\]
-         Because $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^\mathcal{T}}^i(\varnothing)$ and $
-         \emph{q} \in (\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,$ $\eta_V(V_n)$ it follows with 
-        \[F(\Phi) = (\dotsb((PFP^\tau X.\, F(\Phi))\, V_1)\dotsb )\, V_n \]
-        that $\emph{q} \in \llbracket F(\Phi) \rrbracket_\mathcal{T}^{\eta_V}$.
+         That means it holds $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^{\mathcal{T},\eta}}^i(\varnothing)$ with 
+        \[F(\Phi) = (\dotsb((PFP^T((\tau, \dots, \tau)) X.\, F(\Phi))\, V_1)\dotsb )\, V_n \]
+        exactly then if \[\emph{q} \in \llbracket F(\Phi) \rrbracket_\mathcal{T}^{\eta_V}.\]
+        
+        In the case that $PFP(F_\Psi^{\mathcal{T},\eta})$ returns the empty set because there is no $m$ such that ${F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = {F_\Psi^		
+       {\mathcal{T},\eta}}^{m+1}(\varnothing)$, the right conjunct of $\varphi$ is always false. Because of the least fixpoint operator in $PFP^{T((\tau, \dots, \tau))} X.\, F(\Psi)$ the iteration is finite and it  will return $\bot_{T((\tau, \dots, \tau))}$.
     \end{compactitem}
 \end{proof}
 
