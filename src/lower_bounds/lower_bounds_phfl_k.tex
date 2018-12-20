@@ -7,8 +7,7 @@
 
 As mentioned in the introduction of this chapter we can show that the lower bound of PHFL$^k$ is \exptime{$k$} by
 making a detour over HO(LFP)$^{k+1}$. This and following ideas are oriented on~\cite{lange2014capturing} where it was
-shown that PHFL$^1$ captures \exptime{$1$}. At first we will see that it was proven that HO(LFP)$^{k +
-1}$ coincides with $k$-fold exponential time over finite and ordered structures. To use this we have to encode the
+shown that PHFL$^1$ captures \exptime{$1$}. At first we will see that it was proven that $k$-fold exponential time coincides with HO(LFP)$^{k+1}$ over finite and ordered structures. To use this we have to encode the
 bisimulation invariant fragment of HO$^{k+1}$ into PHFL$^k$. Therefore, we define an abbreviation for the HO(LFP)
 formulas that uses the LFP operator first and then a function that use this abbreviation and those of
 Section~\ref{sec:existential_quantifiers_in_phfl} to map an HO(LFP)$^{k+1}$ formula to a PHFL$^k$ formula. Finally, we
@@ -23,7 +22,7 @@ The proof follows the idea to encode the run of a $k$-EXPTIME Turing Machine $M$
 
 Because Theorem~\ref{theorem:hoLfpEqualsExptime} holds, it is also possible to prove that the lower bound of PHFL$^k$
 is in \exptime{$k$} by encoding the bisimulation invariant fragment of HO(LFP)$^{k + 1}$ into PHFL$^k$. To encode the
-bisimulation invariant fragment of HO(LFP)$^{k + 1}$ into PHFL$^k$ we have to define a function that transforms a HO
+bisimulation invariant fragment of HO(LFP)$^{k + 1}$ into PHFL$^k$ we have to define a function that transforms an HO
 (LFP)$^{k + 1}$ formula into a PHFL$^k$ formula. Note that the types and variables of an HO formula also need to be
 transformed. See Section~\ref{sec:existential_quantifiers_in_phfl} for further details.
 
@@ -61,7 +60,7 @@ Now we are able to define the function in the following definition by using the 
         F(X(X_1, \dots, X_n)) \coloneqq &\, (\dotsb (X\,X_1)\dotsb)\,X_n
     \end{align*}
 \end{definition}
-Keep in mind that we are working on LTS, that means that the relations in the signatures for HO(LFP) formulas have either arity one or two. Relations with arity one represent the 
+Keep in mind that we are working on LTS that means that the relations in the signatures for HO(LFP) formulas have either arity one or two. Relations with arity one represent the 
 propositions and those with arity two the actions of an LTS.
 
 \subsection{Variables}\label{subsec:lower_bounds_variables}
@@ -69,9 +68,9 @@ propositions and those with arity two the actions of an LTS.
 After we encoded HO(LFP)$^{k+1}$ syntactically into PHFL$^k$ formulas, the last step is to translate the 
 interpretation of variables. As described in Section~\ref{sec:existential_quantifiers_in_phfl} the variables in HO of 
 types with order $3$ or higher are not supported in PHFL. Also first-order variables are not supported. Therefore, we 
-define a function that maps a given variable mapping for a HO formula to the correct variable mapping for PHFL 
+define a function that maps a given variable mapping for an HO formula to the correct variable mapping for PHFL 
 semantics. This function ignores the mapping of first-order variables, maps second-order variables to sets and 
-higher-order variables to the corresponding characteristic function. Note, that the sets of order $2$ in HO have order 
+higher-order variables to the corresponding characteristic function. Note that the sets of order $2$ in HO have order 
 $0$ in PHFL. The first-order variables of an HO formula that are marked as undefined in the following function, can be 
 mapped to any arbitrary value because we do not use them in PHFL directly.
 
@@ -80,7 +79,7 @@ mapped to any arbitrary value because we do not use them in PHFL directly.
 \begin{definition}
     \label{definition:lower_bound_variable_function}
     Let $d$ be the constant as described in Remark~\ref{remark:dimension}, let $\eta$ be a
-    variable mapping for a HO$^k$ formula and let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS, then $\eta_V$ is a 
+    variable mapping for an HO$^k$ formula and let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS, then $\eta_V$ is a 
     variable mapping for a PHFL$^k$ formula with dimension $d$. Then the variable mapping $\eta_V$ is defined as:
     \[\eta_V(\hat{X})\coloneqq
     \begin{cases}
@@ -101,7 +100,7 @@ The following example shows how a set of higher type variables will be translate
 variable mapping $\eta_V$ of Definition~\ref{definition:lower_bound_variable_function}.
 
 \begin{example}
-    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS with the set of states $Q = \{1, 2, 3\}$, let $X$ be a HO(LFP)$^{k + 1}$
+    Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS with the set of states $Q = \{1, 2, 3\}$, let $X$ be an HO(LFP)$^{k + 1}$
     variable of type $((\odot, \odot), (\odot, \odot))$ mapped through variable mapping $\eta$ to
     \[\eta(X) = \{(\{(1, 1)\}, \{(2, 2)\}), (\{(1, 1), (2, 2)\}, \{(3, 3)\})\},\]
     let $d$ be a dimension of PHFL, then $\eta_V(X)$ is a PHFL$^k$ function of type $\bullet \rightarrow (\bullet \rightarrow \bullet)$ such
@@ -113,7 +112,7 @@ variable mapping $\eta_V$ of Definition~\ref{definition:lower_bound_variable_fun
 
 \subsection{Correctness Proof}\label{subsec:lower_bounds_correctness_lfp}
 
-The last step is to show such that the query that can be defined by the PHFL$^k$ formula $\Psi$ that is obtained by transforming a HO(LFP)$^{k+1}$ formula $\Phi$ can be obtained from the query defined by $\Phi$ via projection to the relevant components. As mentioned in Section~\ref{sec:lower_bounds_preparation}, without loss of generality, the statement can be proven by considering only reduced LTS. 
+The last step is to show that for any query that is defined by an HO(LFP)$^{k+1}$ formula $\Phi$ can be obtained from the query defined by the PHFL$^k$ formula $\Psi$ that is obtained by transforming $\Phi$ via projection to the relevant components. As mentioned in Section~\ref{sec:lower_bounds_preparation}, without loss of generality, the statement can be proven by considering only reduced LTS. 
 
 To make the correctness proof clearer there is one last remark.
 
@@ -251,7 +250,7 @@ Because the type judgement is always derivable we ignore the type environment in
             \llbracket F(\Psi) \rrbracket^{{\eta'_V}}_\mathcal{T}.
         \end{align*}
         To reach the value of $\eta'(X_i)$ we have to replace the $2s+i$-th component by one of 
-        the last $r$ components and move through all reachable states. By Observation~\ref{observation:existential_quantification_first} the formula defined in Definition~\ref{definition:existential_quantification_first} fulfils this behaviour. Because the first-order variable $X_i$ is represented by the $2s+i$-th component and $F(\Phi) = \exists_{2s+i} \Psi$, we replace in $F(\Phi)$ the $2s+i$-th component by one of the last $r$ components, move through all reachable states and checking if $F(\Psi)$ holds. That means it holds 
+        the last $r$ components and move through all reachable states. By Observation~\ref{observation:existential_quantification_first} the formula defined in Definition~\ref{definition:existential_quantification_first} fulfils this behaviour. Because the first-order variable $X_i$ is represented by the $2s+i$-th component and $F(\Phi) = \exists_{2s+i} \Psi$, we replace in $F(\Phi)$ the $2s+i$-th component by one of the last $r$ components, move through all reachable states and checking if $F(\Psi)$ holds. That means it holds that
         \[\emph{q} \in \llbracket F
         (\Phi) \rrbracket^{\eta_V}_\mathcal{T}\]
         iff $\mathcal{T}, \eta \models \Phi$.
@@ -271,7 +270,7 @@ Because the type judgement is always derivable we ignore the type environment in
         $\mathcal{T}, \eta \models \Phi$ exactly if $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in LFP
         (F_\Psi^\mathcal{T})$. By definition of LFP the tuple $(\eta(V_{j_1}), \dots, \eta(V_{j_n}))$ is in
         $LFP(F_\Psi^\mathcal{T})$ iff $X$ is the smallest $X$ such that $X = F_\Psi^\mathcal{T}(X)$ and $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in
-        F_\Psi^\mathcal{T}(X)$. By definition of $F_\Psi^\mathcal{T}(X)$ it holds $(\eta
+        F_\Psi^\mathcal{T}(X)$. By definition of $F_\Psi^\mathcal{T}(X)$ it holds that $(\eta
         (V_{j_1}), \dots, \eta(V_{j_n})) \in F_\Psi^\mathcal{T}(X)$ exactly then if $\mathcal{T}, \eta' 
         \models \Psi$, where $\eta'$ is a variable mapping with $\eta'(x) = \eta(x)$ for all variables $x \neq X$ and $\eta'(X) = F_\Psi^\mathcal{T}(X)$. By induction hypothesis this is exactly the case if
         \begin{align*}
@@ -280,7 +279,7 @@ Because the type judgement is always derivable we ignore the type environment in
         F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T}.
         \end{align*}
         
-        The next step is to show that it holds $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ exactly then if $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon \bullet).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
+        The next step is to show that it holds that $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ exactly then if $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon \bullet).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
         By Theorem~\ref{theorem:kleene} the least fixpoint of $F^\mathcal{T}_\Psi$ can be calculated by a sequence $X_0, \dots, X_m$ where here $X_0 = \emptyset$ and $X_{i+1} 
         = F_\Psi^\mathcal{T}(X_i)$ and $\eta'(X) = X_m$. On the other hand $\llbracket \mu (X \colon \bullet).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$ can be calculated by a sequence 
          $Y_0, \dots, Y_{m'}$ where here $Y_0 = \varnothing$ and $Y_{i+1} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta_V[X \mapsto Y_i]}$ and $Y_{m'} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'_V}$. Furthermore, let $\eta'^0, \dots, \eta'^m$ be a sequence of variable mappings where $\eta'^i(x) = \eta(x)$ for all $x \neq X$ and $\eta'^i(X) = X_i$. It is easy to verify that $\eta'^m = \eta'$. For any $\eta'^i$ we get by Definition~\ref{definition:lower_bound_variable_function} the variable mapping $\eta'^i_V$ and so a sequence of variable mappings $\eta'^0_V, \dots, \eta'^m_V$. Moreover, $\eta^{j+1}_V$ is $\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^j_V}$. Because $\eta'^0_V(X) = \varnothing$, $\eta'^1_V(X) =\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^0_V}$ and so on, it follows that $\eta'^m_V(X) = \llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T}$ if and only if $\eta'(X)$ is the least fixpoint of $F^\mathcal{T}_\Psi$.
@@ -306,18 +305,18 @@ Because of the construction of variable mapping $\eta'_V$ and $(\eta'(V_{j_1}), 
         it follows that $\mathcal{T}, \eta \models \Phi$ exactly then if $(\eta(V_1), \dots, \eta(V_n) \in LFP
         (F_\Psi^\mathcal{T})$. By definition of LFP the tuple $(\eta(V_1), \dots, \eta(V_n))$ is in
         $LFP(F_\Psi^\mathcal{T})$ iff $X$ is the smallest $X$ such that $X = F_\Psi^\mathcal{T}(X)$ and $(\eta(V_1), \dots, \eta(V_n)) \in
-        F_\Psi^\mathcal{T}(X)$. By definition of $F_\Psi^\mathcal{T}(X)$ it holds $(\eta
+        F_\Psi^\mathcal{T}(X)$. By definition of $F_\Psi^\mathcal{T}(X)$ it holds that $(\eta
         (V_1), \dots, \eta(V_n)) \in F_\Psi^\mathcal{T}(X)$ exactly then if $\mathcal{T}, \eta' 
         \models \Psi$, where $\eta'$ is a variable mapping with $\eta'(x) = \eta(x)$ for all variables $x \neq X$ and $\eta'(X) = F_\Psi^\mathcal{T}(X)$. By induction hypothesis this is exactly the case if
         \[\emph{q} \in \llbracket  F(\Psi)
         \rrbracket^{\eta_V}_\mathcal{T}.\]
 
-The next step is to show that it holds $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ exactly then if $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon T((\tau, \dots, \tau))).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
+The next step is to show that it holds that $\eta'(X) = LFP(F^\mathcal{T}_\Psi)$ exactly then if $\llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T} = \llbracket \mu (X \colon T((\tau, \dots, \tau))).\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$. 
         By Theorem~\ref{theorem:kleene} the least fixpoint of $F^\mathcal{T}_\Psi$ can be calculated by a sequence $X_0, \dots, X_m$ where here $X_0 = \emptyset$ and $X_{i+1} 
         = F_\Psi^\mathcal{T}(X_i)$ and $\eta'(X) = X_m$. On the other hand $\llbracket \mu (X \colon T((\tau, \dots, \tau)).$ $\,F(\Psi)\rrbracket_\mathcal{T}^{\eta_V}$ can be calculated by a sequence 
          $Y_0, \dots, Y_{m'}$ where here $Y_0 = \bot_{T((\tau, \dots, \tau))}$ and $Y_{i+1} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta_V[X \mapsto Y_i]}$ and $Y_{m'} = \llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'_V}$. Furthermore, let $\eta'^0, \dots, \eta'^m$ be a sequence of variable mappings where $\eta'^i(x) = \eta(x)$ for all $x \neq X$ and $\eta'^i(X) = X_i$. It is easy to verify that $\eta'^m = \eta'$. For any $\eta'^i$ we get by Definition~\ref{definition:lower_bound_variable_function} the variable mapping $\eta'^i_V$ and so a sequence of variable mappings $\eta'^0_V, \dots, \eta'^m_V$. Moreover, $\eta^{j+1}_V$ is $\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^j_V}$. Because $\eta'^0_V(X) = \bot_{T((\tau, \dots, \tau))}$, $\eta'^1_V(X) =\llbracket F(\Psi)\rrbracket_\mathcal{T}^{\eta'^0_V}$ and so on, it follows that $\eta'^m_V(X) = \llbracket F(\Psi) \rrbracket^{\eta'_V}_\mathcal{T}$ if and only if $\eta'(X)$ is the least fixpoint of $F^\mathcal{T}_\Psi$.
         
-                Because of the construction of variable mapping $\eta'_V$ and $(\eta'(V_1), \dots, $ $\eta'(V_n)) \in \eta'(X)$ it holds
+                Because of the construction of variable mapping $\eta'_V$ and $(\eta'(V_1), \dots, $ $\eta'(V_n)) \in \eta'(X)$ it holds that
         $(\dotsb\big(\eta'_V(X)\,\eta'_V(V_1)\big) \dotsb )\,\eta'_V(V_n) = Q^d$
         and so 
         \begin{align*}

@@ -3,9 +3,9 @@
 Before we can start with the encodings there are some important steps that we have to consider.  Let $\mathcal{T} = (Q, 
 \Sigma, P, \Delta, v)$ be an LTS, $q_1, \dots, q_n, p_1, \dots, p_m \in Q$ some states of $\mathcal{T}$ and let $\mathcal{T}'$ be the 
 reduced LTS of $\mathcal{T}$ with respect to $p_1, \dots, p_m$.  
-As mentioned in the introdution of this chapter it is known from~\cite{lange2014capturing} that PHFL cannot distinguish 
-between bisimilar structures. That means PHFL formulas can only define bisimulation-invariant graph problems. That means that, without loss of generality, we can check if $([q_1]_\sim, \dots, [q_n]_\sim)$ satisfies a formula $\Phi$ in respect of $\mathcal{T}'$ instead of checking if $(q_1, \dots, q_n)$ satisfies 
-$\Phi$ in respect of $\mathcal{T}$. With $[q_i]_\sim$ we denote the equivalence class of $q_i$ with respect to $\sim$.
+As mentioned in the introduction of this chapter it is known from~\cite{lange2014capturing} that PHFL cannot distinguish 
+between bisimilar structures. That means PHFL formulas can only define bisimulation-invariant graph problems. That means that, without loss of generality, we can check if $([q_1]_\sim, \dots, [q_n]_\sim)$ satisfies a formula $\Phi$ with respect to $\mathcal{T}'$ instead of checking if $(q_1, \dots, q_n)$ satisfies 
+$\Phi$ with respect to $\mathcal{T}$. With $[q_i]_\sim$ we denote the equivalence class of $q_i$ with respect to $\sim$.
 
 From this point all LTS are reduced LTS with respect to some states of their state sets. In more detail, let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be a reduced LTS with respect to $(q_1, \dots, q_r)$, where $q_1, \dots, q_r \in Q$. On those LTS it is possible to define a total order on their states. 
 

@@ -8,20 +8,22 @@
 In this chapter we regard the upper bounds of the expressive power of PHFL$^k$ and PHFL$^k_{tail}$. First, we have to show that the upper
 bound of the expressive power of PHFL$^k$ is \exptime{$k$}.
 
+\section{Upper Bound of PHFL$^k$}
+
 To show that the upper bound of the expressive power of PHFL$^k$ is \exptime{$k$} we reduce the model checking
 problem of PHFL$^k$ that to HFL$^k$. Remember that HFL$^k$ is the set of $1$-adic PHFL$^k$
 formulas. In combination with Theorem~\ref{theorem:hfl_k_in_k_exptime} we get the upper bound of the expressive power of PHFL$^k$.
 
 \begin{theorem}{\cite{axelsson2007complexity}}
     \label{theorem:hfl_k_in_k_exptime}
-	The model checking problem of HFL$^k$ is solvable in $k$-EXPTIME, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPTIME whether $\mathcal{T}, s$ models $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in HFL$^k$.
+	The model checking problem of HFL$^k$ is solvable in $k$-EXPTIME, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPTIME whether $\mathcal{T}, s$ is a model of $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in HFL$^k$.
 \end{theorem}
 
 In the following, we have to reduce the semantics of PHFL$^k$ to that of HFL$^k$.
 Thus, we have to convert the input LTS $\mathcal{T}$ and the input PHFL$^k$ formula $\Phi$ of the problem of deciding whether
 $\mathcal{T}$ with a state tuple $\emph{s}$ is a model of $\Phi$. We first define a mapping that transforms an LTS into the $d$-fold product of itself, where $d \in \mathbb{N}$
  and give an example for this transformation process. In the next step we define a function that maps a
-PHFL$^k$ type to a HFL$^k$ type. We then continue to define one additional function that maps a PHFL$^k$ formulas to
+PHFL$^k$ type to an HFL$^k$ type. We then continue to define one additional function that maps a PHFL$^k$ formulas to
 HFL$^k$ formulas and give an example for such a mapping. Finally, we show that the semantics of the original
 formula with the original types and the original LTS in the PHFL$^k$ context coincide with the semantics of the
 converted formula with the converted types and the converted LTS in the HFL$^k$ context\footnote{Because the new LTS will have as underlying set $d$-tuples of states of the original LTS, the semantics of both logics represents the same mathematically object.}. 
@@ -40,7 +42,7 @@ As mentioned above we do start by defining a mapping that transforms a given LTS
         {q_i}', q_{i + 1}, \dots, q_d)) \mid (q_i, a, {q_i}') \in \Delta\}$
 
         $\cup\,\{((q_{e(1)}, \dots, q_{e(d)}), s_{(e(1),
-        \dots, e(d))}, (q_1, \dots, q_d)) \mid e: \{1, \dots, d\} \rightarrow \{1, \dots, d\}\}$ and
+        \dots, e(d))}, (q_1, \dots, q_d)) \mid \\e: \{1, \dots, d\} \rightarrow \{1, \dots, d\}\}$ and
         \item $v_d \colon Q^d \rightarrow 2^{P_d}, $
         $v_d((q_1, \dots, q_d)) = \underset{i = 1}{\overset{d}{\bigcup}} \{p_i \mid p \in v(q_i)\}$.
     \end{compactitem}
@@ -64,7 +66,7 @@ The following example shows the construction of an LTS as described in Definitio
         \end{tikzpicture}
     \end{center}
     Let $d = 2$ be a natural number then $\mathcal{T}_d$ is the
-    following LTS. Note, that for readability reasons not all edges are drawn in this representation of $\mathcal{T}_d$.
+    LTS at Figure~\ref{figure:t_d}. Note that for readability reasons not all edges are drawn in this representation of $\mathcal{T}_d$.
     The edges that are missing are those that uses action $s_{(1, 2)}$ (except $(1, 1)$ to $(1,
     1)$) and the following edges are also not drawn
     $\{(1, 2) \overset{s_{(1, 1)}}{\rightarrow} (1, 1),
@@ -83,6 +85,9 @@ The following example shows the construction of an LTS as described in Definitio
     (3, 1) \overset{b_2}{\rightarrow} (3, 3)
     \}$, where $q \overset{S_d}{\rightarrow} q' =
     \{q \overset{a}{\rightarrow} q' \mid a \in S_d\}$.
+        \begin{figure}
+        \caption{Construction of an LTS for $d=2$ with respect to Definition~\ref{definition:lts_transformation}.}
+    \label{figure:t_d}
     \begin{center}
         \begin{tikzpicture}[]
             \node [place] (q11) {$(1, 1)$}
@@ -120,14 +125,15 @@ The following example shows the construction of an LTS as described in Definitio
             edge [pre, bend left=40] node[right, below] {$s_{(1, 1)}$} (q31);
         \end{tikzpicture}
     \end{center}
+    \end{figure}
 \end{example}
 
-The next step is to define a function that maps a PHFL type to a HFL type.
+The next step is to define a function that maps a PHFL type to an HFL type.
 
 \begin{definition}
     \label{definition:type_function}
     Let $\tau_{PHFL}$, $\sigma_{PHFL}$ be arbitrary PHFL types, $\bullet_{PHFL}$ the base type of PHFL, $\bullet_{HFL}$
-    the base type of HFL and $v$ an arbitrary variance, then $T$ is a function that maps a PHFL type to a HFL type
+    the base type of HFL and $v$ an arbitrary variance, then $T$ is a function that maps a PHFL type to an HFL type
     defined inductive over the type of PHFL as follows:
     \begin{align*}
         T(\bullet_{PHFL}) &= \bullet_{HFL},\\
@@ -144,19 +150,19 @@ X_1^{v_1} \colon T(\tau_1), \dots, X_n^{v_n} \colon T(\tau_n)$.
     Let $\mathcal{T}$ be an LTS, $d \in \mathbb{N}$ with $d >0$ and $\mathcal{T}_d$ the transformed LTS by
     Definition~\ref{definition:lts_transformation} and $T$ the type mapping of
     Definition~\ref{definition:type_function}. Furthermore, let $\eta$ be a variable mapping over $\mathcal{T}$ for PHFL
-    formulas, then $V(\eta)$ is a variable mapping over $\mathcal{T}_d$ for HFL formulas, where $V(\eta)(X) = \eta(X) = \mathcal{X}$ with $\mathcal{X} \in \llbracket \tau \rrbracket_\mathcal{T}$. Note, that for $\mathcal{X}$ it holds that $\mathcal{X} \in \llbracket \tau
+    formulas, then $V(\eta)$ is a variable mapping over $\mathcal{T}_d$ for HFL formulas, where $V(\eta)(X) = \eta(X) = \mathcal{X}$ with $\mathcal{X} \in \llbracket \tau \rrbracket_\mathcal{T}$. Note that for $\mathcal{X}$ it holds that $\mathcal{X} \in \llbracket \tau
     \rrbracket_\mathcal{T}$ iff $\mathcal{X} \in \llbracket T(\tau)\rrbracket_{\mathcal{T}_d}$ due to the definition
     of $\mathcal{T}_d$ and $T(\tau)$.
 \end{definition}
 
-We continue with the definition of the function that maps a PHFL$^k$ formula to a HFL$^k$ formula.
+We continue with the definition of the function that maps a PHFL$^k$ formula to an HFL$^k$ formula.
 
 \begin{definition}
     \label{definition:formula_function}
     Let $T$ be the type function from Definition~\ref{definition:type_function} and let $P$ be a set of propositions,
     $\Sigma$ a set of actions and $\mathcal{V} = \{X_1, \dots, X_n\}$ a finite set of variables for a $d$-adic
     PHFL$^k$ formula $\Phi$, then $F$ is a function that maps a $d$-adic PHFL$^k$ formula over $P$, $\Sigma$ and
-    $\mathcal{V}$ to a HFL$^k$ formula over proposition set $P_d = \underset{p \in P}{\bigcup}(\underset{i =
+    $\mathcal{V}$ to an HFL$^k$ formula over proposition set $P_d = \underset{p \in P}{\bigcup}(\underset{i =
     1}{\overset{d}{\bigcup}} \{p_i\})$, action set $\Sigma_d \cup S_d = \underset{a \in \Sigma}{\bigcup}(\underset{i =
     1}{\overset{d}{\bigcup}} \{a_i\}) \cup \{s_{(e(1), \dots, e(d))} \mid e: \{1, \dots d\} \rightarrow \{1, \dots,
     d\}\}$ and variable set $\mathcal{V}$ which is defined inductive over the $d$-adic PHFL$^k$ formula as follows:
@@ -175,7 +181,7 @@ We continue with the definition of the function that maps a PHFL$^k$ formula to 
 \end{definition}
 
 \begin{example}
-    We transform the $2$-adic PHFL$^2$ formula of Example~\ref{example:phfl_order_2} with the function of Definition~\ref{definition:formula_function} to a HFL$^2$ formula.
+    We transform the $2$-adic PHFL$^2$ formula of Example~\ref{example:phfl_order_2} with the function of Definition~\ref{definition:formula_function} to an HFL$^2$ formula.
     \begin{align*}
         \Phi = &(\mu (F \colon \bullet_{PHFL}^0 \rightarrow (\bullet_{PHFL}^0 \rightarrow \bullet_{PHFL})).\,
         \lambda (X \colon \bullet_{PHFL}).\, \lambda (Y \colon \bullet_{PHFL}).\, \\&X \Leftrightarrow Y \wedge
@@ -197,13 +203,14 @@ We continue with the definition of the function that maps a PHFL$^k$ formula to 
 
 Because the type judgement is always derivable we ignore the type environment in the following proof and write just $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ instead of $\llbracket \Gamma \vdash \Phi \colon \tau \rrbracket^\eta_\mathcal{T}$, where $\Phi$ is a PHFL formula, $\eta$ is a variable mapping, $\mathcal{T}$ is an LTS, $\Gamma$ is a type environment and $\tau$ is a PHFL type. 
 
-In the final step we show that the semantics of a given PHFL$^k$ formula coincide with the transformed HFL$^k$ formula.
+\subsection{Correctness Proof}
+In the final step we show that the semantics of a given PHFL$^k$ formula coincides with the transformed HFL$^k$ formula.
 
 \begin{lemma}
     \label{lemma:model_check_phfl_k}
     Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Phi$ a well-typed $d$-adic
     PHFL$^k$ formula, $\mathcal{T}_d$ the LTS transformed by the process of
-    Defintion~\ref{definition:lts_transformation}, $T$ the type function of Defintion~\ref{definition:type_function},
+    Definition~\ref{definition:lts_transformation}, $T$ the type function of Definition~\ref{definition:type_function},
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
     and $F$ the formula function of Definition~\ref{definition:formula_function} then $\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \llbracket F(\Phi)
     \rrbracket^{V(\eta)}_{\mathcal{T}_d}$
@@ -229,7 +236,7 @@ Although it looks unexpected this is exactly the statement that we have to prove
         \[\llbracket F(\Phi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} = \{
         (q_1, \dots, q_d) \in Q^d \mid p_i \in v_d((q_1, \dots, q_d))\}\]
         and furthermore that
-        \[\{(q_1, \dots, q_d)\in Q^d \mid p \in v(q_i)\} =\{(q_1, \dots, q_d) \in Q^d \mid p_i \in
+        \[\{(q_1, \dots, q_d)\in Q^d \mid p \in v(q_i)\}\] is equal to \[\{(q_1, \dots, q_d) \in Q^d \mid p_i \in
         v_d((q_1, \dots, q_d))\}.\]
 
         \item The last base case is $\Phi = X$. It holds that
@@ -249,12 +256,12 @@ Although it looks unexpected this is exactly the statement that we have to prove
         \item In case of $\Phi = \langle a \rangle_i \psi$,
         \begin{align*}
             \llbracket \Phi \rrbracket^\eta_\mathcal{T} = &\,
-            \{(q_1, \dots, q_d) \in Q^d \mid \\&\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket \Gamma
+            \{(q_1, \dots, q_d) \in Q^d \mid \\&\text{ there exists } ({q_1}', \dots, {q_d}') \in \llbracket \Gamma
                 \vdash \psi 
                 \rrbracket^\eta_\mathcal{T} \text{ such that }\\&\,q_i \overset{a}{\rightarrow} {q_i}' \text{ and for
             all
             } i \neq j
-            \text{ it holds } q_j =
+            \text{ it holds that } q_j =
                 {q_j}'\}.
         \end{align*}
         By the induction hypothesis $({q_1}', \dots, {q_d}') \in \llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d}$ because $({q_1}', \dots,$ $ {q_d}') \in \llbracket \psi \rrbracket^\eta_\mathcal{T}$. Based on construction of $\mathcal{T}_d$
@@ -262,14 +269,14 @@ Although it looks unexpected this is exactly the statement that we have to prove
         {q_{i + 1}'}, \dots, {q_d}') \overset{a_i}{\rightarrow} ({q_1}', \dots, {q_{i - 1}'}, {q_i}',
         {q_{i + 1}'}, \dots, {q_d}') \in \Delta_d$. That means that
         \begin{align*}
-            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket \psi 
+            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ there exists } ({q_1}', \dots, {q_d}') \in \llbracket \psi 
             \rrbracket^\eta_\mathcal{T} \text{ such that }\\&\,q_i \overset{a}{\rightarrow} {q_i}' \text{ and for
-            all } i \neq j \text{ it holds } q_j = {q_j}'\}
+            all } i \neq j \text{ it holds that } q_j = {q_j}'\}
         \end{align*}
         is equal to
         \begin{align*}
-            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ it exists } ({q_1}', \dots, {q_d}') \in \llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} \text{ such that }\\&\,q_i
-            \overset{a_i}{\rightarrow} {q_i}' \text{ and for all } i \neq j \text{ it holds } q_j = {q_j}'\}.
+            \{(q_1, \dots, q_d) \in Q^d \mid &\text{ there exists } ({q_1}', \dots, {q_d}') \in \llbracket F(\psi) \rrbracket^{V(\eta)}_{\mathcal{T}_d} \text{ such that }\\&\,q_i
+            \overset{a_i}{\rightarrow} {q_i}' \text{ and for all } i \neq j \text{ it holds that } q_j = {q_j}'\}.
         \end{align*}
         As a result of of $T$, $V$ and that $F(\langle a \rangle_i \psi) = \langle a_i \rangle \psi$ holds the second set is
         exactly the definition of the semantics of
@@ -395,7 +402,7 @@ Although it looks unexpected this is exactly the statement that we have to prove
     This shows the correctness of the construction. 
 \end{proof}
 
-To make sure that this construction does not exceed the bounds of HFL$^k$ we have to verify, that the growth of the defined construction is at most polynomial. Thereafter it is proven that the semantics of PHFL$^k$ is
+To make sure that this construction does not exceed the bounds of HFL$^k$ we have to verify that the growth of the defined construction is at most polynomially. Thereafter it is proven that the semantics of PHFL$^k$ is
 reducible to the semantics of HFL$^k$.
 
 \begin{lemma}
@@ -406,42 +413,44 @@ Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS, $\eta$ a variable mappi
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
     and $F$ the formula function of Definition~\ref{definition:formula_function} then 
     \begin{compactitem}
-    \item $\mathcal{T}_d$ grows polynomial related to $\mathcal{T}$, 
-    \item $T(\tau)$ grows polynomial related to $\tau$,
-    \item $T(\Gamma)$ grows polynomial related to $\Gamma$,
-    \item $V(\eta)$ grows polynomial related to $\eta$ and
-    \item $F(\Phi)$ grows polynomial related to $\Phi$.
+    \item $\mathcal{T}_d$ grows polynomially related to $\mathcal{T}$, 
+    \item $T(\tau)$ grows polynomially related to $\tau$,
+    \item $T(\Gamma)$ grows polynomially related to $\Gamma$,
+    \item $V(\eta)$ grows polynomially related to $\eta$ and
+    \item $F(\Phi)$ grows polynomially related to $\Phi$.
     \end{compactitem}
 \end{lemma}
 
 \begin{proof}
-	$F(\Phi)$ and $T(\tau)$ grow obviously linear related to $\Phi$ and $\tau$ 
-	respectively. It follows that also $T(\Gamma)$ grows linear related to $\Gamma$. To show 
-	that $\mathcal{T}_d$ grows polynomial related to $\mathcal{T}$, we take a look at the particular 
+	$F(\Phi)$ and $T(\tau)$ grow obviously linearly related to $\Phi$ and $\tau$ 
+	respectively. It follows that also $T(\Gamma)$ grows linearly related to $\Gamma$. To show 
+	that $\mathcal{T}_d$ grows polynomially related to $\mathcal{T}$, we take a look at the particular 
 	components of the LTS. For the set of states it holds that $|Q^d| = |Q|^d$. That means $Q^d$ 
-	grows polynomial related to $Q$. The cardinality of the set of actions of $\mathcal{T}_d$ is 
+	grows polynomially related to $Q$. The cardinality of the set of actions of $\mathcal{T}_d$ is 
 	$|\Sigma_d| + |S_d|$. Since $|S_d|$ is a constant it holds also that $|\Sigma_d| = |\Sigma|^d$. 
-	By combining these two statements, one can see that the set of actions also grows polynomial. The set of propositions $P^d$ also grows 
-	polynomial, because it is constructed like the subset of actions $\Sigma_d$. The labelled 
-	transition relation $\Delta_d$ also grows polynomial because it is constructed like the set of 
+	By combining these two statements, one can see that the set of actions also grows polynomially. The set of propositions $P^d$ also grows 
+	polynomially, because it is constructed like the subset of actions $\Sigma_d$. The labelled 
+	transition relation $\Delta_d$ also grows polynomially because it is constructed like the set of 
 	actions of $\mathcal{T}_d$. The first set has cardinality $|\Delta|^d$ and the second set is a 
-	constant. Again, by combining the previous statements it is clear that $\Delta_d$ grows polynomial related to $\Delta$. At least, the 
-	mapping $v_d$ grows polynomial related to $v$ because the set of states and the set of 
-	propositions of $\mathcal{T}$ grow polynomial. As a result it follows, that $
-	\mathcal{T}_d$ grows polynomial related to $\mathcal{T}$. Because $\mathcal{T}_d$ grows 
-	polynomial related to $\mathcal{T}$ and $T(\tau)$ grows polynomial related to $\tau$  
-	$V(\eta)$ also grows polynomial related to $\eta$. 
+	constant. Again, by combining the previous statements it is clear that $\Delta_d$ grows polynomially related to $\Delta$. At least, the 
+	mapping $v_d$ grows polynomially related to $v$ because the set of states and the set of 
+	propositions of $\mathcal{T}$ grow polynomially. As a result it follows that $
+	\mathcal{T}_d$ grows polynomially related to $\mathcal{T}$. Because $\mathcal{T}_d$ grows 
+	polynomially related to $\mathcal{T}$ and $T(\tau)$ grows polynomially related to $\tau$  
+	$V(\eta)$ also grows polynomially related to $\eta$. 
 \end{proof}
 
-The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k}, Lemma~\ref{lemma:phfl_to_hfl_polynomial} and Theorem~\ref{theorem:hfl_k_in_k_exptime}.
+The following theorem is a consequence of Lemma~\ref{lemma:model_check_phfl_k}, Lemma~\ref{lemma:phfl_to_hfl_polynomial} and Theorem~\ref{theorem:hfl_k_in_k_exptime}.
 
 \begin{theorem}
     \label{theorem:phfl_k_in_k_exptime}
-	The model checking problem of PHFL$^k$ for $k > 0$ is solvable in $k$-EXPTIME, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPTIME whether $\mathcal{T}, s$ models $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in PHFL$^k$.    
+	The model checking problem of PHFL$^k$ for $k > 0$ is solvable in $k$-EXPTIME, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPTIME whether $\mathcal{T}, s$ is a model of $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in PHFL$^k$.    
 \end{theorem}
 
+\section{Upper Bound of PHFL$^{k+1}_{tail}$}
+
 To show that the upper bound of the expressive power of PHFL$^{k + 1}_{tail}$ is \expspace{$k$} we can reduce the semantics of
-PHFL$^{k}_{tail}$ to the semantics of HFL$^k_{tail}$. Keep in mind, that HFL$^k_{tail}$ is the set of tail-recursive
+PHFL$^{k}_{tail}$ to the semantics of HFL$^k_{tail}$. Keep in mind that HFL$^k_{tail}$ is the set of tail-recursive
 $1$-adic PHFL$^k$ formulas. In combination with the following theorem we get the upper bound
 of the expressive power of PHFL$^k_{tail}$.
 
@@ -455,7 +464,7 @@ of the expressive power of PHFL$^k_{tail}$.
     \label{lemma:model_check_phfl_k_tail}
     Let $\mathcal{T}$ be an LTS, $\eta$ a variable mapping, $\Phi$ a well-typed $d$-adic
     PHFL$^k_{tail}$ formula, $\mathcal{T}_d$ the LTS transformed by process of
-    Defintion~\ref{definition:lts_transformation},
+    Definition~\ref{definition:lts_transformation},
     $V$ the variable mapping function of Definition~\ref{definition:variable_mapping_function}
     and $F$ the formula function of Definition~\ref{definition:formula_function} then $\llbracket \Phi \rrbracket^\eta_\mathcal{T} = \llbracket F(\Phi)
     \rrbracket^{V(\eta)}_{\mathcal{T}_d}$.
@@ -465,10 +474,10 @@ of the expressive power of PHFL$^k_{tail}$.
     This proof is similar to the proof of Lemma~\ref{lemma:model_check_phfl_k}. Because the definition of $F$ obviously retains tail-recursiveness this lemma holds.
 \end{proof}
 
-The following theorem is given by Lemma~\ref{lemma:model_check_phfl_k_tail} and
+The following theorem is a consequence of Lemma~\ref{lemma:model_check_phfl_k_tail} and
 Theorem~\ref{theorem:hfl_k_plus_1_in_k_expspace}.
 
 \begin{theorem}
     \label{theorem:phfl_k_plus_1_tail_in_k_expspace}
-The model checking problem of PHFL$^{k + 1}_{tail}$ for $k > 0$ is solvable in $k$-EXPSPACE, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPSPACE whether $\mathcal{T}, s$ models $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in PHFL$^{k + 1}_{tail}$.        
+The model checking problem of PHFL$^{k + 1}_{tail}$ for $k > 0$ is solvable in $k$-EXPSPACE, i.e. on input $\mathcal{T}, s$ and $\Phi$ it is decidable in $k$-EXPSPACE whether $\mathcal{T}, s$ is a model of $\Phi$, where $\mathcal{T}$ is an LTS, $s$ is a state and $\Phi$ in PHFL$^{k + 1}_{tail}$.        
 \end{theorem}

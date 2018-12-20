@@ -27,9 +27,9 @@ For all $q_1, q_2 \in Q$ and all $a \in \Sigma$ we write $q_1 \overset{a}{\right
 \begin{example}
     \label{example:lts}
     As mentioned above, an LTS can be seen as a graph with labelled vertices and edges. For example, an LTS is
-    $\mathcal{T} = (\{q_1, q_2, q_3, q_4, q_5\}, \{a, b\}, $ $\{p_1, p_2\}, \Delta, v)$, where $\Delta = \{(q_1, a,
+    $\mathcal{T} = (\{q_1, q_2, q_3, q_4, q_5\}, \{a,$ $ b\}, \{p_1, p_2\}, \Delta, v)$, where $\Delta = \{(q_1, a,
 q_2)
-    , (q_2, a, q_3), (q_2, b, q_3), (q_2, b, q_5), (q_5, a, q_4), $ $(q_4, a, q_3), (q_4, b, q_3), $ $ (q_4, b, q_1)\}$,
+    , (q_2, a, q_3), (q_2, b, q_3), (q_2, b, q_5), (q_5, a, $ $q_4), $ $(q_4, a, q_3), (q_4, b, q_3), $ $ (q_4, b, q_1)\}$,
     $v(q_1) = v(q_2) = v(q_4) = v(q_5) = \{p_1\}$ and $v(q_3) = \emptyset$. $\mathcal{T}$ can be visualized as
     follows.
 \begin{center}
@@ -71,12 +71,12 @@ following relation describes states that have a sufficiently similar behaviour.
     (\mathcal{T}_2, q_2)$, if there
     is a bisimulation $R$ such that $(q_1, q_2) \in R$.
 \end{definition}
-It is easy to prove, that $\sim$ is an equivalence relation. 
+It is easy to prove that $\sim$ is an equivalence relation. 
 \begin{example}
     \label{example:bisimilar}
     Let $\mathcal{T}$ be like in Example~\ref{example:lts}. In this example, we compare states of the same LTS. It holds that $(\mathcal{T}, q_1) \sim (\mathcal{T}, q_5)$ and $(\mathcal{T}, q_2) \sim (\mathcal{T}, q_4)$ because
     $R = \{(q_1, q_5), (q_2, q_4), (q_3, q_3)\}$ is a bisimulation relationand includes $(q_1, q_5)$ and $(q_2, q_4)$.  Furthermore, it holds that $(\mathcal{T}, q_5) \sim (\mathcal{T},
-    q_1)$ and $(\mathcal{T}, q_4) \sim (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Note, that
+    q_1)$ and $(\mathcal{T}, q_4) \sim (\mathcal{T}, q_2)$. Moreover, all reflexive pairs are bisimilar. Note that
     $(\mathcal{T}, q_1) \not\sim (\mathcal{T}, q_3)$ because $v(q_1) \neq v(q_3)$ and $(\mathcal{T}, q_1)
     \not\sim (\mathcal{T}, q_2)$ because $q_2$ has an outgoing $b$-transition but $q_1$ has no $b$-transitions.
 \end{example}
@@ -104,7 +104,7 @@ Furthermore, we can describe properties of LTS. \textit{Queries} are one way to 
 \end{definition}
 
 One characterization of queries is called \textit{bisimulation invariant}. This characterization describes those queries that
-can not distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
+cannot distinguish bisimilar states. In~\cite{otto1999bisimulation} this property is defined over so called
 \textit{Kripke structures}. A Kripke structure is an LTS with only one type of actions.
 
 \begin{definition}

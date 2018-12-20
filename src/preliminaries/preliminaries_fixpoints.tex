@@ -22,7 +22,7 @@ A$ is monotone and $A$ is a complete lattice regarding to $\sqsubseteq$ then the
     \label{example:lfp} Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $F: Q^2 \rightarrow Q^2$ an operator on $Q^2$ defined as 
 \begin{align*}
     F(X) =\, &\{(q, p) \in Q^2 \mid v(q) \neq v(p)\}\, \cup \\&
-    \{(q,p) \in Q^2 \mid \text{it exists } a\in\Sigma \text{ with } q\overset{a}{\rightarrow} q' \text{ such that for all } p' \in Q \\&\text{ it holds } p\overset{a}{\rightarrow} p' \text{ implies } (q', p') \in X\}\,\cup \\&\{(q,p) \in Q^2 \mid  \text{it exists } a\in\Sigma \text{ with } p\overset{a}{\rightarrow} p' \text{ such that for all } q' \in Q \\&\text{ it holds } q\overset{a}{\rightarrow} q' \text{ implies } (q', p') \in X\}
+    \{(q,p) \in Q^2 \mid \text{there exists } a\in\Sigma \text{ with } q\overset{a}{\rightarrow} q' \text{ such that for all } p' \in Q \\&\text{ it holds that } p\overset{a}{\rightarrow} p' \text{ implies } (q', p') \in X\}\,\cup \\&\{(q,p) \in Q^2 \mid  \text{there exists } a\in\Sigma \text{ with } p\overset{a}{\rightarrow} p' \text{ such that for all } q' \in Q \\&\text{ it holds that } q\overset{a}{\rightarrow} q' \text{ implies } (q', p') \in X\}
 \end{align*}   
 Then $LFP(F)$ represents all those pairs of states $(q, p)$ such that $q\not\sim p$.
 \end{example}
@@ -31,7 +31,7 @@ The following theorem shows a possibility to calculate the least fixpoint of a m
 
 \begin{theorem}[Kleene Fixed-Point Theorem~\cite{stoltenberghHansen1994mathematical}]
 \label{theorem:kleene}
-Let $F: A \rightarrow A$ be a monotone operator on $A$ and $A$ regarding to $\sqsubseteq$ a complete lattice, then it exists a finite sequence $X_0, \dots, X_m$ such that the first part $X_0$ is the smallest element in $A$ with respect to $\sqsubseteq$, the $(i+1)$-th part $X_{i+1}$ is $F(X_i)$ and $X_m = X_{m+1}$.
+Let $F: A \rightarrow A$ be a monotone operator on $A$ and $A$ regarding to $\sqsubseteq$ a complete lattice, then there exists a finite sequence $X_0, \dots, X_m$ such that the first part $X_0$ is the smallest element in $A$ with respect to $\sqsubseteq$, the $(i+1)$-th part $X_{i+1}$ is $F(X_i)$ and $X_m = X_{m+1}$.
 \end{theorem}
 
 Next, we define the partial fixpoint. Since the
@@ -48,14 +48,14 @@ $\mathit{LFP}$ restricts the operator to be monotone, the partial fixpoint need 
     where $F^0(\varnothing) = \varnothing$, $F^1(\varnothing) = F(\varnothing)$, $F^2(\varnothing) = F(F(\varnothing))$, and so on.
 \end{definition}
 
-Note, that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. 
+Note that for monotone $F$ holds $\mathit{PFP}(F)$ equals $\mathit{LFP}(F)$. 
 
 
 \begin{example}
 \label{example:pfp}
 Let $F: \mathcal{P}(\{1, \dots, n\}) \rightarrow  \mathcal{P}(\{1, \dots, n\})$ be an operator on $ \mathcal{P}(\{1, \dots, n\})$ defined as
 \begin{align*}
-	F(X) = \{x \in \{1, \dots, n\}\mid &\; x\in X \text{ and it exists } y \in \{1, \dots, n\} \text{ such that }\\ &\;y < x \text{ and } y\not\in X \text{ or } \\&\;x\not\in X \text{ and for all } y\in \{1,\dots, n\} \text{ holds if } \\&\;y<x \text{ then } y\in X\}. 
+	F(X) = \{x \in \{1, \dots, n\}\mid &\; x\in X \text{ and there exists } y \in \{1, \dots, n\} \text{ such that }\\ &\;y < x \text{ and } y\not\in X \text{ or } \\&\;x\not\in X \text{ and for all } y\in \{1,\dots, n\} \text{ holds if } \\&\;y<x \text{ then } y\in X\}. 
 \end{align*}
-If we see $X \in \mathcal{P}(\{1,\dots, n\})$ as a binary string $b$, where a $1$ at the $i$-th position means that $i$ is in $X$, then $F(X)$ returns the set $Y$ such that the binary string $b'$ of $Y$ is $b' = b+1\mod n$. Then $PFP(F)$ returns $\varnothing$ because for every $i$ it holds $F^i(\varnothing) \neq F^{i+1}(\varnothing)$.
+If we see $X \in \mathcal{P}(\{1,\dots, n\})$ as a binary string $b$, where a $1$ at the $i$-th position means that $i$ is in $X$, then $F(X)$ returns the set $Y$ such that the binary string $b'$ of $Y$ is $b' = b+1\mod n$. Then $PFP(F)$ returns $\varnothing$ because for every $i$ it holds that $F^i(\varnothing) \neq F^{i+1}(\varnothing)$.
 \end{example}

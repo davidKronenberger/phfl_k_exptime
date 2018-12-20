@@ -92,10 +92,10 @@ state of $M$. A run is accepting if the state of $C^M$ is an accepting state of 
         (q_0, 3, \Box \Box \Box a\Box \dotsb) \rightarrow_M (q_0, 4, \Box \Box \Box \Box \Box \dotsb) \\&\,\rightarrow_M
         (q_f, 4, \Box \Box \Box \Box \Box \dotsb) = C_5^M
     \end{align*}
-    Note, that both runs are terminating. The run on input word $w_2$ is an accepting run whereas the run on input word $w_1$ is a rejecting one.
+    Note that both runs are terminating. The run on input word $w_2$ is an accepting run whereas the run on input word $w_1$ is a rejecting one.
 \end{example}
 
-Note, that it is possible to define $\mathit{DTM}$s that do not accept or reject any input words. For example, let
+Note that it is possible to define $\mathit{DTM}$s that do not accept or reject any input words. For example, let
 $M = (\{q_0\}, \{a\}, \{a, \Box\}, \delta, q_0, \varnothing, \varnothing)$, where $\delta(q_0, x) = (q_0, x, N)$ with $x \in
 \{a, \Box\}$. $M$ is a DTM where any calculation of an input word $w$ looks as follows $q_0w \rightarrow_M q_0w
 \rightarrow_M \dots$. It never reaches an accepting or rejecting state. In this thesis, we are only interested in
@@ -118,7 +118,7 @@ configuration steps. In case of space classes the output is based on the longest
 
 \begin{example}
     \label{example:time_and_space}
-    Let $w_1$ and $w_2$ be the two words from Example~\ref{example:run_of_dtm} and $M$ the terminating DTM of Example~\ref{example:dtm}. It is easy to see, that $\mathit{STEPS}
+    Let $w_1$ and $w_2$ be the two words from Example~\ref{example:run_of_dtm} and $M$ the terminating DTM of Example~\ref{example:dtm}. It is easy to see that $\mathit{STEPS}
     (w_1) = 3$, $\mathit{STEPS}(w_2) = 5$, $\mathit{STORAGE}(w_1) = 2$ and $\mathit{STORAGE}(w_1) = 4$ for $M$ running on $w_1$ and $w_2$. Because the maximal number of steps for an input word of length $4$ occurs if the input word consists only of symbol
     $a$, it holds that $\mathit{TIME}(4) = 5$ or more general that $\mathit{TIME}(n) = n + 1$. $\mathit{SPACE}(n) = n$
     holds, because the length of the input word will only shrink and we do not move to the right side of the word.
@@ -147,7 +147,7 @@ all $k \geq 1$.
     \rightarrow \mathbb{N}$ exist such that $M$ can decide $Q$ in $\mathit{SPACE}$($exp(k, f(n))$).
 \end{definition}
 
-Keep in mind, that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the longest configuration of a
+Keep in mind that $\mathit{TIME}$ is the maximal number of transitions and $\mathit{SPACE}$ the longest configuration of a
 $\mathit{DTM}$ when running on an input word.
 
 An example for a problem that is in $1$-EXPSPACE is the problem to recognize
@@ -169,18 +169,18 @@ As mentioned in Section~\ref{sec:bisimulationInvariance} the queries defined in 
 
 \begin{example}{\cite{lange2014capturing}}
     Let $\mathcal{Q}$ be the query and $\mathcal{T}$ the LTS of Example~
-    \ref{example:query_bisimulation}. Because bisimilarity can be decided in P\footnote{Whether two states in an LTS are bisimilar can easily be checked by a special kind of breadth-first search. We assume that all states are bisimilar and removing all those pairs where the states have not 
+    \ref{example:query_bisimulation}. Because bisimilarity can be decided in P\footnote{Bisimilarity between two states can be checked by a special kind of breadth-first search. We assume that all states are bisimilar and removing all those pairs where the states have not 
     the same properties. The resulting set is called $R$. On each step we check any pair of $R$. Any pair $(q, p)$ has to satisfy the following. If looking at $q$ all possible actions leading to any state $q'$ can also be duplicated from $p$ with same action leading to a state $p'$ and $(q', p')$ is in $R$. The same will be checked looking 
     at the right state first. If the pair $(q, p)$ does not satisfy these conditions it will be removed from $R$. This 
     iteration proceeds as long as at least one pair is removed from $R$. Note that the state set of an LTS is finite. Those cardinality let be denoted with $n$. Since on each iteration process at least one tuple will be removed this process terminates after a finite amount of steps. In more detail the algorithm checks in the first step $n^2$ tuples, in the second $n^2 - 1$ and so on. In worst case that is a total of $(n^4 + n^2)/2$ checks.}, 
     there is an 
     algorithm in P for deciding on input $(\mathcal{T}, (q_1, q_2))$ whether $(q_1, q_2) \in 
-    \mathcal{Q}^\mathcal{T}$, that means $\mathcal{Q}$ belongs to 
+    \mathcal{Q}^\mathcal{T}$ that means $\mathcal{Q}$ belongs to 
     complexity class P.
 \end{example}
 
 From Definition~\ref{definition:bisimulationInvariant}, Definition~\ref{definition:queryBelongsToComplexityClass}
-and the complexity classes $k$-EXP-TIME and $k$-EXPSPACE of Defintion~\ref{definition:k_exptime_and_k_expspace}
+and the complexity classes $k$-EXP-TIME and $k$-EXPSPACE of Definition~\ref{definition:k_exptime_and_k_expspace}
 the queries we want to investigate can be desired.
 
 \begin{definition}
@@ -192,6 +192,6 @@ the queries we want to investigate can be desired.
 In the introduction of this section, we mentioned that the main aim of descriptive complexity is to describe complexity classes with logics. The next definition defines how a complexity class is captured by a logic. 
 
 \begin{definition}
-A complexity class $\mathcal{C}$ is captured by a logic $L$ if for all queries $\mathcal{Q}$ that belongs to $\mathcal{C}$ there is a formula $\Phi$ of $L$ such that for all LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ there is a variable mapping $\eta$ and it holds $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$ iff $(q_1, \dots, q_{r}) \in \llbracket \Phi \rrbracket^\eta_\mathcal{T}$, where $q_1, \dots, q_r \in Q$ and $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ is the semantics of $\Phi$ under $\mathcal{T}$ and $\eta$.
+A complexity class $\mathcal{C}$ is captured by a logic $L$ if for all queries $\mathcal{Q}$ that belongs to $\mathcal{C}$ there is a formula $\Phi$ of $L$ such that for all LTS $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ there is a variable mapping $\eta$ and it holds that $(q_1, \dots, q_{r}) \in \mathcal{Q}^\mathcal{T}$ iff $(q_1, \dots, q_{r}) \in \llbracket \Phi \rrbracket^\eta_\mathcal{T}$, where $q_1, \dots, q_r \in Q$ and $\llbracket \Phi \rrbracket^\eta_\mathcal{T}$ is the semantics of $\Phi$ under $\mathcal{T}$ and $\eta$.
 \end{definition}
 

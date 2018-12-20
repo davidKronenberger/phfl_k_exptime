@@ -14,7 +14,7 @@ types of higher order variables.
 \subsection{Syntax of HO}\label{subsec:hoSyntax}
 
 \begin{definition}
-    A \emph{HO type} $\tau$ is defined inductively as follows
+    An \emph{HO type} $\tau$ is defined inductively as follows
     \[ \tau \Coloneqq \odot \text{ or } \tau \coloneqq (\tau', \dots, \tau'), \]
     where $\tau'$ is also an HO type.
 \end{definition}
@@ -58,7 +58,7 @@ where $\eta'(X) = \mathcal{X}$ and $\eta'(Y) = \eta(Y)$ for all $Y \neq X$.
 
 \begin{definition}
     Let $\mathcal{T} = (Q, \Sigma, P, \Delta, v)$ be an LTS and $\eta$ a variable mapping over universe $Q$. The
-    semantics of a HO formula is defined inductively as follows:
+    semantics of an HO formula is defined inductively as follows:
     \begin{compactitem}
         \item $\mathcal{T}, \eta \models p(X_1)$ iff $p \in v(\eta(X_1))$,
         \item $\mathcal{T}, \eta \models a(Y_1, Y_2)$ iff $(\eta(Y_1), a, \eta(Y_2)) \in \Delta$,
@@ -96,7 +96,7 @@ Finally, we define bisimulation-invariant HO formulas.
 
 \begin{definition} 
 \label{definition:bisimulation_invariant_ho_formula}
-	Given a HO formula $\Phi$ with $f$ free first-order variables and the $f$-adic query $\mathcal{Q}^f_\Phi$ defined by $\Phi$ then we call $\Phi$ bisimulation-invariant if $\mathcal{Q}^r_\Phi$ is bisimulation-invariant.
+	Given an HO formula $\Phi$ with $f$ free first-order variables and the $f$-adic query $\mathcal{Q}^f_\Phi$ defined by $\Phi$ then we call $\Phi$ bisimulation-invariant if $\mathcal{Q}^r_\Phi$ is bisimulation-invariant.
 \end{definition}
 
 \subsection{HO + LFP}
@@ -130,9 +130,9 @@ formulas, denoted by HO($\mathit{LFP}$).
     Let $P$ be a set of propositions and $\Sigma$ a set of actions. The set of \emph{HO($\mathit{LFP}$) formulas} enhances the set of HO formulas with the
     following formation rule:
     \begin{compactitem}
-        \item $[\mathit{LFP}\;\Phi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$ is a HO
+        \item $[\mathit{LFP}\;\Phi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$ is an HO
         ($\mathit{LFP}$) formula over $P$ and $\Sigma$ with free variables $V_1, \dots, V_n$ iff $\Phi(X, X_1, \dots, X_n)
-        $ is a HO($\mathit{LFP}$) formula with free variables $X, X_1, \dots, X_n$, if $\Phi$ is positive in
+        $ is an HO($\mathit{LFP}$) formula with free variables $X, X_1, \dots, X_n$, if $\Phi$ is positive in
         $X$, variable $X$ has HO type $\tau = (\tau', \dots, \tau')$ and $X_1, V_1, \dots, X_n, V_n$ have HO type $\tau'$.
     \end{compactitem}
 \end{definition}
@@ -159,7 +159,7 @@ order less or equal $k$ with one exception: The variable $X$ occurring in formul
 \vee \underset{a\in\Sigma}{\bigvee} \big(\exists (Y_2 \colon \odot).\, a(X_2, Y_2) \wedge \forall (Y_1 
 \colon \odot).\, a(X_1,Y_1) \Rightarrow X(Y_1, Y_2)\big)
 \end{align*}
-be a HO$^2$ formula with free first-order variables $x_1$ and $x_2$ and free second-order variable $X$.
+be an HO$^2$ formula with free first-order variables $x_1$ and $x_2$ and free second-order variable $X$.
 Then $LFP(F_\Phi^{\mathcal{T}, \eta})$ describes the same set as in Example~\ref{example:lfp}, the set of all those pairs of states $(q, p)$ in $\mathcal{T}$ such that $q\not\sim p$ holds. With $[LFP\; \Phi(X, X_1, X_2)](q, p)$ we can check if $q \not\sim p$, where $q, p \in Q$. 
 \end{example}
 
@@ -174,9 +174,9 @@ add the partial fixpoint operator to HO formulas, denoted as HO($\mathit{PFP}$).
     Let $P$ be a set of propositions and $\Sigma$ a set of actions. The set of \emph{HO($\mathit{PFP}$) formulas} enhances the set of HO formulas with the
     following formation rule:
     \begin{compactitem}
-        \item $[\mathit{PFP}\;\Phi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$ is a HO
+        \item $[\mathit{PFP}\;\Phi(X, X_1, \dots, X_n)](V_1, \dots, V_n)$ is an HO
         ($\mathit{PFP}$) formula over $P$ and $\Sigma$ with free variables $V_1, \dots, V_n$ iff $\Phi(X, X_1, \dots, X_n)
-        $ is a HO($\mathit{PFP}$) formula with free variables $X, X_1, \dots, X_n$, where $X$ has HO type $\tau =
+        $ is an HO($\mathit{PFP}$) formula with free variables $X, X_1, \dots, X_n$, where $X$ has HO type $\tau =
         (\tau', \dots, \tau')$ and $X_1, V_1, \dots, X_n, V_n$ have HO type $\tau'$.
     \end{compactitem}
 \end{definition}
@@ -186,7 +186,7 @@ order less or equal $k$ with one exception: The variable $X$ occurring in formul
 
 \begin{definition}
     Let $\mathcal{T}$ be an LTS and $\eta$ a variable mapping over universe $Q$. The
-    semantics of a HO formula are extended to the semantics of HO($\mathit{PFP}$) via the following definition:
+    semantics of an HO formula are extended to the semantics of HO($\mathit{PFP}$) via the following definition:
     \begin{compactitem}
         \item $\mathcal{T}, \eta \models [\mathit{PFP}\;\varphi(X, X_1, \dots, X_n)](V_1, \dots,
         V_n)$ iff $(\eta(V_1), \dots, \eta(V_n)) \in \mathit{PFP}$ $(F_\Phi^{\mathcal{A},\eta})$.
@@ -200,5 +200,5 @@ Let $\mathcal{T} = (Q, \{a\}, P, \Delta, v)$ be an LTS with $Q = \{1, \dots, n\}
 	\Phi(X,X_1) = X(X_1) \wedge \exists (X_2 \colon \odot).\, a(X_2, X_1) \wedge X(X_2)\,\vee \\ 
 	\neg X(X_1) \wedge \forall (X_2 \colon \odot).\, a(X_2, X_1) \Rightarrow X(X_2)
 \end{align*}
-be a HO$^1$ formula. Then $F_\Phi^{\mathcal{T}, \eta}$ describes the same operator as in Example~\ref{example:pfp} and therefore $PFP(F_\Phi^{\mathcal{A},\eta}) = \varnothing$ holds. Note that $\mathcal{T}, \eta \not\models [PFP\; \Phi(X, $ $X_1)](V_1)$ for any variable mapping $\eta$.
+be an HO$^1$ formula. Then $F_\Phi^{\mathcal{T}, \eta}$ describes the same operator as in Example~\ref{example:pfp} and therefore $PFP(F_\Phi^{\mathcal{A},\eta}) = \varnothing$ holds. Note that $\mathcal{T}, \eta \not\models [PFP\; \Phi(X, $ $X_1)](V_1)$ for any variable mapping $\eta$.
 \end{example}

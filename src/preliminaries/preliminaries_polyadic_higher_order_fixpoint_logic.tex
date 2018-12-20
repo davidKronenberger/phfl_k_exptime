@@ -87,7 +87,8 @@ Next, we want to define the syntax of PHFL formulas.
     \emph{$d$-adic PHFL formulas} $\Phi, \Psi,\dots$ are defined by the grammar
     \begin{align*}
         \Phi,\Psi\Coloneqq&\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid
-        \{\emph{j}\,\} \Phi \mid X \mid \lambda (X^v\colon\tau).\Phi \mid \Phi\,\Psi\mid  \mu (X\colon\tau).\Phi
+        \{\emph{j}\,\} \Phi \mid X \mid 
+        \\&\lambda (X^v\colon\tau).\Phi \mid \Phi\,\Psi\mid  \mu (X\colon\tau).\Phi
     \end{align*}
     where
     \begin{compactitem}
@@ -101,26 +102,7 @@ Next, we want to define the syntax of PHFL formulas.
     \end{compactitem}
 \end{definition}
 
-For convenience, we use some other further standard connectives and operators like $\Phi \wedge \Psi$, $[a]_i\Phi$, $\nu
-X \colon \tau.\Phi$ or $\Phi \Leftrightarrow \Psi$. The formulas can be thought as a game played by two players moving $d$ many pebbles along the transitions of an LTS. The two players
-are called Prover and Refuter. That means $p_i$ reflects, whether the position of the $i$-th pebble satisfies
-property $p$. $\langle a \rangle_i \Phi$ means the Prover has to move the $i$-th pebble along an $a$-transition and
-check whether $\Phi$ holds there. The formula $\{\emph{j}\,\} \Phi$ describes, that all pebbles
-are moved from their current position to the position indicated by tuple $\emph{j}$ and after that $\Phi$ has to
-be satisfied. The player who needs to move the pebbles changes on negations. $\lambda (X^v\colon\tau).\Phi$ is
-interpreted as a function that expects arguments from $(\llbracket\tau\rrbracket_\mathcal{T})^v$. We see, that the
-formulas also have types. Therefore, we have ensure that a formula is well-typed.
-
-\begin{definition}
-    Let $X_1, \dots, X_n$ variables, $\Phi$ a PHFL formula, $v_1, \dots, v_n$ variances and $\tau, \tau_1, \dots,
-    \tau_n$ types, then $\Gamma = X_1^{v_1}\colon \tau_1, \dots X_n^{v_n} \colon \tau_n$ is
-    called a \emph{type environment} and $\Gamma \vdash \Phi\colon\tau$
-    is called a \emph{type judgement}. Let $\Gamma^- = X_1^{v_1^-}\colon \tau_1, \dots
-    X_n^{v_n^-} \colon \tau_n$ be a type environment then $\Gamma^- = X_1^{v_1^-}\colon \tau_1, \dots
-    X_n^{v_n^-} \colon \tau_n$, where $-^- = +$, $+^- = -$ and $0^- = 0$.
-\end{definition}
-
-\begin{figure}[!t]
+\begin{figure}[!b]
     \caption{Derivation Rules for PHFL formulas.}
     \label{figure:phfl-typing-rules}
     \begin{mathpar}
@@ -145,64 +127,28 @@ formulas also have types. Therefore, we have ensure that a formula is well-typed
     \end{mathpar}
 \end{figure}
 
-A type judgment is called \textit{derivable} if it generates a derivation tree according to the rules of
-Figure~\ref{figure:phfl-typing-rules}. This type system makes sure that we do not create senseless formulas like
-$\langle a \rangle_i p_j p_k$. Furthermore, it controls the occurrences of negations and therefore guarantees monotonicity. A
-formula $\Phi$ is called \textit{well-typed} if the type judgement $\varnothing \vdash \Phi:\tau$ is derivable for some
-type $\tau$. Note, that we are only interested in well-typed formulas in this thesis. For those formulas where the variable
-types are clear from context, we omit the type of the variables.
 
-\subsection{Semantics of PHFL}\label{subsec:phflSemantics}
-
-To define the semantics of PHFL formulas we need a mapping $\eta$ that associates to each variable occurring in a formula an element of its
-type semantics, i.e. $\eta(X) \in \llbracket\tau\rrbracket_\mathcal{T}$ for $X$ of type $\tau$. Let $\Phi$ be a
-well-typed formula of type $\tau$, $\mathcal{T}$ an LTS and $\eta$ a variable mapping, then the semantics
-$\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ are defined inductively on $\Phi$ as explained in Figure~\ref{figure:phfl-semantics}. The semantics of $\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ returns an element of $\llbracket\tau\rrbracket_\mathcal{T}$. 
-Note, that $\eta[X \mapsto \mathcal{X}]$ is a mapping $\eta'$ that is equal to $\eta$ but $\eta'(X) = \mathcal{X}$.
-
-In this thesis we are interested in PHFL formulas that have a specific order. Thus, a formula $\Phi$ has order $k$
-if $k = max(\{ord(\tau)\mid \Psi \colon \tau$ \textit{is a subformula of} $\Phi\})$. The type of a well-typed formula follows from the derivation tree. The set of formulas that have at most
-order $k$ is denoted by PHFL$^k$.
-
-\begin{example}{\cite{lange2014capturing}}
-    \label{example:phfl_order_0}
-    The following $2$-adic PHFL$^0$ formula $\Phi_\sim$ describes bisimilarity i.e. it denotes
-    those pairs $(q_1, q_2)$ such that $q_1 \sim q_2$ and vice versa.
-    \begin{align*}
-        \Phi_\sim = \nu (X \colon \bullet).\,
-        \underset{a \in \Sigma}{\bigwedge} [a]_1 \langle a \rangle_2 X \wedge [a]_2 \langle a \rangle_1 X \wedge
-        \underset{p \in P}{\bigwedge} p_1 \Leftrightarrow p_2
-    \end{align*}
-\end{example}
-
-\begin{example}{\cite{lange2014capturing}}
-   \label{example:phfl_order_2}
-   The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
-   those pairs $(q_1, q_2)$ for which $q_1$ has the same traces as $q_2$ and vice versa.
-    \begin{align*}
-        \Phi = &(\mu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
-        \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&X \Leftrightarrow Y \wedge
-        \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y)\top \top
-    \end{align*}
-\end{example}
+For convenience, we use some other further standard connectives and operators like $\Phi \wedge \Psi$, $[a]_i\Phi$, $\nu
+X \colon \tau.\Phi$ or $\Phi \Leftrightarrow \Psi$. The formulas can be thought of as a game played by two players moving $d$ many pebbles along the transitions of an LTS. The two players
+are called Prover and Refuter. That means $p_i$ reflects, whether the position of the $i$-th pebble satisfies
+property $p$. $\langle a \rangle_i \Phi$ means the Prover has to move the $i$-th pebble along an $a$-transition and
+check whether $\Phi$ holds there. The formula $\{\emph{j}\,\} \Phi$ describes that all pebbles
+are moved from their current position to the position indicated by tuple $\emph{j}$ and after that $\Phi$ has to
+be satisfied. The player who needs to move the pebbles changes on negations. $\lambda (X^v\colon\tau).\Phi$ is
+interpreted as a function that expects arguments from $(\llbracket\tau\rrbracket_\mathcal{T})^v$. We see that the
+formulas also have types. Therefore, we have ensure that a formula is well-typed.
 
 \begin{definition}
-    Let $\mathcal{T}$ be an LTS, $\emph{s}$ a state tuple, $\eta$ a variable mapping, $\Gamma$ a type environment and
-    $\varphi$ a PHFL$^k$ formula of type $\bullet$ then we call $\mathcal{T}$ with $\emph{s}$ a model of $\varphi$,
-    written as $\mathcal{T}, \emph{s} \models \varphi$ iff $\emph{s} \in \llbracket \Gamma
-    \vdash \varphi \colon \bullet \rrbracket^\eta_\mathcal{T}$.
+    Let $X_1, \dots, X_n$ variables, $\Phi$ a PHFL formula, $v_1, \dots, v_n$ variances and $\tau, \tau_1, \dots,
+    \tau_n$ types, then $\Gamma = X_1^{v_1}\colon \tau_1, \dots X_n^{v_n} \colon \tau_n$ is
+    called a \emph{type environment} and $\Gamma \vdash \Phi\colon\tau$
+    is called a \emph{type judgement}. Let $\Gamma^- = X_1^{v_1^-}\colon \tau_1, \dots
+    X_n^{v_n^-} \colon \tau_n$ be a type environment then $\Gamma^- = X_1^{v_1^-}\colon \tau_1, \dots
+    X_n^{v_n^-} \colon \tau_n$, where $-^- = +$, $+^- = -$ and $0^- = 0$.
 \end{definition}
 
-\begin{remark}
-To simplify PHFL formulas with fixpoint and $\lambda$ operators we will use the \emph{fixpoint unfolding principle} and \emph{$\beta$-reduction}. As an example for $\beta$-reduction, 
-suppose we apply the function $\lambda (X \colon \bullet). \,X \vee p_1$ to the value $\top$. To calculate the result, we substitute $\top$ for every occurrence of $\top$, and so the 
-application of the function $(\lambda (X \colon \bullet). \,X \vee p_1) \, \top$ is reduced to the result $\top \vee p_1$. As an example for fixpoint unfolding principle, suppose we have the formula 
-$\Phi \coloneqq \mu (F \colon \bullet \rightarrow \bullet).\,\lambda (X \colon \bullet).\, X \vee F \langle a \rangle_1 X$ . By using the fixpoint unfolding principle on $\Phi$ this results into 
-$X \vee \langle a \rangle_1 X \vee \langle a \rangle_1 \langle a \rangle_1 X \vee \dots$ which can be simplified by ${\bigvee}_{i \geq 0} \langle a {\rangle_1}^i X$.  Because we work on finite structures and the semantics of PHFL are invariant under $\beta$-
-reduction we can use those procedures without loss of generality.
-\end{remark}
 
-\begin{figure}
+\begin{figure}[!b]
     \caption{Semantics of PHFL formulas.}
     \label{figure:phfl-semantics}
     \begin{align*}
@@ -210,7 +156,7 @@ reduction we can use those procedures without loss of generality.
         \llbracket \Gamma \vdash p_i \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1, \dots, q_d) \in Q^d \mid p \in v
         (q_i)\}\\
         \llbracket \Gamma \vdash \langle a \rangle_i \Phi \colon \bullet \rrbracket^\eta_\mathcal{T} =\,& \{(q_1,
-        \dots, q_d) \in Q^d \mid \text{ it exists } \\& ({q'}_1, \dots, {q'}_d) \in \llbracket \Gamma \vdash \Phi \colon
+        \dots, q_d) \in Q^d \mid \text{ there exists } \\& ({q'}_1, \dots, {q'}_d) \in \llbracket \Gamma \vdash \Phi \colon
 \bullet \rrbracket^\eta_\mathcal{T} \text{ such that } \\&q_i \overset{a}{\rightarrow} {q'}_i \text{ and for all } j
         \neq
         i \text{ holds } q_j = {q'}_j\}\\
@@ -244,6 +190,63 @@ reduction we can use those procedures without loss of generality.
     \end{align*}
 \end{figure}
 
+A type judgment is called \textit{derivable} if it generates a derivation tree according to the rules of
+Figure~\ref{figure:phfl-typing-rules}. This type system makes sure that we do not create senseless formulas like
+$\langle a \rangle_i p_j p_k$. Furthermore, it controls the occurrences of negations and therefore guarantees monotonicity. A
+formula $\Phi$ is called \textit{well-typed} if the type judgement $\varnothing \vdash \Phi:\tau$ is derivable for some
+type $\tau$. Note that we are only interested in well-typed formulas in this thesis. For those formulas where the variable
+types are clear from context, we omit the type of the variables.
+
+\subsection{Semantics of PHFL}\label{subsec:phflSemantics}
+
+To define the semantics of PHFL formulas we need a mapping $\eta$ that associates to each variable occurring in a formula an element of its
+type semantics, i.e. $\eta(X) \in \llbracket\tau\rrbracket_\mathcal{T}$ for $X$ of type $\tau$. Let $\Phi$ be a
+well-typed formula of type $\tau$, $\mathcal{T}$ an LTS and $\eta$ a variable mapping, then the semantics
+$\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ are defined inductively on $\Phi$ as explained in Figure~\ref{figure:phfl-semantics}. The semantics of $\llbracket\Gamma \vdash \Phi\colon \tau \rrbracket^\eta_\mathcal{T}$ returns an element of $\llbracket\tau\rrbracket_\mathcal{T}$. 
+Note that $\eta[X \mapsto \mathcal{X}]$ is a mapping $\eta'$ that is equal to $\eta$ but $\eta'(X) = \mathcal{X}$.
+
+In this thesis we are interested in PHFL formulas that have a specific order. Thus, a formula $\Phi$ has order $k$
+if $k = max(\{ord(\tau)\mid \Psi \colon \tau$ \textit{is a subformula of} $\Phi\})$. The type of a well-typed formula follows from the derivation tree. The set of formulas that have at most
+order $k$ is denoted by PHFL$^k$.
+
+\begin{example}{\cite{lange2014capturing}}
+    \label{example:phfl_order_0}
+    The following $2$-adic PHFL$^0$ formula $\Phi_\sim$ describes bisimilarity i.e. it denotes
+    those pairs $(q_1, q_2)$ such that $q_1 \sim q_2$ and vice versa.
+    \begin{align*}
+        \Phi_\sim = \nu (X \colon \bullet).\,
+        \underset{a \in \Sigma}{\bigwedge} [a]_1 \langle a \rangle_2 X \wedge [a]_2 \langle a \rangle_1 X \wedge
+        \underset{p \in P}{\bigwedge} p_1 \Leftrightarrow p_2
+    \end{align*}
+\end{example}
+
+\begin{example}{\cite{lange2014capturing}}
+   \label{example:phfl_order_2}
+   The following $2$-adic PHFL$^1$ formula $\Phi$ describes trace equivalence of two states in a LTS i.e. it denotes
+   those pairs $(q_1, q_2)$ for which $q_1$ has the same traces as $q_2$ and vice versa.
+    \begin{align*}
+        \Phi = &\,\big(\nu (F \colon \bullet^0 \rightarrow (\bullet^0 \rightarrow \bullet)).\,
+        \lambda (X \colon \bullet).\, \lambda (Y \colon \bullet).\, \\&\,(X \Leftrightarrow Y) \wedge
+        \underset{a \in \Sigma}{\bigwedge} F \langle a \rangle_1 X \langle a \rangle_2 Y\big)\top \top
+    \end{align*}
+\end{example}
+
+\begin{definition}
+    Let $\mathcal{T}$ be an LTS, $\emph{s}$ a state tuple, $\eta$ a variable mapping, $\Gamma$ a type environment and
+    $\varphi$ a PHFL$^k$ formula of type $\bullet$ then we call $\mathcal{T}$ with $\emph{s}$ a model of $\varphi$,
+    written as $\mathcal{T}, \emph{s} \models \varphi$ iff $\emph{s} \in \llbracket \Gamma
+    \vdash \varphi \colon \bullet \rrbracket^\eta_\mathcal{T}$.
+\end{definition}
+
+\begin{remark}
+To simplify PHFL formulas with fixpoint and $\lambda$ operators we will use the \emph{fixpoint unfolding principle} and \emph{$\beta$-reduction}. As an example for $\beta$-reduction, 
+suppose we apply the function $\lambda (X \colon \bullet). \,X \vee p_1$ to the value $\top$. To calculate the result, we substitute $\top$ for every occurrence of $\top$, and so the 
+application of the function $(\lambda (X \colon \bullet). \,X \vee p_1) \, \top$ is reduced to the result $\top \vee p_1$. As an example for fixpoint unfolding principle, suppose we have the formula 
+$\Phi \coloneqq \mu (F \colon \bullet \rightarrow \bullet).\,\lambda (X \colon \bullet).\, X \vee F \langle a \rangle_1 X$ . By using the fixpoint unfolding principle on $\Phi$ this results into 
+$X \vee \langle a \rangle_1 X \vee \langle a \rangle_1 \langle a \rangle_1 X \vee \dots$ which can an be simplified to ${\bigvee}_{i \geq 0} \langle a {\rangle_1}^i X$.  Because we work on finite structures and the semantics of PHFL are invariant under $\beta$-
+reduction we can use those procedures without loss of generality.
+\end{remark}
+
 Finally, we take a look at $r$-adic queries that are associated to a
 closed $d$-adic formula $\Phi$. A PHFL formula $\Phi$ is closed if the type judgement $\varnothing \vdash \Phi \colon \bullet$ is derivable.
 
@@ -256,13 +259,7 @@ closed $d$-adic formula $\Phi$. A PHFL formula $\Phi$ is closed if the type judg
     \{1, \dots, min(\{r, d\})\}$.
 \end{definition}
 
-For example $\mathcal{Q}^2_{\Phi_\sim}$ is the same query as in Example~\ref{example:query_bisimulation}, where
-$\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0}.
-
-\subsection{Tail-Recursive PHFL}\label{subsec:tail-recursivePhfl}
-
-
-\begin{figure}
+\begin{figure}[!b]
     \caption{Derivation Rules for PHFL formulas that are tail-recursive.}
     \label{figure:phfl-tail-recursive}
     \begin{mathpar}
@@ -288,6 +285,11 @@ $\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0}.
     \end{mathpar}
 \end{figure}
 
+For example $\mathcal{Q}^2_{\Phi_\sim}$ is the same query as in Example~\ref{example:query_bisimulation}, where
+$\Phi_\sim$ is the formula from Example~\ref{example:phfl_order_0}.
+
+\subsection{Tail-Recursive PHFL}\label{subsec:tail-recursivePhfl}
+
 Next, we want to define a fragment of PHFL formulas. This fragment is called tail-recursive and ensures that
 some combinations of subformulas do not appear in a PHFL formula. Therefore, let the logical connective
 $\wedge$, the modality operators $[a]_i$ and the greatest fixpoint operator $\nu$ be further primitives of PHFL formula
@@ -302,8 +304,8 @@ under the operators $\neg$ and $[a]_i$ nor in $\Psi$ of formulas of the type $\P
 The set of all tail-recursive PHFL formulas that have at most order $k$ is denoted by PHFL$^k_{tail}$.
 
 \begin{example}{\cite{lange2014capturing}}
-    Looking at Figure~\ref{figure:phfl-tail-recursive}, we can see, that $\Phi_1 = \mu X.[a]_1 X$ is not tail
-    recursive, because $X$ occurs under $[a]_1$. Moreover, $\Phi_2 = \mu F .\lambda X. (F X) \wedge (F(F X))$
+    Looking at Figure~\ref{figure:phfl-tail-recursive}, we can see that $\Phi_1 = \mu X.[a]_1 X$ is not tail
+    recursive, because $X$ occurs under $[a]_1$. Moreover, $\Phi_2 = \mu F .\lambda X. (F X) $ $ \wedge\,(F(F X))$
     is not tail-recursive because $F$ occurs on the left side of the logical operator $\wedge$. The second reason why
     $\Phi_2$ is not tail-recursive is because $F$ also occurs in $F X$ of subformula $F (F X)$. 
     Note that all formulas that do not use fixpoints are obviously tail-recursive. An 

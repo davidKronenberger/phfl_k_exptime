@@ -1,15 +1,15 @@
 \chapter{Conclusion}
 
-In this thesis, we contributed to descriptive complexity theory by relating any order of PHFL to the corresponding complexity class. In detail, we showed that PHFL$^k$ captures the complexity class \exptime{$k$} for any $k > 1$ over finite labelled transition systems. Due to the fact, that the statement above is also true for $k = 0$~\cite{otto1999bisimulation} and $k = 1$~\cite{lange2014capturing} we were able to verify, that PHFL$^k$ captures  for any $k \geq 0$ on finite labelled transition systems. Furthermore, it was showed that the logic PHFL$^{k+1}_{tail}$ captures the complexity class \expspace{$k$} for any $k > 1$. In analogy to the exponential time classes, it was also proven that PHFL$^{k+1}_{tail}$ captures \expspace{$k$} for any $k \geq 0$ on finite labelled transition systems~\cite{otto1999bisimulation}~\cite{lange2014capturing}.
+In this thesis, we contributed to descriptive complexity theory by relating any order of PHFL to the corresponding complexity class. In detail, we showed that PHFL$^k$ captures the complexity class \exptime{$k$} for any $k > 1$ over finite labelled transition systems. Due to the fact that the statement above is also true for $k = 0$~\cite{otto1999bisimulation} and $k = 1$~\cite{lange2014capturing} we were able to verify that PHFL$^k$ captures \exptime{$k$} for any $k \geq 0$ on finite labelled transition systems. Furthermore, it was showed that the logic PHFL$^{k+1}_{tail}$ captures the complexity class \expspace{$k$} for any $k > 1$. In analogy to the exponential time classes, it was also proven that PHFL$^{k+1}_{tail}$ captures \expspace{$k$} for any $k \geq 0$ on finite labelled transition systems~\cite{otto1999bisimulation}~\cite{lange2014capturing}.
 
-Since quantification is not included in PHFL a lot of effort had to be spent into the development of the encoding of the existential quantifiers of any order.
+Since PHFL does not have existential and universal quantification over arbitrary higher-order relations a lot of effort had to be spent into the development of the encoding of the existential quantifiers of any order.
 To obtain higher-order quantification in PHFL we used the existential quantifiers of type $\tau = (\odot, \dots, \odot)$ to define the order of domains of kind
 $D_{(\tau, \dots, \tau)}(Q)$. This order was then be used to define a formula that returns the successor
 of a given element of $D_{(\tau, \dots, \tau)}(Q)$ in respect to this order. Finally, we used this
 formula to define the existential quantifier of type $(\tau, \dots, \tau)$. This procedure was applied to all
 possible types of HO. In this way we got higher-order quantification of any type in PHFL.
 
-The presented results contribute to the understanding on these complexity classes, which opens the possibilities for additional research, especially for further characterization of $k$-EXPTIME and $k$-EXPSPACE. That could lead to a further research on the characterization of classes \nexptime{$k$}. Those characterizations can not be mapped to the in this thesis presented encodings of \exptime{$k$}. Another possibility may be the characterization of the polynomial hierarchy.
+The presented results contribute to the understanding on these complexity classes, which opens the possibilities for additional research, especially for further characterization of $k$-EXPTIME and $k$-EXPSPACE. That could lead to a further research on the characterization of classes \nexptime{$k$}. Those characterizations cannot be mapped to the encodings of \exptime{$k$} presented in this thesis. Another possibility may be the characterization of the polynomial hierarchy~\cite{stockmeyer1976polynomial}.
 
 \section*{Acknowledgements}
 

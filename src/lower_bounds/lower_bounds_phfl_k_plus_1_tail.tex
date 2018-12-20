@@ -6,9 +6,9 @@
 \section{Lower Bound of PHFL$^{k + 1}_{tail}$}\label{sec:lowerBoundOfPhflTail}
 
 The lower bound of PHFL$^{k+1}_{tail}$ can be proven similar to the lower bound of PHFL$^k$. The main idea is not to
-show directly, that the lower bound of PHFL$^{k+1}_{tail}$ is \expspace{$k$} but rather by detour over the
+show directly that the lower bound of PHFL$^{k+1}_{tail}$ is \expspace{$k$} but rather by detour over the
 bisimulation-invariant fragment of HO(PFP)$^{k+1}$. In the first subsection we show that a Turing Machine that is in
-$k$-EXPSPACE can be encoded by a HO(PFP)$^{k+1}$ formula. The next subsection uses this statement to show that the
+$k$-EXPSPACE can be encoded by an HO(PFP)$^{k+1}$ formula. The next subsection uses this statement to show that the
 lower bound of PHFL$^{k+1}_{tail}$ is \expspace{$k$} by encoding formulas of HO(PFP)$^{k+1}$ in PHFL$^{k+1}_{tail}$.
 
 \subsection{$k$-EXPSPACE and HO(PFP)$^{k+1}$}\label{subsec:kExpspaceInHopfp}
@@ -23,13 +23,13 @@ Vianu~\cite{abiteboul1995computing} into higher-order. They have shown that HO(P
 
 \begin{lemma}
     \label{lemma:expspace_in_ho_pfp}
-    Given a $k$-EXPSPACE-bounded DTM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box,$ $ F, R)$ there exists a formula $\Psi$ in HO(PFP)$^{k+1}$ over signature $\sigma$ such that for all suitable variable mappings $\eta$ and all LTS $\mathcal{T}$ it holds $\mathcal{T}, \eta \models \Psi$ exactly then if the run of $M$ on the standard coding of $(\mathcal{T}, \eta)$ is accepting.
+    Given a $k$-EXPSPACE-bounded DTM $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box,$ $ F, R)$ there exists a formula $\Psi$ in HO(PFP)$^{k+1}$ over signature $\sigma$ such that for all suitable variable mappings $\eta$ and all LTS $\mathcal{T}$ it holds that $\mathcal{T}, \eta \models \Psi$ exactly then if the run of $M$ on the standard coding of $(\mathcal{T}, \eta)$ is accepting.
 \end{lemma}
 
 \begin{proof}
     Let $M = (Q, \Sigma, \Gamma, \delta, q_0, \Box, F, R)$ be a $exp(k, f(n))$ space bounded DTM, $\mathcal{T}$ an LTS and $Q'$ the set of states of $\mathcal{T}$. Furthermore, we can advise an linear ordering $\exists (< \colon (\odot, \odot)).\, \varphi$ on $Q'$ of $\mathcal{T}$, where $\varphi$ describes that $<$ is an order~\cite{fagin1974generalized}. Finally, let $\tau$ be an HO type of
     order $k + 1$ and $\eta$ a variable mapping.
-    To prove this lemma we want to define a relational representation, of the final configuration of $M$ that has the standardized encoding of $(\mathcal{T}, \eta)$\footnote{The standardized encoding of structures is a non-trivial problem. Because the description of the encoding goes beyond the scope of this thesis, we only refer to~\cite{abiteboul1995computing} for further information about.}, abbreviated with $w$, as input word,
+    To prove this lemma we want to define a relational representation, of the final configuration of $M$ that has the standardized encoding of $(\mathcal{T}, \eta)$\footnote{The standardized encoding of structures is a non-trivial problem. Because the description of the encoding goes beyond the scope of this thesis, we only refer to~\cite{abiteboul1995computing} for further information about the standardized encoding of structures.}, abbreviated with $w$, as input word,
     as a partial fixpoint of some HO(PFP)$^{k+1}$ formula. 
     In order to do this, we construct a partial 
 fixpoint of order $k+2$ such that for all $i$, the $i$-th approximation of 
@@ -124,7 +124,7 @@ As mentioned in the introduction of this section the main idea is not to show di
 lower bound of PHFL$^{k+1}_{tail}$ is \expspace{$k$} but rather by detour over the 
 bisimulation-invariant fragment of HO(PFP)$^{k+1}$. In the previous subsection we have seen 
  that a $k$-EXPSPACE-bounded DTM can be performed by an HO(PFP)$^{k+1}$
-formula. By encoding the bisimulation-invariant fragment of HO(PFP)$^{k+1}$ into
+formula. Encoding the bisimulation-invariant fragment of HO(PFP)$^{k+1}$ into
 PHFL$^{k+1}_{tail}$ combined with the knowledge that $k$-EXPSPACE is captured by 
 HO(PFP)$^{k+1}$ leads to the lower bound of PHFL$^{k+1}_{tail}$. In
 Section~\ref{sec:existential_quantifiers_in_phfl} and Section~\ref{sec:lowerBoundOfPhfl} we 
@@ -136,7 +136,7 @@ that we have to encode in this subsection to get the lower bound of PHFL$^{k+1}_
 Before we give the definition of the transforming function, we define a PHFL formula for HO formulas that uses the PFP operator.
 
 \begin{definition}
-Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $X$ a HO variable of HO type $\tau = (\tau', \dots, \tau')$ where $\tau' \neq \odot$. Furthermore, let
+Let $d$ be the constant as described in Remark~\ref{remark:dimension} and $X$ an HO variable of HO type $\tau = (\tau', \dots, \tau')$ where $\tau' \neq \odot$. Furthermore, let
     $\Phi$ be a PHFL$^k_{tail}$
     formula, then $PFP^\tau X.\,\Phi$
     is a PHFL$^k_{tail}$ formula with dimension $d$ defined as:
@@ -218,7 +218,7 @@ The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula c
          \end{align*}
 		Note that 
 		\[{F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = F(\Psi)^{m'} \bot.\] 
-		This holds because by induction over $i$ obviously it holds
+		This holds because by induction over $i$ obviously it holds that 
 		$\varnothing = \bot$
 		and 
 		$F_\Psi^{\mathcal{T},\eta}(\varnothing) = F(\Psi) \bot.$
@@ -230,7 +230,7 @@ The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula c
 		and 
 		$F_\Psi^{\mathcal{T},\eta}({F_\Psi^{\mathcal{T},\eta}}^{i}(\varnothing))= F(\Psi)\big(F(\Psi)^{i} \bot \big).$
 		
-		If it exists an $i$ such that ${F_\Psi^{\mathcal{T},\eta}}^i(\varnothing) = {F_\Psi^		
+		If there existst an $i$ such that ${F_\Psi^{\mathcal{T},\eta}}^i(\varnothing) = {F_\Psi^		
         {\mathcal{T},\eta}}^{i+1}(\varnothing)$ this is exactly the case when the right conjunct of $\varphi$
 		\begin{align*}
 		\forall_1 \dotsb \forall_n \big(\Psi^i(\bot) \Leftrightarrow \Psi^{i+1}(\bot)\big)
@@ -239,10 +239,10 @@ The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula c
 		the $i$-th application of $F(\Psi)$ on the empty set.
 		
 		Because of the construction of variable mapping $\eta_V$ and $(\eta(V_{j_1}), \dots, 
-        \eta(V_{j_n}))$ $ \in \eta(X)$ the
+        $ $\eta(V_{j_n})) \in \eta(X)$ the
         tuple $(\eta(V_{j_1}), \dots, \eta(V_{j_n}), q_{n+1}', \dots, q_s', \emph{q}_s, 
         \emph{q}_q,  \emph{q}_r)$ is also in $\eta_V(X)$.
-         That means it holds $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in {F_\Psi^{\mathcal{T},\eta}}^i(\varnothing)$ with
+         That means it holds that $(\eta(V_{j_1}), \dots, \eta(V_{j_n})) \in {F_\Psi^{\mathcal{T},\eta}}^i(\varnothing)$ with
         \[F(\Phi) = \{(i_1, \dots, i_n)\} (PFP^{(\odot, \dots, \odot)} X.\, F(\Psi)) \]
         exactly then if
         \begin{align*}
@@ -274,18 +274,18 @@ The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula c
          \end{align*}
 		Note that 
 		\[{F_\Psi^{\mathcal{T},\eta}}^m(\varnothing) = F(\Psi)^{m'} \bot_{T((\tau, \dots, \tau))}.\] 
-		This holds because by induction over $i$ obviously it holds
+		This holds because by induction over $i$ obviously it holds that
 		\[\varnothing = \bot_{T((\tau, \dots, \tau))}\] 
 		and 
 		\[F_\Psi^{\mathcal{T},\eta}(\varnothing) = F(\Psi)\bot_{T((\tau, \dots, \tau))}.\] 
 		That means 
 		\[{F_\Psi^{\mathcal{T},\eta}}^{i+1}(\varnothing) = F(\Psi)^{i+1}\bot_{T((\tau, \dots, \tau))}\] 
-		holds because by induction hypothesis it holds 
+		holds because by induction hypothesis it holds that
 		\[{F_\Psi^{\mathcal{T},\eta}}^{i}
 		(\varnothing) = F(\Psi)^{i}\bot_{T((\tau, \dots, \tau))}\] 
 		and 
 		\[F_\Psi^{\mathcal{T},\eta}({F_\Psi^{\mathcal{T},\eta}}^{i}(\varnothing))= F(\Psi)\big(F(\Psi)^{i}\bot_{T((\tau, \dots, \tau))})\big.\]
-		If it exists an $i$ such that ${F_\Psi^{\mathcal{T},\eta}}^i(\varnothing) = {F_\Psi^		
+		If there existst an $i$ such that ${F_\Psi^{\mathcal{T},\eta}}^i(\varnothing) = {F_\Psi^		
         \mathcal{T}}^{i+1}(\varnothing)$ this is exactly the case when the right conjunct of $\varphi$
 		\begin{align*}
 		&\forall^{\tau'} X_1.\, \dotsb \forall^{\tau'} X_n.\,\\& 
@@ -294,11 +294,11 @@ The last step is to show that the semantics of a given HO(PFP)$^{k+1}$ formula c
 		holds. The left conjunct of $\varphi$ returns then the function that we get through  
 		the $i$-th application of $\Psi$ on $\bot_{T((\tau, \dots, \tau))}$.
 		
-		Because of the construction of variable mapping $\eta_V$ and $(\eta(V_1), \dots, \eta(V_n)) 
-		\in \eta(X)$ it holds $(\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,\eta_V(V_n) = Q^d$
+		Because of the construction of variable mapping $\eta_V$ and $(\eta(V_1), \dots, $ $\eta(V_n)) 
+		\in \eta(X)$ it holds that $(\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,\eta_V(V_n) = Q^d$
         and so 
          \[\emph{q} \in (\dotsb\big(\eta_V(X)\,\eta_V(V_1)\big) \dotsb )\,\eta_V(V_n).\]
-         That means it holds $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^{\mathcal{T},\eta}}^i(\varnothing)$ with 
+         That means it holds that $(\eta(V_1), \dots, \eta(V_n)) \in {F_\Psi^{\mathcal{T},\eta}}^i(\varnothing)$ with 
         \[F(\Phi) = (\dotsb((PFP^T((\tau, \dots, \tau)) X.\, F(\Phi))\, V_1)\dotsb )\, V_n \]
         exactly then if \[\emph{q} \in \llbracket F(\Phi) \rrbracket_\mathcal{T}^{\eta_V}.\]
         
