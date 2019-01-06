@@ -1,0 +1,159 @@
+%%
+%% Author: Davidov
+%% 23.04.2018
+%%
+
+\documentclass[envcountsect]{beamer}
+
+\mode<presentation>
+{
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{bibliography item}[text]
+
+%this adds the frame number on the bottom right side of the footer
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+\insertshorttitle\hfill%
+\insertframenumber\,/\,\inserttotalframenumber}
+}
+
+%underline emph
+\renewcommand{\emph}[1]{\textbf{#1}}
+
+%packages for math symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{mathpartir}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+
+% package for graphs
+\usepackage{tikz}
+\usetikzlibrary{graphs}
+\usetikzlibrary{positioning}
+\usetikzlibrary{automata}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+
+% package for urls
+\usepackage{hyperref}
+
+%package for using
+\usepackage{graphicx}
+
+%package for proof and other theorem environments
+\usepackage{amsthm}
+
+%this package provides a pendant to "itemize" with better spacing - use compactitem
+\usepackage{paralist}
+
+%supports some nice characters with mathscr
+\usepackage{mathrsfs}
+
+%enables better support for tables
+\usepackage{array}
+\usepackage{multirow}
+
+% various theorems, numbered by section
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{lemm}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{coro}[theorem]{Corollary}
+\newtheorem{defi}[theorem]{Definition}
+\newtheorem{exam}[theorem]{Example}
+
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+                                       \item[\hskip \labelsep {\bfseries #1}]\end{trivlist}}
+
+\newcolumntype{C}[1]{>{\parbox[c][#1][c]{0cm}{}}c<{}}
+
+%some own commands
+\newcommand{\expspace}[1]{#1-EXPSPACE/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$}
+\newcommand{\exptime}[1]{#1-EXPTIME/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$}
+
+%set of own commands
+%\newcommand{\hcat}{\rotatebox{90}{$\ominus$}}
+\newcommand{\hcat}{
+\mathchoice{\rotatebox{90}{$\displaystyle\ominus$}}
+{\rotatebox{90}{$\ominus$}}
+{\rotatebox{90}{$\scriptstyle\ominus$}}
+{\rotatebox{90}{$\scriptscriptstyle\ominus$}}}
+\newcommand{\vcat}{
+\mathchoice{\raisebox{1pt}{$\displaystyle\ominus$}}
+{\raisebox{1pt}{$\ominus$}}
+{\raisebox{0.5pt}{$\scriptstyle\ominus$}}
+{\raisebox{0.2pt}{$\scriptscriptstyle\ominus$}}}
+\newcommand{\plusinbox}{
+\setlength\fboxsep{0pt}
+\setlength{\fboxrule}{0.00001pt}
+\text{ \framebox[8pt]{+} }
+\setlength\fboxsep{3pt}
+\setlength{\fboxrule}{0.4pt}
+}
+\newcommand{\mirroredL}{
+\resizebox{0.31cm}{!}{\tiny\begin{tabular}[b]{C{0.4cm}|C{0.4cm}|}
+\cline{2-2}
+&\tabularnewline
+\hline
+\multicolumn{1}{|c|}{}&\tabularnewline
+\hline
+\end{tabular}}\normalsize}
+%document information
+\title{Capturing Bisimulation-Invariant Complexity Classes by Polyadic Higher-Order Fixpoint Logic}
+
+\author{David Kronenberger}
+
+\makeatletter
+\def\maketitle{%
+
+\begin{center}
+\textbf{\textsf{\Huge \@title}}\\
+\vspace{2cm}
+{\Large by\\
+\@author\\
+\vspace{2.5cm}
+Prof. Dr. Martin Lange, Advisor
+}\\
+\vspace{2.5cm}
+A thesis submitted in partial fulfillment\\
+of the requirements for the\\
+Degree of Master of Science\\
+in Computer Science\\
+\vspace{2cm}
+UNIVERSITY OF KASSEL\\
+Hesse, Germany\\
+\vspace{1cm}
+\@date
+\end{center}
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\input{introduction.tex}
+
+
+\section*{End}
+
+\begin{frame}
+\frametitle{End}
+
+\begin{center}
+Thank you for your attention!
+\end{center}
+\end{frame}
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+
+\end{document}
