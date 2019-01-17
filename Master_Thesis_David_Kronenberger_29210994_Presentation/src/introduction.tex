@@ -3,71 +3,63 @@
 
 \begin{frame}
 
-    \begin{example}
-        \begin{center}
-            \begin{tikzpicture}[]
-                \node [place] (q1) [label=above:$p_1$] {$q_1$};
-                \node  (temp) [left=of q1] {};
-                \node  (label) [left=of temp] {$\mathcal{T}:$};
-                \node [place] (q3) [below=of q1] {$q_3$};
-                \node [place] (q5) [below=of q3,label=above:$p_1$] {$q_5$};
-                \node [place] (q2) [left=of q3,label=left:$p_2$] {$q_2$}
-                edge [post,bend left] node[above] {a} (q3)
-                edge [post,bend right] node[above] {b} (q3)
-                edge [post,bend right] node[left, below] {b} (q5)
-                edge [pre,bend left] node[left, above] {a} (q1);
-                \node [place] (q4) [right=of q3,label=right:$p_2$] {$q_4$}
-                edge [post,bend left] node[auto, swap] {b} (q3)
-                edge [post,bend right] node[auto, swap] {a} (q3)
-                edge [pre,bend left] node[right, below] {a} (q5)
-                edge [post,bend right] node[right, above] {b} (q1);
-            \end{tikzpicture}
-        \end{center}
-    \end{example}
+\begin{compactenum}[$\bullet$]
+\item<1-> Belongs to Descriptive Complexity
+\item<2-> First contributor is R. Fagin (1974)
+\item<3-> $\exists$SO captures NP
+\end{compactenum}
+
+\vspace{0.3cm}
+\onslide<4-> Here
+\begin{compactenum}[$\bullet$]
+\item<4-> PHFL$^k$ captures $k$-EXPTIME/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$ over finite LTS
+\item<4-> PHFL$^{k+1}_{tail}$ captures $k$-EXPSPACE/$_{\raise.17ex\hbox{$\scriptstyle\sim$}}$ over finite LTS
+\end{compactenum}
+
+\vspace{0.3cm}
+\onslide<5->For EXPTIME it holds
+\begin{compactenum}[$\bullet$]
+\item<5-> $k=0$ was shown by M. Otto
+\item<5-> $k=1$ was shown by E. Lozes and M. Lange
+\end{compactenum}
+
+\vspace{0.3cm}
+\onslide<6->For EXPSPACE it holds
+\begin{compactenum}[$\bullet$]
+\item<6-> $k=0$ was shown by E. Lozes and M. Lange
+\end{compactenum}
 
 \end{frame}
-
 \begin{frame}
-    \begin{definition}
-        Let be $\mathcal{T}_1 = (Q_1, \Sigma, P, \Delta_1, v_1)$ and $\mathcal{T}_2 = (Q_2, \Sigma, P, \Delta_2, v_2)
-        $ two LTS. A \emph{bisimulation} is a binary relation $R \subseteq Q_1 \times Q_2$ that fulfills for all $(q_1,
-        q_2) \in R$
-        \begin{compactitem}
-            \item $v_1 (q_1) = v_2 (q_2)$,
-            \item for all $a \in \Sigma$ and all $q_1' \in Q_1$, if $q_1 \overset{a}{\rightarrow} q_1'$, then there
-            is a state $q_2' \in Q_2$, $q_2 \overset{a}{\rightarrow} q_2'$ and $(q_1', q_2') \in R$ and
-            \item for all $a \in \Sigma$ and all $q_2' \in Q_2$, if $q_2 \overset{a}{\rightarrow} q_2'$, then there is a
-            state $q_1' \in Q_1$, $q_1 \overset{a}{\rightarrow} q_1'$ and $(q_1', q_2') \in R$.
-        \end{compactitem}
-        We call two states $q_1 \in Q_1$, $q_2 \in Q_2$ \emph{bisimilar}, noted as $(\mathcal{T}_1, q_1) \sim
-        (\mathcal{T}_2, q_2)$, if there
-        is a bisimulation $R$ such that $(q_1, q_2) \in R$.
-    \end{definition}
+
+Bisimulation-invariant Complexity Class
+
+\begin{figure}[ht]
+	\centering{
+  \only<1>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{bisimulation-invariant_0.png}}
+  \only<2>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{bisimulation-invariant_1.png}}
+  \only<3>{\hspace{-0.2cm}\includegraphics[width=0.9\textwidth]{bisimulation-invariant_2.png}}
+  \only<4>{\hspace{-0.3cm}\includegraphics[width=0.9\textwidth]{bisimulation-invariant_3.png}}
+  \only<5>{\hspace{-0.4cm}\includegraphics[width=0.9\textwidth]{bisimulation-invariant_4.png}}
+  \only<6>{\hspace{-0.6cm}\includegraphics[width=0.9\textwidth]{bisimulation-invariant.png}}}
+\end{figure}
+
 \end{frame}
-
 \begin{frame}
 
-    \begin{example}
-        \begin{center}
-            \begin{tikzpicture}[]
-                \node [place] (q1) [label=above:$p_1$] {$q_1$};
-                \node  (temp) [left=of q1] {};
-                \node  (label) [left=of temp] {$\mathcal{T}:$};
-                \node [place] (q3) [below=of q1] {$q_3$};
-                \node [place] (q5) [below=of q3,label=above:$p_1$] {$q_5$};
-                \node [place] (q2) [left=of q3,label=left:$p_2$] {$q_2$}
-                edge [post,bend left] node[above] {a} (q3)
-                edge [post,bend right] node[above] {b} (q3)
-                edge [post,bend right] node[left, below] {b} (q5)
-                edge [pre,bend left] node[left, above] {a} (q1);
-                \node [place] (q4) [right=of q3,label=right:$p_2$] {$q_4$}
-                edge [post,bend left] node[auto, swap] {b} (q3)
-                edge [post,bend right] node[auto, swap] {a} (q3)
-                edge [pre,bend left] node[right, below] {a} (q5)
-                edge [post,bend right] node[right, above] {b} (q1);
-            \end{tikzpicture}
-        \end{center}
-    \end{example}
+Logic captures Complexity Class 
+
+\begin{figure}[ht]
+	\centering{
+  \only<1>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{logic-capture-class_0.png}}
+  \only<2>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{logic-capture-class_1.png}}
+  \only<3>{\hspace{-0.2cm}\includegraphics[width=0.9\textwidth]{logic-capture-class_2.png}}
+  \only<4>{\hspace{-0.3cm}\includegraphics[width=0.9\textwidth]{logic-capture-class_3.png}}
+  \only<5>{\hspace{-0.4cm}\includegraphics[width=0.9\textwidth]{logic-capture-class_4.png}}
+  \only<6>{\hspace{-0.5cm}\includegraphics[width=0.9\textwidth]{logic-capture-class_5.png}}
+  \only<7>{\hspace{-0.6cm}\includegraphics[width=0.9\textwidth]{logic-capture-class.png}}}
+\end{figure}
+
 
 \end{frame}
 
@@ -75,218 +67,218 @@
 
 \begin{frame}
 
-    \begin{definition}
-        \emph{PHFL types} are given by the grammar
-        \[\sigma, \tau \Coloneqq \bullet \mid \sigma^v \rightarrow \tau,\]
-        where $v$ is called \textit{variance}. The \emph{variances} of PHFL are defined by the grammar
-        \[v \Coloneqq + \mid - \mid 0.\]
-    \end{definition}
-
-    \begin{definition}
-        \[\llbracket\tau\rrbracket_\mathcal{T}=
-        \begin{cases}
-            (\mathcal{P}(Q^d), \subseteq),  & \text{if }\tau = \bullet\\
-            ((\llbracket\sigma_1\rrbracket_\mathcal{T})^v \rightarrow \llbracket\sigma_2\rrbracket_\mathcal{T}, \leq_{
-            (\llbracket\sigma_1\rrbracket_\mathcal{T})^v \rightarrow \llbracket\sigma_2\rrbracket_\mathcal{T}}), &
-            \text{if }\tau = \sigma_1^v\rightarrow \sigma_2.
-        \end{cases}\]
-    \end{definition}
-
-\end{frame}
-
-\begin{frame}
-
-    \begin{definition}
-        \begin{align*}
-            \Phi,\Psi\Coloneqq&\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid
-            \{\emph{i}
-            \leftarrow \emph{j}\,\} \Phi \mid X \mid \lambda (X^v\colon\tau).\Phi \mid \\&\Phi \Psi\mid
-            \mu (X\colon\tau).\Phi
+	\begin{compactenum}[$\bullet$]
+	\item PHFL is defined over LTS
+	\item<2-> Elements of base type are elements of $\mathcal{P}(Q^d)$
+	\item<3-> Higher order types are functions, functions of functions, $\dots$
+	\end{compactenum}	
+	
+      \onslide<4->\begin{align*}
+             \Phi,\Psi\Coloneqq&\top \mid p_i \mid \Phi \vee \Psi \mid \neg \Phi \mid \langle a \rangle_i \Phi \mid
+        \{\emph{j}\,\} \Phi \mid X \mid 
+        \\&\lambda (X^v\colon\tau).\Phi \mid \Phi\,\Psi\mid  \mu (X\colon\tau).\Phi
         \end{align*}
-    \end{definition}
 
-\end{frame}
-
-\begin{frame}
-\begin{example}
-\label{example:phfl_order_0}
-The following $2$-adic PHFL$^0$ formula $\Phi$ describes bisimilarity i.e. it denotes
-those pairs $(q_1, q_2)$ such that $q_1 \sim q_2$ and vice versa.
-\begin{align*}
-\Phi = \nu (X \colon \bullet).\,
-\underset{a \in \Sigma}{\bigwedge} [a]_1 \langle a \rangle_2 X \wedge [a]_2 \langle a \rangle_1 X \wedge
-\underset{p \in P}{\bigwedge} p_1 \Leftrightarrow p_2
-\end{align*}
-\end{example}
-\end{frame}
-
-\section{Upper Bounds}
-
-\begin{frame}
-\begin{example}
-\begin{center}
-\begin{tikzpicture}[]
-\node [place] (q1) {$1$};
-\node  (temp1) [left=of q1] {};
-\node  (label) [left=of q1] {$\mathcal{T}:$};
-\node  (temp2) [right=of q1] {};
-\node [place] (q2) [below=of temp2,label=left:$p$] {$2$}
-edge [pre] node[left] {a} (q1);
-\node [place] (q3) [right=of temp2,label=right:$q$] {$3$}
-edge [pre] node[auto, swap] {b} (q1)
-edge [pre] node[right] {c} (q2);
-\end{tikzpicture}
-\end{center}
-\end{example}
+\begin{multicols}{3}
+  \onslide<5->\begin{equation}
+    \lambda (X^v\colon\tau).X
+  \end{equation}\break
+  \onslide<6->\begin{equation}
+    \lambda (X^v\colon\tau).\top
+  \end{equation}\break
+  \onslide<7->\begin{equation}
+    \lambda (X^v\colon\bullet).\top\,\top
+  \end{equation}
+\end{multicols}
 \end{frame}
 
 \begin{frame}
 
-\begin{example}
-\begin{center}
-\resizebox{.8\textwidth}{!}{
-\begin{tikzpicture}[]
-\node [place] (q11) {$(1, 1)$}
-edge [loop] node[above] {$S_d$} ();
-\node (label) [left=of q11] {$\mathcal{T}_d:$};
-\node (temp1) [right=of q11] {};
-\node [place] (q12) [right=of temp1,label=above:{$p_2$}] {$(1, 2)$}
-edge [pre] node[above] {$a_2$} (q11);
-\node  (temp2) [right=of q12] {};
-\node [place] (q13) [right=of temp2, label=above:{$q_2$}] {$(1, 3)$}
-edge [pre] node[above] {$c_2$} (q12)
-edge [pre, bend right=40] node[above] {$b_2$} (q11);
-\node [place] (q21) [below=of q11,label=left:{$p_1$}] {$(2, 1)$}
-edge [post, bend right=10] node[auto, swap] {$s_{(2, 1)}$} (q12)
-edge [pre, bend left=10] node[auto] {$s_{(2, 1)}$} (q12)
-edge [pre] node[left] {$a_1$} (q11);
-\node [place] (q22) [below=of q12,label=right:{$p_1, p_2$}] {$(2, 2)$}
-edge [pre] node[below] {$a_2, s_{(1, 1)}$} (q21)
-edge [pre, bend left=25] node[right] {$a_1, s_{(2, 2)}$} (q12);
-\node [place] (q23) [below=of q13,label=right:{$p_1, q_2$}] {$(2, 3)$}
-edge [pre, bend left=30] node[below] {$c_2$} (q22)
-edge [post, bend right=30] node[above] {$s_{(1, 1)}$} (q22)
-edge [pre] node[right] {$a_1$} (q13);
-\node [place] (q31) [below=of q21,label=below:{$q_1$}] {$(3, 1)$}
-edge [pre, bend left=80] node[left] {$b_1$} (q11)
-edge [pre] node[left] {$c_1$} (q21);
-\node [place] (q32) [below=of q22,label=below:{$q_1, p_2$}] {$(3, 2)$}
-edge [pre] node[above] {$a_2$} (q31)
-edge [pre, bend left=25] node[left] {$c_1$} (q22)
-edge [post, bend right=25] node[right] {$s_{(2, 2)}$} (q22);
-\node [place] (q33) [below=of q23,label=below:{$q_1, q_2$}] {$(3, 3)$}
-edge [pre] node[below] {$c_2, s_{(1, 1)}$} (q32)
-edge [pre] node[right] {$c_1, s_{(2, 2)}$} (q23)
-edge [pre, bend right=100] node[right] {$s_{(2, 2)}$} (q13)
-edge [pre, bend left=40] node[right, below] {$s_{(1, 1)}$} (q31);
-\end{tikzpicture}}
-\end{center}
-\end{example}
+   Consider ${\color<4,11>[rgb]{1,0,0}\big({\color<6,8>[rgb]{1,0,0}{\color<2>[rgb]{1,0,0}\nu F}.\,
+        {\color<3>[rgb]{1,0,0} {\color<13>[rgb]{1,0,0}\lambda{\color<12>[rgb]{1,0,0}X}.\, \lambda {\color<12>[rgb]{1,0,0}Y}.\, \,{\color<4>[rgb]{1,0,0} ({\color<12>[rgb]{1,0,0}X} \Leftrightarrow {\color<12>[rgb]{1,0,0}Y}) \wedge
+        \underset{{\color<12>[rgb]{1,0,0}a} \in \Sigma}{\bigwedge}}}{\color<4>[rgb]{1,0,0}  {\color<9>[rgb]{1,0,0}F} {\color<13>[rgb]{1,0,0}\langle {\color<12>[rgb]{1,0,0}a} \rangle_1 {\color<12>[rgb]{1,0,0}X} \langle {\color<12>[rgb]{1,0,0}a} \rangle_2 {\color<12>[rgb]{1,0,0}Y}}}}}\big)}{\color<5>[rgb]{1,0,0}\top \top}$
+    \\ \onslide<7->Unfold
+   {\onslide<10->\begin{align*}
+        \big(
+        {\color<13,14>[rgb]{1,0,0}\lambda {\color<16>[rgb]{1,0,0}X}.}\, & {\color<13>[rgb]{1,0,0}{\color<15>[rgb]{1,0,0}\lambda {\color<17>[rgb]{1,0,0}Y}.}\, (X \Leftrightarrow Y) \wedge
+        \underset{a \in \Sigma}{\bigwedge}} {\color<11>[rgb]{1,0,0}\big(\nu F .\,
+        \lambda {\color<12>[rgb]{1,0,0}X'}.\, \lambda {\color<12>[rgb]{1,0,0}Y'}.\, ({\color<12>[rgb]{1,0,0}X'} \Leftrightarrow {\color<12>[rgb]{1,0,0}Y'})}\\& {\color<11>[rgb]{1,0,0}\wedge
+        \underset{{\color<12>[rgb]{1,0,0}b} \in \Sigma}{\bigwedge} F \langle{\color<12>[rgb]{1,0,0} b} \rangle_1 {\color<12>[rgb]{1,0,0}X'} \langle {\color<12>[rgb]{1,0,0}b} \rangle_2 {\color<12>[rgb]{1,0,0}Y'}\big)} {\color<13>[rgb]{1,0,0}\langle a \rangle_1 X \langle a \rangle_2 Y}\big){\color<16,20>[rgb]{1,0,0}\top} {\color<17,21>[rgb]{1,0,0}\top}
+    \end{align*}}
+   \onslide<18-> Substitute
+       \onslide<19->\begin{align*}
+        ({\color<20>[rgb]{1,0,0}\top} &\Leftrightarrow {\color<21>[rgb]{1,0,0}\top}) \wedge
+        \underset{a \in \Sigma}{\bigwedge} \big(\nu F .\,
+        \lambda X'.\, \lambda Y'.\, (X' \Leftrightarrow Y')\\& \wedge
+        \underset{b \in \Sigma}{\bigwedge} F \langle b \rangle_1 X' \langle b \rangle_2 Y'\big)\langle a \rangle_1 {\color<20>[rgb]{1,0,0}\top} \langle a \rangle_2 {\color<21>[rgb]{1,0,0}\top}
+    \end{align*}
 
 \end{frame}
-
 \begin{frame}
-\begin{definition}
-\begin{align*}
-F(\top) &= \top\\
-F(X) &= X\\
-F(p_i) &= p_i\\
-F(\langle a \rangle_i \psi) &= \langle a_i \rangle F(\psi) \\
-F(\psi \vee \psi') &= F(\psi) \vee F(\psi') \\
-F(\neg \psi) &= \neg F(\psi) \\
-F(\{\emph{i} \leftarrow \emph{j}\,\} \psi) &= \langle s_{(e(1), \dots, e(d))} \rangle F(\psi)  \\
-F(\mu (X \colon \tau).\,\psi) &= \mu (X \colon T(\tau)).\,F(\psi) \\
-F(\lambda (X^v \colon \tau).\, \psi) &= \lambda (X^v \colon T(\tau)).\, F(\psi) \\
-F(\psi{\psi'}) &= F(\psi)F({\psi'})
-\end{align*}
+    
+        \begin{align*}
+         (\top &\Leftrightarrow \top) \wedge
+        \underset{a \in \Sigma}{\bigwedge} {\color<3>[rgb]{1,0,0}\big(\nu F .\,
+        {\color<7>[rgb]{1,0,0}\lambda {\color<6>[rgb]{1,0,0}X'}.\, \lambda {\color<6>[rgb]{1,0,0}Y'}.\, ({\color<6>[rgb]{1,0,0}X'} \Leftrightarrow {\color<6>[rgb]{1,0,0}Y'}) \wedge
+        \underset{b \in \Sigma}{\bigwedge}} {\color<4>[rgb]{1,0,0}F} {\color<7>[rgb]{1,0,0}\langle {\color<6>[rgb]{1,0,0}b} \rangle_1 {\color<6>[rgb]{1,0,0}X'} \langle {\color<6>[rgb]{1,0,0}b} \rangle_2 {\color<6>[rgb]{1,0,0}Y'}}\big)}\\&\langle a \rangle_1 \top \langle a \rangle_2 \top
+    \end{align*}
+   \onslide<2-> Unfold
+   \onslide<5->\begin{align*}
+        (\top &\Leftrightarrow \top) \wedge
+        \underset{a \in \Sigma}{\bigwedge} \big(
+        {\color<7>[rgb]{1,0,0}{\color<8>[rgb]{1,0,0}\lambda {\color<10>[rgb]{1,0,0}X'}}.\, {\color<9>[rgb]{1,0,0}\lambda {\color<11>[rgb]{1,0,0}Y'}}.\, (X' \Leftrightarrow Y') \wedge
+        \underset{b \in \Sigma}{\bigwedge}} \big(\nu F.\,
+        \lambda {\color<6>[rgb]{1,0,0}X''}.\, \lambda {\color<6>[rgb]{1,0,0}Y''}.\, \\&({\color<6>[rgb]{1,0,0}X''} \Leftrightarrow {\color<6>[rgb]{1,0,0}Y''}) \wedge
+        \underset{c \in \Sigma}{\bigwedge} F \langle {\color<6>[rgb]{1,0,0}c} \rangle_1 {\color<6>[rgb]{1,0,0}X''} \langle {\color<6>[rgb]{1,0,0}c} \rangle_2 {\color<6>[rgb]{1,0,0}Y''}\big) {\color<7>[rgb]{1,0,0}\langle b \rangle_1 X' \langle b \rangle_2 Y'}\big){\color<10,14>[rgb]{1,0,0}\langle a \rangle_1 \top} {\color<11,15>[rgb]{1,0,0}\langle a \rangle_2 \top}
+    \end{align*}
+    \onslide<12->Substitute
+       \onslide<13->\begin{align*}
+        (\top &\Leftrightarrow \top) \wedge
+        \underset{a \in \Sigma}{\bigwedge} 
+        ({\color<14>[rgb]{1,0,0}\langle a \rangle_1 \top} \Leftrightarrow {\color<15>[rgb]{1,0,0}\langle a \rangle_2 \top}) \wedge
+        \underset{b \in \Sigma}{\bigwedge} \big(\nu F.\,
+        \lambda X''.\, \lambda Y''.\, \\&(X'' \Leftrightarrow Y'') \wedge
+        \underset{c \in \Sigma}{\bigwedge} F \langle c \rangle_1 X'' \langle c \rangle_2 Y''\big) {\color<14>[rgb]{1,0,0}\langle ba \rangle_1 \top} {\color<15>[rgb]{1,0,0}\langle ba \rangle_2 \top} 
+    \end{align*}
 
-\end{definition}
 \end{frame}
-
-\section{HO + LFP}
-
 \begin{frame}
-
-\begin{definition}
-\emph{HO types} are defined inductive as follows:
-\begin{compactitem}
-\item $\tau = \odot$ is a HO type,
-\item $\tau = (\tau_1, \dots, \tau_n)$ is a HO type, if $\tau_1, \dots, \tau_n$ are
-HO types.
-\end{compactitem}
-\end{definition}
-
-\begin{definition}
-Let $\mathcal{A}$ be a $\sigma$-structure over universe $\mathcal{U}$ then the universes of the
-HO types are defined inductively as follows:
-\begin{compactitem}
-\item $D_\odot(\mathcal{U}) = \mathcal{U}$,
-\item $D_{(\tau_1, \dots, \tau_n)}(\mathcal{U}) = \mathcal{P}(D_{\tau_1}(\mathcal{U}) \times \dots \times
-D_{\tau_n}(\mathcal{U}))$
-\end{compactitem}
-\end{definition}
-
+       \begin{align*}
+        &\big( (\top \Leftrightarrow \top) \wedge
+        \underset{a \in \Sigma}{\bigwedge} \big(
+        (\langle a \rangle_1 \top \Leftrightarrow \langle a \rangle_2 \top) \wedge
+        \underset{b \in \Sigma}{\bigwedge} \big(\nu F.\,
+        \lambda X''.\, \lambda Y''.\, \\&(X'' \Leftrightarrow Y'') \wedge
+        \underset{c \in \Sigma}{\bigwedge} F \langle c \rangle_1 X'' \langle c \rangle_2 Y''\big) \langle ba \rangle_1 \top \langle ba \rangle_2 \top \big)\big)
+    \end{align*}
+    \onslide<2->Continuing, we obtain
+       \onslide<3->\begin{align*}
+         \top &\Leftrightarrow \top \wedge \underset{a \in \Sigma}{\bigwedge} \langle a \rangle_1 \top \Leftrightarrow \langle a \rangle_2 \top \wedge \underset{b \in \Sigma}{\bigwedge}\langle ba \rangle_1 \top \Leftrightarrow \langle ba \rangle_2 \top \wedge \dots
+        \\&
+       \onslide<4->{ =\, \underset{w \in \Sigma^*}{\bigwedge} \langle w \rangle_1 \top \Leftrightarrow \langle w \rangle_2 \top}
+    \end{align*}
+    \onslide<5->trace equivalence.
 \end{frame}
+
+\section{How to}
 
 \begin{frame}
 
-\begin{definition}
-The set of \emph{HO formulas} over $\sigma$ is defined inductively as follows:
-\begin{compactitem}
-\item $R(x_1, \dots, x_n)$ is a HO formula over $\sigma$ if $R \in \sigma$ is a relation with arity $n$ and
-$x_1, \dots, x_n$ are variables of type $\odot$,
-\item $X(x_1, \dots, x_n)$ is a HO formula over $\sigma$ if $X$ is a variable of type $(\tau_1, \dots, \tau_n)$
-and $x_i$ is a variable of type $\tau_i$, with $i \in \{1, \dots, n\}$,
-\item if $\varphi$ and $\psi$ are two HO formulas over $\sigma$, then $\neg\varphi$, $\varphi\wedge\psi$ and $\varphi
-\vee \psi$ are also HO formulas over $\sigma$,
-\item if $\varphi$ is a HO formula over $\sigma$ and $X$ a variable of arbitrary type $\tau$, then $\exists
-X\colon\tau.\,\varphi$ and
-$\forall X\colon\tau.\,\varphi$ are also HO formulas over $\sigma$.
-\end{compactitem}
-\end{definition}
+\begin{figure}[ht]
+	\centering{
+  \only<1>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{phfl_0.png}}
+  \only<2>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{phfl_1.png}}
+  \only<3>{\hspace{-0.2cm}\includegraphics[width=0.9\textwidth]{phfl_2.png}}
+   \only<4>{\hspace{-0.3cm}\includegraphics[width=0.9\textwidth]{phfl_3.png}}
+  \only<5>{\hspace{-0.4cm}\includegraphics[width=0.9\textwidth]{phfl_4.png}}
+  \only<6>{\hspace{-0.5cm}\includegraphics[width=0.9\textwidth]{phfl_5.png}}
+  \only<7>{\hspace{-0.6cm}\includegraphics[width=0.9\textwidth]{phfl_6.png}}
+  \only<8>{\hspace{-0.7cm}\includegraphics[width=0.9\textwidth]{phfl_7.png}}
+  \only<9>{\hspace{-0.8cm}\includegraphics[width=0.9\textwidth]{phfl_8.png}}
+  \only<10>{\hspace{-0.9cm}\includegraphics[width=0.9\textwidth]{phfl_9.png}}
+  \only<11>{\hspace{-1.0cm}\includegraphics[width=0.9\textwidth]{phfl.png}}}
+\end{figure}
+
+
+\end{frame}
+\begin{frame}
+
+\begin{figure}[ht]
+	\centering{
+  \only<1>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{phfl-tail_0.png}}
+  \only<2>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{phfl-tail_1.png}}
+  \only<3>{\hspace{-0.2cm}\includegraphics[width=0.9\textwidth]{phfl-tail_2.png}}
+  \only<4>{\hspace{-0.3cm}\includegraphics[width=0.9\textwidth]{phfl-tail_3.png}}
+  \only<5>{\hspace{-0.4cm}\includegraphics[width=0.9\textwidth]{phfl-tail_4.png}}
+  \only<6>{\hspace{-0.5cm}\includegraphics[width=0.9\textwidth]{phfl-tail_5.png}}
+  \only<7>{\hspace{-0.6cm}\includegraphics[width=0.9\textwidth]{phfl-tail_6.png}}
+  \only<8>{\hspace{-0.7cm}\includegraphics[width=0.9\textwidth]{phfl-tail_7.png}}
+  \only<9>{\hspace{-0.8cm}\includegraphics[width=0.9\textwidth]{phfl-tail_8.png}}
+  \only<10>{\hspace{-0.9cm}\includegraphics[width=0.9\textwidth]{phfl-tail.png}}}
+\end{figure}
 
 \end{frame}
 
+\section{Quantifiers in PHFL}
+
 \begin{frame}
 
-\begin{definition}
-Let $\sigma$ an arbitrary signature, $X$ a relation variable of HO type $\tau = (\tau_1, \dots, \tau_k)$,
-$\tau_1, \dots \tau_k$ arbitrary HO types, $x_1, \dots, x_k$ variables of HO type $\tau_1$, \dots, $\tau_k$
-respectively and $\varphi(X, x_1, \dots, x_k)$ a formula over $\sigma$ with free variables $X, x_1,
-\dots, x_k$. For each $\sigma$-structure $\mathcal{A}$ with universe $\mathcal{U}$, $\varphi(X, x_1, \dots, x_k)$
-induces the operator
-\begin{align*}
-F_\varphi^\mathcal{A}\colon\mathscr{P}(D_\tau(\mathcal{U})) &\longrightarrow \mathscr{P}(D_\tau(\mathcal{U}))\\
-A &\longmapsto F_\varphi^\mathcal{A}(A) \coloneqq \{(a_1, \dots, a_k) \mid \mathcal{A} \models \varphi(A, a_1,
-\dots, a_k)\}
-\end{align*}
-where $a_1 \in D_{\tau_1}(\mathcal{U})$, \dots, $a_k \in D_{\tau_k}(\mathcal{U})$.
-\end{definition}
+\begin{compactenum}[$\bullet$]
+\item<1-> No unrestricted quantifiers in PHFL
+\item<3-> Needs order of domain
+\item<4-> Creates successor of element
+\item<2,5-> Iterate over all possible elements 
+\end{compactenum}
+\vspace{0.3cm}
+\onslide<6-> We need orders of any domain
+\begin{compactenum}[$\bullet$]
+\item<7-> M. Otto defines a total order on states
+\item<8-> Used to define lexicographic order
+\item<9-> E. Lozes and M. Lange define successor for elements of base type
+\end{compactenum}
+\end{frame}
+\begin{frame}
+
+\begin{figure}[ht]
+	\centering{
+  \only<1>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{less-tuple_0.png}}
+  \only<2>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{less-tuple_1.png}}
+  \only<3>{\hspace{-0.2cm}\includegraphics[width=0.9\textwidth]{less-tuple_2.png}}
+   \only<4>{\hspace{-0.3cm}\includegraphics[width=0.9\textwidth]{less-tuple_3.png}}
+  \only<5>{\hspace{-0.4cm}\includegraphics[width=0.9\textwidth]{less-tuple_4.png}}
+  \only<6>{\hspace{-0.5cm}\includegraphics[width=0.9\textwidth]{less-tuple_5.png}}
+  \only<7>{\hspace{-0.6cm}\includegraphics[width=0.9\textwidth]{less-tuple.png}}}
+\end{figure}
+
+\end{frame}
+\begin{frame}
+
+\begin{figure}[ht]
+	\centering{
+  \only<1>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{less-set_0.png}}
+  \only<2>{\hspace{-0.1cm}\includegraphics[width=0.9\textwidth]{less-set_1.png}}
+  \only<3>{\hspace{-0.2cm}\includegraphics[width=0.9\textwidth]{less-set_2.png}}
+   \only<4>{\hspace{-0.3cm}\includegraphics[width=0.9\textwidth]{less-set_3.png}}
+  \only<5>{\hspace{-0.4cm}\includegraphics[width=0.9\textwidth]{less-set.png}}}
+\end{figure}
+
+\end{frame}
+\begin{frame}
+
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.9\textwidth]{next-set.png}
+\end{figure}
+
+\end{frame}
+\begin{frame}
+
+    \begin{align*}
+        \big(\mu (F \colon T(\tau') \rightarrow \bullet).\, \lambda (X \colon T(\tau')).\,
+        \Phi(X)
+        \vee F(next^{\tau'} X)\big)\bot_{T(\tau')}
+    \end{align*}    
+    \onslide<2-> is equivalent to
+    \onslide<3->{ \begin{align*}
+        \Phi(\bot_{T(\tau')})\, \vee 
+        \Phi(next^{\tau'} \bot_{T(\tau')})\, \vee 
+        \Phi(next^{\tau'} next^{\tau'} \bot_{T(\tau')}) \vee \dotsb.
+    \end{align*} }   
+    \onslide<4-> {This can be simplified to
+    \[\underset{i\geq0}{\bigvee} \Phi({next^{\tau}}^i \bot_{T(\tau')}).\]}
+
 \end{frame}
 
-\begin{frame}
-
-\begin{definition}
-Let $\mathcal{A}$ be a $\sigma$-structure and $\alpha$ a variable assignment over universe $\mathcal{U}$. The
-semantics of a HO($\mathit{LFP}$) formula extends that of HO formulas with the following definition:
-\begin{compactitem}
-\item $\mathcal{A}, \alpha \models [\mathit{LFP}_{X, x_1, \dots, x_k}\varphi(X, x_1, \dots, x_k)](v_1, \dots,
-v_k)$ iff $(\alpha(v_1), \dots, \alpha(v_k)) \in \mathit{LFP}(F_\varphi^\mathcal{A})$.
-\end{compactitem}
-\end{definition}
-
-\end{frame}
+\section{Results}
 
 \begin{frame}
 
-\begin{definition}
-Let $F\colon \mathscr{P}(A) \rightarrow \mathscr{P}(A)$ be an operator on a finite set $A$, then the \emph{partial
-fixpoint} of $F$, abbreviated as $\mathit{PFP}$($F$), is defined as follows:
-\[\mathit{PFP}(F)\coloneqq\begin{cases}
-F^{i+1}(\emptyset)=F^i(\emptyset),  & \text{if such } i \in \{0,\dots,|A|\} \text{ exists}\\
-\emptyset, & \text{otherwise,}
-\end{cases}\]
-where $F^0(\emptyset) = \emptyset$, $F^1(\emptyset) = F(\emptyset)$, $F^2(\emptyset) = F(F(\emptyset))$, and so on.
-\end{definition}
+\begin{theorem}
+    Let $k \geq 0$. PHFL$^k$ captures \exptime{$k$} over finite labelled transition systems.
+\end{theorem}
+
+\begin{theorem}
+    Let $k \geq 0$. PHFL$^{k+1}_{tail}$ captures \expspace{$k$} over finite labelled transition systems.
+\end{theorem}
 
 \end{frame}

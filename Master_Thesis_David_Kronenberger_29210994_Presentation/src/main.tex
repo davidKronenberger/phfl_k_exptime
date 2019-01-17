@@ -9,7 +9,6 @@
 {
 \usetheme{Ilmenau}
 
-\setbeamercovered{transparent}
 \setbeamertemplate{theorems}[numbered]
 \setbeamertemplate{bibliography item}[text]
 
@@ -36,9 +35,12 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{automata}
 \usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usetikzlibrary{trees,overlay-beamer-styles}
 
 % package for urls
 \usepackage{hyperref}
+
+\usepackage{multicol}
 
 %package for using
 \usepackage{graphicx}
@@ -101,7 +103,9 @@
 \hline
 \end{tabular}}\normalsize}
 %document information
-\title{Capturing Bisimulation-Invariant Complexity Classes by Polyadic Higher-Order Fixpoint Logic}
+\title{Capturing Bisimulation-Invariant
+Complexity Classes by Polyadic
+Higher-Order Fixpoint Logic}
 
 \author{David Kronenberger}
 
