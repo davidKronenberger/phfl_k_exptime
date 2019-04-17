@@ -254,6 +254,18 @@ Logic captures Complexity Class
 \begin{frame}
 
     \begin{align*}
+        next^{(\tau, \dots, \tau)} \coloneqq &\,\lambda (X \colon T ((\tau, \dots, \tau))).\,\lambda (X_1 \colon T(\tau)).\, \dotsb \lambda (X_n \colon T(\tau)).\, \\&\,
+        \big(\neg (\dotsb(X\,X_1)\dotsb)\,X_n \wedge \forall^{\tau}Y_1.\, \dots \forall^{\tau}Y_n.\,\\&\,<^{\tau \times
+        \dots \times \tau}(Y_1, X_1, \dots, Y_n, X_n) \Rightarrow  (\dotsb(X\,Y_1)\dotsb)\,Y_n\big) \,\vee
+        \\&\,\big((\dotsb (X\,X_1) \dotsb)\,X_n \wedge \exists^{\tau}Y_1.\, \dots \exists^{\tau}Y_n.\, \\&\,
+        <^{\tau \times \dots \times \tau}
+        (Y_1, X_1, \dots, Y_n, X_n)\,\wedge \neg (\dotsb(X\,Y_1)\dotsb)\,Y_n\big)
+    \end{align*}
+
+\end{frame}
+\begin{frame}
+
+    \begin{align*}
         \big(\mu (F \colon T(\tau') \rightarrow \bullet).\, \lambda (X \colon T(\tau')).\,
         \Phi(X)
         \vee F(next^{\tau'} X)\big)\bot_{T(\tau')}
